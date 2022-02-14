@@ -1,0 +1,12 @@
+.nav-item {
+	padding: 0 10px;
+	margin-bottom: 1rem;
+	font-size: 0.8rem;
+	text-align: center;
+	color: rgb(134, 134, 134);
+	cursor: pointer;
+}
+
+.nav-item.active {
+	font-weight: 500;
+}

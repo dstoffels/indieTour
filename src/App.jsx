@@ -1,28 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import 'bootstrap/dist/css/bootstrap.css';
+import Today from './Components/Today/Today.jsx';
+import Header from './Components/Header/Header.jsx';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
+import Footer from './Components/Footer/Footer.jsx';
+import Navbar from './Components/NavBar/Navbar.jsx';
 
-const App = () => (
-	<div>
-		<h1>indieTour</h1>
-		<table className='table'>
-			<tbody>
-				<tr>
-					<td>Date</td>
-					<td>Location</td>
-				</tr>
-				<tr>
-					<td>Date</td>
-					<td>Location</td>
-				</tr>
-				<tr>
-					<td>Date</td>
-					<td>Location</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-);
+const App = () => {
+	const [darkMode, setDarkMode] = useState(false);
+	return (
+		<>
+			<div className={`container${darkMode ? ' dark' : ''}`}>
+				<Today />
+			</div>
+			<Navbar />
+		</>
+	);
+};
 
 export default App;

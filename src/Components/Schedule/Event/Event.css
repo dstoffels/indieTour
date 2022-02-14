@@ -1,0 +1,8 @@
+.event {
+	padding: 0.8rem 0.1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: aliceblue;
+	margin-bottom: 2px;
+}

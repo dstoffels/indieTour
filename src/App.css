@@ -1,5 +1,17 @@
-/* * {
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	background-color: rgb(41, 42, 43);
+* {
+	--bg-dark: rgb(41, 42, 43);
+}
+
+body {
+}
+
+.dark {
+	background-color: var(--bg-dark);
 	color: white;
-} */
+}
+
+.hidden {
+	height: 0;
+	width: 0;
+	overflow: hidden;
+}
