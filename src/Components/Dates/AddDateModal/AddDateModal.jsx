@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, FloatingLabel, Form, Modal, Nav } from 'react-bootstrap';
+import { FloatingLabel, Form, Modal, Nav } from 'react-bootstrap';
+import Button from '@mui/material/Button';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ToggleButton from '@mui/material/ToggleButton';
+import ShowTypeToggle from './ShowTypeToggle/ShowTypeToggle.jsx';
+import Switch from '@mui/material/Switch';
 
 // TODO: Destructure currentTour and active tours list from props,
 // start date on day after last date/tour start date?
@@ -44,9 +49,13 @@ const AddDateModal = ({ show, setShow }) => {
 			</Modal.Header>
 			<Modal.Body>
 				<Form onSubmit={handleSubmit} id='new-date-form'>
+					{/* DATEPICKER */}
 					<FloatingLabel label='Date'>
 						<Form.Control type='date' className='mb-3' value={date} onChange={handleDate} />
 					</FloatingLabel>
+
+					{/* SHOW TYPE TOGGLE */}
+					<ShowTypeToggle />
 
 					<FloatingLabel label='Description'>
 						<Form.Control
@@ -73,12 +82,10 @@ const AddDateModal = ({ show, setShow }) => {
 						<Form.Control as='textarea' rows={6} value={details} onChange={handleDetails} />
 					</Form.Group>
 
-					<Form.Switch
-						checked={confirmed}
-						onChange={handleConfirmed}
-						label='Confirmed?'
-						className='mb-3'
-					/>
+					<Form.Group className='mb-3'>
+						<Form.Label>Confirmed?</Form.Label>
+						<Switch checked={confirmed} onChange={handleConfirmed} color='success' />
+					</Form.Group>
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>

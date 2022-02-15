@@ -12,10 +12,6 @@ const App = () => {
 	return (
 		<>
 			<Dates />
-			{/* <div className={`container${darkMode ? ' dark' : ''}`}>
-				<Today />
-			</div> */}
-			<FooterNav />
 		</>
 	);
 };
