@@ -9,8 +9,8 @@ const DatesList = props => {
 
 	return (
 		<div>
-			{props.dates.map(date => (
-				<div key={date.id}>{date.title}</div>
+			{props.dates.map((date, i) => (
+				<div key={i}>{date}</div>
 			))}
 		</div>
 	);

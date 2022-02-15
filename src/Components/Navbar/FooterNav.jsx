@@ -10,7 +10,7 @@ const NAV_ITEMS = [
 	{ title: 'Expenses', icon: 'cash-coin' },
 	// { title: '', icon: '' },
 ];
-const Navbar = props => {
+const FooterNav = props => {
 	const [activeItem, setActiveItem] = useState('Today');
 
 	function displayNavItems() {
@@ -32,4 +32,4 @@ const Navbar = props => {
 	);
 };
 
-export default Navbar;
+export default FooterNav;

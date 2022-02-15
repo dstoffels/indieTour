@@ -10,9 +10,11 @@ const DELETE = 'DatesList/DELETE';
 function dates(state = [], action = {}) {
 	switch (action.type) {
 		case LOAD:
-			return [...action.payload.data];
+			return [...action.payload];
 		case ADD:
-			return [...state, action.payload];
+			const newState = [...state, action.payload];
+			localStorage.setItem('dates', JSON.stringify(newState));
+			return newState;
 		default:
 			return state;
 	}
@@ -23,7 +25,10 @@ export default dates;
 // ACTION CREATORS
 
 export function loadDates() {
-	const response = axios.get('http://www.devcodecampmusiclibrary.com/api/music');
+	// FIXME: when backend API is built
+	// const response = axios.get('');
+	// const response = localStorage.getItem('dates');
+	const response = ['hi'];
 	return { type: LOAD, payload: response };
 }
 
