@@ -1,5 +1,4 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
 import datesDisplayOptions from '../Components/Dates/redux.js';
 import dates from '../Components/DatesList/redux.js';
 import asyncActions from './Middlewares/asyncActions.js';

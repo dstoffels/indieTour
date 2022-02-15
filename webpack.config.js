@@ -29,8 +29,12 @@ module.exports = {
 				use: ['style-loader', 'css-loader'],
 			},
 			{
-				test: /\.png|svg|jpg|gif$/,
+				test: /\.png|jpg|gif$/,
 				use: ['file-loader'],
+			},
+			{
+				test: /\.svg$/,
+				use: [{ loader: 'babel-loader' }],
 			},
 		],
 	},
