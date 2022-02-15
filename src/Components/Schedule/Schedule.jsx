@@ -5,6 +5,7 @@ import Event from './Event/Event.jsx';
 
 import './Schedule.css';
 
+// TODO: need date to be passed in as prop, passed to add event modal too
 const Schedule = props => {
 	const [showEventForm, setShowEventForm] = useState(false);
 	const [events, setEvents] = useState([
@@ -18,7 +19,7 @@ const Schedule = props => {
 
 	// onMount
 	useEffect(() => {
-		// fetch schedule items from database
+		// fetch day's events from database
 		// call setItems with fetched data
 	}, []);
 
@@ -38,7 +39,11 @@ const Schedule = props => {
 
 	return (
 		<div>
-			<AddEventModal showEventForm={showEventForm} handleShowEventForm={handleShowEventForm} />
+			<AddEventModal
+				addEvent={addEvent}
+				showEventForm={showEventForm}
+				handleShowEventForm={handleShowEventForm}
+			/>
 			{_displayItems()}
 			<button className='btn btn-lg event-btn' onClick={handleShowEventForm}>
 				Add Event

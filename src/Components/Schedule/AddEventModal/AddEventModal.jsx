@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import './AddEventModal.css';
 
 // TODO: need to pass date down from schedule
-const AddEventModal = ({ showEventForm, handleShowEventForm }) => {
+const AddEventModal = ({ addEvent, showEventForm, handleShowEventForm }) => {
 	const [description, setDescription] = useState('');
-	const [startTime, setStartTime] = useState(new Date().getHours() + ':00');
+	const [startTime, setStartTime] = useState('12:00');
 	const [endTime, setEndTime] = useState('');
 
 	function handleDescription(e) {
-		setStartTime(e.target.value);
+		setDescription(e.target.value);
 	}
 
 	function handleStartTime(e) {
@@ -20,13 +20,13 @@ const AddEventModal = ({ showEventForm, handleShowEventForm }) => {
 		setEndTime(e.target.value);
 	}
 
-	function handleSubmit() {
-		console.log('submit form');
+	function handleSubmit(e) {
+		e.preventDefault();
+		addEvent({ description, startTime, endTime });
 		handleShowEventForm(false);
 	}
 
 	function handleCancel() {
-		console.log('canceled');
 		handleShowEventForm(false);
 	}
 
