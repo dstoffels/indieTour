@@ -10,6 +10,8 @@ const NAV_ITEMS = [
 	{ title: 'Expenses', icon: 'cash-coin' },
 	// { title: '', icon: '' },
 ];
+
+// FIXME: refactor with react-bootstrap
 const FooterNav = props => {
 	const [activeItem, setActiveItem] = useState('Today');
 

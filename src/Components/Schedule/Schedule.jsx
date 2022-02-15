@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import AddEventModal from './AddEventModal/AddEventModal.jsx';
 
 import Event from './Event/Event.jsx';
@@ -45,9 +46,9 @@ const Schedule = props => {
 				handleShowEventForm={handleShowEventForm}
 			/>
 			{_displayItems()}
-			<button className='btn btn-lg event-btn' onClick={handleShowEventForm}>
+			<Button className='add-btn' onClick={handleShowEventForm}>
 				Add Event
-			</button>
+			</Button>
 		</div>
 	);
 };

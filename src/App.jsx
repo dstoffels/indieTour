@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import FooterNav from './Components/Navbar/FooterNav.jsx';
+import FooterNav from './Components/FooterNav/FooterNav.jsx';
 import Dates from './Components/Dates/Dates.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
