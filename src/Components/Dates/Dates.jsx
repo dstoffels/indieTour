@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Button, Container, Dropdown, DropdownButton, Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import DatesList from '../DatesList/DatesList.jsx';
+import DatesList from './DatesList/DatesList.jsx';
 import AddDateModal from './AddDateModal/AddDateModal.jsx';
 
-import './Dates.css';
 import { toggleCalendarView } from './redux.js';
+import './Dates.css';
 
 const Dates = props => {
-	const [showDateModal, setShowDateModal] = useState(true);
+	const [showDateModal, setShowDateModal] = useState(false);
 
 	const handleDateModal = () => {
 		setShowDateModal(true);

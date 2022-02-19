@@ -12,7 +12,7 @@ const App = () => {
 	const [darkMode, setDarkMode] = useState(false);
 	return (
 		<>
-			{/* <Dates /> */}
+			<Dates />
 			<MainNav />
 		</>
 	);
