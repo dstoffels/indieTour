@@ -23,10 +23,13 @@ const Authenticate = ({ children }) => {
 	};
 
 	useEffect(() => {
-		onAuthStateChanged(auth, user => {
-			user && dispatch(setUser(auth.currentUser.emailVerified));
+		const unsubscribe = onAuthStateChanged(auth, user => {
+			user && dispatch(setUser(user.toJSON()));
+			!user && dispatch(setUser(null));
 			verifyCurrentUser();
 		});
+
+		return () => unsubscribe();
 	}, []);
 
 	return children;

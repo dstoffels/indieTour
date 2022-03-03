@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HOME } from '../../../constants/routes.js';
 import { auth } from '../../../firebase/firebase.js';
+import withAuthentication from '../Authentication/withAuthentication.jsx';
 
 const VerifyEmail = props => {
 	const navigate = useNavigate();
 	useEffect(() => {
-		auth.currentUser?.emailVerified && navigate(HOME);
+		const checkForVerify = setInterval(() => {
+			auth.currentUser.reload();
+			auth.currentUser?.emailVerified && navigate(HOME);
+		}, 2000);
+		return () => clearInterval(checkForVerify);
 	}, []);
-
-	return (
-		<a href='https://indietour-9bf7b.firebaseapp.com/__/auth/action?mode=action&oobCode=code'>
-			verify
-		</a>
-	);
+	return <h2>Awaiting email verification</h2>;
 };
 
-export default VerifyEmail;
+export default withAuthentication(VerifyEmail);

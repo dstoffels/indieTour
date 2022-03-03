@@ -1,10 +1,8 @@
 import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { REST_LOGIN, REST_SIGNUP } from '../../../constants/restPaths.js';
-import { HOME, SIGN_IN, SIGNUP } from '../../../constants/routes.js';
-import { createEmailUser } from '../../../firebase/firebase.js';
+import { HOME, SIGN_IN, WAITING_ROOM } from '../../../constants/routes.js';
+import { auth, createEmailUser } from '../../../firebase/firebase.js';
 import useForm from '../../../hooks/useForm.js';
 import AuthForm from '../AuthForm/AuthForm.jsx';
 import EmailField from '../FormFields/EmailField/EmailField.jsx';
@@ -17,6 +15,10 @@ const SignUp = props => {
 	const { form, handleChange, handleSubmit } = useForm(initialState, signUp);
 	const formId = 'sign-up-form';
 
+	useEffect(() => {
+		auth.currentUser && navigate(HOME);
+	}, []);
+
 	// STATE
 	const [error, setError] = useState('');
 
@@ -27,6 +29,7 @@ const SignUp = props => {
 	async function signUp() {
 		try {
 			await createEmailUser(form);
+			navigate(WAITING_ROOM);
 		} catch (e) {
 			setError(e.code);
 		}
