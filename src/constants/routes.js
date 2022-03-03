@@ -1,3 +1,4 @@
 export const HOME = '/',
-	LOGIN = '/login',
-	SIGNUP = '/signup';
+	SIGN_IN = '/signin',
+	SIGNUP = '/signup',
+	WAITING_ROOM = '/verify';

@@ -1,20 +1,31 @@
-import Login from './Components/Auth/LoginPage/Login/Login.jsx';
-
+import { Route, Routes } from 'react-router-dom';
+import { HOME, SIGN_IN, SIGNUP, WAITING_ROOM } from './constants/routes.js';
+import SignUp from './Components/Auth/SignUp/SignUp.jsx';
+import Home from './Components/Pages/Home/Home.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
-import { HOME, LOGIN, SIGNUP } from './constants/routes.js';
+import Authenticate from './Components/Auth/Authentication/Authentication.jsx';
+import SignInForm from './Components/Auth/SignIn/SignInForm.jsx';
+import VerifyEmail from './Components/Auth/VerifyEmail/VerifyEmail.jsx';
 
 function App() {
 	return (
 		<Routes>
-			<Route path={LOGIN} element={<Login />} />
-			<Route path={SIGNUP} />
-			<Route exact path={HOME}>
+			<Route path={SIGN_IN} element={<SignInForm />} />
+			<Route path={SIGNUP} element={<SignUp />} />
+			<Route path={WAITING_ROOM} element={<VerifyEmail />} />
+			<Route
+				exact
+				path={HOME}
+				element={
+					<Authenticate>
+						<Home />
+					</Authenticate>
+				}>
 				{/* route: dashboard
 				route: dates
 				route: calendar
-				route: ? */}
+			route: ? */}
 			</Route>
 		</Routes>
 	);
