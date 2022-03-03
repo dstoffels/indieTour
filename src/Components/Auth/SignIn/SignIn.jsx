@@ -1,19 +1,22 @@
 import { Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { HOME, SIGNUP } from '../../../constants/routes.js';
-import { emailLogin } from '../../../firebase/firebase.js';
+import { auth, emailLogin } from '../../../firebase/firebase.js';
 import useForm from '../../../hooks/useForm.js';
 import AuthForm from '../AuthForm/AuthForm.jsx';
 import EmailField from '../FormFields/EmailField/EmailField.jsx';
 import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
-import { setUser } from './userSlice.js';
 
-const SignInForm = props => {
+const SignIn = props => {
 	// HOOKS
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		auth.currentUser && navigate(HOME);
+	}, []);
+
 	const initialState = { email: '', password: '' };
 	const { form, handleChange, handleSubmit } = useForm(initialState, signIn);
 	const formId = 'sign-in-form';
@@ -23,8 +26,7 @@ const SignInForm = props => {
 
 	async function signIn() {
 		try {
-			const userCredentials = await emailLogin(form);
-			dispatch(setUser(userCredentials.user));
+			await emailLogin(form);
 			navigate(HOME);
 		} catch (e) {
 			setError(e.message);
@@ -60,4 +62,4 @@ const SignInForm = props => {
 	);
 };
 
-export default SignInForm;
+export default SignIn;

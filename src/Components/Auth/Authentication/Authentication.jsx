@@ -1,26 +1,32 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SIGN_IN, WAITING_ROOM } from '../../../constants/routes.js';
+import { auth } from '../../../firebase/firebase.js';
+import { setUser } from '../SignIn/userSlice.js';
 
 const Authenticate = ({ children }) => {
 	const navigate = useNavigate();
-	const { user } = useSelector(state => state);
+	const dispatch = useDispatch();
 
-	const auth = () => {
-		if (!user) {
+	const verifyCurrentUser = () => {
+		if (!auth.currentUser) {
 			navigate(SIGN_IN);
 			return null;
 		}
 
-		if (!user.emailVerified) {
+		if (!auth.currentUser.emailVerified) {
 			navigate(WAITING_ROOM);
 			return null;
 		}
 	};
 
 	useEffect(() => {
-		return auth();
+		onAuthStateChanged(auth, user => {
+			user && dispatch(setUser(auth.currentUser.emailVerified));
+			verifyCurrentUser();
+		});
 	}, []);
 
 	return children;

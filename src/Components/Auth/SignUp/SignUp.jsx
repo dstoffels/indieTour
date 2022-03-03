@@ -9,12 +9,10 @@ import useForm from '../../../hooks/useForm.js';
 import AuthForm from '../AuthForm/AuthForm.jsx';
 import EmailField from '../FormFields/EmailField/EmailField.jsx';
 import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
-import { setUser } from '../SignIn/userSlice.js';
 
 const SignUp = props => {
 	// HOOKS
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const initialState = { email: '', displayName: '', password: '', confirmPassword: '' };
 	const { form, handleChange, handleSubmit } = useForm(initialState, signUp);
 	const formId = 'sign-up-form';
@@ -28,10 +26,8 @@ const SignUp = props => {
 
 	async function signUp() {
 		try {
-			const userCredentials = await createEmailUser(form);
-			dispatch(setUser(userCredentials.user));
+			await createEmailUser(form);
 		} catch (e) {
-			// console.log(e.code);
 			setError(e.code);
 		}
 	}
