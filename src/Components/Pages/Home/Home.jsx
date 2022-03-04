@@ -1,6 +1,4 @@
 import React from 'react';
-import LogOutBtn from '../../Auth/LogOutBtn/LogOutBtn.jsx';
-import Navbar from '../../Common/Navbar/Navbar.jsx';
 
 const Home = props => {
 	return (

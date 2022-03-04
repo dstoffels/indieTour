@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+import { Logout } from '@mui/icons-material';
+import { ListItemIcon, MenuItem } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HOME } from '../../../constants/routes.js';
@@ -10,7 +11,14 @@ const LogOutBtn = props => {
 		logOut();
 		navigate(HOME);
 	};
-	return <Button onClick={handleClick}>LOG OUT</Button>;
+	return (
+		<MenuItem onClick={handleClick}>
+			<ListItemIcon>
+				<Logout fontSize='small' />
+			</ListItemIcon>
+			Logout
+		</MenuItem>
+	);
 };
 
 export default LogOutBtn;

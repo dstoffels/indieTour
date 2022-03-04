@@ -1,32 +1,12 @@
-import {
-	Button,
-	Card,
-	CardActions,
-	CardContent,
-	CardHeader,
-	Divider,
-	Stack,
-	TextField,
-} from '@mui/material';
-import React, { useState } from 'react';
+import { MenuItem } from '@mui/material';
+import React from 'react';
+import LoginForm from '../Login/LoginForm.jsx';
 
-import './AuthForm.css';
-
-const AuthForm = ({ title, formId, onSubmit, children, priBtn, secBtn }) => {
+const AuthForm = props => {
 	return (
-		<Card className='auth-form'>
-			<CardHeader title={title} />
-			<Divider />
-			<CardContent>
-				<form id={formId} onSubmit={onSubmit}>
-					<Stack spacing={2}>{children}</Stack>
-				</form>
-			</CardContent>
-			<Divider />
-			<CardActions className='justify-content-between'>
-				{secBtn} {priBtn}
-			</CardActions>
-		</Card>
+		<MenuItem>
+			<LoginForm />
+		</MenuItem>
 	);
 };
 
