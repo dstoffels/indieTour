@@ -1,5 +1,5 @@
 export const HOME = '/',
-	SIGN_IN = '/signin',
+	LOGIN = '/login',
 	SIGNUP = '/signup',
 	WAITING_ROOM = '/verify',
 	DASHBOARD = '/dashboard';

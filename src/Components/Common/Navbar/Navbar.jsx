@@ -1,9 +1,8 @@
 import React from 'react';
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Toolbar, Typography } from '@mui/material';
+import LoginBtn from '../../Auth/LoginBtn/LoginBtn.jsx';
 
 import './Navbar.css';
-import LoginBtn from '../Auth/LoginBtn/LoginBtn.jsx';
 
 const Navbar = props => {
 	return (

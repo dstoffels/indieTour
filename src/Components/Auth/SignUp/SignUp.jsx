@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HOME, SIGN_IN, WAITING_ROOM } from '../../../constants/routes.js';
+import { HOME, LOGIN, WAITING_ROOM } from '../../../constants/routes.js';
 import { auth, createEmailUser } from '../../../firebase/firebase.js';
 import useForm from '../../../hooks/useForm.js';
 import AuthForm from '../AuthForm/AuthForm.jsx';
@@ -43,7 +43,7 @@ const SignUp = props => {
 	const secBtn = (
 		<Button
 			onClick={() => {
-				navigate(SIGN_IN);
+				navigate(LOGIN);
 			}}
 			size='small'>
 			SIGN IN

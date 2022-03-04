@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Authenticate from './Authentication.jsx';
+import Authenticate from './Authenticate.jsx';
 
 const withAuthentication = Component => props => {
 	return (

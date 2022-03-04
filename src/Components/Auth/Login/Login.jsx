@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DASHBOARD, SIGNUP } from '../../../constants/routes.js';
 import { auth, emailLogin } from '../../../firebase/firebase.js';
@@ -8,13 +9,14 @@ import AuthForm from '../AuthForm/AuthForm.jsx';
 import EmailField from '../FormFields/EmailField/EmailField.jsx';
 import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
 
-const SignIn = props => {
+const Login = props => {
 	// HOOKS
 	const navigate = useNavigate();
+	const { user } = useSelector(state => state);
 
 	useEffect(() => {
-		auth.currentUser && navigate(DASHBOARD);
-	}, []);
+		user && navigate(DASHBOARD);
+	}, [user]);
 
 	const initialState = { email: '', password: '' };
 	const { form, handleChange, handleSubmit } = useForm(initialState, signIn);
@@ -26,6 +28,7 @@ const SignIn = props => {
 	async function signIn() {
 		try {
 			await emailLogin(form);
+
 			navigate(DASHBOARD);
 		} catch (e) {
 			setError(e.code);
@@ -61,4 +64,4 @@ const SignIn = props => {
 	);
 };
 
-export default SignIn;
+export default Login;
