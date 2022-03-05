@@ -7,7 +7,7 @@ import { MoreHoriz } from '@mui/icons-material';
 import './BottomNav.css';
 
 const BottomNav = props => {
-	const [value, setValue] = useState();
+	const [value, setValue] = useState('today');
 
 	return (
 		<Paper className='bottom-nav-wrapper' elevation={5}>
@@ -18,10 +18,10 @@ const BottomNav = props => {
 				}}
 				className='bottom-nav'
 				showLabels>
-				<BottomNavigationAction label='Today' icon={<TodayOutlined />} />
-				<BottomNavigationAction label='Dates' icon={<DateRangeOutlined />} />
-				<BottomNavigationAction label='Reports' icon={<PaidOutlined />} />
-				<BottomNavigationAction label='Menu' icon={<MoreHoriz />} />
+				<BottomNavigationAction label='Today' value='today' icon={<TodayOutlined />} />
+				<BottomNavigationAction label='Dates' value='dates' icon={<DateRangeOutlined />} />
+				<BottomNavigationAction label='Reports' value='reports' icon={<PaidOutlined />} />
+				<BottomNavigationAction label='Menu' value='menu' icon={<MoreHoriz />} />
 			</BottomNavigation>
 		</Paper>
 	);

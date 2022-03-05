@@ -1,8 +1,8 @@
 import { Login, Logout, PersonAdd, Settings } from '@mui/icons-material';
-import { Avatar, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import React, { useState } from 'react';
 import useUser from '../../../../../hooks/useUser.js';
-import AuthForm from '../../../../Auth/AuthForm/AuthForm.jsx';
+import AuthForm from '../../../../Auth/AuthForm/AuthForm/AuthForm.jsx';
 import LogOutBtn from '../../../../Auth/LogOutBtn/LogOutBtn.jsx';
 
 const AccoutMenu = props => {
@@ -15,6 +15,24 @@ const AccoutMenu = props => {
 	// HANDLERS
 	const handleClick = e => setAnchorEl(e.currentTarget);
 	const handleClose = () => setAnchorEl(null);
+
+	const width = !user && { width: 400 };
+	const menuItems = user ? (
+		[
+			<MenuItem disabled key='display-name'>
+				Hi, {user.displayName}!
+			</MenuItem>,
+			<MenuItem key='settings-btn'>
+				<ListItemIcon>
+					<Settings />
+				</ListItemIcon>
+				Settings
+			</MenuItem>,
+			<LogOutBtn key='logout-btn' />,
+		]
+	) : (
+		<AuthForm />
+	);
 
 	return (
 		<>
@@ -33,7 +51,7 @@ const AccoutMenu = props => {
 				PaperProps={{
 					elevation: 5,
 					sx: {
-						width: 400,
+						...width,
 						backgroundColor: 'rgb(18,18,18)',
 						overflow: 'visible',
 						filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -58,19 +76,10 @@ const AccoutMenu = props => {
 						},
 					},
 				}}>
-				<AuthForm />
-
-				{/* <LogOutBtn /> */}
+				{menuItems}
 			</Menu>
 		</>
 	);
 };
 
 export default AccoutMenu;
-
-// <MenuItem>
-// 	<ListItemIcon>
-// 		<Settings fontSize='small' />
-// 	</ListItemIcon>
-// 	Settings
-// </MenuItem>

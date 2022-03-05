@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { user } from '../Components/Auth/Login/userSlice.js';
+import { user } from './userSlice.js';
 import { prevPage } from '../Components/Pages/navSlice.js';
 
 export const store = configureStore({

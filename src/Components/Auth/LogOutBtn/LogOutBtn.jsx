@@ -14,7 +14,7 @@ const LogOutBtn = props => {
 	return (
 		<MenuItem onClick={handleClick}>
 			<ListItemIcon>
-				<Logout fontSize='small' />
+				<Logout />
 			</ListItemIcon>
 			Logout
 		</MenuItem>

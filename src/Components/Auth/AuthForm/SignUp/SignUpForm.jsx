@@ -1,11 +1,11 @@
 import { Button, Stack, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HOME, LOGIN, WAITING_ROOM } from '../../../constants/routes.js';
-import { auth, createEmailUser } from '../../../firebase/firebase.js';
-import useForm from '../../../hooks/useForm.js';
+import { HOME, LOGIN, WAITING_ROOM } from '../../../../constants/routes.js';
+import { auth, createEmailUser } from '../../../../firebase/firebase.js';
+import useForm from '../../../../hooks/useForm.js';
 import AuthForm from '../AuthForm/AuthForm.jsx';
-import { SIGNUP_FORM_ID } from '../constants.js';
+import { SIGNUP_FORM_ID } from '../../constants.js';
 import EmailField from '../FormFields/EmailField/EmailField.jsx';
 import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
 
@@ -34,9 +34,11 @@ const SignUpForm = props => {
 		}
 	}
 
+	const stopProp = e => e.stopPropagation();
+
 	return (
-		<form id={SIGNUP_FORM_ID} onSubmit={handleSubmit}>
-			<Stack spacing={2} marginBottom={2}>
+		<form id={SIGNUP_FORM_ID} onSubmit={handleSubmit} onClick={stopProp} onKeyDown={stopProp}>
+			<Stack spacing={2} marginTop={2}>
 				<EmailField value={form?.email} onChange={handleChange} />
 				<TextField
 					label='Username'

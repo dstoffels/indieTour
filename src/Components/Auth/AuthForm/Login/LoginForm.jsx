@@ -1,9 +1,9 @@
 import { Stack } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { emailLogin } from '../../../firebase/firebase.js';
-import useForm from '../../../hooks/useForm.js';
-import { LOGIN_FORM_ID } from '../constants.js';
+import { emailLogin } from '../../../../firebase/firebase.js';
+import useForm from '../../../../hooks/useForm.js';
+import { LOGIN_FORM_ID } from '../../constants.js';
 import EmailField from '../FormFields/EmailField/EmailField.jsx';
 import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
 
@@ -26,9 +26,11 @@ const LoginForm = props => {
 		}
 	}
 
+	const stopProp = e => e.stopPropagation();
+
 	return (
-		<form id={LOGIN_FORM_ID} onSubmit={handleSubmit}>
-			<Stack spacing={2} marginBottom={2}>
+		<form id={LOGIN_FORM_ID} onSubmit={handleSubmit} onClick={stopProp} onKeyDown={stopProp}>
+			<Stack spacing={2} marginTop={2}>
 				<EmailField value={form.email} onChange={handleChange} />
 				<PasswordField value={form.password} onChange={handleChange} label='Password' />
 				<i className='text-danger'>{error}</i>
