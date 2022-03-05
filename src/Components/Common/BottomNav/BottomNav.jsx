@@ -5,6 +5,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { MoreHoriz } from '@mui/icons-material';
 
 import './BottomNav.css';
+import useUser from '../../../hooks/useUser.js';
 
 const BottomNav = props => {
 	const [value, setValue] = useState('today');

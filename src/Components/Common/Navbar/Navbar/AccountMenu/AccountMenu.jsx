@@ -37,7 +37,14 @@ const AccoutMenu = props => {
 	return (
 		<>
 			<IconButton onClick={handleClick} size='small' sx={{ ml: 2 }}>
-				<Avatar sx={{ width: 32, height: 32 }}>{user?.displayName.charAt(0)}</Avatar>
+				{user ? (
+					<Avatar sx={{ width: 32, height: 32 }}>{user?.displayName.charAt(0)}</Avatar>
+				) : (
+					<>
+						<span className='me-1'>Login</span>
+						<Login />
+					</>
+				)}
 			</IconButton>
 
 			<Menu

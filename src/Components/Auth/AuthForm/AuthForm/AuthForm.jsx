@@ -25,7 +25,7 @@ const AuthForm = props => {
 				<Divider />
 				<Stack direction='row' spacing={2} marginTop={2} flex={1} justifyContent='space-between	'>
 					<Button onClick={handleSignUp} size='small'>
-						{signUp ? 'SIGN IN' : 'SIGN UP'}
+						{signUp ? 'LOGIN' : 'CREATE NEW ACCOUNT'}
 					</Button>
 					{signUp ? <SignUpBtn /> : <LoginBtn />}
 				</Stack>
