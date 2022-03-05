@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPrevPage } from '../Components/Pages/navSlice.js';
+import { setPage, setPrevPage } from '../Components/Common/BottomNav/navSlice.js';
 
-const usePrevPage = page => {
+const useNav = page => {
 	const dispatch = useDispatch();
-	useEffect(
-		() => () => {
-			dispatch(setPrevPage(page));
-		},
-		[],
-	);
+	useEffect(() => {
+		dispatch(setPage(page));
+		return () => dispatch(setPrevPage(page));
+	}, []);
 };
 
-export default usePrevPage;
+export default useNav;

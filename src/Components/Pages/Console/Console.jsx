@@ -1,11 +1,11 @@
 import React from 'react';
-import { DASHBOARD } from '../../../constants/routes.js';
-import usePrevPage from '../../../hooks/usePrevPage.js';
+import { CONSOLE } from '../../../constants/routes.js';
+import useNav from '../../../hooks/usePrevPage.js';
 import withAuthentication from '../../Auth/Authentication/withAuthentication.jsx';
 import BottomNav from '../../Common/BottomNav/BottomNav.jsx';
 
-const Dashboard = props => {
-	usePrevPage(DASHBOARD);
+const Console = props => {
+	useNav(CONSOLE);
 	return (
 		<>
 			<h1>Console</h1>
@@ -13,4 +13,4 @@ const Dashboard = props => {
 	);
 };
 
-export default withAuthentication(Dashboard);
+export default withAuthentication(Console);

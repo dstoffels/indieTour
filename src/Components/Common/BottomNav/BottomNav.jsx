@@ -1,28 +1,60 @@
 import React, { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import { DateRangeOutlined, PaidOutlined, TodayOutlined } from '@mui/icons-material';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
-import { MoreHoriz } from '@mui/icons-material';
+import {
+	DateRange,
+	DateRangeOutlined,
+	FactCheck,
+	FactCheckOutlined,
+	InsertInvitation,
+	InsertInvitationOutlined,
+	PaidOutlined,
+	Settings,
+	SettingsOutlined,
+	Today,
+	TodayOutlined,
+} from '@mui/icons-material';
 
 import './BottomNav.css';
 import useUser from '../../../hooks/useUser.js';
+import { useSelector } from 'react-redux';
+import { BOOKING, CONSOLE, DATES, TODAY } from '../../../constants/routes.js';
+import { useNavigate } from 'react-router-dom';
 
 const BottomNav = props => {
-	const [value, setValue] = useState('today');
+	const navigate = useNavigate();
+
+	const { currentPage } = useSelector(state => state.nav);
+
+	const [value, setValue] = useState(currentPage);
+
+	const handleChange = (e, newValue) => {
+		setValue(newValue);
+		navigate(newValue);
+	};
 
 	return (
 		<Paper className='bottom-nav-wrapper' elevation={5}>
-			<BottomNavigation
-				value={value}
-				onChange={(e, newValue) => {
-					setValue(newValue);
-				}}
-				className='bottom-nav'
-				showLabels>
-				<BottomNavigationAction label='Today' value='today' icon={<TodayOutlined />} />
-				<BottomNavigationAction label='Dates' value='dates' icon={<DateRangeOutlined />} />
-				<BottomNavigationAction label='Reports' value='reports' icon={<PaidOutlined />} />
-				<BottomNavigationAction label='Menu' value='menu' icon={<MoreHoriz />} />
+			<BottomNavigation value={value} onChange={handleChange} className='bottom-nav' showLabels>
+				<BottomNavigationAction
+					label='Today'
+					value={TODAY}
+					icon={value === TODAY ? <InsertInvitation /> : <InsertInvitationOutlined />}
+				/>
+				<BottomNavigationAction
+					label='Dates'
+					value={DATES}
+					icon={value === DATES ? <DateRange /> : <DateRangeOutlined />}
+				/>
+				<BottomNavigationAction
+					label='Booking'
+					value={BOOKING}
+					icon={value === BOOKING ? <FactCheck /> : <FactCheckOutlined />}
+				/>
+				<BottomNavigationAction
+					label='Console'
+					value={CONSOLE}
+					icon={value === CONSOLE ? <Settings /> : <SettingsOutlined />}
+				/>
 			</BottomNavigation>
 		</Paper>
 	);

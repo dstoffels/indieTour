@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DASHBOARD } from '../constants/routes.js';
+import { CONSOLE } from '../constants/routes.js';
 import useUser from './useUser.js';
 
 const useLogin = () => {
@@ -8,7 +8,7 @@ const useLogin = () => {
 	const user = useUser();
 
 	useEffect(() => {
-		Boolean(user) && navigate(DASHBOARD);
+		Boolean(user) && navigate(CONSOLE);
 	}, [user]);
 };
 
