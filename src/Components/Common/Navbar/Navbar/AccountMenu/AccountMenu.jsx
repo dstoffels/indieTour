@@ -33,6 +33,7 @@ const AccoutMenu = props => {
 				PaperProps={{
 					elevation: 5,
 					sx: {
+						width: 400,
 						backgroundColor: 'rgb(18,18,18)',
 						overflow: 'visible',
 						filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -57,9 +58,9 @@ const AccoutMenu = props => {
 						},
 					},
 				}}>
-				{/* <AuthForm /> */}
+				<AuthForm />
 
-				<LogOutBtn />
+				{/* <LogOutBtn /> */}
 			</Menu>
 		</>
 	);

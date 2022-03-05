@@ -1,15 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import { HOME, LOGIN, SIGNUP, WAITING_ROOM, DASHBOARD } from './constants/routes.js';
-import SignUp from './Components/Auth/SignUp/SignUp.jsx';
 import Home from './Components/Pages/Home/Home.jsx';
-import LoginForm from './Components/Auth/Login/LoginForm.jsx';
-import VerifyEmail from './Components/Auth/VerifyEmail/VerifyEmail.jsx';
 import Dashboard from './Components/Pages/Dashboard/Dashboard.jsx';
 import AuthProvider from './Components/Auth/Provider/AuthProvider.jsx';
+import Navbar from './Components/Common/Navbar/Navbar/Navbar.jsx';
+import VerifyEmail from './Components/Pages/VerifyEmail/VerifyEmail.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Navbar from './Components/Common/Navbar/Navbar/Navbar.jsx';
 
 function App() {
 	return (

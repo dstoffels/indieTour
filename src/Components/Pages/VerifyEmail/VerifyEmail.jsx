@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HOME } from '../../../constants/routes.js';
 import { auth } from '../../../firebase/firebase.js';
-import withAuthentication from '../Authentication/withAuthentication.jsx';
+import withAuthentication from '../../Auth/Authentication/withAuthentication.jsx';
 
 const VerifyEmail = props => {
 	const navigate = useNavigate();
