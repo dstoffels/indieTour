@@ -1,7 +1,8 @@
-import { Button, InputLabel, Menu, MenuItem, Select } from '@mui/material';
+import { Button, InputLabel, Menu, MenuItem, Select, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { FormControl } from '@mui/material';
 import { KeyboardArrowDown } from '@mui/icons-material';
+import './TourSelector.css';
 
 const TourSelector = props => {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -18,7 +19,7 @@ const TourSelector = props => {
 					value={tour}
 					onChange={handleChange}
 					variant='standard'
-					sx={{ color: 'white', fontSize: '.9rem', maxWidth: 180 }}
+					className='tour-select'
 					MenuProps={{ PaperProps: { sx: { bgcolor: 'rgb(18,18,18)' } } }}>
 					<MenuItem value='tour1'>bigboi tour 2022sbigboi tour 2022s</MenuItem>
 					<MenuItem value='tour2'>tour2</MenuItem>

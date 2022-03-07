@@ -1,14 +1,14 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar, Toolbar } from '@mui/material';
 import AccoutMenu from '../AccountMenu/AccountMenu.jsx';
+import TourSelector from '../TourSelector/TourSelector.jsx';
 
 import './Navbar.css';
-import TourSelector from '../TourSelector/TourSelector.jsx';
 
 const Navbar = props => {
 	return (
 		<AppBar position='sticky' className='main-nav'>
-			<Toolbar className='text-white justify-content-between'>
+			<Toolbar className='text-white d-flex justify-content-between'>
 				<TourSelector />
 				<AccoutMenu />
 			</Toolbar>
