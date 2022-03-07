@@ -1,9 +1,9 @@
 import { Login, Logout, PersonAdd, Settings } from '@mui/icons-material';
 import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import React, { useState } from 'react';
-import useUser from '../../../../../hooks/useUser.js';
-import AuthForm from '../../../../Auth/AuthForm/AuthForm/AuthForm.jsx';
-import LogOutBtn from '../../../../Auth/LogOutBtn/LogOutBtn.jsx';
+import useUser from '../../../../hooks/useUser.js';
+import AuthForm from '../../../Auth/AuthForm/AuthForm/AuthForm.jsx';
+import LogOutBtn from '../../../Auth/LogOutBtn/LogOutBtn.jsx';
 
 const AccoutMenu = props => {
 	// STATE
@@ -35,8 +35,8 @@ const AccoutMenu = props => {
 	);
 
 	return (
-		<>
-			<IconButton onClick={handleClick} size='small' sx={{ ml: 2 }}>
+		<div>
+			<IconButton onClick={handleClick} size='small'>
 				{user ? (
 					<Avatar sx={{ width: 32, height: 32 }}>{user?.displayName.charAt(0)}</Avatar>
 				) : (
@@ -85,7 +85,7 @@ const AccoutMenu = props => {
 				}}>
 				{menuItems}
 			</Menu>
-		</>
+		</div>
 	);
 };
 

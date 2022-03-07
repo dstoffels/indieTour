@@ -19,8 +19,6 @@ const LoginForm = props => {
 	async function login() {
 		try {
 			await emailLogin(form);
-
-			// navigate(DASHBOARD);
 		} catch (e) {
 			setError(e.code);
 		}

@@ -1,7 +1,16 @@
+import { Container } from '@mui/material';
 import React from 'react';
+import { DATES } from '../../../constants/routes.js';
+import useNav from '../../../hooks/usePrevPage.js';
+import withAuthentication from '../../Auth/Authentication/withAuthentication.jsx';
 
 const Dates = props => {
-	return <h1>Dates</h1>;
+	useNav(DATES);
+	return (
+		<Container>
+			<h1>Dates</h1>
+		</Container>
+	);
 };
 
-export default Dates;
+export default withAuthentication(Dates);

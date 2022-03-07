@@ -1,15 +1,15 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@mui/material';
-import AccoutMenu from './AccountMenu/AccountMenu.jsx';
+import AccoutMenu from '../AccountMenu/AccountMenu.jsx';
 
 import './Navbar.css';
+import TourSelector from '../TourSelector/TourSelector.jsx';
 
 const Navbar = props => {
 	return (
 		<AppBar position='sticky' className='main-nav'>
-			<Toolbar className='text-white'>
-				<Typography variant='h5'>indieTour</Typography>
-				<Typography variant='h5' sx={{ flexGrow: 1 }}></Typography>
+			<Toolbar className='text-white justify-content-between'>
+				<TourSelector />
 				<AccoutMenu />
 			</Toolbar>
 		</AppBar>
