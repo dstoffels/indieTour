@@ -2,7 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../../firebase/firebase.js';
-import { setUser } from '../../../Redux/userSlice.js';
+import { setUser } from '../../../redux/userSlice.js';
 
 const AuthProvider = ({ children }) => {
 	const dispatch = useDispatch();
