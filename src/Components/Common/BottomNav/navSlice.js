@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { DATES } from '../../../constants/routes.js';
 
-const initialState = { currentPage: '', prevPage: '' };
+const initialState = { currentPage: '', prevPage: DATES };
 
 export const navSlice = createSlice({
 	name: 'nav',

@@ -3,27 +3,31 @@ import React, { useState } from 'react';
 import { FormControl } from '@mui/material';
 import './TourSelector.css';
 
-const TourSelector = props => {
-	const [tour, setTour] = useState('tour1');
+const Selector = ({ id, options, defaultSelection }) => {
+	const [selected, setSelected] = useState(defaultSelection);
 
-	const handleChange = e => setTour(e.target.value);
+	const handleChange = e => setSelected(e.target.value);
+
+	const menuItems = options.map(option => (
+		<MenuItem key={option.name} value={option.name}>
+			{option.name}
+		</MenuItem>
+	));
 
 	return (
 		<div>
 			<FormControl>
 				<Select
-					value={tour}
+					value={selected}
 					onChange={handleChange}
 					variant='standard'
-					className='tour-select'
+					id={id}
 					MenuProps={{ PaperProps: { sx: { bgcolor: 'rgb(18,18,18)' } } }}>
-					<MenuItem value='tour1'>bigboi tour 2022sbigboi tour 2022s</MenuItem>
-					<MenuItem value='tour2'>tour2</MenuItem>
-					<MenuItem value='tour3'>tour3</MenuItem>
+					{menuItems}
 				</Select>
 			</FormControl>
 		</div>
 	);
 };
 
-export default TourSelector;
+export default Selector;

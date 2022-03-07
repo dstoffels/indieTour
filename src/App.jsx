@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { HOME, WAITING_ROOM, CONSOLE, TODAY, BOOKING, DATES } from './constants/routes.js';
 import Home from './Components/Pages/Home/Home.jsx';
-import Console from './Components/Pages/Console/Console.jsx';
+import Console from './Components/Pages/Console/Console/Console.jsx';
 import AuthProvider from './Components/Auth/Provider/AuthProvider.jsx';
 import Navbar from './Components/Common/Navbar/Navbar/Navbar.jsx';
 import VerifyEmail from './Components/Pages/VerifyEmail/VerifyEmail.jsx';
