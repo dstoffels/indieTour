@@ -1,0 +1,11 @@
+.selector {
+	color: rgb(233, 233, 233) !important;
+	text-align: left;
+	max-width: 300px;
+}
+
+@media only screen and (max-width: 400px) {
+	.selector {
+		font-size: small;
+	}
+}

@@ -1,19 +1,22 @@
 import { Container } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { CONSOLE } from '../../../../constants/routes.js';
 import useNav from '../../../../hooks/usePrevPage.js';
 import withAuthentication from '../../../Auth/Authentication/withAuthentication.jsx';
-import { fetchUserBands } from '../Bands/BandSelector/bandsSlice.js';
+import BandMembers from '../Bands/BandInfo/BandMembers/BandMembers.jsx';
+import BandSelector from '../Bands/BandSelector/BandSelector.jsx';
+import './Console.css';
 
 const Console = props => {
 	useNav(CONSOLE);
-	const dispatch = useDispatch();
-	dispatch(fetchUserBands());
 	return (
-		<Container>
-			<h2>My bands</h2>
-		</Container>
+		<div className='text-center'>
+			<h2 className='panel-header'>MY BANDS</h2>
+			<BandSelector />
+			<BandMembers />
+			Danger Zone (delete band)
+			<h2 className='panel-header'>MY TOURS</h2>
+		</div>
 	);
 };
 

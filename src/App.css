@@ -5,3 +5,19 @@
 body {
 	background-color: rgb(85, 85, 85);
 }
+
+.bg-lt-grey {
+	background-color: rgb(85, 85, 85) !important;
+}
+
+.bg-med-grey {
+	background-color: rgb(68, 68, 68) !important;
+}
+
+.bg-dark-grey {
+	background-color: rgb(44, 44, 44) !important;
+}
+
+.mobile-max-w {
+	max-width: 300px !important;
+}
