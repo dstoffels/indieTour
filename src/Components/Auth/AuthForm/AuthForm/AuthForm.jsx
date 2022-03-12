@@ -1,10 +1,9 @@
-import { Button, Divider, MenuItem, Paper, Stack } from '@mui/material';
+import { Button, Divider, MenuItem, Paper, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import LoginForm from '../Login/LoginForm.jsx';
 import SignUpForm from '../SignUp/SignUpForm.jsx';
 import LoginBtn from '../Login/LoginBtn.jsx';
 import SignUpBtn from '../SignUp/SignUpBtn.jsx';
+import LoginForm from '../Login/LoginForm.jsx';
 
 const AuthForm = props => {
 	const [signUp, setSignUp] = useState(false);
@@ -16,10 +15,8 @@ const AuthForm = props => {
 
 	return (
 		<MenuItem>
-			<Paper className='p-2 w-100'>
-				<h5 className='text-black'>
-					{signUp ? 'Sign up for a new account' : 'Log in to your account'}
-				</h5>
+			<div className='p-2 w-100 bg-dark-grey'>
+				<h5>{signUp ? 'Sign up for a new account' : 'Log in to your account'}</h5>
 				<Divider />
 				{signUp ? <SignUpForm /> : <LoginForm />}
 				<Divider />
@@ -29,7 +26,7 @@ const AuthForm = props => {
 					</Button>
 					{signUp ? <SignUpBtn /> : <LoginBtn />}
 				</Stack>
-			</Paper>
+			</div>
 		</MenuItem>
 	);
 };

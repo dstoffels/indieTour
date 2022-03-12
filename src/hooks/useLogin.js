@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { DATES } from '../constants/routes.js';
 import { fetchUserBands } from '../redux/bandsSlice.js';
 import useUser from './useUser.js';
 
@@ -16,6 +15,7 @@ const useLogin = () => {
 			navigate(prevPage);
 			dispatch(fetchUserBands());
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user]);
 };
 

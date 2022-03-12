@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BANDS_PATH } from '../constants/restPaths.js';
-import { auth } from '../firebase/firebase.js';
+import { auth } from 'fb/firebase.js';
 
 export const selectBand = bandName => (dispatch, getState) => {
 	const { userBands } = getState().band;

@@ -1,6 +1,5 @@
 * {
 	color: rgb(225, 225, 225);
-	font-family: Roboto;
 }
 
 body {
@@ -21,6 +20,10 @@ body {
 
 .mobile-max-w {
 	max-width: 300px !important;
+}
+
+.MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root:hover {
+	background-color: rgba(255, 255, 255, 0.05);
 }
 
 input:-webkit-autofill,

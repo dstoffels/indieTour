@@ -1,12 +1,12 @@
 import { Stack, TextField } from '@mui/material';
+import { SIGNUP_FORM_ID } from 'Components/Auth/constants.js';
+import { HOME } from 'constants/routes.js';
+import { auth, createEmailUser } from 'fb/firebase.js';
+import useForm from 'hooks/useForm.js';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HOME } from '../../../../constants/routes.js';
-import { auth, createEmailUser } from '../../../../firebase/firebase.js';
-import useForm from '../../../../hooks/useForm.js';
-import { SIGNUP_FORM_ID } from '../../constants.js';
-import EmailField from '../FormFields/EmailField/EmailField.jsx';
-import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
+import EmailField from '../EmailField/EmailField.jsx';
+import PasswordField from '../PasswordField/PasswordField.jsx';
 
 const SignUpForm = props => {
 	// HOOKS
@@ -14,7 +14,7 @@ const SignUpForm = props => {
 
 	useEffect(() => {
 		auth.currentUser && navigate(HOME);
-	}, []);
+	}, [navigate]);
 
 	// STATE
 	const [error, setError] = useState('');
@@ -44,6 +44,7 @@ const SignUpForm = props => {
 					name='displayName'
 					value={form.displayName}
 					onChange={handleChange}
+					InputLabelProps={{ sx: { color: 'white' } }}
 				/>
 				<PasswordField value={form.password} onChange={handleChange} label='Password' />
 				<PasswordField

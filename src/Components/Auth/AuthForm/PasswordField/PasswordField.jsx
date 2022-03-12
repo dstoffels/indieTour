@@ -10,6 +10,7 @@ const PasswordField = ({ value, onChange, label, name = 'password' }) => (
 		label={label}
 		required
 		fullWidth
+		InputLabelProps={{ sx: { color: 'white' } }}
 	/>
 );
 
