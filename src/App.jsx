@@ -7,7 +7,7 @@ import Navbar from './Components/Common/Navbar/Navbar/Navbar.jsx';
 import VerifyEmail from './Components/Pages/VerifyEmail/VerifyEmail.jsx';
 import BottomNav from './Components/Common/BottomNav/BottomNav.jsx';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import useUser from './hooks/useUser.js';
 import Booking from './Components/Pages/Booking/Booking.jsx';
