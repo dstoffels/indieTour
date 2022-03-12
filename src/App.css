@@ -1,0 +1,37 @@
+* {
+	color: rgb(225, 225, 225);
+}
+
+body {
+	background-color: rgb(85, 85, 85);
+}
+
+.bg-lt-grey {
+	background-color: rgb(85, 85, 85) !important;
+}
+
+.bg-med-grey {
+	background-color: rgb(68, 68, 68) !important;
+}
+
+.bg-dark-grey {
+	background-color: rgb(44, 44, 44) !important;
+}
+
+.mobile-max-w {
+	max-width: 300px !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-text-fill-color: rgb(255, 255, 255);
+	-webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.02) inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
