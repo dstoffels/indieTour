@@ -1,4 +1,4 @@
-import { Login, Logout, PersonAdd, Settings } from '@mui/icons-material';
+import { Login, , Settings } from '@mui/icons-material';
 import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import React, { useState } from 'react';
 import useUser from '../../../../hooks/useUser.js';

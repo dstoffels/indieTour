@@ -1,7 +1,7 @@
 import React from 'react';
 import Selector from '../../../../Common/Selector/Selector.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBand } from '../../../../../redux/bandsSlice.js';
+import { selectBand } from '../../../../../Redux/bandsSlice.js';
 import './BandSelector.css';
 import { Button } from '@mui/material';
 
