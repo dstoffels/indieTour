@@ -17,9 +17,15 @@ const Authenticate = ({ children }) => {
 			navigate(WAITING_ROOM);
 			return null;
 		}
+
+		if (!user.hasValidPW) {
+			navigate(WAITING_ROOM);
+			console.log('make the set password page');
+			return null;
+		}
 	};
 
-	useEffect(verifyCurrentUser, [user, verifyCurrentUser]);
+	useEffect(verifyCurrentUser, [user]);
 
 	return children;
 };

@@ -5,7 +5,7 @@ import LogOutBtn from 'Components/Auth/LogOutBtn/LogOutBtn.jsx';
 import useUser from 'hooks/useUser.js';
 import React, { useState } from 'react';
 
-const AccoutMenu = props => {
+const AccountMenu = props => {
 	// STATE
 	const user = useUser();
 	// LOCAL STATE
@@ -38,7 +38,7 @@ const AccoutMenu = props => {
 		<div>
 			<IconButton onClick={handleClick} size='small'>
 				{user ? (
-					<Avatar sx={{ width: 32, height: 32 }}>{user?.displayName.charAt(0)}</Avatar>
+					<Avatar sx={{ width: 32, height: 32 }}>{user?.displayName?.charAt(0)}</Avatar>
 				) : (
 					<>
 						<span className='me-1'>Login</span>
@@ -89,4 +89,4 @@ const AccoutMenu = props => {
 	);
 };
 
-export default AccoutMenu;
+export default AccountMenu;

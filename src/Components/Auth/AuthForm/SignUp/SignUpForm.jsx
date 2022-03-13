@@ -9,13 +9,6 @@ import EmailField from '../EmailField/EmailField.jsx';
 import PasswordField from '../PasswordField/PasswordField.jsx';
 
 const SignUpForm = props => {
-	// HOOKS
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		auth.currentUser && navigate(HOME);
-	}, [navigate]);
-
 	// STATE
 	const [error, setError] = useState('');
 	const initialState = { email: '', displayName: '', password: '', confirmPassword: '' };

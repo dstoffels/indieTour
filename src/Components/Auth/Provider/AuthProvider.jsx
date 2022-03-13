@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { USER_PATH } from 'constants/restPaths.js';
-import { auth } from 'fb/firebase.js';
+import { auth, authHeader } from 'fb/firebase.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,13 +12,9 @@ const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async user => {
 			if (user) {
-				const { email, displayName, emailVerified } = user;
-				const updatedUser = await axios.put(
-					USER_PATH,
-					{ email, displayName, emailVerified },
-					{ headers: { auth: await user.getIdToken() } },
-				);
-				dispatch(setUser(updatedUser.data));
+				const headers = await authHeader();
+				const response = await axios.get(USER_PATH, headers);
+				dispatch(setUser(response.data));
 			} else {
 				dispatch(setUser(null));
 			}

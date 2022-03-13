@@ -15,7 +15,6 @@ const useLogin = () => {
 			navigate(prevPage);
 			dispatch(fetchUserBands());
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user]);
 };
 
