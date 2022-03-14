@@ -5,7 +5,7 @@ import { HOME, WAITING_ROOM } from 'constants/routes.js';
 
 const Authenticate = ({ children }) => {
 	const navigate = useNavigate();
-	const user = useUser();
+	const { user } = useUser();
 
 	const verifyCurrentUser = () => {
 		if (!user) {
@@ -17,12 +17,24 @@ const Authenticate = ({ children }) => {
 			navigate(WAITING_ROOM);
 			return null;
 		}
+<<<<<<< Updated upstream
 
 		if (!user.hasValidPW) {
 			navigate(WAITING_ROOM);
 			console.log('make the set password page');
 			return null;
 		}
+=======
+<<<<<<< Updated upstream
+=======
+
+		if (!user.hasValidPW) {
+			navigate(WAITING_ROOM);
+			console.log(`you need to make the set password page, that's why this is broken`);
+			return null;
+		}
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 	};
 
 	useEffect(verifyCurrentUser, [user]);

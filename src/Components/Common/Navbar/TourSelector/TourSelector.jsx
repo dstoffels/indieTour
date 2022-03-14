@@ -3,14 +3,8 @@ import React from 'react';
 import './TourSelector.css';
 
 const TourSelector = props => {
-	return (
-		<Selector
-			id='tour-selector'
-			options={[{ name: 'tour1' }]}
-			nameKey='name'
-			defaultSelection={'tour1'}
-		/>
-	);
+	const tour = { name: 'tour1' };
+	return <Selector id='tour-selector' options={[tour]} nameKey='name' defaultSelection={tour} />;
 };
 
 export default TourSelector;

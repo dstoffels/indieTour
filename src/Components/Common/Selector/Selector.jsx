@@ -4,7 +4,7 @@ import { FormControl } from '@mui/material';
 import './Selector.css';
 
 const Selector = ({ id, options, nameKey, onChange, defaultSelection, className }) => {
-	const [selected, setSelected] = useState(defaultSelection);
+	const [selected, setSelected] = useState(defaultSelection[nameKey]);
 
 	const handleChange = e => {
 		setSelected(e.target.value);
@@ -20,7 +20,7 @@ const Selector = ({ id, options, nameKey, onChange, defaultSelection, className 
 	return (
 		<FormControl fullWidth className={`${className} selector`}>
 			<Select
-			placeholder=''
+				placeholder=''
 				className={`selector`}
 				value={selected}
 				onChange={handleChange}

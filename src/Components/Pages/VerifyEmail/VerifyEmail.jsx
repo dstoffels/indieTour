@@ -23,5 +23,6 @@ const VerifyEmail = props => {
 	}, []);
 	return <h2>Awaiting email verification</h2>;
 };
+// TODO: make a card to display awaiting email verification and resend button.
 
 export default withAuthentication(VerifyEmail);

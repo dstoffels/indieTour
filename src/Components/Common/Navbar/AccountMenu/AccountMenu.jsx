@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 
 const AccountMenu = props => {
 	// STATE
-	const user = useUser();
+	const { user } = useUser();
 	// LOCAL STATE
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);

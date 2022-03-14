@@ -17,11 +17,11 @@ import React from 'react';
 const MemberAccordion = ({ member, expanded, onChange }) => {
 	return (
 		<Accordion
-			className='bg-med-grey mobile-max-w m-auto'
+			className='bg-med-grey  m-auto'
 			expanded={expanded === member?.displayName}
 			onChange={onChange(member?.displayName)}>
 			<AccordionSummary expandIcon={<ExpandMore />}>
-				<Typography variant='caption'>{member?.displayName}</Typography>
+				<Typography variant='body1'>{member?.displayName}</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
 				<Stack direction='row' justifyContent='space-between'>

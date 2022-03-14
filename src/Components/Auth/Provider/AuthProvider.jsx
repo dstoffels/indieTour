@@ -15,14 +15,30 @@ const AuthProvider = ({ children }) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+		const unsubscribe = onAuthStateChanged(auth, user => {
+			user && dispatch(setUser(user.toJSON()));
+			!user && dispatch(setUser(null));
+=======
+>>>>>>> Stashed changes
 		const unsubscribe = onAuthStateChanged(auth, async user => {
 			if (user) {
 				const headers = await authHeader();
 				const response = await axios.get(USER_PATH, headers);
+<<<<<<< Updated upstream
+=======
+				console.log(response.data);
+>>>>>>> Stashed changes
 				dispatch(setUser(response.data));
 			} else {
 				dispatch(setUser(null));
 			}
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 		});
 		return () => unsubscribe();
 	}, []);
