@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import {
 	DateRange,
@@ -12,16 +12,18 @@ import {
 } from '@mui/icons-material';
 
 import './BottomNav.css';
-import { useSelector } from 'react-redux';
 import { BOOKING, CONSOLE, DATES, TODAY } from 'constants/routes.js';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const BottomNav = props => {
+const BottomNav = memo(props => {
 	const navigate = useNavigate();
+	const location = useLocation();
 
-	const { currentPage } = useSelector(state => state.nav);
+	const [value, setValue] = useState('');
 
-	const [value, setValue] = useState(currentPage);
+	useEffect(() => {
+		setValue(location.pathname);
+	}, [location]);
 
 	const handleChange = (e, newValue) => {
 		setValue(newValue);
@@ -54,6 +56,6 @@ const BottomNav = props => {
 			</BottomNavigation>
 		</Paper>
 	);
-};
+});
 
 export default BottomNav;

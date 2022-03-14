@@ -14,8 +14,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const authHeader = async () => {
-	auth.currentUser.reload();
-	return { headers: { auth: await auth.currentUser.getIdToken(true) } };
+	auth.currentUser?.reload();
+	return { headers: { auth: await auth.currentUser?.getIdToken(true) } };
 };
 
 export const createEmailUser = async ({ email, password, displayName }) => {

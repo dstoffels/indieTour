@@ -14,16 +14,15 @@ const BandMembers = props => {
 	const [expanded, setExpanded] = useState(false);
 	const [members, setMembers] = useState([]);
 
-	useEffect(async () => {
+	useEffect(() => {
 		let cancel = false;
-		const headers = await authHeader();
-		const response = await axios.get(membersPath(user.activeMember.bandPath), headers);
-
-		!cancel && setMembers(response.data);
-		return () => {
-			cancel = true;
-		};
-	}, []);
+		authHeader().then(config =>
+			axios
+				.get(membersPath(user.activeMember.bandPath), config)
+				.then(response => !cancel && setMembers(response.data)),
+		);
+		return () => (cancel = true);
+	}, [user]);
 
 	const handleChange = panel => (e, isExpanded) => setExpanded(isExpanded ? panel : false);
 
