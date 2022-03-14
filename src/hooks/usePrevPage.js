@@ -7,7 +7,6 @@ const useNav = page => {
 	useEffect(() => {
 		dispatch(setPage(page));
 		return () => dispatch(setPrevPage(page));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 };
 

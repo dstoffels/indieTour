@@ -17,11 +17,11 @@ import SignUpForm from '../../Auth/AuthForm/SignUp/SignUpForm.jsx';
 import './Home.css';
 
 const Home = props => {
+	useLogin();
 	const [signup, setSignup] = useState(false);
 
 	const handleSignup = () => setSignup(true);
 
-	useLogin();
 	return (
 		<Container>
 			<Card

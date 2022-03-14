@@ -22,10 +22,6 @@ body {
 	max-width: 300px !important;
 }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
 .centered {
 	position: absolute;
 	top: 50%;
@@ -33,15 +29,10 @@ body {
 	transform: translate(-50%, -50%);
 }
 
->>>>>>> Stashed changes
 .MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root:hover {
 	background-color: rgba(255, 255, 255, 0.05);
 }
 
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

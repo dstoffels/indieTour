@@ -11,6 +11,7 @@ export const setActiveBand = createAsyncThunk(SET_BAND, async (memberBand, thunk
 });
 
 const initialState = null;
+
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,

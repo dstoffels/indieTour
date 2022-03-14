@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-import { Login, , Settings } from '@mui/icons-material';
-import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
-=======
 import { Login, Settings } from '@mui/icons-material';
 import { Avatar, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import AuthForm from 'Components/Auth/AuthForm/AuthForm/AuthForm.jsx';
 import LogOutBtn from 'Components/Auth/LogOutBtn/LogOutBtn.jsx';
 import useUser from 'hooks/useUser.js';
->>>>>>> console
 import React, { useState } from 'react';
 
 const AccountMenu = props => {

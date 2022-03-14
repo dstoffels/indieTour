@@ -1,9 +1,9 @@
 import { MenuItem, Select } from '@mui/material';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { FormControl } from '@mui/material';
 import './Selector.css';
 
-const Selector = ({ id, options, nameKey, onChange, defaultSelection, className }) => {
+const Selector = memo(({ id, options, nameKey, onChange, defaultSelection, className }) => {
 	const [selected, setSelected] = useState(defaultSelection[nameKey]);
 
 	const handleChange = e => {
@@ -31,6 +31,6 @@ const Selector = ({ id, options, nameKey, onChange, defaultSelection, className 
 			</Select>
 		</FormControl>
 	);
-};
+});
 
 export default Selector;

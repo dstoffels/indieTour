@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import { HOME, WAITING_ROOM, CONSOLE, TODAY, BOOKING, DATES } from './constants/routes.js';
 import Home from './Components/Pages/Home/Home.jsx';
 import ConsolePage from './Components/Pages/Console/ConsolePage/ConsolePage.jsx';
-import AuthProvider from './Components/Auth/Provider/AuthProvider.jsx';
 import Navbar from './Components/Common/Navbar/Navbar/Navbar.jsx';
 import VerifyEmail from './Components/Pages/VerifyEmail/VerifyEmail.jsx';
 import BottomNav from './Components/Common/BottomNav/BottomNav.jsx';
@@ -13,6 +12,7 @@ import useUser from './hooks/useUser.js';
 import Booking from './Components/Pages/Booking/Booking.jsx';
 import Today from './Components/Pages/Today/Today.jsx';
 import Dates from './Components/Pages/Dates/Dates.jsx';
+import AuthProvider from 'Components/Auth/Authentication/AuthProvider.jsx';
 
 function App() {
 	const { user } = useUser();
