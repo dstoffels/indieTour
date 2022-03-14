@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 const Page = ({ route, children }) => {
-	useNav(route);
+	// useNav(route);
 	return (
 		<Container>
 			<Row className='justify-content-center'>{children}</Row>
