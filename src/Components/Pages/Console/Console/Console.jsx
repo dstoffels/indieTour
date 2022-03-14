@@ -1,8 +1,8 @@
-import { Container, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
+import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
+import { CONSOLE } from 'constants/routes.js';
+import useNav from 'hooks/usePrevPage.js';
 import React from 'react';
-import { CONSOLE } from '../../../../constants/routes.js';
-import useNav from '../../../../hooks/usePrevPage.js';
-import withAuthentication from '../../../Auth/Authentication/withAuthentication.jsx';
 import BandMembers from '../Bands/BandInfo/BandMembers/BandMembers.jsx';
 import BandSelector from '../Bands/BandSelector/BandSelector.jsx';
 import NewBandForm from '../Bands/NewBandForm/NewBandForm.jsx';

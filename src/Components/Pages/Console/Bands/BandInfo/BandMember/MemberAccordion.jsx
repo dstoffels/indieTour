@@ -1,11 +1,10 @@
-import { Delete, Edit, ExpandMore } from '@mui/icons-material';
+import { Edit, ExpandMore } from '@mui/icons-material';
 import {
 	Accordion,
 	AccordionDetails,
 	AccordionSummary,
 	Typography,
 	Stack,
-	Button,
 	IconButton,
 	Tooltip,
 } from '@mui/material';

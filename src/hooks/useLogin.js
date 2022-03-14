@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import { DATES } from '../constants/routes.js';
 import { fetchUserBands } from '../Redux/bandsSlice.js';
+=======
+import { fetchUserBands } from '../redux/bandsSlice.js';
+>>>>>>> console
 import useUser from './useUser.js';
 
 const useLogin = () => {

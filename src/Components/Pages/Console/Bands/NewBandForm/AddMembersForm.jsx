@@ -22,6 +22,7 @@ const AddMembersForm = ({ bandForm, setBandForm }) => {
 
 	useEffect(() => {
 		setBandForm({ ...bandForm, members });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [members]);
 
 	const memberFields = members.map((member, i) => (

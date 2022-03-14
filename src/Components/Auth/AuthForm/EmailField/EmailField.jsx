@@ -10,6 +10,7 @@ const EmailField = ({ value, onChange }) => (
 		label='Email'
 		required
 		fullWidth
+		InputLabelProps={{ sx: { color: 'white' } }}
 	/>
 );
 

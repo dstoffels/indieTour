@@ -7,17 +7,13 @@ import {
 	FactCheckOutlined,
 	InsertInvitation,
 	InsertInvitationOutlined,
-	PaidOutlined,
 	Settings,
 	SettingsOutlined,
-	Today,
-	TodayOutlined,
 } from '@mui/icons-material';
 
 import './BottomNav.css';
-import useUser from '../../../hooks/useUser.js';
 import { useSelector } from 'react-redux';
-import { BOOKING, CONSOLE, DATES, TODAY } from '../../../constants/routes.js';
+import { BOOKING, CONSOLE, DATES, TODAY } from 'constants/routes.js';
 import { useNavigate } from 'react-router-dom';
 
 const BottomNav = props => {

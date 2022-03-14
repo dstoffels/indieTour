@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { InputAdornment, Stack, Switch, Typography } from '@mui/material';
-import { ADMIN, MEMBER } from '../../../../../constants/roles.js';
+import { ADMIN, MEMBER } from 'constants/roles.js';
 
 const AdminSwitch = ({ setRole }) => {
 	const [isAdmin, setIsAdmin] = useState(false);
@@ -11,6 +11,7 @@ const AdminSwitch = ({ setRole }) => {
 	useEffect(() => {
 		const role = isAdmin ? ADMIN : MEMBER;
 		setRole(role);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isAdmin]);
 
 	return (

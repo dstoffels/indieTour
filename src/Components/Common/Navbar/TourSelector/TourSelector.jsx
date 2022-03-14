@@ -1,8 +1,6 @@
-import { MenuItem, Select } from '@mui/material';
-import React, { useState } from 'react';
-import { FormControl } from '@mui/material';
+import Selector from 'Components/Common/Selector/Selector.jsx';
+import React from 'react';
 import './TourSelector.css';
-import Selector from '../../Selector/Selector.jsx';
 
 const TourSelector = props => {
 	return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
 import AdminSwitch from './AdminSwitch.jsx';
-import { MEMBER } from '../../../../../constants/roles.js';
+import { MEMBER } from 'constants/roles.js';
 
 const MemberField = ({ i, value, onChange }) => {
 	const [role, setRole] = useState(MEMBER);
@@ -10,6 +10,7 @@ const MemberField = ({ i, value, onChange }) => {
 
 	useEffect(() => {
 		onChange(i, value, role);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [role]);
 
 	return (

@@ -49,9 +49,9 @@ const Home = props => {
 				<Divider />
 				<CardContent>
 					{signup ? (
-						<Paper className='p-2 w-100'>
+						<div className='p-2 w-100'>
 							<SignUpForm />
-						</Paper>
+						</div>
 					) : (
 						<Stack spacing={1}>
 							<Typography>Plot tours & manage booking</Typography>
