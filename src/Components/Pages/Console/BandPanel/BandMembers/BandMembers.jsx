@@ -4,8 +4,8 @@ import { membersPath } from 'constants/restPaths.js';
 import { authHeader } from 'fb/firebase.js';
 import useUser from 'hooks/useUser.js';
 import React, { useEffect, useState } from 'react';
-import useBands from '../../useBands.js';
-import MemberAccordion from '../BandMember/MemberAccordion.jsx';
+import useBands from '../../Bands/useBands.js';
+import MemberAccordion from './MemberAccordion.jsx';
 
 // TODO: move: add members btn to component
 // TODO: bld: add members form, must be reusable to display

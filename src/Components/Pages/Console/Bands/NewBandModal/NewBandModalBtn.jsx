@@ -1,19 +1,19 @@
 import { Add } from '@mui/icons-material';
 import { Fab, Tooltip } from '@mui/material';
 import React from 'react';
-import useBandModal from './useBandModal.js';
+import useBands from '../useBands.js';
 
-const BandModalBtn = props => {
-	const { openBandModal } = useBandModal();
+const NewBandModalBtn = props => {
+	const { openNewBandModal: openBandModal } = useBands();
 	const handleClick = () => openBandModal();
 
 	return (
 		<Tooltip title='Create new band'>
-			<Fab size='small' color='primary' onClick={handleClick}>
+			<Fab size='small' color='success' onClick={handleClick}>
 				<Add />
 			</Fab>
 		</Tooltip>
 	);
 };
 
-export default BandModalBtn;
+export default NewBandModalBtn;

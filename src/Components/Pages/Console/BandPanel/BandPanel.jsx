@@ -1,8 +1,7 @@
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import React from 'react';
-import BandMembers from '../Bands/BandInfo/BandMembers/BandMembers.jsx';
-import BandSelector from '../Bands/BandSelector/BandSelector.jsx';
-import BandModalBtn from '../Bands/NewBand/BandModal/BandModalBtn.jsx';
+import BandMembers from './BandMembers/BandMembers.jsx';
+import BandSelector from './BandSelector.jsx';
 import useBands from '../Bands/useBands.js';
 
 const BandPanel = props => {

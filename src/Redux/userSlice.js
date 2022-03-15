@@ -4,7 +4,6 @@ import { fetchUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
 import { fetchMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
 import { USER_PATH } from 'constants/restPaths.js';
 import { authHeader } from 'fb/firebase.js';
-import { beginLoading, endLoading, stopLoading } from './loading.js';
 
 const FETCH = 'user/fetchUser';
 export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
@@ -20,14 +19,15 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 
 const SET_BAND = 'user/setActiveBand';
 export const setActiveBandAndGetMembers = createAsyncThunk(SET_BAND, async (bandName, thunkAPI) => {
-	const { bands } = thunkAPI.getState();
+	const { dispatch, getState } = thunkAPI;
+	const { bands } = getState();
 	const memberBand = bands.find(band => band.bandName == bandName);
 
 	const config = await authHeader();
 	axios.put(USER_PATH, { activeMember: memberBand }, config);
 
-	thunkAPI.dispatch(userSlice.actions.setActiveBand(memberBand));
-	thunkAPI.dispatch(fetchMembers());
+	dispatch(userSlice.actions.setActiveBand(memberBand));
+	dispatch(fetchMembers());
 });
 
 const initialState = null;

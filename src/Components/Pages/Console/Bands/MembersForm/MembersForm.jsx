@@ -6,7 +6,7 @@ import { MEMBER } from 'constants/roles.js';
 const memberTemplate = { email: '', role: MEMBER, displayName: '' };
 
 const MembersForm = ({ bandForm, setBandForm }) => {
-	const [members, setMembers] = useState([]);
+	const [members, setMembers] = useState([...bandForm.members]);
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -25,7 +25,14 @@ const MembersForm = ({ bandForm, setBandForm }) => {
 	}, [members]);
 
 	const memberFields = members.map((member, i) => (
-		<MemberField key={i} i={i} value={members[i].email} onChange={handleChange} />
+		<MemberField
+			key={i}
+			i={i}
+			member={member}
+			onChange={handleChange}
+			members={[...members]}
+			setMembers={setMembers}
+		/>
 	));
 
 	return (

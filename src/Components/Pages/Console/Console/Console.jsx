@@ -3,9 +3,9 @@ import withAuthentication from 'Components/Auth/Authentication/withAuthenticatio
 import { CONSOLE } from 'constants/routes.js';
 import useNav from 'hooks/usePrevPage.js';
 import React from 'react';
-import BandMembers from '../Bands/BandInfo/BandMembers/BandMembers.jsx';
-import BandSelector from '../Bands/BandSelector/BandSelector.jsx';
-import NewBandForm from '../Bands/NewBandForm/NewBandForm.jsx';
+import BandMembers from '../BandPanel/BandMembers/BandMembers.jsx';
+import BandSelector from '../BandPanel/BandSelector.jsx';
+import NewBandForm from '../Bands/NewBand/NewBandForm/NewBandForm.jsx';
 import './Console.css';
 
 const Console = props => {

@@ -1,9 +1,9 @@
-import { MenuItem, Select } from '@mui/material';
-import React, { memo, useState } from 'react';
+import { Autocomplete, MenuItem, Select } from '@mui/material';
+import React, { memo, useEffect, useState } from 'react';
 import { FormControl } from '@mui/material';
 import './Selector.css';
 
-const Selector = memo(({ id, options, nameKey, onChange, defaultSelection, className }) => {
+const Selector = ({ id, options, nameKey, onChange, defaultSelection, className }) => {
 	const [selected, setSelected] = useState(defaultSelection[nameKey]);
 
 	const handleChange = e => {
@@ -11,14 +11,24 @@ const Selector = memo(({ id, options, nameKey, onChange, defaultSelection, class
 		onChange(e.target.value);
 	};
 
-	const menuItems = options.map(option => (
-		<MenuItem key={option[nameKey]} value={option[nameKey]}>
-			{option[nameKey]}
-		</MenuItem>
-	));
+	useEffect(() => {
+		setSelected(defaultSelection[nameKey]);
+	}, [defaultSelection]);
+
+	const menuItems = [...options]
+		.sort((a, b) => {
+			if (a[nameKey] < b[nameKey]) return -1;
+			if (a[nameKey] > b[nameKey]) return 1;
+			return 0;
+		})
+		.map(option => (
+			<MenuItem key={option[nameKey]} value={option[nameKey]}>
+				{option[nameKey]}
+			</MenuItem>
+		));
 
 	return (
-		<FormControl fullWidth className={`${className}`}>
+		<FormControl fullWidth className={`${className} selector`}>
 			<Select
 				placeholder=''
 				className={`selector`}
@@ -31,6 +41,6 @@ const Selector = memo(({ id, options, nameKey, onChange, defaultSelection, class
 			</Select>
 		</FormControl>
 	);
-});
+};
 
 export default Selector;
