@@ -1,16 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserBands } from './bandsSlice.js';
+import { useSelector } from 'react-redux';
 
 const useBands = () => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(fetchUserBands());
-	}, []);
-
 	const { bands } = useSelector(state => state);
+	const { members } = useSelector(state => state);
 
-	return { bands };
+	return { bands, members };
 };
 
 export default useBands;

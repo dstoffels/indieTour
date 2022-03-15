@@ -1,6 +1,6 @@
 import { Dialog } from '@mui/material';
 import React from 'react';
-import NewBandForm from '../NewBandForm.jsx';
+import NewBandForm from '../../NewBandForm/NewBandForm.jsx';
 import './BandModal.css';
 import useBandModal from './useBandModal.js';
 

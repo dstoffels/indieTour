@@ -1,7 +1,7 @@
 import { Divider, Stack, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import MembersForm from './MembersForm/MembersForm.jsx';
-import CreateBandBtn from './CreateBandBtn.jsx';
+import MembersForm from '../NewBand/MembersForm/MembersForm.jsx';
+import CreateBandBtn from '../NewBand/CreateBandBtn.jsx';
 import axios from 'axios';
 import { BANDS_PATH } from 'constants/restPaths.js';
 import { authHeader } from 'fb/firebase.js';

@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { USER_PATH } from 'constants/restPaths.js';
-import { auth, authHeader } from 'fb/firebase.js';
+import { clearUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
+import { clearMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
+import { auth } from 'fb/firebase.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { clearUser, setUser } from 'redux/userSlice.js';
+import { clearUser, fetchUser } from 'redux/userSlice.js';
 
 const AuthProvider = ({ children }) => {
 	const dispatch = useDispatch();
@@ -12,10 +12,10 @@ const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async user => {
 			if (user) {
-				const headers = await authHeader();
-				const response = await axios.get(USER_PATH, headers);
-				dispatch(setUser(response.data));
+				dispatch(fetchUser());
 			} else {
+				dispatch(clearUserBands());
+				dispatch(clearMembers());
 				dispatch(clearUser());
 			}
 		});

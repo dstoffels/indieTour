@@ -17,7 +17,9 @@ export const bandSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserBands: (state, action) => (state = action.payload),
+		clearUserBands: state => (state = initialState),
 	},
 });
 
+export const { clearUserBands } = bandSlice.actions;
 export const bands = bandSlice.reducer;

@@ -6,7 +6,6 @@ import withAuthentication from 'Components/Auth/Authentication/withAuthenticatio
 import axios from 'axios';
 import { USER_PATH } from 'constants/restPaths.js';
 import { useDispatch } from 'react-redux';
-import { setUser } from 'redux/userSlice.js';
 
 const VerifyEmail = props => {
 	const navigate = useNavigate();
@@ -14,9 +13,9 @@ const VerifyEmail = props => {
 	useEffect(() => {
 		const checkForVerify = setInterval(async () => {
 			const header = await authHeader();
-			const { emailVerified } = auth.currentUser;
-			const user = await axios.put(USER_PATH, { emailVerified }, header);
-			dispatch(setUser(user.data));
+			// const { emailVerified } = auth.currentUser;
+			// const user = await axios.put(USER_PATH, { emailVerified }, header);
+			// dispatch(setUser(user.data));
 			auth.currentUser.emailVerified && navigate(HOME);
 		}, 2000);
 		return () => clearInterval(checkForVerify);

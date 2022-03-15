@@ -6,7 +6,7 @@ const Panel = ({ title = '', children }) => {
 	const header = Boolean(title) && <h3 className='panel-header'>{title}</h3>;
 
 	return (
-		<Col sm={12} md={6} className='text-center'>
+		<Col sm={12} md={6} className='text-center mt-2'>
 			{header}
 			{children}
 		</Col>

@@ -18,7 +18,7 @@ const Selector = memo(({ id, options, nameKey, onChange, defaultSelection, class
 	));
 
 	return (
-		<FormControl fullWidth className={`${className} selector`}>
+		<FormControl fullWidth className={`${className}`}>
 			<Select
 				placeholder=''
 				className={`selector`}
