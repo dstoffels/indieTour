@@ -1,12 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
 import { showNewBandModal } from './NewBandModal/newBandModalSlice.js';
-import { createNewBand, editBand } from './bandsSlice.js';
+import { createNewBand, deleteActiveBand, editBand } from './bandsSlice.js';
 import { showEditBandModal } from './EditBandModal/EditBandModalSlice.js';
+import { showDeleteBandModal } from './DeleteBandModal/DeleteBandModalSlice.js';
 
 const useBands = () => {
 	const dispatch = useDispatch();
-	const { bands, members, newBandModal, editBandModal, user } = useSelector(state => state);
+	const { bands, members, newBandModal, editBandModal, user, deleteBandModal } = useSelector(
+		state => state,
+	);
 	const activeMember = user?.activeMember;
 
 	const selectBand = bandName => dispatch(setActiveBandAndGetMembers(bandName));
@@ -21,6 +24,11 @@ const useBands = () => {
 	const closeEditBandModal = () => dispatch(showEditBandModal(false));
 	const updateBand = form => dispatch(editBand(form));
 
+	// Delete Band
+	const openDeleteBandModal = () => dispatch(showDeleteBandModal(true));
+	const closeDeleteBandModal = () => dispatch(showDeleteBandModal(false));
+	const deleteBand = () => dispatch(deleteActiveBand());
+
 	return {
 		bands,
 		members,
@@ -34,6 +42,10 @@ const useBands = () => {
 		openEditBandModal,
 		closeEditBandModal,
 		updateBand,
+		deleteBandModal,
+		openDeleteBandModal,
+		closeDeleteBandModal,
+		deleteBand,
 	};
 };
 
