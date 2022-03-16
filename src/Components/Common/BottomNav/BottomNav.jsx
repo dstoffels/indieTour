@@ -36,7 +36,13 @@ const BottomNav = memo(props => {
 				<BottomNavigationAction
 					label='Today'
 					value={TODAY}
-					icon={value === TODAY ? <InsertInvitation /> : <InsertInvitationOutlined />}
+					icon={
+						value === TODAY ? (
+							<InsertInvitation color='inherit' />
+						) : (
+							<InsertInvitationOutlined color='inherit' />
+						)
+					}
 				/>
 				<BottomNavigationAction
 					label='Dates'

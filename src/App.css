@@ -1,21 +1,5 @@
-* {
-	color: rgb(225, 225, 225);
-}
-
-body {
-	background-color: rgb(85, 85, 85);
-}
-
-.bg-lt-grey {
-	background-color: rgb(85, 85, 85) !important;
-}
-
-.bg-med-grey {
-	background-color: rgb(62, 62, 62) !important;
-}
-
-.bg-dark-grey {
-	background-color: rgb(44, 44, 44) !important;
+.color-tester {
+	color: rgb(177, 209, 236);
 }
 
 .mobile-max-w {
@@ -27,10 +11,6 @@ body {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}
-
-.MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root:hover {
-	background-color: rgba(255, 255, 255, 0.05);
 }
 
 input:-webkit-autofill,

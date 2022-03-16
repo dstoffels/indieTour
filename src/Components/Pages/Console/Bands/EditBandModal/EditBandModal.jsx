@@ -1,6 +1,8 @@
-import { Dialog } from '@mui/material';
+import { Button, Dialog, Stack } from '@mui/material';
 import React from 'react';
 import BandForm from '../BandForm/BandForm.jsx';
+import DeleteBandModal from '../DeleteBandModal/DeleteBandModal.jsx';
+import DeleteBandModalBtn from '../DeleteBandModal/DeleteBandModalBtn.jsx';
 import useBands from '../useBands.js';
 import EditBandBtn from './EditBandBtn.jsx';
 
@@ -16,17 +18,33 @@ const EditBandModal = props => {
 	const handleSubmit = form => updateBand(form);
 
 	return (
-		<Dialog fullWidth open={editBandModal} onClose={closeEditBandModal}>
-			<div>
+		<>
+			<DeleteBandModal />
+			<Dialog className='bg-med-grey' fullWidth open={editBandModal} onClose={closeEditBandModal}>
 				<BandForm
 					title={`Editing ${activeMember?.bandName}`}
 					id={EDIT_BAND_FORM_ID}
 					onSubmit={handleSubmit}
-					submitBtn={<EditBandBtn />}
 					values={values}
+					submitBtn={
+						<Stack spacing={2}>
+							<EditBandBtn />
+							<Stack direction='row' spacing={2}>
+								<DeleteBandModalBtn />
+								<Button
+									onClick={closeEditBandModal}
+									fullWidth
+									size='small'
+									color='warning'
+									variant='contained'>
+									CANCEL
+								</Button>
+							</Stack>
+						</Stack>
+					}
 				/>
-			</div>
-		</Dialog>
+			</Dialog>
+		</>
 	);
 };
 

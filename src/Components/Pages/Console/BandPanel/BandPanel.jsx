@@ -3,6 +3,7 @@ import React from 'react';
 import BandMembers from './BandMembers/BandMembers.jsx';
 import BandSelector from './BandSelector.jsx';
 import useBands from '../Bands/useBands.js';
+import NewBandModalBtn from '../Bands/NewBandModal/NewBandModalBtn.jsx';
 
 const BandPanel = props => {
 	// STATE
@@ -20,6 +21,9 @@ const BandPanel = props => {
 				) : (
 					`You're not a member of any bands yet!`
 				)}
+				<div>
+					<NewBandModalBtn />
+				</div>
 			</Panel.Section>
 		</Panel>
 	);

@@ -3,7 +3,9 @@ import axios from 'axios';
 import { useBandPath, BANDS_PATH } from 'constants/restPaths.js';
 import { authHeader } from 'fb/firebase.js';
 import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
+import { showDeleteBandModal } from './DeleteBandModal/DeleteBandModalSlice.js';
 import { showEditBandModal } from './EditBandModal/EditBandModalSlice.js';
+import { fetchMembers } from './membersSlice.js';
 import { showNewBandModal } from './NewBandModal/newBandModalSlice.js';
 
 const FETCH = 'bands/fetchUserBands';
@@ -30,22 +32,27 @@ export const editBand = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 	const { activeMember } = getState().user;
 
 	const config = await authHeader();
-	await axios.put(useBandPath(activeMember.bandPath), form, config);
-	await dispatch(fetchUserBands());
-	await dispatch(setActiveBandAndGetMembers(form.name));
+	const response = await axios.put(useBandPath(activeMember.bandPath), form, config);
+	dispatch(setUserBands(response.data));
+	await dispatch(fetchMembers());
+
 	dispatch(showEditBandModal(false));
 });
 
 const DELETE = 'bands/delete';
 export const deleteActiveBand = createAsyncThunk(DELETE, async (_, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
-	const { user, bands } = getState();
+	const { user } = getState();
 
 	const config = await authHeader();
-	await axios.delete(useBandPath(user.activeMember.bandPath), config);
+	const response = await axios.delete(useBandPath(user.activeMember.bandPath), config);
+	dispatch(setUserBands(response.data));
 
-	await dispatch(fetchUserBands());
+	const { bands } = getState();
 	await dispatch(setActiveBandAndGetMembers(bands[0].bandName));
+
+	dispatch(showEditBandModal(false));
+	dispatch(showDeleteBandModal(false));
 });
 
 const initialState = [];
@@ -58,5 +65,5 @@ export const bandSlice = createSlice({
 	},
 });
 
-export const { clearUserBands } = bandSlice.actions;
+export const { clearUserBands, setUserBands } = bandSlice.actions;
 export const bands = bandSlice.reducer;

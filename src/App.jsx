@@ -13,12 +13,15 @@ import Booking from './Components/Pages/Booking/Booking.jsx';
 import Today from './Components/Pages/Today/Today.jsx';
 import Dates from './Components/Pages/Dates/Dates.jsx';
 import AuthProvider from 'Components/Auth/Authentication/AuthProvider.jsx';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from 'constants/theme.js';
 
 function App() {
 	const { user } = useUser();
 
 	return (
-		<>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
 			<Navbar />
 			<AuthProvider>
 				<Routes>
@@ -31,7 +34,7 @@ function App() {
 				</Routes>
 			</AuthProvider>
 			{Boolean(user) && <BottomNav />}
-		</>
+		</ThemeProvider>
 	);
 }
 

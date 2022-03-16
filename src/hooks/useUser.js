@@ -4,6 +4,7 @@ import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
 const useUser = () => {
 	const dispatch = useDispatch();
 	const { user, bands } = useSelector(state => state);
+	const role = user?.activeMember?.role;
 
 	const selectBand = bandName => dispatch(setActiveBandAndGetMembers(bandName));
 
@@ -11,7 +12,7 @@ const useUser = () => {
 		// add tours
 	};
 
-	return { user, selectBand };
+	return { user, role, selectBand };
 };
 
 export default useUser;

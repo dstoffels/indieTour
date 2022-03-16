@@ -17,12 +17,7 @@ const AdminSwitch = ({ role, setRole }) => {
 		<InputAdornment position='end'>
 			<Stack>
 				<Typography variant='caption'>Admin</Typography>
-				<Switch
-					defaultChecked={role === ADMIN}
-					size='small'
-					value={isAdmin}
-					onChange={handleChange}
-				/>
+				<Switch checked={role === ADMIN} size='small' onChange={handleChange} />
 			</Stack>
 		</InputAdornment>
 	);

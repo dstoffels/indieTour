@@ -1,19 +1,24 @@
 import React from 'react';
-import { IconButton } from '@mui/material';
+import { Fab, IconButton } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import useBands from '../useBands.js';
+import withAdmin from 'Components/Auth/Authorization/withAdmin.jsx';
 
 const EditBandModalBtn = props => {
 	const { openEditBandModal } = useBands();
 	const handleClick = () => openEditBandModal();
 
 	return (
-		<span className='ms-3'>
-			<IconButton onClick={handleClick}>
-				<Edit />
-			</IconButton>
-		</span>
+		<Fab
+			size='small'
+			variant='extended'
+			hidden={false}
+			color='icon'
+			onClick={handleClick}
+			className='ms-5'>
+			<Edit />
+		</Fab>
 	);
 };
 
-export default EditBandModalBtn;
+export default withAdmin(EditBandModalBtn);

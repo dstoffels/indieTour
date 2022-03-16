@@ -13,21 +13,21 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 	const response = await axios.get(USER_PATH, config);
 
 	dispatch(userSlice.actions.setUser(response.data));
-	dispatch(fetchUserBands());
-	dispatch(fetchMembers());
+	await dispatch(fetchUserBands());
+	await dispatch(fetchMembers());
 });
 
 const SET_BAND = 'user/setActiveBand';
 export const setActiveBandAndGetMembers = createAsyncThunk(SET_BAND, async (bandName, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 	const { bands } = getState();
-	const memberBand = bands.find(band => band.bandName == bandName);
+	const memberBand = bands.find(band => band.bandName === bandName);
 
 	const config = await authHeader();
-	axios.put(USER_PATH, { activeMember: memberBand }, config);
+	await axios.put(USER_PATH, { activeMember: memberBand }, config);
 
 	dispatch(userSlice.actions.setActiveBand(memberBand));
-	dispatch(fetchMembers());
+	await dispatch(fetchMembers());
 });
 
 const initialState = null;

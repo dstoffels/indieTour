@@ -4,11 +4,11 @@
 	left: 0;
 	right: 0;
 	padding-bottom: 1vh;
-	background-color: rgb(68, 68, 68) !important;
+	/* background-color: rgb(68, 68, 68) !important; */
 }
 
 .bottom-nav {
-	background-color: rgb(68, 68, 68) !important;
+	/* background-color: rgb(68, 68, 68) !important; */
 }
 
 button.Mui-selected {
