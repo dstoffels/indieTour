@@ -43,7 +43,6 @@ const BandForm = ({ title, id, onSubmit, submitBtn, values = initialState }) => 
 
 			<Divider />
 			<MembersForm bandForm={form} setBandForm={setForm} />
-			<Divider />
 			{submitBtn}
 		</div>
 	);

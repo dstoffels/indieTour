@@ -14,8 +14,6 @@ import useLogin from '../../../hooks/useLogin.js';
 import SignUpBtn from '../../Auth/AuthForm/SignUp/SignUpBtn.jsx';
 import SignUpForm from '../../Auth/AuthForm/SignUp/SignUpForm.jsx';
 
-import './Home.css';
-
 const Home = props => {
 	useLogin();
 	const [signup, setSignup] = useState(false);

@@ -4,7 +4,7 @@ import { HOME } from 'constants/routes.js';
 import { auth, authHeader } from 'fb/firebase.js';
 import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
 import axios from 'axios';
-import { USER_PATH } from 'constants/restPaths.js';
+import { USER_PATH } from 'utils/restPaths.js';
 import { useDispatch } from 'react-redux';
 
 const VerifyEmail = props => {

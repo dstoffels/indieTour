@@ -1,5 +1,5 @@
 import { Clear } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import React from 'react';
 
 const RemoveMemberBtn = ({ i, members, setMembers }) => {
@@ -8,8 +8,8 @@ const RemoveMemberBtn = ({ i, members, setMembers }) => {
 		setMembers([...members]);
 	};
 	return (
-		<IconButton onClick={handleClick}>
-			<Clear sx={{ color: 'red !important' }} />
+		<IconButton variant='contained' color='error' size='small' onClick={handleClick}>
+			<Clear />
 		</IconButton>
 	);
 };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { USER_PATH } from 'constants/restPaths.js';
+import { USER_PATH } from 'utils/restPaths.js';
 import { initializeApp } from 'firebase/app';
 import {
 	createUserWithEmailAndPassword,

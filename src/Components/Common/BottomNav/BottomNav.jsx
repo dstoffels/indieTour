@@ -32,7 +32,7 @@ const BottomNav = memo(props => {
 
 	return (
 		<Paper className='bottom-nav-wrapper' elevation={5}>
-			<BottomNavigation value={value} onChange={handleChange} className='bottom-nav' showLabels>
+			<BottomNavigation value={value} onChange={handleChange} showLabels>
 				<BottomNavigationAction
 					label='Today'
 					value={TODAY}

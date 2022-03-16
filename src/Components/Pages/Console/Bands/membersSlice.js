@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { membersPath } from 'constants/restPaths.js';
-import { authHeader } from 'fb/firebase.js';
+import { membersPath } from 'utils/restPaths.js';
 
 const FETCH = 'members/fetchMembers';
 export const fetchMembers = createAsyncThunk(FETCH, async (_, thunkAPI) => {
-	const { activeMember } = thunkAPI.getState().user;
-	const config = await authHeader();
-	const response = await axios.get(membersPath(activeMember.bandPath), config);
-	thunkAPI.dispatch(membersSlice.actions.setMembers(response.data));
+	const { user, token } = thunkAPI.getState();
+	if (token) {
+		const response = await axios.get(membersPath(user.activeMember.bandPath), token);
+		thunkAPI.dispatch(membersSlice.actions.setMembers(response.data));
+	}
 });
 
 const initialState = [];

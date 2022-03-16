@@ -1,33 +1,54 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { fetchToken } from 'Components/Auth/Authentication/authSlice.js';
 import { fetchUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
 import { fetchMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
-import { USER_PATH } from 'constants/restPaths.js';
-import { authHeader } from 'fb/firebase.js';
+import { fetchTours } from 'Components/Pages/Console/Tours/toursSlice.js';
+import { USER_PATH } from 'utils/restPaths.js';
 
 const FETCH = 'user/fetchUser';
 export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
-	const { dispatch } = thunkAPI;
+	const { dispatch, getState } = thunkAPI;
+	const { token } = getState();
 
-	const config = await authHeader();
-	const response = await axios.get(USER_PATH, config);
-
-	dispatch(userSlice.actions.setUser(response.data));
-	await dispatch(fetchUserBands());
-	await dispatch(fetchMembers());
+	if (token) {
+		const response = await axios.get(USER_PATH, token);
+		dispatch(userSlice.actions.setUser(response.data));
+		await dispatch(fetchUserBands());
+		await dispatch(fetchMembers());
+		await dispatch(fetchTours());
+	} else {
+		await dispatch(fetchToken());
+		dispatch(fetchUser());
+	}
 });
 
 const SET_BAND = 'user/setActiveBand';
 export const setActiveBandAndGetMembers = createAsyncThunk(SET_BAND, async (bandName, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
-	const { bands } = getState();
-	const memberBand = bands.find(band => band.bandName === bandName);
+	const { bands, token } = getState();
 
-	const config = await authHeader();
-	await axios.put(USER_PATH, { activeMember: memberBand }, config);
+	if (token) {
+		const memberBand = bands.find(band => band.bandName === bandName);
+		await axios.put(USER_PATH, { activeMember: memberBand }, token);
 
-	dispatch(userSlice.actions.setActiveBand(memberBand));
-	await dispatch(fetchMembers());
+		dispatch(userSlice.actions.setActiveBand(memberBand));
+		await dispatch(fetchMembers());
+	}
+});
+
+const SET_TOUR = 'user/setActiveTour';
+export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tourId, thunkAPI) => {
+	const { dispatch, getState } = thunkAPI;
+	const { tours, token } = getState();
+
+	if (token) {
+		const tour = tours.find(tour => tour.id === tourId);
+		await axios.put(USER_PATH, { activeTour: tour }, token);
+
+		dispatch(userSlice.actions.setActiveTour(tour));
+		// fetch dates
+	}
 });
 
 const initialState = null;

@@ -14,7 +14,7 @@ import Today from './Components/Pages/Today/Today.jsx';
 import Dates from './Components/Pages/Dates/Dates.jsx';
 import AuthProvider from 'Components/Auth/Authentication/AuthProvider.jsx';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import theme from 'constants/theme.js';
+import theme from 'theme/theme.js';
 
 function App() {
 	const { user } = useUser();

@@ -2,8 +2,8 @@ import React from 'react';
 import Selector from 'Components/Common/Selector/Selector.jsx';
 import useUser from 'hooks/useUser.js';
 import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
-import useBands from '../Bands/useBands.js';
-import EditBandModalBtn from '../Bands/EditBandModal/EditBandModalBtn.jsx';
+import useBands from '../useBands.js';
+import EditBandModalBtn from '../EditBandModal/EditBandModalBtn.jsx';
 
 const BandSelector = props => {
 	const { user } = useUser();

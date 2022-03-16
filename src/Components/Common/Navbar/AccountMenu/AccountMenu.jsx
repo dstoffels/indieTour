@@ -1,18 +1,10 @@
 import { Login, Settings } from '@mui/icons-material';
-import {
-	Avatar,
-	Button,
-	IconButton,
-	ListItemIcon,
-	Menu,
-	MenuItem,
-	Typography,
-} from '@mui/material';
+import { Avatar, Button, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material';
 import AuthForm from 'Components/Auth/AuthForm/AuthForm/AuthForm.jsx';
 import LogOutBtn from 'Components/Auth/LogOutBtn/LogOutBtn.jsx';
-import { colors } from 'constants/theme.js';
 import useUser from 'hooks/useUser.js';
 import React, { useState } from 'react';
+import palette from 'theme/palette';
 
 const AccountMenu = props => {
 	// STATE
@@ -33,9 +25,9 @@ const AccountMenu = props => {
 			</MenuItem>,
 			<MenuItem key='settings-btn'>
 				<ListItemIcon>
-					<Settings htmlColor={colors.text} />
+					<Settings color='primary' />
 				</ListItemIcon>
-				Settings
+				<Typography color='primary'>Settings</Typography>
 			</MenuItem>,
 			<LogOutBtn key='logout-btn' />,
 		]
@@ -45,13 +37,15 @@ const AccountMenu = props => {
 
 	return (
 		<div>
-			<Button sx={{ textTransform: 'none' }} onClick={handleClick} size='small' color='icon'>
+			<Button sx={{ textTransform: 'none' }} onClick={handleClick} size='small' color='secondary'>
 				{user ? (
-					<Avatar sx={{ width: 32, height: 32 }}>{user?.displayName?.charAt(0)}</Avatar>
+					<Avatar sx={{ width: 32, height: 32, bgcolor: 'lavender' }}>
+						{user?.displayName?.charAt(0)}
+					</Avatar>
 				) : (
 					<>
 						<Typography className='me-1'>Login</Typography>
-						<Login color='icon' />
+						<Login />
 					</>
 				)}
 			</Button>

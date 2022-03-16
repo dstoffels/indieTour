@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearUser, fetchUser } from 'redux/userSlice.js';
+import { clearToken, fetchToken } from './authSlice.js';
 
 const AuthProvider = ({ children }) => {
 	const dispatch = useDispatch();
@@ -12,8 +13,10 @@ const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async user => {
 			if (user) {
-				dispatch(fetchUser());
+				await dispatch(fetchToken());
+				await dispatch(fetchUser());
 			} else {
+				dispatch(clearToken());
 				dispatch(clearUserBands());
 				dispatch(clearMembers());
 				dispatch(clearUser());

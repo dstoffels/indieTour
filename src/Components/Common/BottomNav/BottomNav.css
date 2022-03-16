@@ -7,10 +7,6 @@
 	/* background-color: rgb(68, 68, 68) !important; */
 }
 
-.bottom-nav {
-	/* background-color: rgb(68, 68, 68) !important; */
-}
-
 button.Mui-selected {
 	--selected-color: rgb(116, 171, 241);
 	border-top: 3px solid var(--selected-color);

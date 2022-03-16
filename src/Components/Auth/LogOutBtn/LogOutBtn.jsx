@@ -1,10 +1,10 @@
 import { Logout } from '@mui/icons-material';
-import { ListItemIcon, MenuItem } from '@mui/material';
+import { ListItemIcon, MenuItem, Typography } from '@mui/material';
 import { HOME } from 'constants/routes.js';
-import { colors } from 'constants/theme.js';
 import { logOut } from 'fb/firebase.js';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import palette from 'theme/palette.js';
 
 const LogOutBtn = props => {
 	const navigate = useNavigate();
@@ -15,9 +15,9 @@ const LogOutBtn = props => {
 	return (
 		<MenuItem onClick={handleClick}>
 			<ListItemIcon>
-				<Logout htmlColor={colors.text} />
+				<Logout color='primary' />
 			</ListItemIcon>
-			Logout
+			<Typography color='primary'>Logout</Typography>
 		</MenuItem>
 	);
 };
