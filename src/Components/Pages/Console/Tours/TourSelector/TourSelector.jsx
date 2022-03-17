@@ -10,7 +10,7 @@ const TourSelector = memo(props => {
 	const { tours, selectTour } = useTours();
 	const handleChange = tourName => selectTour(tourName);
 
-	if (user.activeTour && tours.length) {
+	if (user?.activeTour && tours.length) {
 		return (
 			<Selector
 				onChange={handleChange}

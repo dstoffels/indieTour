@@ -11,7 +11,7 @@ const BandSelector = props => {
 	const { bands, selectBand } = useBands();
 	const handleChange = bandName => selectBand(bandName);
 
-	if (user && bands.length) {
+	if (user?.activeMember && bands.length) {
 		return (
 			<>
 				<h6 className='panel-header'>Active Band</h6>

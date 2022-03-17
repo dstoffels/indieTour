@@ -20,7 +20,7 @@ const VerifyEmail = props => {
 			const { emailVerified } = currentUser;
 			const user = await axios.put(USER_PATH, { emailVerified }, token);
 			dispatch(setUser(user.data));
-			user.emailVerified && navigate(CONSOLE);
+			currentUser.emailVerified && navigate(CONSOLE);
 		}, 2000);
 		return () => clearInterval(checkForVerify);
 	}, []);

@@ -30,10 +30,11 @@ export const setActiveBandAndGetMembers = createAsyncThunk(SET_BAND, async (band
 
 	if (token) {
 		let memberBand = bands.find(band => band.bandName === bandName);
-		memberBand = memberBand ? memberBand : bands[0];
-		await axios.put(USER_PATH, { activeMember: memberBand }, token);
-
+		memberBand = memberBand ? memberBand : bands[0] ? bands[0] : null;
+		const response = await axios.put(USER_PATH, { activeMember: memberBand }, token);
+		dispatch(setUser(response.data));
 		dispatch(userSlice.actions.setActiveBand(memberBand));
+		await dispatch(fetchTours());
 		await dispatch(fetchMembers());
 	}
 });

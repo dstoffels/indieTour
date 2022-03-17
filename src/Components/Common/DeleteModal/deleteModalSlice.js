@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const deleteModalSlice = createSlice({
 	name: 'deleteModal',
-	initialState: null,
+	initialState: '',
 	reducers: {
 		showDeleteModal: (state, action) => action.payload,
 		closeDeleteModal: () => '',
