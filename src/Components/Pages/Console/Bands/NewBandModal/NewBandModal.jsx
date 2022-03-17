@@ -1,4 +1,4 @@
-import { Dialog } from '@mui/material';
+import { Dialog, Paper } from '@mui/material';
 import React from 'react';
 import BandForm from '../BandForm/BandForm.jsx';
 import CreateBandBtn from '../BandForm/CreateBandBtn.jsx';
@@ -12,16 +12,14 @@ const NewBandModal = props => {
 	const handleSubmit = form => createBand(form);
 
 	return (
-		<Dialog fullWidth open={newBandModal} onClose={handleClose}>
-			<div>
-				<BandForm
-					title='Create new band'
-					id={NEW_BAND_FORM_ID}
-					onSubmit={handleSubmit}
-					submitBtn={<CreateBandBtn />}
-				/>
-			</div>
-		</Dialog>
+		<Paper>
+			<BandForm
+				title='Create new band'
+				id={NEW_BAND_FORM_ID}
+				onSubmit={handleSubmit}
+				submitBtn={<CreateBandBtn />}
+			/>
+		</Paper>
 	);
 };
 

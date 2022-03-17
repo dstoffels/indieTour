@@ -29,7 +29,8 @@ export const setActiveBandAndGetMembers = createAsyncThunk(SET_BAND, async (band
 	const { bands, token } = getState();
 
 	if (token) {
-		const memberBand = bands.find(band => band.bandName === bandName);
+		let memberBand = bands.find(band => band.bandName === bandName);
+		memberBand = memberBand ? memberBand : bands[0];
 		await axios.put(USER_PATH, { activeMember: memberBand }, token);
 
 		dispatch(userSlice.actions.setActiveBand(memberBand));
@@ -67,5 +68,5 @@ export const userSlice = createSlice({
 	},
 });
 
-export const { clearUser } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 export const user = userSlice.reducer;

@@ -6,7 +6,7 @@ import TourSelector from '../TourSelector/TourSelector.jsx';
 const TourPanel = props => {
 	const { tours } = useTours();
 
-	const displayTours = tours.map(tour => <li>{tour.name}</li>);
+	const displayTours = tours.map(tour => <li key={tour.name}>{tour.name}</li>);
 
 	return (
 		<Panel title='TOURS'>

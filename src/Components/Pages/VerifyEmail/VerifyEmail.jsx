@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HOME } from 'constants/routes.js';
-import { auth, authHeader } from 'fb/firebase.js';
+import { CONSOLE, HOME } from 'constants/routes.js';
+import { auth } from 'fb/firebase.js';
 import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
 import axios from 'axios';
 import { USER_PATH } from 'utils/restPaths.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from 'redux/userSlice.js';
 
 const VerifyEmail = props => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { token } = useSelector(state => state);
+
 	useEffect(() => {
 		const checkForVerify = setInterval(async () => {
-			const header = await authHeader();
-			// const { emailVerified } = auth.currentUser;
-			// const user = await axios.put(USER_PATH, { emailVerified }, header);
-			// dispatch(setUser(user.data));
-			auth.currentUser.emailVerified && navigate(HOME);
+			const { currentUser } = auth;
+			currentUser.reload();
+			const { emailVerified } = currentUser;
+			const user = await axios.put(USER_PATH, { emailVerified }, token);
+			dispatch(setUser(user.data));
+			user.emailVerified && navigate(CONSOLE);
 		}, 2000);
 		return () => clearInterval(checkForVerify);
 	}, []);

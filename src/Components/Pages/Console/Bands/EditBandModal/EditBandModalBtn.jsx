@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Fab, IconButton, Tooltip } from '@mui/material';
-import { BorderAll, Edit } from '@mui/icons-material';
-import useBands from '../useBands.js';
+import { Fab, Tooltip } from '@mui/material';
+import { Edit } from '@mui/icons-material';
 import withAdmin from 'Components/Auth/Authorization/withAdmin.jsx';
+import useModal from 'Components/Common/MainModal/useModal.js';
 
 const EditBandModalBtn = props => {
-	const { openEditBandModal } = useBands();
-	const handleClick = () => openEditBandModal();
+	const { openMainModal, modalKeys } = useModal();
+	const handleClick = () => openMainModal(modalKeys.editBand);
 
 	return (
 		<Tooltip title='Edit band & manage members'>

@@ -1,15 +1,18 @@
 import { Dialog } from '@mui/material';
+import EditBandModal from 'Components/Pages/Console/Bands/EditBandModal/EditBandModal.jsx';
+import NewBandModal from 'Components/Pages/Console/Bands/NewBandModal/NewBandModal.jsx';
 import React from 'react';
 import DeleteModal from '../DeleteModal/DeleteModal.jsx';
 import useModal from './useModal.js';
 
-const MainModal = ({ modal, deleteModal = null }) => {
-	const { modal } = useModal();
+const MainModal = props => {
+	const { modals, mainModal, closeMainModal } = useModal();
+
 	return (
 		<>
-			<DeleteModal modal={deleteModal} />
-			<Dialog className='bg-med-grey' fullWidth open={modal} onClose={() => {}}>
-				{modal}
+			<DeleteModal />
+			<Dialog fullWidth open={Boolean(mainModal)} onClose={closeMainModal}>
+				{modals[mainModal]}
 			</Dialog>
 		</>
 	);

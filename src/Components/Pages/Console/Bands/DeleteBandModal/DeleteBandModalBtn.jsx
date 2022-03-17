@@ -1,11 +1,11 @@
 import { Delete } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import useModal from 'Components/Common/MainModal/useModal.js';
 import React from 'react';
-import useBands from '../useBands.js';
 
 const DeleteBandModalBtn = props => {
-	const { openDeleteBandModal } = useBands();
-	const handleClick = () => openDeleteBandModal();
+	const { openDeleteModal, modalKeys } = useModal();
+	const handleClick = () => openDeleteModal(modalKeys.delBand);
 	return (
 		<Button fullWidth size='small' color='error' onClick={handleClick} variant='contained'>
 			<Delete />

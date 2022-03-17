@@ -2,10 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getBandPath, BANDS_PATH } from 'utils/restPaths.js';
 import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
-import { showDeleteBandModal } from './DeleteBandModal/DeleteBandModalSlice.js';
-import { showEditBandModal } from './EditBandModal/EditBandModalSlice.js';
 import { fetchMembers } from './membersSlice.js';
-import { showNewBandModal } from './NewBandModal/newBandModalSlice.js';
+import { closeModal } from 'Components/Common/MainModal/mainModalSlice.js';
+import { closeDeleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
 
 const FETCH = 'bands/fetchUserBands';
 export const fetchUserBands = createAsyncThunk(FETCH, async (_, thunkAPI) => {
@@ -24,7 +23,7 @@ export const createNewBand = createAsyncThunk(NEW, async (form, thunkAPI) => {
 		await axios.post(BANDS_PATH + '/new', form, token);
 		await dispatch(fetchUserBands());
 		await dispatch(setActiveBandAndGetMembers(form.name));
-		dispatch(showNewBandModal(false));
+		dispatch(closeModal());
 	}
 });
 
@@ -35,26 +34,25 @@ export const editBand = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 
 	if (token) {
 		const response = await axios.put(getBandPath(user.activeMember.bandId), form, token);
-		dispatch(bandSlice.actions.updateUserBands(response.data));
-		await dispatch(fetchMembers());
-		dispatch(showEditBandModal(false));
+		await dispatch(fetchUserBands());
+		await dispatch(setActiveBandAndGetMembers(response.data.bandName));
+		dispatch(closeModal());
 	}
 });
 
 const DELETE = 'bands/delete';
 export const deleteActiveBand = createAsyncThunk(DELETE, async (_, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
-	const { user, bands, token } = getState();
+	const { user, token } = getState();
 
 	if (token) {
 		const response = await axios.delete(getBandPath(user.activeMember.bandId), token);
 
-		dispatch(showDeleteBandModal(false));
-		dispatch(showEditBandModal(false));
+		dispatch(closeDeleteModal());
+		dispatch(closeModal(false));
 
 		dispatch(setUserBands(response.data));
-
-		await dispatch(setActiveBandAndGetMembers(bands[0].bandName));
+		await dispatch(setActiveBandAndGetMembers());
 	}
 });
 

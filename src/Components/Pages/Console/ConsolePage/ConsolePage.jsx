@@ -1,4 +1,5 @@
 import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
+import MainModal from 'Components/Common/MainModal/MainModal.jsx';
 import Page from 'Components/Common/Page/Page.jsx';
 import { CONSOLE } from 'constants/routes.js';
 import React from 'react';
@@ -11,8 +12,9 @@ import './Console.css';
 const ConsolePage = props => {
 	return (
 		<Page route={CONSOLE}>
-			<NewBandModal />
-			<EditBandModal />
+			<MainModal />
+			{/* <NewBandModal /> */}
+			{/* <EditBandModal /> */}
 			<BandPanel />
 			<TourPanel />
 		</Page>
