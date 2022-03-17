@@ -16,6 +16,13 @@ const Panel = ({ title = '', children }) => {
 	);
 };
 
+Panel.Section = ({ title, children }) => {
+	return (
+		<Card elevation={0}>
+			<CardContent>{children}</CardContent>
+		</Card>
+	);
+};
 Panel.Divider = props => <Divider className='my-4' />;
 
 export default Panel;
