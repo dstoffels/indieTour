@@ -7,6 +7,9 @@ import { editBandModal } from 'Components/Pages/Console/Bands/EditBandModal/Edit
 import { deleteBandModal } from 'Components/Pages/Console/Bands/DeleteBandModal/DeleteBandModalSlice.js';
 import { tours } from 'Components/Pages/Console/Tours/toursSlice.js';
 import { token } from 'Components/Auth/Authentication/authSlice.js';
+import { newTourModal } from 'Components/Pages/Console/Tours/NewTourModal/NewTourModalSlice.js';
+import { mainModal } from 'Components/Common/MainModal/mainModalSlice.js';
+import { deleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
 
 export const store = configureStore({
 	reducer: {
@@ -15,8 +18,11 @@ export const store = configureStore({
 		bands,
 		tours,
 		members,
+		mainModal,
+		deleteModal,
 		newBandModal,
 		editBandModal,
 		deleteBandModal,
+		newTourModal,
 	},
 });

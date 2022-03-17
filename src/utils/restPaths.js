@@ -8,8 +8,8 @@ export const getBandPath = bandPath => `${BANDS_PATH}/${bandPath}`;
 
 // MEMBERS
 const MEMBERS = 'members';
-export const membersPath = bandPath => `${getBandPath(bandPath)}/${MEMBERS}`;
+export const membersPath = bandPath => `${ROOT + bandPath}/${MEMBERS}`;
 
 // TOURS
 const TOURS = 'tours';
-export const toursPath = bandPath => `${getBandPath(bandPath)}/${TOURS}`;
+export const toursPath = bandPath => `${ROOT + bandPath}/${TOURS}`;

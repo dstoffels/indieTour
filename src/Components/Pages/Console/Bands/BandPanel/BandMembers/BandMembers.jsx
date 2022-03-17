@@ -2,8 +2,6 @@ import { Box, Divider, List, ListItem, Stack, Typography } from '@mui/material';
 import { MEMBER } from 'constants/roles.js';
 import React, { useState } from 'react';
 import useBands from '../../useBands.js';
-// TODO: move: add members btn to component
-// TODO: bld: add members form, must be reusable to display
 
 const BandMembers = props => {
 	const [expanded, setExpanded] = useState(false);
@@ -28,9 +26,9 @@ const BandMembers = props => {
 
 	return (
 		<div>
-			<Stack marginY={2} spacing={2}>
-				<h5>Band Members</h5>
-				<Box sx={{ bgcolor: 'background.paper' }}>
+			<Stack spacing={2}>
+				<h6 className='panel-header'>Members</h6>
+				<Box marginTop='0 !important' sx={{ bgcolor: 'background.paper' }}>
 					<List>{bandMembers}</List>
 				</Box>
 			</Stack>

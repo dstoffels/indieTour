@@ -34,10 +34,9 @@ export const editBand = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 	const { user, token } = getState();
 
 	if (token) {
-		const response = await axios.put(getBandPath(user.activeMember.bandPath), form, token);
-		dispatch(setUserBands(response.data));
+		const response = await axios.put(getBandPath(user.activeMember.bandId), form, token);
+		dispatch(bandSlice.actions.updateUserBands(response.data));
 		await dispatch(fetchMembers());
-
 		dispatch(showEditBandModal(false));
 	}
 });
@@ -45,10 +44,10 @@ export const editBand = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 const DELETE = 'bands/delete';
 export const deleteActiveBand = createAsyncThunk(DELETE, async (_, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
-	const { user, token } = getState();
+	const { user, bands, token } = getState();
 
 	if (token) {
-		const response = await axios.delete(getBandPath(user.activeMember.bandPath), token);
+		const response = await axios.delete(getBandPath(user.activeMember.bandId), token);
 
 		dispatch(showDeleteBandModal(false));
 		dispatch(showEditBandModal(false));
@@ -65,6 +64,9 @@ export const bandSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserBands: (state, action) => (state = action.payload),
+		updateUserBands: (state, action) => {
+			state = [...state, action.payload];
+		},
 		clearUserBands: state => (state = initialState),
 	},
 });

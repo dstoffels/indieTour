@@ -27,20 +27,23 @@ const Selector = ({ id, options, nameKey, onChange, defaultSelection, className 
 			</MenuItem>
 		));
 
-	return (
-		<FormControl fullWidth className={`${className} selector`}>
-			<Select
-				placeholder=''
-				className={`selector`}
-				value={selected}
-				onChange={handleChange}
-				variant='standard'
-				id={id}
-				MenuProps={{ PaperProps: { sx: { bgcolor: 'rgb(18,18,18)' } } }}>
-				{menuItems}
-			</Select>
-		</FormControl>
-	);
+	if (defaultSelection) {
+		return (
+			<FormControl fullWidth className={`${className} selector`}>
+				<Select
+					placeholder=''
+					className={`selector`}
+					value={selected}
+					onChange={handleChange}
+					variant='standard'
+					id={id}
+					MenuProps={{ PaperProps: { sx: { bgcolor: 'rgb(18,18,18)' } } }}>
+					{menuItems}
+				</Select>
+			</FormControl>
+		);
+	}
+	return null;
 };
 
 export default Selector;

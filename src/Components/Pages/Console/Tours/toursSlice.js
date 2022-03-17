@@ -3,12 +3,11 @@ import axios from 'axios';
 import { toursPath } from 'utils/restPaths.js';
 
 const FETCH = 'tours/fetch';
-export const fetchTours = createAsyncThunk(FETCH, async (bandId, thunkAPI) => {
+export const fetchTours = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 	const { token, user } = thunkAPI.getState();
-	console.log(toursPath(user.activeMember.bandId));
 
 	if (token) {
-		const response = await axios.get(toursPath(user.activeMember.bandId), token);
+		const response = await axios.get(toursPath(user.activeMember.bandPath), token);
 		thunkAPI.dispatch(toursSlice.actions.setTours(response.data));
 	}
 });
@@ -28,8 +27,9 @@ export const toursSlice = createSlice({
 	initialState,
 	reducers: {
 		setTours: (state, action) => action.payload,
+		clearTours: () => initialState,
 	},
 });
 
-export const {} = toursSlice.actions;
+export const { clearTours } = toursSlice.actions;
 export const tours = toursSlice.reducer;

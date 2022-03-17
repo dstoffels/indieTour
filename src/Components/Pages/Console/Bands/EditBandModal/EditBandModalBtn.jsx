@@ -9,10 +9,10 @@ const EditBandModalBtn = props => {
 	const handleClick = () => openEditBandModal();
 
 	return (
-		<Tooltip title='Edit Band'>
-			<IconButton color='warning' size='large' onClick={handleClick} className='ms-3'>
+		<Tooltip title='Edit band & manage members'>
+			<Fab color='warning' size='small' onClick={handleClick} className='me-3'>
 				<Edit />
-			</IconButton>
+			</Fab>
 		</Tooltip>
 	);
 };

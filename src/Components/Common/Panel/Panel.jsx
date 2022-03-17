@@ -1,6 +1,7 @@
 import { Card, CardContent, Divider } from '@mui/material';
 import React from 'react';
 import { Col } from 'react-bootstrap';
+import './Panel.css';
 
 const Panel = ({ title = '', children }) => {
 	const header = Boolean(title) && <h3 className='panel-header'>{title}</h3>;
@@ -16,9 +17,5 @@ const Panel = ({ title = '', children }) => {
 };
 
 Panel.Divider = props => <Divider className='my-4' />;
-
-Panel.Section = ({ children }) => {
-	return children;
-};
 
 export default Panel;

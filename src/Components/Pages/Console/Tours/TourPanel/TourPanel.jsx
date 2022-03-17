@@ -1,21 +1,17 @@
 import Panel from 'Components/Common/Panel/Panel.jsx';
+import useTours from 'Components/Pages/Console/Tours/useTours.js';
 import React from 'react';
+import TourSelector from '../TourSelector/TourSelector.jsx';
 
 const TourPanel = props => {
+	const { tours } = useTours();
+
+	const displayTours = tours.map(tour => <li>{tour.name}</li>);
+
 	return (
 		<Panel title='TOURS'>
-			<Panel.Section>
-				<ul>
-					<li>tour selector</li>
-					<li>add tour btn</li>
-					<li>new tour modal</li>
-					<li>editable tour info</li>
-					<li>tour desc</li>
-					<li>notes</li>
-					<li>archive btn</li>
-					<li>show archived tours toggle?</li>
-				</ul>
-			</Panel.Section>
+			<ul>{displayTours} </ul>
+			<TourSelector />
 		</Panel>
 	);
 };

@@ -38,12 +38,12 @@ export const setActiveBandAndGetMembers = createAsyncThunk(SET_BAND, async (band
 });
 
 const SET_TOUR = 'user/setActiveTour';
-export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tourId, thunkAPI) => {
+export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tourName, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 	const { tours, token } = getState();
 
 	if (token) {
-		const tour = tours.find(tour => tour.id === tourId);
+		const tour = tours.find(tour => tour.name === tourName);
 		await axios.put(USER_PATH, { activeTour: tour }, token);
 
 		dispatch(userSlice.actions.setActiveTour(tour));
