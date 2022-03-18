@@ -36,7 +36,8 @@ export const editBand = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 	if (token) {
 		const response = await axios.put(getBandPath(user.activeMember.bandId), form, token);
 		await dispatch(setActiveMemberAndGetMembers(response.data));
-		// ensure store.bands are updated
+
+		// ensure store.bands aren't stale
 		dispatch(fetchUserBands());
 		dispatch(closeModal());
 	}

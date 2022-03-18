@@ -7,7 +7,6 @@ const useTours = () => {
 	const { user, tours } = useSelector(state => state);
 	const activeTour = user?.activeMember?.activeTour;
 
-	// FIXME: replace with members.setactivetour....
 	const selectTour = tour => dispatch(setActiveTourAndFetchDates(tour));
 
 	const createTour = form => dispatch(createNewTour(form));

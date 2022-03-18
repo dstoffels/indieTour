@@ -31,7 +31,7 @@ export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (ba
 	if (token) {
 		band = band ? band : bands[0];
 		dispatch(setActiveMember(band));
-		await axios.put(USER_PATH, { activeMember: band }, token);
+		axios.put(USER_PATH, { activeMember: band }, token);
 
 		// find band in bands list and update
 		// const i = bands.findIndex(b => b.bandName === band.bandName);

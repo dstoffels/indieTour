@@ -24,6 +24,7 @@ export const createNewTour = createAsyncThunk(NEW, async (form, thunkAPI) => {
 		const response = await axios.post(toursPath(user.activeMember.bandPath), form, token);
 		await dispatch(setActiveTourAndFetchDates(response.data));
 		dispatch(fetchTours());
+
 		dispatch(closeModal());
 	}
 });
