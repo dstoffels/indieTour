@@ -1,5 +1,5 @@
-import { Autocomplete, MenuItem, Select } from '@mui/material';
-import React, { memo, useEffect, useState } from 'react';
+import { MenuItem, Select } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { FormControl } from '@mui/material';
 import './Selector.css';
 
@@ -8,12 +8,13 @@ const Selector = ({ id, options, nameKey, onChange, defaultSelection, className 
 
 	const handleChange = e => {
 		setSelected(e.target.value);
-		onChange(e.target.value);
+		const i = options.findIndex(op => op[nameKey] === e.target.value);
+		onChange(options[i]);
 	};
 
 	useEffect(() => {
 		setSelected(defaultSelection[nameKey]);
-	}, [defaultSelection]);
+	}, [options]);
 
 	const menuItems = [...options]
 		.sort((a, b) => {
@@ -31,8 +32,6 @@ const Selector = ({ id, options, nameKey, onChange, defaultSelection, className 
 		return (
 			<FormControl fullWidth className={`${className} selector`}>
 				<Select
-					placeholder=''
-					className={`selector`}
 					value={selected}
 					onChange={handleChange}
 					variant='standard'

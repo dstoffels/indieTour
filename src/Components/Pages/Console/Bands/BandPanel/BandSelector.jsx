@@ -9,7 +9,7 @@ import NewBandModalBtn from '../NewBandModal/NewBandModalBtn.jsx';
 const BandSelector = props => {
 	const { user } = useUser();
 	const { bands, selectBand } = useBands();
-	const handleChange = bandName => selectBand(bandName);
+	const handleChange = band => selectBand(band);
 
 	if (user?.activeMember && bands.length) {
 		return (

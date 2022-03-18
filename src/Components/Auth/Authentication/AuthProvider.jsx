@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
 		const unsubscribe = onAuthStateChanged(auth, async user => {
 			if (user) {
 				const token = { headers: { auth: user.accessToken } };
-				await dispatch(setToken(token));
+				dispatch(setToken(token));
 				await dispatch(fetchUser());
 			} else {
 				dispatch(clearUser());

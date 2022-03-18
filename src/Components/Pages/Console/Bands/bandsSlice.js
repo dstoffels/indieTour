@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getBandPath, BANDS_PATH } from 'utils/restPaths.js';
 import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
-import { fetchMembers } from './membersSlice.js';
 import { closeModal } from 'Components/Common/MainModal/mainModalSlice.js';
 import { closeDeleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
 import { clearTours, fetchTours } from '../Tours/toursSlice.js';

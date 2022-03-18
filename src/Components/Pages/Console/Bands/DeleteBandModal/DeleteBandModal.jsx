@@ -6,8 +6,11 @@ import DeleteBandBtn from './DeleteBandBtn.jsx';
 
 const DeleteBandModal = props => {
 	const { activeMember } = useBands();
+
 	const { closeDeleteModal } = useModal();
+
 	const handleClose = () => closeDeleteModal();
+
 	return (
 		<div className='p-4'>
 			<h5>{`Deleting '${activeMember?.bandName}'`}</h5>

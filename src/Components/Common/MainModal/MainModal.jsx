@@ -1,8 +1,7 @@
 import { Dialog } from '@mui/material';
-import EditBandModal from 'Components/Pages/Console/Bands/EditBandModal/EditBandModal.jsx';
-import NewBandModal from 'Components/Pages/Console/Bands/NewBandModal/NewBandModal.jsx';
 import React from 'react';
 import DeleteModal from '../DeleteModal/DeleteModal.jsx';
+import CloseModalBtn from './CloseModalBtn/CloseModalBtn.jsx';
 import useModal from './useModal.js';
 
 const MainModal = props => {
@@ -12,6 +11,7 @@ const MainModal = props => {
 		<>
 			<DeleteModal />
 			<Dialog fullWidth open={Boolean(mainModal)} onClose={closeMainModal}>
+				<CloseModalBtn />
 				{modals[mainModal]}
 			</Dialog>
 		</>

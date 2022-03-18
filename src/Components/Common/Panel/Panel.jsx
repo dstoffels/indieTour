@@ -1,9 +1,9 @@
-import { Card, CardContent, Divider } from '@mui/material';
+import { Card, CardActionArea, CardActions, CardContent, Divider } from '@mui/material';
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import './Panel.css';
 
-const Panel = ({ title = '', children }) => {
+const Panel = ({ title = '', actions, children }) => {
 	const header = Boolean(title) && <h3 className='panel-header'>{title}</h3>;
 
 	return (
@@ -11,15 +11,23 @@ const Panel = ({ title = '', children }) => {
 			<Card elevation={6}>
 				{header}
 				<CardContent>{children}</CardContent>
+				{Boolean(actions) && <CardActions className='justify-content-end'>{actions}</CardActions>}
 			</Card>
 		</Col>
 	);
 };
 
-Panel.Section = ({ title, children }) => {
+Panel.Section = ({ title, topActions, bottomActions, children }) => {
 	return (
-		<Card elevation={0}>
+		<Card elevation={0} className='mb-2'>
+			<h5 className='panel-header'>{title}</h5>
+			{Boolean(topActions) && (
+				<CardActions className='justify-content-end'>{topActions}</CardActions>
+			)}
 			<CardContent>{children}</CardContent>
+			{Boolean(bottomActions) && (
+				<CardActions className='justify-content-end'>{bottomActions}</CardActions>
+			)}
 		</Card>
 	);
 };

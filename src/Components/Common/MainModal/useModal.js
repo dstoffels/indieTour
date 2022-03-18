@@ -1,6 +1,9 @@
 import DeleteBandModal from 'Components/Pages/Console/Bands/DeleteBandModal/DeleteBandModal.jsx';
 import EditBandModal from 'Components/Pages/Console/Bands/EditBandModal/EditBandModal.jsx';
 import NewBandModal from 'Components/Pages/Console/Bands/NewBandModal/NewBandModal.jsx';
+import DeleteTourModal from 'Components/Pages/Console/Tours/DeleteTourModal/DeleteTourModal.jsx';
+import EditTourModal from 'Components/Pages/Console/Tours/EditTourModal/EditTourModal.jsx';
+import NewTourModal from 'Components/Pages/Console/Tours/NewTourModal/NewTourModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { showDeleteModal } from '../DeleteModal/deleteModalSlice.js';
 import { showModal } from './mainModalSlice.js';
@@ -30,9 +33,9 @@ const useModal = () => {
 		[modalKeys.editBand]: <EditBandModal />,
 		[modalKeys.delBand]: <DeleteBandModal />,
 
-		[modalKeys.newTour]: 'newTour',
-		[modalKeys.editTour]: 'editTour',
-		[modalKeys.delTour]: 'delTour',
+		[modalKeys.newTour]: <NewTourModal />,
+		[modalKeys.editTour]: <EditTourModal />,
+		[modalKeys.delTour]: <DeleteTourModal />,
 	};
 
 	return {

@@ -6,10 +6,9 @@ import { emailLogin } from 'fb/firebase';
 import EmailField from '../EmailField/EmailField.jsx';
 import PasswordField from '../PasswordField/PasswordField.jsx';
 
-const initialState = { email: '', password: '' };
-
 const LoginForm = props => {
 	// STATE
+	const initialState = { email: '', password: '' };
 	const { form, handleChange, handleSubmit } = useForm(initialState, login);
 	const [error, setError] = useState('');
 

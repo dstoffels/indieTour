@@ -1,22 +1,18 @@
 import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
-import MainModal from 'Components/Common/MainModal/MainModal.jsx';
 import Page from 'Components/Common/Page/Page.jsx';
 import { CONSOLE } from 'constants/routes.js';
 import React from 'react';
 import BandPanel from '../Bands/BandPanel/BandPanel.jsx';
-import EditBandModal from '../Bands/EditBandModal/EditBandModal.jsx';
-import NewBandModal from '../Bands/NewBandModal/NewBandModal.jsx';
+import useBands from '../Bands/useBands.js';
 import TourPanel from '../Tours/TourPanel/TourPanel.jsx';
 import './Console.css';
 
 const ConsolePage = props => {
+	const { bands } = useBands();
 	return (
 		<Page route={CONSOLE}>
-			<MainModal />
-			{/* <NewBandModal /> */}
-			{/* <EditBandModal /> */}
+			{Boolean(bands.length) && <TourPanel />}
 			<BandPanel />
-			<TourPanel />
 		</Page>
 	);
 };

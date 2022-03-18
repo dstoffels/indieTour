@@ -7,7 +7,6 @@ import VerifyEmail from './Components/Pages/VerifyEmail/VerifyEmail.jsx';
 import BottomNav from './Components/Common/BottomNav/BottomNav.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import useUser from './hooks/useUser.js';
 import Booking from './Components/Pages/Booking/Booking.jsx';
 import Today from './Components/Pages/Today/Today.jsx';
@@ -15,6 +14,8 @@ import Dates from './Components/Pages/Dates/Dates.jsx';
 import AuthProvider from 'Components/Auth/Authentication/AuthProvider.jsx';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from 'theme/theme.js';
+import MainModal from 'Components/Common/MainModal/MainModal.jsx';
+import './App.css';
 
 function App() {
 	const { user } = useUser();
@@ -22,6 +23,7 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
+			<MainModal />
 			<Navbar />
 			<AuthProvider>
 				<Routes>

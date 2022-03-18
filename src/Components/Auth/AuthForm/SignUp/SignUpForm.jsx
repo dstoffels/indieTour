@@ -1,10 +1,8 @@
 import { Stack, TextField } from '@mui/material';
 import { SIGNUP_FORM_ID } from 'Components/Auth/constants.js';
-import { HOME } from 'constants/routes.js';
-import { auth, createEmailUser } from 'fb/firebase.js';
+import { createEmailUser } from 'fb/firebase.js';
 import useForm from 'hooks/useForm.js';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import EmailField from '../EmailField/EmailField.jsx';
 import PasswordField from '../PasswordField/PasswordField.jsx';
 

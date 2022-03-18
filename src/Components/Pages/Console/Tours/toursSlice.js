@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { toursPath } from 'utils/restPaths.js';
+import { closeDeleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
+import { closeModal } from 'Components/Common/MainModal/mainModalSlice.js';
+import { setActiveTourAndFetchDates } from 'redux/userSlice.js';
+import { restPath, toursPath } from 'utils/restPaths.js';
 
 const FETCH = 'tours/fetch';
 export const fetchTours = createAsyncThunk(FETCH, async (_, thunkAPI) => {
@@ -15,11 +18,44 @@ export const fetchTours = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 const NEW = 'tours/new';
 export const createNewTour = createAsyncThunk(NEW, async (form, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
+	const { user, token } = getState();
+
+	if (token) {
+		const response = await axios.post(toursPath(user.activeMember.bandPath), form, token);
+		dispatch(setActiveTourAndFetchDates(response.data));
+		dispatch(closeModal());
+	}
+});
+
+const EDIT = 'tours/edit';
+export const editTour = createAsyncThunk(EDIT, async (form, thunkAPI) => {
+	const { dispatch, getState } = thunkAPI;
+	const { user, token } = getState();
+
+	if (token) {
+		const response = await axios.put(restPath(user.activeTour.path), form, token);
+		await dispatch(setActiveTourAndFetchDates(response.data.name));
+		dispatch(closeModal());
+	}
+});
+
+const DELETE = 'tours/delete';
+export const deleteActiveTour = createAsyncThunk(DELETE, async (path, thunkAPI) => {
+	const { dispatch, getState } = thunkAPI;
 	const { token } = getState();
 
 	if (token) {
+		const response = await axios.delete(restPath(path), token);
+
+		dispatch(closeDeleteModal());
+		dispatch(closeModal());
+
+		dispatch(toursSlice.actions.setTours(response.data));
+		dispatch(setActiveTourAndFetchDates());
 	}
 });
+
+// TODO: ARCHIVE TOUR THUNK
 
 const initialState = [];
 export const toursSlice = createSlice({

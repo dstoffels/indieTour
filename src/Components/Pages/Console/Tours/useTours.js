@@ -1,19 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveTourAndFetchDates } from 'redux/userSlice.js';
-import { showTourModal } from './NewTourModal/NewTourModalSlice.js';
+import { createNewTour, deleteActiveTour, editTour } from './toursSlice.js';
 
 const useTours = () => {
 	const dispatch = useDispatch();
-	const { user, tours, newTourModal } = useSelector(state => state);
-	const { activeTour } = user;
+	const { user, tours } = useSelector(state => state);
+	const activeTour = user?.activeMember?.activeTour;
 
-	const selectTour = tourId => dispatch(setActiveTourAndFetchDates(tourId));
+	// FIXME: replace with members.setactivetour....
+	const selectTour = tour => dispatch(setActiveTourAndFetchDates(tour));
 
-	// TODO: refactor for main/delete modals
-	const openNewTourModal = () => dispatch(showTourModal(true));
-	const closeNewTourModal = () => dispatch(showTourModal(false));
+	const createTour = form => dispatch(createNewTour(form));
 
-	return { tours, activeTour, selectTour, newTourModal, openNewTourModal, closeNewTourModal };
+	const updateTour = form => dispatch(editTour(form));
+
+	const deleteTour = path => dispatch(deleteActiveTour(path));
+
+	return { tours, activeTour, selectTour, createTour, updateTour, deleteTour };
 };
 
 export default useTours;

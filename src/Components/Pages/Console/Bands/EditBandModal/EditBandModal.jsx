@@ -1,8 +1,7 @@
-import { Button, Dialog, Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import useModal from 'Components/Common/MainModal/useModal.js';
 import React from 'react';
 import BandForm from '../BandForm/BandForm.jsx';
-import DeleteBandModal from '../DeleteBandModal/DeleteBandModal.jsx';
 import DeleteBandModalBtn from '../DeleteBandModal/DeleteBandModalBtn.jsx';
 import useBands from '../useBands.js';
 import EditBandBtn from './EditBandBtn.jsx';
@@ -18,6 +17,8 @@ const EditBandModal = props => {
 	const values = { name: activeMember?.bandName, members: editableMembers };
 
 	const handleSubmit = form => updateBand(form);
+
+	// TODO: refactor to match tour panel
 
 	return (
 		<>

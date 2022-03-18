@@ -1,3 +1,7 @@
+#root {
+	padding-bottom: 56px;
+}
+
 .color-tester {
 	color: rgb(177, 209, 236);
 }
@@ -11,6 +15,21 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.flex-end {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+}
+
+.flex-between {
+	display: flex;
+	justify-content: space-between;
 }
 
 input:-webkit-autofill,

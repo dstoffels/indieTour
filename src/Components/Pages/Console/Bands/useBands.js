@@ -7,7 +7,7 @@ const useBands = () => {
 	const { bands, members, user } = useSelector(state => state);
 	const activeMember = user?.activeMember;
 
-	const selectBand = bandName => dispatch(setActiveBandAndGetMembers(bandName));
+	const selectBand = band => dispatch(setActiveBandAndGetMembers(band));
 
 	// New Band
 	const createBand = form => dispatch(createNewBand(form));

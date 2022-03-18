@@ -1,14 +1,10 @@
 import { Box, Divider, List, ListItem, Stack, Typography } from '@mui/material';
 import { MEMBER } from 'constants/roles.js';
-import React, { useState } from 'react';
+import React from 'react';
 import useBands from '../../useBands.js';
 
 const BandMembers = props => {
-	const [expanded, setExpanded] = useState(false);
-
 	const { members } = useBands();
-
-	const handleChange = panel => (e, isExpanded) => setExpanded(isExpanded ? panel : false);
 
 	const bandMembers = members.map(({ displayName, email, role }, i, members) => (
 		<div key={email}>

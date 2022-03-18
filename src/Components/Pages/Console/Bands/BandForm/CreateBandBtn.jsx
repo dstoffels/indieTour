@@ -1,12 +1,9 @@
-import { Button } from '@mui/material';
+import SubmitBtn from 'Components/Common/SubmitBtn/SubmitBtn.jsx';
 import React from 'react';
 import { NEW_BAND_FORM_ID } from '../NewBandModal/NewBandModal.jsx';
+
 const CreateBandBtn = props => {
-	return (
-		<Button form={NEW_BAND_FORM_ID} type='submit' fullWidth color='success' variant='contained'>
-			CREATE BAND & SEND INVITATIONS
-		</Button>
-	);
+	return <SubmitBtn formId={NEW_BAND_FORM_ID} text='CREATE BAND & SEND INVITATIONS' />;
 };
 
 export default CreateBandBtn;

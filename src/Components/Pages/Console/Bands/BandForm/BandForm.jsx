@@ -22,7 +22,7 @@ const BandForm = ({ title, id, onSubmit, submitBtn, values = initialState }) => 
 	};
 
 	return (
-		<div className='w-100 bg-med-grey p-2'>
+		<div className='w-100 p-2'>
 			<h5>{title}</h5>
 			<form id={id} onSubmit={handleSubmit}>
 				<Divider />

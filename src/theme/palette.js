@@ -2,7 +2,7 @@
 
 const bg = {
 	default: '#494A63',
-	paper: '#35353D',
+	paper: '#2D2D35',
 };
 
 const primary = '#88A2FF';
