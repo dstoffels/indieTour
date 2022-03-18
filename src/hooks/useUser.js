@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
+import { setActiveMemberAndGetMembers } from 'redux/userSlice.js';
 
 const useUser = () => {
 	const dispatch = useDispatch();
 	const { user, bands } = useSelector(state => state);
 	const role = user?.activeMember?.role;
 
-	const selectBand = bandName => dispatch(setActiveBandAndGetMembers(bandName));
+	const selectBand = bandName => dispatch(setActiveMemberAndGetMembers(bandName));
 
 	const selectTour = tourName => {
 		// add tours

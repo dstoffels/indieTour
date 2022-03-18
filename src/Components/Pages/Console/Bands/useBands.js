@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
+import { setActiveMemberAndGetMembers } from 'redux/userSlice.js';
 import { createNewBand, deleteActiveBand, editBand } from './bandsSlice.js';
 
 const useBands = () => {
@@ -7,7 +7,7 @@ const useBands = () => {
 	const { bands, members, user } = useSelector(state => state);
 	const activeMember = user?.activeMember;
 
-	const selectBand = band => dispatch(setActiveBandAndGetMembers(band));
+	const selectBand = band => dispatch(setActiveMemberAndGetMembers(band));
 
 	// New Band
 	const createBand = form => dispatch(createNewBand(form));

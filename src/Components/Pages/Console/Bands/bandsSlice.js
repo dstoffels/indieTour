@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getBandPath, BANDS_PATH } from 'utils/restPaths.js';
-import { setActiveBandAndGetMembers } from 'redux/userSlice.js';
+import { setActiveMemberAndGetMembers } from 'redux/userSlice.js';
 import { closeModal } from 'Components/Common/MainModal/mainModalSlice.js';
 import { closeDeleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
 import { clearTours, fetchTours } from '../Tours/toursSlice.js';
@@ -20,9 +20,9 @@ export const createNewBand = createAsyncThunk(NEW, async (form, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 	const { token } = getState();
 	if (token) {
-		await axios.post(BANDS_PATH + '/new', form, token);
+		const response = await axios.post(BANDS_PATH + '/new', form, token);
 		await dispatch(fetchUserBands());
-		await dispatch(setActiveBandAndGetMembers(form.name));
+		await dispatch(setActiveMemberAndGetMembers(response.data));
 		await dispatch(fetchTours());
 		dispatch(closeModal());
 	}
@@ -35,8 +35,9 @@ export const editBand = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 
 	if (token) {
 		const response = await axios.put(getBandPath(user.activeMember.bandId), form, token);
-		await dispatch(fetchUserBands());
-		await dispatch(setActiveBandAndGetMembers(response.data.bandName));
+		await dispatch(setActiveMemberAndGetMembers(response.data));
+		// ensure store.bands are updated
+		dispatch(fetchUserBands());
 		dispatch(closeModal());
 	}
 });
@@ -54,7 +55,7 @@ export const deleteActiveBand = createAsyncThunk(DELETE, async (_, thunkAPI) => 
 
 		dispatch(clearTours());
 		dispatch(setUserBands(response.data));
-		await dispatch(setActiveBandAndGetMembers());
+		await dispatch(setActiveMemberAndGetMembers());
 	}
 });
 

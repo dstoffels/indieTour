@@ -22,7 +22,8 @@ export const createNewTour = createAsyncThunk(NEW, async (form, thunkAPI) => {
 
 	if (token) {
 		const response = await axios.post(toursPath(user.activeMember.bandPath), form, token);
-		dispatch(setActiveTourAndFetchDates(response.data));
+		await dispatch(setActiveTourAndFetchDates(response.data));
+		dispatch(fetchTours());
 		dispatch(closeModal());
 	}
 });
@@ -33,8 +34,8 @@ export const editTour = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 	const { user, token } = getState();
 
 	if (token) {
-		const response = await axios.put(restPath(user.activeTour.path), form, token);
-		await dispatch(setActiveTourAndFetchDates(response.data.name));
+		const response = await axios.put(restPath(user.activeMember.activeTour.path), form, token);
+		await dispatch(setActiveTourAndFetchDates(response.data));
 		dispatch(closeModal());
 	}
 });

@@ -24,7 +24,7 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 });
 
 const SET_BAND = 'user/setActiveBand';
-export const setActiveBandAndGetMembers = createAsyncThunk(SET_BAND, async (band, thunkAPI) => {
+export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (band, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 	const { bands, token } = getState();
 

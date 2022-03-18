@@ -8,10 +8,13 @@ import NewBandModalBtn from '../NewBandModal/NewBandModalBtn.jsx';
 
 const BandSelector = props => {
 	const { user } = useUser();
-	const { bands, selectBand } = useBands();
+	const { activeMember, bands, selectBand } = useBands();
+
 	const handleChange = band => selectBand(band);
 
-	if (user?.activeMember && bands.length) {
+	const gate = Boolean(bands.find(b => b.name === activeMember?.name));
+
+	if (activeMember && bands.length && gate) {
 		return (
 			<>
 				<h6 className='panel-header'>Active Band</h6>
@@ -21,7 +24,7 @@ const BandSelector = props => {
 						id='band-selector'
 						options={bands}
 						nameKey='bandName'
-						defaultSelection={user.activeMember}
+						defaultSelection={activeMember}
 					/>
 					<div className='d-flex ms-3'>
 						<EditBandModalBtn />

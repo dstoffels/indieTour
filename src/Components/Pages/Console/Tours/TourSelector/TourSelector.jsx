@@ -6,22 +6,20 @@ import React, { memo } from 'react';
 import './TourSelector.css';
 
 const TourSelector = props => {
-	const { user } = useUser();
-	const { tours, selectTour } = useTours();
-	const tour = user?.activeMember?.activeTour;
+	const { activeTour, tours, selectTour } = useTours();
 
 	const handleChange = tour => selectTour(tour);
 
-	const gate = Boolean(tours.find(t => t.name === tour.name));
+	const gate = Boolean(tours.find(t => t.name === activeTour?.name));
 
-	if (tour && tours.length && gate) {
+	if (activeTour && tours.length && gate) {
 		return (
 			<Selector
 				onChange={handleChange}
 				id='tour-selector'
 				options={tours}
 				nameKey='name'
-				defaultSelection={tour}
+				defaultSelection={activeTour}
 			/>
 		);
 	}
