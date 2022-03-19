@@ -11,14 +11,12 @@ const NewBandModal = props => {
 	const handleSubmit = form => createBand(form);
 
 	return (
-		<Paper>
-			<BandForm
-				title='Create new band'
-				id={NEW_BAND_FORM_ID}
-				onSubmit={handleSubmit}
-				submitBtn={<CreateBandBtn />}
-			/>
-		</Paper>
+		<BandForm
+			title='Create new band'
+			id={NEW_BAND_FORM_ID}
+			onSubmit={handleSubmit}
+			submitBtn={<CreateBandBtn />}
+		/>
 	);
 };
 

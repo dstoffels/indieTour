@@ -30,17 +30,9 @@ const EditBandModal = props => {
 				submitBtn={
 					<Stack spacing={2}>
 						<EditBandBtn />
-						<Stack direction='row' spacing={2}>
+						<div className='flex-end'>
 							<DeleteBandModalBtn />
-							<Button
-								onClick={closeMainModal}
-								fullWidth
-								size='small'
-								color='warning'
-								variant='contained'>
-								CANCEL
-							</Button>
-						</Stack>
+						</div>
 					</Stack>
 				}
 			/>

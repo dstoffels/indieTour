@@ -37,12 +37,11 @@ const MembersForm = ({ bandForm, setBandForm }) => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<Stack spacing={2} marginY={2}>
+			<Stack spacing={2} marginBottom={3}>
 				{memberFields}
-				<Button type='submit' size='small' variant='text' color='info' fullWidth>
-					Invite Another Member
+				<Button type='submit' size='' variant='text' fullWidth>
+					{members.length > 0 ? 'Invite another member' : 'Invite Members'}
 				</Button>
-				<Divider />
 			</Stack>
 		</form>
 	);

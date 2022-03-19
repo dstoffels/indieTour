@@ -14,7 +14,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const authHeader = async () => {
-	auth.currentUser?.reload();
+	// auth.currentUser?.reload();
 	return { headers: { auth: await auth.currentUser?.getIdToken(true) } };
 };
 

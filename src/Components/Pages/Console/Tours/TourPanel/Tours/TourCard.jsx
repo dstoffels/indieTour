@@ -4,13 +4,18 @@ import useTours from '../../useTours.js';
 import ArchiveTourBtn from './ArchiveTourBtn.jsx';
 
 const TourCard = ({ tour }) => {
-	const { selectTour } = useTours();
-	const handleClick = () => selectTour(tour);
+	const { activeTour, selectTour } = useTours();
+
+	const isActive = tour.name === activeTour.name;
+	const active = isActive ? ' (active)' : '';
+
+	const handleClick = () => !isActive && selectTour(tour);
+
 	return (
 		<Card className='d-flex'>
 			<CardActionArea onClick={handleClick}>
 				<CardContent className='p-2'>
-					<Typography>{tour.name}</Typography>
+					<Typography color={isActive && 'primary'}>{tour.name + active}</Typography>
 				</CardContent>
 			</CardActionArea>
 			<ArchiveTourBtn tour={tour} />

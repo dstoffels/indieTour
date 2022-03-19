@@ -1,9 +1,17 @@
-import { MenuItem, Select } from '@mui/material';
+import { InputLabel, MenuItem, Select } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { FormControl } from '@mui/material';
 import './Selector.css';
 
-const Selector = ({ id, options, nameKey, onChange, defaultSelection, className }) => {
+const Selector = ({
+	id,
+	options,
+	nameKey,
+	onChange,
+	defaultSelection,
+	label = '',
+	variant = 'standard',
+}) => {
 	const [selected, setSelected] = useState(defaultSelection[nameKey]);
 
 	const handleChange = e => {
@@ -14,7 +22,7 @@ const Selector = ({ id, options, nameKey, onChange, defaultSelection, className 
 
 	useEffect(() => {
 		setSelected(defaultSelection[nameKey]);
-	}, [options]);
+	}, [defaultSelection]);
 
 	const menuItems = [...options]
 		.sort((a, b) => {
@@ -30,13 +38,15 @@ const Selector = ({ id, options, nameKey, onChange, defaultSelection, className 
 
 	if (defaultSelection) {
 		return (
-			<FormControl fullWidth className={`${className} selector`}>
+			<FormControl fullWidth className='selector'>
+				<InputLabel>{label}</InputLabel>
 				<Select
+					size='small'
 					value={selected}
 					onChange={handleChange}
-					variant='standard'
-					id={id}
-					MenuProps={{ PaperProps: { sx: { bgcolor: 'rgb(18,18,18)' } } }}>
+					variant={variant}
+					label={label}
+					id={id}>
 					{menuItems}
 				</Select>
 			</FormControl>

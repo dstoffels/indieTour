@@ -8,7 +8,7 @@ const NewTourModalBtn = props => {
 	const handleClick = () => openMainModal(modalKeys.newTour);
 	return (
 		<Button onClick={handleClick} startIcon={<Add />}>
-			CREATE NEW TOUR
+			ADD TOUR
 		</Button>
 	);
 };

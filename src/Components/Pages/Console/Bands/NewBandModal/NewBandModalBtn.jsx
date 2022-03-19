@@ -9,15 +9,9 @@ const NewBandModalBtn = ({ text }) => {
 
 	return (
 		<Tooltip title='Create new band'>
-			{text ? (
-				<Button fullWidth color='success' variant='contained' onClick={handleClick}>
-					{text}
-				</Button>
-			) : (
-				<Fab size='small' color='success' onClick={handleClick}>
-					<Add />
-				</Fab>
-			)}
+			<Button color='primary' variant='text' onClick={handleClick} startIcon={<Add />}>
+				CREATE NEW BAND
+			</Button>
 		</Tooltip>
 	);
 };

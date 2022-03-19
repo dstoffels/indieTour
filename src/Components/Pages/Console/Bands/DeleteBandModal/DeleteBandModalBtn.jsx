@@ -7,8 +7,8 @@ const DeleteBandModalBtn = props => {
 	const { openDeleteModal, modalKeys } = useModal();
 	const handleClick = () => openDeleteModal(modalKeys.delBand);
 	return (
-		<Button fullWidth size='small' color='error' onClick={handleClick} variant='contained'>
-			<Delete />
+		<Button color='error' onClick={handleClick} variant='text' startIcon={<Delete />}>
+			DELETE
 		</Button>
 	);
 };

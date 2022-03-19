@@ -1,5 +1,5 @@
 import React from 'react';
-import { Fab, Tooltip } from '@mui/material';
+import { Button, Fab, Tooltip } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 import withAdmin from 'Components/Auth/Authorization/withAdmin.jsx';
 import useModal from 'Components/Common/MainModal/useModal.js';
@@ -10,9 +10,12 @@ const EditBandModalBtn = props => {
 
 	return (
 		<Tooltip title='Edit band & manage members'>
-			<Fab color='warning' size='small' onClick={handleClick} className='me-3'>
+			<Button onClick={handleClick} color='warning' startIcon={<Edit />}>
+				EDIT
+			</Button>
+			{/* <Fab color='warning' size='small' onClick={handleClick} className='me-3'>
 				<Edit />
-			</Fab>
+			</Fab> */}
 		</Tooltip>
 	);
 };

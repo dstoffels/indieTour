@@ -1,24 +1,20 @@
 import { Divider } from '@mui/material';
-import Panel from 'Components/Common/Panel/Panel.jsx';
+import Panel from 'Components/Common/Panel/Panel';
 import React from 'react';
-import NewTourModalBtn from '../../NewTourModal/NewTourModalBtn.jsx';
-import useTours from '../../useTours.js';
-import TourCard from './TourCard.jsx';
+import NewTourModalBtn from '../../NewTourModal/NewTourModalBtn';
+import useTours from '../../useTours';
+import TourCard from './TourCard';
 
 const Tours = ({ tours }) => {
 	const { activeTour } = useTours();
 
 	if (tours.length) {
-		var tourCards = tours.map((tour, i, array) => {
-			return (
-				tour?.name !== activeTour?.name && (
-					<div key={tour.name}>
-						<TourCard tour={tour} />
-						{i < array.length - 2 && <Divider />}
-					</div>
-				)
-			);
-		});
+		const tourCards = tours.map((tour, i, tours) => (
+			<div key={tour.name}>
+				<TourCard tour={tour} />
+				{i < tours.length - 1 && <Divider />}
+			</div>
+		));
 
 		return (
 			<Panel.Section title='Tours' topActions={<NewTourModalBtn />}>

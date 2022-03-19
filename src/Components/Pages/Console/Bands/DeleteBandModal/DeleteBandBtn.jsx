@@ -6,7 +6,7 @@ const DeleteBandBtn = ({ bandName }) => {
 	const { deleteBand } = useBands();
 	const handleClick = () => deleteBand();
 	return (
-		<Button fullWidth color='error' variant='contained' onClick={handleClick}>
+		<Button fullWidth color='error' size='small' variant='contained' onClick={handleClick}>
 			{`YES, DELETE ${bandName}`}
 		</Button>
 	);

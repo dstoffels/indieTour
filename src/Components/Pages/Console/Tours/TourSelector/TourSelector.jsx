@@ -1,12 +1,14 @@
+import { Stack, Typography } from '@mui/material';
 import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
 import Selector from 'Components/Common/Selector/Selector.jsx';
 import useTours from 'Components/Pages/Console/Tours/useTours.js';
-import useUser from 'hooks/useUser.js';
-import React, { memo } from 'react';
+import React from 'react';
+import useBands from '../../Bands/useBands.js';
 import './TourSelector.css';
 
 const TourSelector = props => {
 	const { activeTour, tours, selectTour } = useTours();
+	const { activeMember } = useBands();
 
 	const handleChange = tour => selectTour(tour);
 
@@ -20,6 +22,8 @@ const TourSelector = props => {
 				options={tours}
 				nameKey='name'
 				defaultSelection={activeTour}
+				label={activeMember.bandName}
+				variant='outlined'
 			/>
 		);
 	}

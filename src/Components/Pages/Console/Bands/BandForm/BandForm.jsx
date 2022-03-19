@@ -1,4 +1,4 @@
-import { Divider, Stack, TextField } from '@mui/material';
+import { Paper, Stack, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import MembersForm from '../MembersForm/MembersForm.jsx';
 
@@ -22,15 +22,13 @@ const BandForm = ({ title, id, onSubmit, submitBtn, values = initialState }) => 
 	};
 
 	return (
-		<div className='w-100 p-2'>
+		<Paper className='p-3'>
 			<h5>{title}</h5>
 			<form id={id} onSubmit={handleSubmit}>
-				<Divider />
 				<Stack spacing={2} marginTop={2}>
 					<TextField
 						autoFocus
 						required
-						color='info'
 						label='Band/Artist Name'
 						value={form.name}
 						onChange={handleName}
@@ -41,10 +39,9 @@ const BandForm = ({ title, id, onSubmit, submitBtn, values = initialState }) => 
 				</Stack>
 			</form>
 
-			<Divider />
 			<MembersForm bandForm={form} setBandForm={setForm} />
 			{submitBtn}
-		</div>
+		</Paper>
 	);
 };
 

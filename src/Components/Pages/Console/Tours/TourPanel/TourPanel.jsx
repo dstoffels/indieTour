@@ -8,7 +8,7 @@ const TourPanel = props => {
 	const { tours } = useTours();
 
 	return (
-		<Panel title='Tour'>
+		<Panel>
 			<TourInfo />
 			<Tours tours={tours} />
 		</Panel>

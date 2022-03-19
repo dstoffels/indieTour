@@ -5,25 +5,38 @@ import { fetchUserBands, setUserBands } from 'Components/Pages/Console/Bands/ban
 import { fetchMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
 import { fetchTours } from 'Components/Pages/Console/Tours/toursSlice.js';
 import { restPath, USER_PATH } from 'utils/restPaths.js';
+import thunkErrorHandler from './errorHandler.js';
+
+// ACTION TYPES
 
 const FETCH = 'user/fetchUser';
-export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
-	const { dispatch, getState } = thunkAPI;
-	const { token } = getState();
+const SET_BAND = 'user/setActiveBand';
+const SET_TOUR = 'user/setActiveTour';
 
-	if (token) {
+// THUNKS
+
+/**
+ * @fetch user from firestore db.
+ * @set fetched user in store
+ * @fetch user's bands
+ * @fetch user's selected bands' members and tours
+ */
+export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
+	const { dispatch } = thunkAPI;
+
+	await thunkErrorHandler(thunkAPI, async token => {
 		const response = await axios.get(USER_PATH, token);
 		dispatch(userSlice.actions.setUser(response.data));
 		await dispatch(fetchUserBands());
 		await dispatch(fetchMembers());
 		await dispatch(fetchTours());
-	} else {
-		await dispatch(fetchToken());
-		dispatch(fetchUser());
-	}
+	});
 });
 
-const SET_BAND = 'user/setActiveBand';
+/**
+ * @param band band object
+ * @fetch tours, members
+ */
 export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (band, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 	const { bands, token } = getState();
@@ -33,24 +46,16 @@ export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (ba
 		dispatch(setActiveMember(band));
 		axios.put(USER_PATH, { activeMember: band }, token);
 
-		// find band in bands list and update
-		// const i = bands.findIndex(b => b.bandName === band.bandName);
-		// console.log(i);
-		// const updatedBands = [...bands];
-		// updatedBands[i] = band;
-		// dispatch(setUserBands(updatedBands));
-
 		dispatch(fetchTours());
 		dispatch(fetchMembers());
 	}
 });
 
-const SET_TOUR = 'user/setActiveTour';
 export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 
 	// ensure tours list is up to date
-	// await dispatch(fetchTours());
+	await dispatch(fetchTours());
 
 	const { user, tours, token } = getState();
 
@@ -68,6 +73,7 @@ export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour
 	}
 });
 
+// REDUCER
 const initialState = null;
 export const userSlice = createSlice({
 	name: 'user',

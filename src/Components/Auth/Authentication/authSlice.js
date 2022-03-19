@@ -6,6 +6,7 @@ export const fetchToken = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 	const { dispatch } = thunkAPI;
 	const token = await authHeader();
 	dispatch(authSlice.actions.setToken(token));
+	return token;
 });
 
 const initialState = null;

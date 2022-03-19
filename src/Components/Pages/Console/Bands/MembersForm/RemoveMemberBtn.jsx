@@ -8,7 +8,12 @@ const RemoveMemberBtn = ({ i, members, setMembers }) => {
 		setMembers([...members]);
 	};
 	return (
-		<IconButton variant='contained' color='error' size='small' onClick={handleClick}>
+		<IconButton
+			className='ms-2'
+			variant='contained'
+			color='error'
+			size='small'
+			onClick={handleClick}>
 			<Clear />
 		</IconButton>
 	);
