@@ -6,7 +6,7 @@ const BandCard = ({ band }) => {
 	const { activeMember, selectBand } = useBands();
 
 	const isActive = band?.bandName === activeMember?.bandName;
-	const active = isActive ? '(active)' : '';
+	const active = isActive ? ' (active)' : '';
 
 	const handleClick = () => !isActive && selectBand(band);
 

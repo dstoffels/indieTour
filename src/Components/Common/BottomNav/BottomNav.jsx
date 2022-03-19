@@ -35,7 +35,7 @@ const BottomNav = memo(props => {
 	return (
 		<Paper className='bottom-nav-wrapper' elevation={5}>
 			<BottomNavigation value={value} onChange={handleChange} showLabels>
-				<BottomNavigationAction
+				{/* <BottomNavigationAction
 					label='Today'
 					value={TODAY}
 					icon={
@@ -45,17 +45,17 @@ const BottomNav = memo(props => {
 							<InsertInvitationOutlined color='inherit' />
 						)
 					}
-				/>
+				/> */}
 				<BottomNavigationAction
 					label='Dates'
 					value={DATES}
 					icon={value === DATES ? <DateRange /> : <DateRangeOutlined />}
 				/>
-				<BottomNavigationAction
+				{/* <BottomNavigationAction
 					label='Booking'
 					value={BOOKING}
 					icon={value === BOOKING ? <FactCheck /> : <FactCheckOutlined />}
-				/>
+				/> */}
 				<BottomNavigationAction
 					label='Console'
 					value={CONSOLE}
