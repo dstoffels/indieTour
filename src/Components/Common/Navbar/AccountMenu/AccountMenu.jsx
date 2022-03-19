@@ -32,7 +32,7 @@ const AccountMenu = props => {
 			<LogOutBtn key='logout-btn' />,
 		]
 	) : (
-		<AuthForm />
+		<AuthForm closeMenu={handleClose} />
 	);
 
 	return (
@@ -58,11 +58,13 @@ const AccountMenu = props => {
 				onClick={handleClose}
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+				MenuListProps={{
+					className: 'p-0',
+				}}
 				PaperProps={{
 					elevation: 5,
 					sx: {
 						...width,
-						backgroundColor: 'rgb(18,18,18)',
 						overflow: 'visible',
 						filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
 						mt: 1.5,
@@ -71,18 +73,6 @@ const AccountMenu = props => {
 							height: 32,
 							ml: -0.5,
 							mr: 1,
-						},
-						'&:before': {
-							content: '""',
-							display: 'block',
-							position: 'absolute',
-							top: 0,
-							right: 14,
-							width: 10,
-							height: 10,
-							bgcolor: 'rgb(18,18,18)',
-							transform: 'translateY(-50%) rotate(45deg)',
-							zIndex: 0,
 						},
 					},
 				}}>

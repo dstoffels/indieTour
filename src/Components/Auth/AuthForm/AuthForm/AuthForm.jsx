@@ -5,7 +5,7 @@ import LoginBtn from '../Login/LoginBtn.jsx';
 import SignUpBtn from '../SignUp/SignUpBtn.jsx';
 import LoginForm from '../Login/LoginForm.jsx';
 
-const AuthForm = props => {
+const AuthForm = ({ closeMenu }) => {
 	const [signUp, setSignUp] = useState(false);
 
 	const handleSignUp = e => {
@@ -14,20 +14,20 @@ const AuthForm = props => {
 	};
 
 	return (
-		<MenuItem>
-			<div className='p-2 w-100 bg-dark-grey'>
-				<h5>{signUp ? 'Sign up for a new account' : 'Log in to your account'}</h5>
-				<Divider />
-				{signUp ? <SignUpForm /> : <LoginForm />}
-				<Divider />
-				<Stack direction='row' spacing={2} marginTop={2} flex={1} justifyContent='space-between	'>
-					<Button onClick={handleSignUp} size='small'>
-						{signUp ? 'LOGIN' : 'CREATE NEW ACCOUNT'}
-					</Button>
-					{signUp ? <SignUpBtn /> : <LoginBtn />}
-				</Stack>
-			</div>
-		</MenuItem>
+		<div
+			onClick={e => {
+				e.stopPropagation();
+			}}
+			className='p-3 w-100'>
+			<h5>{signUp ? 'Sign up for a new account' : 'Log in to your account'}</h5>
+			{signUp ? <SignUpForm closeMenu={closeMenu} /> : <LoginForm closeMenu={closeMenu} />}
+			<Stack direction='row' spacing={2} marginTop={2} flex={1} justifyContent='space-between	'>
+				<Button onClick={handleSignUp} size='small'>
+					{signUp ? 'LOGIN' : 'CREATE NEW ACCOUNT'}
+				</Button>
+				{signUp ? <SignUpBtn /> : <LoginBtn />}
+			</Stack>
+		</div>
 	);
 };
 

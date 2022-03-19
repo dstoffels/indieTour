@@ -19,11 +19,19 @@ export const authHeader = async () => {
 };
 
 export const createEmailUser = async ({ email, password, displayName }) => {
+	// create user account
 	const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 	const { user } = userCredentials;
+
+	// manually add displayName to user account
 	await updateProfile(user, { displayName });
+
+	// generate auth header from currentUser.accessToken
 	const headers = await authHeader();
+
+	// create user in firestore db
 	await axios.post(USER_PATH, { displayName, hasValidPW: true }, headers);
+
 	await sendEmailVerification(user);
 };
 

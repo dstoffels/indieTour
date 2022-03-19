@@ -8,22 +8,18 @@ import BandCard from './BandCard.jsx';
 const Bands = props => {
 	const { bands } = useBands();
 
-	if (bands.length) {
-		const bandCards = bands.map((band, i, bands) => (
-			<div key={band.bandName}>
-				<BandCard band={band} />
-				{i < bands.length - 1 && <Divider />}
-			</div>
-		));
+	const bandCards = bands.map((band, i, bands) => (
+		<div key={band.bandName}>
+			<BandCard band={band} />
+			{i < bands.length - 1 && <Divider />}
+		</div>
+	));
 
-		return (
-			<Panel.Section title='My Bands' topActions={<NewBandModalBtn text='CREATE NEW BAND' />}>
-				{bandCards}
-			</Panel.Section>
-		);
-	}
-
-	return null;
+	return (
+		<Panel.Section title='My Bands' topActions={<NewBandModalBtn text='CREATE NEW BAND' />}>
+			{bandCards}
+		</Panel.Section>
+	);
 };
 
 export default Bands;

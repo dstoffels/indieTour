@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import EmailField from '../EmailField/EmailField.jsx';
 import PasswordField from '../PasswordField/PasswordField.jsx';
 
-const SignUpForm = props => {
+const SignUpForm = ({ closeMenu }) => {
 	// STATE
 	const [error, setError] = useState('');
 	const initialState = { email: '', displayName: '', password: '', confirmPassword: '' };
@@ -19,6 +19,7 @@ const SignUpForm = props => {
 	async function onSubmit() {
 		try {
 			await createEmailUser(form);
+			closeMenu();
 		} catch (e) {
 			setError(e.code);
 		}

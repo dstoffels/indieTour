@@ -2,7 +2,6 @@ import { createTheme } from '@mui/material';
 import palette from './palette.js';
 
 const theme = createTheme({
-	typography: {},
 	palette: {
 		background: {
 			default: palette.bg.default,
@@ -43,6 +42,18 @@ const theme = createTheme({
 			secondary: palette.text.secondary,
 		},
 		mode: 'dark',
+	},
+	components: {
+		MuiOutlinedInput: {
+			styleOverrides: {
+				input: {
+					'&:-webkit-autofill': {
+						WebkitBoxShadow: '0 0 0 100px #00000000 inset',
+						WebkitTextFillColor: '#fff',
+					},
+				},
+			},
+		},
 	},
 });
 
