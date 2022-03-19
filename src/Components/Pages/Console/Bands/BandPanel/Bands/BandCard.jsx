@@ -5,7 +5,7 @@ import useBands from '../../useBands.js';
 const BandCard = ({ band }) => {
 	const { activeMember, selectBand } = useBands();
 
-	const isActive = band.bandName === activeMember.bandName;
+	const isActive = band?.bandName === activeMember?.bandName;
 	const active = isActive ? '(active)' : '';
 
 	const handleClick = () => !isActive && selectBand(band);
@@ -14,7 +14,7 @@ const BandCard = ({ band }) => {
 		<Card className='d-flex'>
 			<CardActionArea onClick={handleClick}>
 				<CardContent className='p-2'>
-					<Typography color={isActive && 'primary'}>{band.bandName + active} </Typography>
+					<Typography color={isActive && 'primary'}>{band?.bandName + active} </Typography>
 				</CardContent>
 			</CardActionArea>
 		</Card>

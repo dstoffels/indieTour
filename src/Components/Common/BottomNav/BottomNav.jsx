@@ -1,6 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import {
+	Dashboard,
+	DashboardOutlined,
 	DateRange,
 	DateRangeOutlined,
 	FactCheck,
@@ -57,7 +59,7 @@ const BottomNav = memo(props => {
 				<BottomNavigationAction
 					label='Console'
 					value={CONSOLE}
-					icon={value === CONSOLE ? <Settings /> : <SettingsOutlined />}
+					icon={value === CONSOLE ? <Dashboard /> : <DashboardOutlined />}
 				/>
 			</BottomNavigation>
 		</Paper>
