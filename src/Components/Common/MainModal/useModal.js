@@ -4,6 +4,7 @@ import NewBandModal from 'Components/Pages/Console/Bands/NewBandModal/NewBandMod
 import DeleteTourModal from 'Components/Pages/Console/Tours/DeleteTourModal/DeleteTourModal.jsx';
 import EditTourModal from 'Components/Pages/Console/Tours/EditTourModal/EditTourModal.jsx';
 import NewTourModal from 'Components/Pages/Console/Tours/NewTourModal/NewTourModal.jsx';
+import AddDateModal from 'Components/Pages/Dates/AddDateModal/AddDateModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { showDeleteModal } from '../DeleteModal/deleteModalSlice.js';
 import { showModal } from './mainModalSlice.js';
@@ -12,30 +13,48 @@ const useModal = () => {
 	const dispatch = useDispatch();
 	const { mainModal, deleteModal } = useSelector(state => state);
 
-	const openMainModal = modal => dispatch(showModal(modal));
+	const openMainModal = modalKey => dispatch(showModal(modalKey));
 	const closeMainModal = () => dispatch(showModal(''));
 
-	const openDeleteModal = modal => dispatch(showDeleteModal(modal));
+	const openDeleteModal = modalKey => dispatch(showDeleteModal(modalKey));
 	const closeDeleteModal = () => dispatch(showDeleteModal(''));
 
+	/**
+	 * These are set to store.mainModal / store.deleteModal
+	 * These modals automatically select from the modals object based on the active key
+	 */
 	const modalKeys = {
+		// Bands
 		newBand: 'newBand',
 		editBand: 'editBand',
 		delBand: 'delBand',
 
+		// Tours
 		newTour: 'newTour',
 		editTour: 'editTour',
 		delTour: 'delTour',
+
+		// Dates
+		newDate: 'newDate',
+		editDate: 'editDate',
+		delDate: 'delDate',
 	};
 
 	const modals = {
+		// Bands
 		[modalKeys.newBand]: <NewBandModal />,
 		[modalKeys.editBand]: <EditBandModal />,
 		[modalKeys.delBand]: <DeleteBandModal />,
 
+		// Tours
 		[modalKeys.newTour]: <NewTourModal />,
 		[modalKeys.editTour]: <EditTourModal />,
 		[modalKeys.delTour]: <DeleteTourModal />,
+
+		// Dates
+		[modalKeys.newDate]: <AddDateModal />,
+		[modalKeys.editDate]: <div>EDIT DATE MODAL DOESN'T EXIST</div>,
+		[modalKeys.delDate]: <div>DELETE DATE MODAL DOESN'T EXIST</div>,
 	};
 
 	return {

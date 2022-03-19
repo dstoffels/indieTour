@@ -4,6 +4,7 @@ import useForm from 'hooks/useForm.js';
 import React from 'react';
 
 const fields = { name: '', notes: '' };
+
 const TourForm = ({ title, id, onSubmit, submitBtn, values = fields, actions }) => {
 	const { form, handleChange, handleSubmit } = useForm(values, () => {
 		onSubmit(form);

@@ -1,6 +1,7 @@
 import { Add } from '@mui/icons-material';
 import { Button, Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
+import AddDateModalBtn from 'Components/Pages/Dates/AddDateModal/AddDateModalBtn.jsx';
 import React from 'react';
 import EditTourModalBtn from '../../EditTourModal/EditTourModalBtn.jsx';
 import NewTourModalBtn from '../../NewTourModal/NewTourModalBtn.jsx';
@@ -12,7 +13,7 @@ const TourInfo = props => {
 	const actions = (
 		<>
 			<EditTourModalBtn />
-			<Button startIcon={<Add />}>Add Dates</Button>
+			<AddDateModalBtn />
 		</>
 	);
 
