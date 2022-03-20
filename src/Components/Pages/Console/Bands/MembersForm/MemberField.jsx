@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
-import { MEMBER } from 'constants/roles.js';
 import AdminSwitch from './AdminSwitch.jsx';
 import RemoveMemberBtn from './RemoveMemberBtn.jsx';
 

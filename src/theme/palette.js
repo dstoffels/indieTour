@@ -7,9 +7,9 @@ const bg = {
 
 const primary = '#88A2FF';
 const secondary = '#D3FBD8';
-const success = '#007D58';
+const success = '#275E2D';
 const warning = '#AF8D19';
-const error = '#AA677B';
+const error = '#FA3535';
 
 const nav = {
 	main: `#0000004D`,

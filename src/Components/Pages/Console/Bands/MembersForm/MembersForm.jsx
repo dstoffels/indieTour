@@ -40,7 +40,7 @@ const MembersForm = ({ bandForm, setBandForm }) => {
 			<Stack spacing={2} marginBottom={3}>
 				{memberFields}
 				<Button type='submit' size='' variant='text' fullWidth>
-					{members.length > 0 ? 'Invite another member' : 'Invite Members'}
+					{members.length ? 'Invite another member' : 'Invite Members'}
 				</Button>
 			</Stack>
 		</form>
