@@ -1,5 +1,4 @@
-import { Add } from '@mui/icons-material';
-import { Button, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import AddDateModalBtn from 'Components/Pages/Dates/AddDateModal/AddDateModalBtn.jsx';
 import React from 'react';
@@ -13,7 +12,7 @@ const TourInfo = props => {
 	const actions = (
 		<>
 			<EditTourModalBtn />
-			<AddDateModalBtn />
+			{/* <AddDateModalBtn /> */}
 		</>
 	);
 
@@ -22,32 +21,52 @@ const TourInfo = props => {
 
 		return (
 			<Panel.Section title='Active Tour' bottomActions={actions}>
-				<Typography color='primary' variant='h5' marginBottom={3}>
-					{name}
-				</Typography>
-				<Typography color='primary' variant='caption'>
-					Notes
-				</Typography>
-				<Typography marginBottom={1} variant='body1'>
-					{notes}
-				</Typography>
-				<Typography color='primary' variant='caption'>
-					Dates
-				</Typography>
-				{Boolean(startDate) && (
-					<Typography component='div' variant='body2'>
-						Start date: {startDate}
+				<Stack spacing={1}>
+					<Typography color='primary' variant='h6' marginBottom={1}>
+						{name}
 					</Typography>
-				)}
 
-				{Boolean(endDate) && (
-					<Typography component='div' variant='body2'>
-						End date: {endDate}{' '}
-					</Typography>
-				)}
-				<Typography component='div' variant='body2'>
-					Total dates: {numDates}{' '}
-				</Typography>
+					{Boolean(startDate) && (
+						<div>
+							<Typography color='primary' variant='caption'>
+								Start Date
+							</Typography>
+							<Typography component='div' variant='body2'>
+								{startDate}
+							</Typography>
+						</div>
+					)}
+
+					{Boolean(endDate) && (
+						<div>
+							<Typography color='primary' variant='caption'>
+								End Date
+							</Typography>
+
+							<Typography component='div' variant='body2'>
+								{endDate}
+							</Typography>
+						</div>
+					)}
+
+					<div>
+						<Typography color='primary' variant='caption'>
+							Total dates
+						</Typography>
+						<Typography component='div' variant='body2'>
+							{numDates}
+						</Typography>
+					</div>
+
+					<div>
+						<Typography color='primary' variant='caption'>
+							Notes
+						</Typography>
+						<Typography marginBottom={1} variant='body1'>
+							{notes}
+						</Typography>
+					</div>
+				</Stack>
 			</Panel.Section>
 		);
 	}

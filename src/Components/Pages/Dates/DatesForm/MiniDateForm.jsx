@@ -1,6 +1,6 @@
 import { LocalizationProvider } from '@mui/lab';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import { IconButton, Stack, TextField } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import Adapter from '@mui/lab/AdapterDateFns';
 import PickersDay from '@mui/lab/PickersDay';
@@ -8,8 +8,6 @@ import RemoveTourDateBtn from './RemoveTourDateBtn.jsx';
 import { TourDate } from 'Components/Pages/Console/Tours/TourForm/DateRangePicker.jsx';
 
 const MiniDateForm = ({ i, tourDate, onChange, dates, setDates }) => {
-	console.log(`rendered: ${i}`);
-
 	const [open, setOpen] = useState(tourDate.date === '');
 	const [date, setDate] = useState(tourDate.date);
 	const [title, setTitle] = useState(tourDate.title);

@@ -2,12 +2,9 @@ import { Divider } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel';
 import React from 'react';
 import NewTourModalBtn from '../../NewTourModal/NewTourModalBtn';
-import useTours from '../../useTours';
 import TourCard from './TourCard';
 
 const Tours = ({ tours }) => {
-	const { activeTour } = useTours();
-
 	if (tours.length) {
 		const tourCards = tours.map((tour, i, tours) => (
 			<div key={tour.name}>

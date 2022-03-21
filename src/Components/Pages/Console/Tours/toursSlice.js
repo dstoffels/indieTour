@@ -16,7 +16,7 @@ const DELETE = 'tours/delete';
 
 export const createNewTour = createAsyncThunk(NEW, async (form, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
-	const { user, token } = getState();
+	const { user } = getState();
 
 	thunkErrorHandler(thunkAPI, async token => {
 		const response = await axios.post(toursPath(user.activeMember.bandPath), form, token);
@@ -30,30 +30,29 @@ export const createNewTour = createAsyncThunk(NEW, async (form, thunkAPI) => {
 });
 
 export const fetchTours = createAsyncThunk(FETCH, async (_, thunkAPI) => {
-	const { token, user } = thunkAPI.getState();
+	const { user } = thunkAPI.getState();
 
-	if (token) {
+	thunkErrorHandler(thunkAPI, async token => {
 		const response = await axios.get(toursPath(user.activeMember.bandPath), token);
 		thunkAPI.dispatch(toursSlice.actions.setTours(response.data));
-	}
+	});
 });
 
 export const editTour = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
-	const { user, token } = getState();
+	const { user } = getState();
 
-	if (token) {
+	thunkErrorHandler(thunkAPI, async token => {
 		const response = await axios.put(restPath(user.activeMember.activeTour.path), form, token);
 		await dispatch(setActiveTourAndFetchDates(response.data));
 		dispatch(closeModal());
-	}
+	});
 });
 
 export const deleteActiveTour = createAsyncThunk(DELETE, async (path, thunkAPI) => {
-	const { dispatch, getState } = thunkAPI;
-	const { token } = getState();
+	const { dispatch } = thunkAPI;
 
-	if (token) {
+	thunkErrorHandler(thunkAPI, async token => {
 		const response = await axios.delete(restPath(path), token);
 
 		dispatch(closeDeleteModal());
@@ -61,7 +60,7 @@ export const deleteActiveTour = createAsyncThunk(DELETE, async (path, thunkAPI) 
 
 		dispatch(toursSlice.actions.setTours(response.data));
 		dispatch(setActiveTourAndFetchDates());
-	}
+	});
 });
 
 // TODO: ARCHIVE TOUR THUNK

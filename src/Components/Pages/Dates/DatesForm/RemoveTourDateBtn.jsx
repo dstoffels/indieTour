@@ -4,8 +4,9 @@ import { IconButton } from '@mui/material';
 
 const RemoveTourDateBtn = ({ i, tourDates, setTourDates }) => {
 	const handleClick = () => {
-		tourDates.splice(i, 1);
-		setTourDates([...tourDates]);
+		const dates = [...tourDates];
+		dates.splice(i, 1);
+		setTourDates([...dates]);
 	};
 	return (
 		<IconButton onClick={handleClick} size='small' color='error'>

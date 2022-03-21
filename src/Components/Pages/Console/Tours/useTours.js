@@ -5,7 +5,10 @@ import { createNewTour, deleteActiveTour, editTour } from './toursSlice.js';
 const useTours = () => {
 	const dispatch = useDispatch();
 	const { user, tours } = useSelector(state => state);
+
 	const activeTour = user?.activeMember?.activeTour;
+
+	const activeTourDates = activeTour.dates;
 
 	const selectTour = tour => dispatch(setActiveTourAndFetchDates(tour));
 
@@ -15,7 +18,7 @@ const useTours = () => {
 
 	const deleteTour = path => dispatch(deleteActiveTour(path));
 
-	return { tours, activeTour, selectTour, createTour, updateTour, deleteTour };
+	return { tours, activeTour, activeTourDates, selectTour, createTour, updateTour, deleteTour };
 };
 
 export default useTours;

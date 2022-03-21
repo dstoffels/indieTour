@@ -22,7 +22,7 @@ const BandInfo = props => {
 		const { bandName } = activeMember;
 		return (
 			<Panel.Section title='Active Band' bottomActions={actions}>
-				<Typography color='primary' variant='h5' marginBottom={3}>
+				<Typography color='primary' variant='h6' marginBottom={2}>
 					{bandName}
 				</Typography>
 				<Typography color='primary' variant='caption'>

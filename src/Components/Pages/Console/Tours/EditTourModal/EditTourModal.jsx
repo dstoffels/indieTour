@@ -12,7 +12,7 @@ const EditTourModal = props => {
 
 	const handleSubmit = form => updateTour(form);
 
-	const { name, notes } = activeTour;
+	const { name, notes, dates } = activeTour;
 
 	const actions = [<ArchiveTourBtn key='archive' withText />, <DeleteTourModalBtn key='delete' />];
 
@@ -21,7 +21,7 @@ const EditTourModal = props => {
 			title={`Editing ${name}`}
 			onSubmit={handleSubmit}
 			id={EDIT_TOUR_FORM_ID}
-			values={{ name, notes }}
+			values={{ name, notes, dates }}
 			submitBtn={<UpdateTourBtn />}
 			actions={actions}
 		/>

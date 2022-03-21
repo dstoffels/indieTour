@@ -20,9 +20,11 @@ export const TourDate = (date = '', title = '') => {
 	};
 };
 
-const DateRangePicker = ({ onSubmit, onClose, dates, setDates }) => {
+const DateRangePicker = ({ onClose, dates, setDates }) => {
 	const existingDates = dates.map(date => new Date(date.date).toDateString());
 	const [dateRange, setDateRange] = useState({ startDate: '', endDate: '' });
+
+	console.log('daterangepicker');
 
 	const handleChange = ([startDate, endDate]) => setDateRange({ startDate, endDate });
 
