@@ -6,6 +6,7 @@ import { tours } from 'Components/Pages/Console/Tours/toursSlice.js';
 import { token } from 'Components/Auth/Authentication/authSlice.js';
 import { mainModal } from 'Components/Common/MainModal/mainModalSlice.js';
 import { deleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
+import { tourForm } from 'Components/Pages/Console/Tours/TourForm/tourFormSlice.js';
 
 export const store = configureStore({
 	reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
 		members,
 		mainModal,
 		deleteModal,
+		tourForm,
 	},
 });

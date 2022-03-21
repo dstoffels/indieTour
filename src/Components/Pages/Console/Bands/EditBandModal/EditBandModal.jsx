@@ -18,8 +18,6 @@ const EditBandModal = props => {
 
 	const handleSubmit = form => updateBand(form);
 
-	// TODO: refactor to match tour panel
-
 	return (
 		<>
 			<BandForm

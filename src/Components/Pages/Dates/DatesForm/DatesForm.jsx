@@ -1,80 +1,65 @@
-import { Button, Stack } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Add, DateRangeOutlined } from '@mui/icons-material';
+import { Button, Dialog, Stack } from '@mui/material';
+import DateRangePicker, {
+	TourDate,
+} from 'Components/Pages/Console/Tours/TourForm/DateRangePicker.jsx';
+import React, { memo, useState } from 'react';
 import MiniDateForm from './MiniDateForm.jsx';
 
-const getTodayFieldStr = () => {
-	const today = new Date();
-	return `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${(
-		'0' + today.getDate()
-	).slice(-2)}`;
-};
-
-const dateTemplate = {
-	date: getTodayFieldStr(),
-	type: '',
-	title: '',
-	location: '',
-	deal: '',
-	notes: '',
-	isConfirmed: false,
-	timeslots: [],
-	contacts: [],
-};
-
-const DatesForm = ({ tourForm, tourFormOnChange }) => {
-	const [dates, setDates] = useState([...tourForm.dates]);
-
-	const handleSubmit = e => {
-		e.preventDefault();
-		const newDates = [...dates, { ...dateTemplate, key: Math.random() }];
-		setDates(newDates);
-	};
-
-	const handleChange = (i, data) => {
-		const newDates = [...dates];
-		newDates[i] = { ...dates[i], ...data };
-		setDates(newDates);
-	};
-
-	useEffect(() => {
-		tourFormOnChange({
-			target: {
-				name: 'dates',
-				value: dates,
-			},
-		});
-	}, [dates]);
-
-	// DATES MUST BE UNIQUE
+const DatesForm = ({ dates, setDates }) => {
+	const [showDateRange, setShowDateRange] = useState(false);
 	console.log(dates);
 
-	const miniDateForms = dates
-		.sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
-		.map((date, i) => {
-			return (
-				<MiniDateForm
-					key={date.key}
-					i={i}
-					date={date}
-					dates={dates}
-					setDates={setDates}
-					onChange={handleChange}
-				/>
-			);
-		});
+	const setSortedDates = newDates => {
+		setDates(newDates.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)));
+	};
+
+	const handleNewDateForm = e => {
+		const newDates = [...dates, TourDate()];
+		setDates(newDates);
+	};
+
+	const handleChange = (i, date) => {
+		const newDates = [...dates];
+		newDates[i] = date;
+		setSortedDates(newDates);
+	};
+
+	const miniDateForms = dates.map((date, i) => {
+		return (
+			<MiniDateForm
+				key={date.key}
+				i={i}
+				tourDate={date}
+				dates={dates}
+				setDates={setDates}
+				onChange={handleChange}
+			/>
+		);
+	});
 
 	return (
-		<div className='px-3'>
-			<form onSubmit={handleSubmit}>
-				<Stack spacing={1} marginBottom={3}>
-					{miniDateForms}
-					<Button type='submit' fullWidth>
-						{dates.length ? 'Add Date' : 'Add Dates'}
+		<div>
+			<Dialog sx={{ padding: '0' }} open={showDateRange}>
+				<DateRangePicker
+					dates={dates}
+					setDates={setSortedDates}
+					onClose={() => setShowDateRange(false)}
+				/>
+			</Dialog>
+			<Stack spacing={1} marginY={3}>
+				{miniDateForms}
+				<Stack direction='row' spacing={2} className='flex-end'>
+					<Button onClick={handleNewDateForm} startIcon={<Add />}>
+						ADD DATE
+					</Button>
+					<Button onClick={() => setShowDateRange(true)} startIcon={<DateRangeOutlined />}>
+						ADD DATE RANGE
 					</Button>
 				</Stack>
-			</form>
+			</Stack>
 		</div>
 	);
 };
 
-export default DatesForm;
+export default memo(DatesForm);

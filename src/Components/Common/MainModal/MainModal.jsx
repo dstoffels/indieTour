@@ -10,7 +10,15 @@ const MainModal = props => {
 	return (
 		<>
 			<DeleteModal />
-			<Dialog fullWidth open={Boolean(mainModal)} onClose={closeMainModal}>
+			<Dialog
+				fullWidth
+				PaperProps={{
+					className: 'm-1',
+					sx: {
+						width: '100%',
+					},
+				}}
+				open={Boolean(mainModal)}>
 				<CloseModalBtn />
 				{modals[mainModal]}
 			</Dialog>
