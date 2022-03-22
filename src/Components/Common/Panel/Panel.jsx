@@ -4,7 +4,7 @@ import { Col } from 'react-bootstrap';
 import './Panel.css';
 
 const Panel = ({ title = '', actions, children }) => {
-	const header = Boolean(title) && <h3 className='panel-header'>{title}</h3>;
+	const header = Boolean(title) && <h6 className='panel-header'>{title}</h6>;
 
 	return (
 		<Col sm={12} md={6} className='my-2'>

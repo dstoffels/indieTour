@@ -12,12 +12,12 @@ const AuthProvider = ({ children }) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		// authstate does not auto refresh token ¯\_(ツ)_/¯
+		// authstate does not auto refresh token, must be done manually ¯\_(ツ)_/¯
 		const unsubAuth = onAuthStateChanged(auth, async user => {
 			if (user) {
 				const token = { headers: { auth: user.accessToken } };
 				dispatch(setToken(token));
-				await dispatch(fetchUser());
+				dispatch(fetchUser());
 			} else {
 				dispatch(clearUser());
 				dispatch(clearToken());

@@ -1,4 +1,3 @@
-import { Stack, Typography } from '@mui/material';
 import withAuthentication from 'Components/Auth/Authentication/withAuthentication.jsx';
 import Selector from 'Components/Common/Selector/Selector.jsx';
 import useTours from 'Components/Pages/Console/Tours/useTours.js';

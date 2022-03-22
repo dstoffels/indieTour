@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useUser from './hooks/useUser.js';
 import Booking from './Components/Pages/Booking/Booking.jsx';
 import Today from './Components/Pages/Today/Today.jsx';
-import Dates from './Components/Pages/Dates/Dates.jsx';
+import DatesPage from './Components/Pages/Dates/DatesPage.jsx';
 import AuthProvider from 'Components/Auth/Authentication/AuthProvider.jsx';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from 'theme/theme.js';
@@ -30,7 +30,7 @@ function App() {
 					<Route exact path={HOME} element={<Home />}></Route>
 					<Route path={WAITING_ROOM} element={<VerifyEmail />} />
 					<Route path={TODAY} element={<Today />} />
-					<Route path={DATES} element={<Dates />} />
+					<Route path={DATES} element={<DatesPage />} />
 					<Route path={BOOKING} element={<Booking />} />
 					<Route path={CONSOLE} element={<ConsolePage />} />
 				</Routes>

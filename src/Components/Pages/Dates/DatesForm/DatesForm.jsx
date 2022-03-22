@@ -10,7 +10,6 @@ const DatesForm = ({ dates, setDates }) => {
 	const [showDateRange, setShowDateRange] = useState(false);
 
 	const setSortedDates = newDates => {
-		const startDate = newDates[0];
 		setDates(newDates.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)));
 	};
 

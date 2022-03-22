@@ -1,23 +1,26 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import thunkErrorHandler from 'redux/errorHandler.js';
 import { setActiveMember } from 'redux/userSlice.js';
 import { membersPath, restPath } from 'utils/restPaths.js';
 
+// ACTIONS
 const FETCH = 'members/fetchMembers';
+const UPDATE = 'members/UPDATE';
+
 export const fetchMembers = createAsyncThunk(FETCH, async (_, thunkAPI) => {
-	const { user, token } = thunkAPI.getState();
-	if (token) {
+	await thunkErrorHandler(thunkAPI, async token => {
+		const { user } = thunkAPI.getState();
 		const response = await axios.get(membersPath(user.activeMember.bandPath), token);
 		thunkAPI.dispatch(membersSlice.actions.setMembers(response.data));
-	}
+	});
 });
 
-const UPDATE = 'members/UPDATE';
 export const updateMember = createAsyncThunk(UPDATE, async (member, thunkAPI) => {
-	const { dispatch, getState } = thunkAPI;
-	const { user, members, token } = getState();
+	await thunkErrorHandler(thunkAPI, async token => {
+		const { dispatch, getState } = thunkAPI;
+		const { user, members } = getState();
 
-	if (token) {
 		axios.put(restPath(member.path), member, token);
 
 		// update members in state accordingly
@@ -28,7 +31,7 @@ export const updateMember = createAsyncThunk(UPDATE, async (member, thunkAPI) =>
 		const updatedMembers = [...members];
 		updatedMembers[i] = member;
 		dispatch(setMembers(updatedMembers));
-	}
+	});
 });
 
 const initialState = [];

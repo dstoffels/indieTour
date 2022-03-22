@@ -1,4 +1,4 @@
-import { CONSOLE } from 'constants/routes.js';
+import { CONSOLE, DATES } from 'constants/routes.js';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from './useUser.js';
@@ -10,7 +10,7 @@ const useLogin = () => {
 
 	useEffect(() => {
 		if (user) {
-			navigate(CONSOLE);
+			navigate(DATES);
 		}
 	}, [user]);
 };

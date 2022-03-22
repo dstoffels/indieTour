@@ -55,7 +55,7 @@ export const deleteActiveBand = createAsyncThunk(DELETE, async (_, thunkAPI) => 
 		dispatch(closeModal(false));
 
 		dispatch(clearTours());
-		dispatch(setUserBands(response.data));
+		await dispatch(setUserBands(response.data));
 		await dispatch(setActiveMemberAndGetMembers());
 	}
 });

@@ -4,7 +4,7 @@ export const restPath = path => ROOT + path;
 
 // USER
 export const USER_PATH = ROOT + '/user';
-export const userPath = uid => `${USER_PATH}/${uid}`;
+export const userPath = userDocId => `${USER_PATH}/${userDocId}`;
 
 // BANDS
 export const BANDS_PATH = ROOT + '/bands';

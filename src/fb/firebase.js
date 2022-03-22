@@ -19,6 +19,12 @@ export const authHeader = async () => {
 };
 
 export const createEmailUser = async ({ email, password, displayName }) => {
+	// create user in firestore db
+
+	console.log('attempting to create user in db');
+	await axios.post(USER_PATH, { email, displayName, hasValidPW: true });
+	console.log('createEmailUser finished creating the user in db');
+
 	// create user account
 	const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 	const { user } = userCredentials;
@@ -28,9 +34,6 @@ export const createEmailUser = async ({ email, password, displayName }) => {
 
 	// generate auth header from currentUser.accessToken
 	const headers = await authHeader();
-
-	// create user in firestore db
-	await axios.post(USER_PATH, { displayName, hasValidPW: true }, headers);
 
 	await sendEmailVerification(user);
 };

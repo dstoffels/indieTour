@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from 'hooks/useUser.js';
 import { HOME, WAITING_ROOM } from 'constants/routes.js';
+import { auth } from 'fb/firebase.js';
 
 const Authenticate = ({ children }) => {
 	const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Authenticate = ({ children }) => {
 			return null;
 		}
 
-		if (!user.emailVerified) {
+		if (!auth?.currentUser?.emailVerified) {
 			navigate(WAITING_ROOM);
 			return null;
 		}

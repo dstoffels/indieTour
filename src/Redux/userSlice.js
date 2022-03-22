@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { fetchToken } from 'Components/Auth/Authentication/authSlice.js';
 import { fetchUserBands, setUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
 import { fetchMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
 import { fetchTours } from 'Components/Pages/Console/Tours/toursSlice.js';
@@ -16,6 +15,7 @@ const SET_TOUR = 'user/setActiveTour';
 // THUNKS
 
 /**
+ * @action user/fetchUser
  * @fetch user from firestore db.
  * @set fetched user in store
  * @fetch user's bands
@@ -26,10 +26,16 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 
 	await thunkErrorHandler(thunkAPI, async token => {
 		const response = await axios.get(USER_PATH, token);
-		dispatch(userSlice.actions.setUser(response.data));
-		await dispatch(fetchUserBands());
-		await dispatch(fetchMembers());
-		await dispatch(fetchTours());
+		const user = response.data;
+
+		dispatch(setUser(user));
+
+		// if user was just created, activeMember will be null
+		if (user.activeMember) {
+			await dispatch(fetchUserBands());
+			await dispatch(fetchMembers());
+			await dispatch(fetchTours());
+		}
 	});
 });
 
@@ -37,40 +43,39 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
  * @param band band object
  * @fetch tours, members
  */
-export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (band, thunkAPI) => {
+export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (member, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 	const { bands, token } = getState();
 
 	if (token) {
-		band = band ? band : bands[0];
-		dispatch(setActiveMember(band));
-		axios.put(USER_PATH, { activeMember: band }, token);
+		member = member ? member : bands[0];
+		dispatch(setActiveMember(member));
 
-		dispatch(fetchTours());
-		dispatch(fetchMembers());
+		axios.put(USER_PATH, { activeMember: member || null }, token);
+
+		if (member) {
+			dispatch(fetchMembers());
+			dispatch(fetchTours());
+		}
 	}
 });
 
 export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour, thunkAPI) => {
-	const { dispatch, getState } = thunkAPI;
+	await thunkErrorHandler(thunkAPI, async token => {
+		await thunkAPI.dispatch(fetchTours());
 
-	// ensure tours list is up to date
-	await dispatch(fetchTours());
-
-	const { user, tours, token } = getState();
-
-	// TODO: tours list must be updated before this thunk on delete
-
-	if (token) {
+		const { user, tours } = thunkAPI.getState();
 		tour = tour ? tour : tours[0];
 
-		dispatch(userSlice.actions.setUserMemberActiveTour(tour));
-		await axios.put(restPath(user.activeMember.path), { activeTour: tour }, token);
+		// prevent dates array from being stored in db
+		const { dates, ...tourSansDates } = tour;
 
-		dispatch(fetchUserBands());
+		await axios.put(restPath(user.activeMember.path), { activeTour: tourSansDates }, token);
 
-		// fetch dates
-	}
+		thunkAPI.dispatch(userSlice.actions.setUserMemberActiveTour(tour));
+
+		thunkAPI.dispatch(fetchUserBands());
+	});
 });
 
 // REDUCER
