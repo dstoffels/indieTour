@@ -30,7 +30,7 @@ const theme = createTheme({
 
 		action: {
 			hover: 'rgba(255, 255, 255, 0.05)',
-			selected: 'rgba(255, 255, 255, 0.5)',
+			selected: '#2D2D358D',
 		},
 
 		nav: {

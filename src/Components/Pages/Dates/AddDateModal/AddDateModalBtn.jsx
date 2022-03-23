@@ -8,7 +8,7 @@ const AddDateModalBtn = props => {
 	const handleClick = () => openMainModal(modalKeys.newDate);
 	return (
 		<Button color='primary' variant='text' onClick={handleClick} startIcon={<Add />}>
-			ADD DATES
+			ADD TOUR DATE
 		</Button>
 	);
 };

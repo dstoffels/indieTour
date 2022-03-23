@@ -17,3 +17,10 @@ export const membersPath = bandPath => `${ROOT + bandPath}/${MEMBERS}`;
 // TOURS
 const TOURS = 'tours';
 export const toursPath = bandPath => `${ROOT + bandPath}/${TOURS}`;
+
+// DATES
+
+// TIMESLOTS
+
+// GOOGLE
+export const placesPath = search => `${ROOT}/places/${search}`;

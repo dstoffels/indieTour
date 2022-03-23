@@ -1,21 +1,26 @@
-import ModalForm from 'Components/Common/ModalForm/ModalForm.jsx';
 import useTours from 'Components/Pages/Console/Tours/useTours.js';
-import React from 'react';
+import React, { useState } from 'react';
+import AddDateBtn from './AddDateBtn.jsx';
+import AddDateForm from './AddDateForm.jsx';
 
 export const ADD_DATE_FORM_ID = 'add-date-form';
 
-const AddDateModal = props => {
-	const { activeTour } = useTours();
-	const handleSubmit = form => {
-		console.log(form);
+const AddDateModal = () => {
+	const { activeTour, activeTourDates, updateTour } = useTours();
+
+	const handleSubmit = newTourDate => {
+		const dates = [...activeTourDates, newTourDate];
+		updateTour({ ...activeTour, dates });
 	};
-	return null;
-	// return (
-	// 	<DateForm
-	// 		title={`Add date to ${activeTour.name}`}
-	// 		id={ADD_DATE_FORM_ID}
-	// 		onSubmit={handleSubmit}></DateForm>
-	// );
+
+	return (
+		<AddDateForm
+			tourName={activeTour.name}
+			tourDates={activeTourDates}
+			submitBtn={<AddDateBtn />}
+			onSubmit={handleSubmit}
+		/>
+	);
 };
 
 export default AddDateModal;

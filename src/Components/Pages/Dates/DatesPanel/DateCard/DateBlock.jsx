@@ -11,13 +11,15 @@ const getDateObj = date => {
 	};
 };
 
-const DateBlock = ({ date }) => {
+const DateBlock = ({ date, fontStyle, color }) => {
 	const { weekDay, day, month, year } = getDateObj(date);
 
 	const isToday = new Date(date).toDateString() === new Date().toDateString();
 
 	return (
 		<Stack
+			fontStyle={fontStyle}
+			color={color}
 			spacing={-1}
 			padding='3px 1rem'
 			textAlign='center'
