@@ -1,11 +1,11 @@
-import { Save } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import React from 'react';
 import useModal from 'Components/Common/MainModal/useModal.js';
 import useTours from 'Components/Pages/Console/Tours/useTours.js';
-import React from 'react';
-import useDates from '../useDates.js';
+import useDates from '../../useDates.js';
+import { Button } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
-const SaveDateBtn = () => {
+const DeleteDateBtn = () => {
 	const { unsavedChanges, activeTourDates, activeDate, selectTourDate } = useDates();
 	const { updateTour, activeTour } = useTours();
 	const { closeDeleteModal } = useModal();
@@ -13,18 +13,23 @@ const SaveDateBtn = () => {
 	const handleClick = () => {
 		const dates = [...activeTourDates];
 		const i = dates.findIndex(({ date }) => date === activeDate.date);
-		dates[i] = activeDate;
+		dates.splice(i, 1);
 		const updatedTour = { ...activeTour, dates };
 		updateTour(updatedTour);
-		selectTourDate(activeDate);
+		selectTourDate(null);
 		closeDeleteModal();
 	};
 
 	return (
-		<Button color='primary' onClick={handleClick} disabled={!unsavedChanges} startIcon={<Save />}>
-			SAVE
+		<Button
+			color='error'
+			variant='contained'
+			fullWidth
+			onClick={handleClick}
+			startIcon={<Delete />}>
+			Delete
 		</Button>
 	);
 };
 
-export default SaveDateBtn;
+export default DeleteDateBtn;

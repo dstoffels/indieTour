@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardContent, Collapse, Stack, Typography } from '@mui/material';
 import useModal from 'Components/Common/MainModal/useModal.js';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useDates from '../../useDates.js';
 import DateBlock from './DateBlock.jsx';
 import DirectionsBtn from './DirectionsBtn.jsx';
@@ -13,12 +13,22 @@ const truncLocation = loc =>
 		.concat();
 
 const DateCard = ({ tourDate }) => {
-	const { selectTourDate, deselectTourDate, showPastDates, activeDate, unsavedChanges } =
-		useDates();
+	const {
+		selectTourDate,
+		deselectTourDate,
+		showPastDates,
+		activeDate,
+		unsavedChanges,
+		originalData,
+	} = useDates();
+
+	const [isActive, setIsActive] = useState(false);
 
 	const { openDeleteModal, modalKeys } = useModal();
 
-	const isActive = tourDate === activeDate;
+	useEffect(() => {
+		setIsActive(tourDate?.key === activeDate?.key);
+	}, [activeDate]);
 
 	const handleClick = () => {
 		const toggleActiveTourDate = () => (isActive ? deselectTourDate() : selectTourDate(tourDate));
@@ -36,7 +46,10 @@ const DateCard = ({ tourDate }) => {
 
 	return (
 		<Collapse in={!getIsPastDate() || showPastDates}>
-			<Card className='flex-between' sx={{ bgcolor: isActive && 'action.selected' }}>
+			<Card
+				elevation={isActive ? 4 : 1}
+				className='flex-between'
+				sx={{ position: 'relative', zIndex: isActive && 1 }}>
 				<CardActionArea onClick={handleClick}>
 					<CardContent className='p-2 flex-between'>
 						<DateBlock fontStyle={fontStyle} color={color} date={tourDate.date} />

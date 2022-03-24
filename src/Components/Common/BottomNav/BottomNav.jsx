@@ -57,7 +57,7 @@ const BottomNav = memo(props => {
 					icon={value === BOOKING ? <FactCheck /> : <FactCheckOutlined />}
 				/> */}
 				<BottomNavigationAction
-					label='Console'
+					label='Tours'
 					value={CONSOLE}
 					icon={value === CONSOLE ? <Dashboard /> : <DashboardOutlined />}
 				/>

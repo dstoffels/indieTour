@@ -39,7 +39,7 @@ const AccountMenu = props => {
 		<div>
 			<Button sx={{ textTransform: 'none' }} onClick={handleClick} size='small' color='secondary'>
 				{user ? (
-					<Avatar sx={{ width: 32, height: 32, bgcolor: 'lavender' }}>
+					<Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
 						{user?.displayName?.charAt(0)}
 					</Avatar>
 				) : (

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { fetchUserBands, setUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
 import { fetchMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
 import { fetchTours } from 'Components/Pages/Console/Tours/toursSlice.js';
+import { setActiveDate } from 'Components/Pages/Dates/datesSlice.js';
 import { sortDates, sortMemberTourDates, sortTourDates } from 'utils/helpers.js';
 import { restPath, USER_PATH } from 'utils/restPaths.js';
 import thunkErrorHandler from './errorHandler.js';
@@ -65,15 +66,17 @@ export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (me
 		if (member) {
 			dispatch(fetchMembers());
 			dispatch(fetchTours());
+			dispatch(setActiveDate(null));
 		}
 	});
 });
 
 export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour, thunkAPI) => {
+	const { dispatch, getState } = thunkAPI;
 	await thunkErrorHandler(thunkAPI, async token => {
-		await thunkAPI.dispatch(fetchTours());
+		await dispatch(fetchTours());
 
-		const { user, tours } = thunkAPI.getState();
+		const { user, tours } = getState();
 		tour = tour ? tour : tours[0];
 
 		// prevent dates array from being stored in db
@@ -84,9 +87,11 @@ export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour
 		// ensure dates are ordered on arrival
 		const updatedTour = sortTourDates(tour);
 
-		thunkAPI.dispatch(userSlice.actions.setUserMemberActiveTour(updatedTour));
+		dispatch(userSlice.actions.setUserMemberActiveTour(updatedTour));
 
-		thunkAPI.dispatch(fetchUserBands());
+		dispatch(fetchUserBands());
+		// need conditional clearing of activeDate if tour didn't change
+		user.activeMember.activeTour.path !== updatedTour?.path && dispatch(setActiveDate(null));
 	});
 });
 

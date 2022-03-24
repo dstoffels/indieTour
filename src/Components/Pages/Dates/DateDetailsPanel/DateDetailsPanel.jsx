@@ -6,8 +6,10 @@ import React, { useState } from 'react';
 import useDates from '../useDates.js';
 import DateDetails from './DateDetails/DateDetails.jsx';
 import DateDetailsTabs, { DateTabPanel } from './DateDetailsTabs.jsx';
+import DeleteDateModalBtn from './DeleteDateModal/DeleteDateModalBtn.jsx';
 import EditModeSwitch from './EditModeSwitch.jsx';
 import SaveDateBtn from './SaveDateBtn.jsx';
+import Schedule from './Schedule/Schedule.jsx';
 
 const DateDetailsPanel = () => {
 	// TODO: use screensize to determine if shown vs. dialog
@@ -22,9 +24,7 @@ const DateDetailsPanel = () => {
 			{editMode && (
 				<>
 					<SaveDateBtn />
-					<Button color='error' startIcon={<Delete />}>
-						DELETE
-					</Button>
+					<DeleteDateModalBtn />
 				</>
 			)}
 			<EditModeSwitch />
@@ -45,7 +45,7 @@ const DateDetailsPanel = () => {
 							/>
 						</DateTabPanel>
 						<DateTabPanel value={tabIndex} i={1} slideDirection='right'>
-							<h3>SCHEDULE</h3>
+							<Schedule />
 						</DateTabPanel>
 					</div>
 				</div>

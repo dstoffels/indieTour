@@ -2,7 +2,7 @@ import { Stack, Switch, Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import React from 'react';
 import ConfirmSwitch from './ConfirmSwitch.jsx';
-import Map from '../Map.jsx';
+import Map from './Map.jsx';
 
 export const EDIT_DATE_FORM_ID = 'edit-date-form';
 
@@ -15,7 +15,7 @@ const DateDetails = ({ activeDate, editMode, editActiveDate }) => {
 
 	const confirmed = isConfirmed ? (
 		<Typography color='primary' variant='button'>
-			CONFIRMED{' '}
+			CONFIRMED
 		</Typography>
 	) : (
 		<Typography color='warning.main' variant='button'>

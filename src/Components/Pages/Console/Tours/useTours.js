@@ -21,8 +21,8 @@ const useTours = () => {
 		const { dates } = data;
 		data = {
 			...data,
-			startDate: dates[0].date,
-			endDate: dates[dates.length - 1].date,
+			startDate: dates[0]?.date || '',
+			endDate: dates[dates.length - 1]?.date || '',
 			numDates: dates.length,
 		};
 
