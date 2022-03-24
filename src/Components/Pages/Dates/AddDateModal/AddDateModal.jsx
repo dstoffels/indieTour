@@ -9,7 +9,10 @@ const AddDateModal = () => {
 	const { activeTour, activeTourDates, updateTour } = useTours();
 
 	const handleSubmit = newTourDate => {
-		const dates = [...activeTourDates, newTourDate];
+		const dates = [...activeTourDates, newTourDate].sort(
+			(a, b) => Date.parse(a.date) - Date.parse(b.date),
+		);
+		console.log(dates);
 		updateTour({ ...activeTour, dates });
 	};
 

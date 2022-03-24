@@ -23,17 +23,17 @@ const TourInfo = props => {
 				<Stack spacing={1}>
 					<Panel.Header>{name}</Panel.Header>
 
-					<Panel.Field title='Start Date' show={startDate}>
+					<Panel.Field label='Start Date' show={startDate}>
 						{startDate}
 					</Panel.Field>
 
-					<Panel.Field title='End Date' show={endDate}>
+					<Panel.Field label='End Date' show={endDate}>
 						{endDate}
 					</Panel.Field>
 
-					<Panel.Field title='Total Dates'>{numDates}</Panel.Field>
+					<Panel.Field label='Total Dates'>{numDates}</Panel.Field>
 
-					<Panel.Field title='Notes' show={notes}>
+					<Panel.Field label='Notes' show={notes}>
 						{notes}
 					</Panel.Field>
 				</Stack>

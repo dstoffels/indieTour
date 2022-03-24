@@ -21,7 +21,7 @@ const thunkErrorHandler = async (thunkAPI, callback) => {
 					await callback(newToken);
 					break;
 				default:
-					console.log(error.response.data);
+					console.log(error);
 			}
 		}
 	}

@@ -25,7 +25,7 @@ const DatesPanel = props => {
 				<AddDateModalBtn key='date-modal-btn' />,
 			]}>
 			<div style={{ margin: '0 -0.5rem', overflowY: 'auto', height: '70vh' }}>
-				<div style={{ margin: ' 0 0.5rem' }}>{tourDateCards}</div>
+				<div style={{ margin: '0.5rem' }}>{tourDateCards}</div>
 			</div>
 		</Panel>
 	);

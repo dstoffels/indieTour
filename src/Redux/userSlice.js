@@ -3,13 +3,14 @@ import axios from 'axios';
 import { fetchUserBands, setUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
 import { fetchMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
 import { fetchTours } from 'Components/Pages/Console/Tours/toursSlice.js';
+import { sortDates, sortMemberTourDates, sortTourDates } from 'utils/helpers.js';
 import { restPath, USER_PATH } from 'utils/restPaths.js';
 import thunkErrorHandler from './errorHandler.js';
 
 // ACTION TYPES
 
 const FETCH = 'user/fetchUser';
-const SET_BAND = 'user/setActiveBand';
+const SET_BAND = 'user/setActiveMember';
 const SET_TOUR = 'user/setActiveTour';
 
 // THUNKS
@@ -27,6 +28,10 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 	await thunkErrorHandler(thunkAPI, async token => {
 		const response = await axios.get(USER_PATH, token);
 		const user = response.data;
+
+		// ensure dates are ordered on arrival
+		user.activeMember &&
+			user.activeMember.activeTour.dates.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
 
 		dispatch(setUser(user));
 
@@ -47,17 +52,21 @@ export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (me
 	const { dispatch, getState } = thunkAPI;
 	const { bands, token } = getState();
 
-	if (token) {
+	await thunkErrorHandler(thunkAPI, token => {
 		member = member ? member : bands[0];
-		dispatch(setActiveMember(member));
 
-		axios.put(USER_PATH, { activeMember: member || null }, token);
+		// ensure dates are ordered on arrival
+		const updatedMember = sortMemberTourDates(member);
+
+		dispatch(setActiveMember(updatedMember));
+
+		axios.put(USER_PATH, { activeMember: updatedMember || null }, token);
 
 		if (member) {
 			dispatch(fetchMembers());
 			dispatch(fetchTours());
 		}
-	}
+	});
 });
 
 export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour, thunkAPI) => {
@@ -72,7 +81,10 @@ export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour
 
 		await axios.put(restPath(user.activeMember.path), { activeTour: tourSansDates }, token);
 
-		thunkAPI.dispatch(userSlice.actions.setUserMemberActiveTour(tour));
+		// ensure dates are ordered on arrival
+		const updatedTour = sortTourDates(tour);
+
+		thunkAPI.dispatch(userSlice.actions.setUserMemberActiveTour(updatedTour));
 
 		thunkAPI.dispatch(fetchUserBands());
 	});

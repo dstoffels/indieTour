@@ -4,17 +4,17 @@ import ModalForm from 'Components/Common/ModalForm/ModalForm.jsx';
 import { TourDate } from 'Components/Pages/Console/Tours/TourForm/DateRangePicker.jsx';
 import useForm from 'hooks/useForm.js';
 import React, { useEffect } from 'react';
+import { eventBldr } from 'utils/helpers.js';
+import ConfirmSwitch from '../DateDetailsPanel/DateDetails/ConfirmSwitch.jsx';
 import { ADD_DATE_FORM_ID } from './AddDateModal.jsx';
 import LocationField from './LocationField.jsx';
 
 const getNextDate = dates => {
-	const lastDate = new Date(dates[dates.length - 1].date);
-	lastDate.setDate(lastDate.getDate() + 1);
-	return lastDate.toDateString();
-};
-
-export const eventBldr = (name, value) => {
-	return { target: { name, value } };
+	if (dates.length) {
+		const lastDate = new Date(dates[dates.length - 1].date);
+		lastDate.setDate(lastDate.getDate() + 1);
+		return lastDate.toDateString();
+	}
 };
 
 const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
@@ -37,19 +37,10 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 						tourDates={tourDates}
 						size='medium'
 					/>
-					<Stack spacing={0}>
-						<Typography variant='caption'>Confirmed</Typography>
-						<Switch
-							className='m-auto'
-							value={form.isConfirmed}
-							onChange={() => {
-								handleChange({ target: { name: 'isConfirmed', value: !form.isConfirmed } });
-							}}
-						/>
-					</Stack>
+					<ConfirmSwitch value={form.isConfirmed} onChange={handleChange} />
 				</div>
 				<TextField
-					label='Title'
+					label='Event Title'
 					name='title'
 					onChange={handleChange}
 					value={form.title}

@@ -1,4 +1,5 @@
-import { Card, CardActionArea, CardContent, Stack, Typography } from '@mui/material';
+import { Card, CardActionArea, CardContent, Collapse, Stack, Typography } from '@mui/material';
+import useModal from 'Components/Common/MainModal/useModal.js';
 import React from 'react';
 import useDates from '../../useDates.js';
 import DateBlock from './DateBlock.jsx';
@@ -12,11 +13,17 @@ const truncLocation = loc =>
 		.concat();
 
 const DateCard = ({ tourDate }) => {
-	const { selectTourDate, deselectTourDate, showPastDates, activeDate } = useDates();
+	const { selectTourDate, deselectTourDate, showPastDates, activeDate, unsavedChanges } =
+		useDates();
+
+	const { openDeleteModal, modalKeys } = useModal();
 
 	const isActive = tourDate === activeDate;
 
-	const handleClick = () => (isActive ? deselectTourDate() : selectTourDate(tourDate));
+	const handleClick = () => {
+		const toggleActiveTourDate = () => (isActive ? deselectTourDate() : selectTourDate(tourDate));
+		unsavedChanges ? openDeleteModal(modalKeys.discardDateChanges) : toggleActiveTourDate();
+	};
 
 	const getIsPastDate = () => {
 		const date = new Date(tourDate.date);
@@ -24,11 +31,11 @@ const DateCard = ({ tourDate }) => {
 		return date < today && date.toDateString() !== today.toDateString();
 	};
 
-	if (!getIsPastDate() || showPastDates) {
-		const fontStyle = getIsPastDate() ? 'italic' : '';
-		const color = tourDate.isConfirmed ? '' : 'text.disabled';
+	const fontStyle = getIsPastDate() ? 'italic' : '';
+	const color = tourDate.isConfirmed ? '' : 'text.disabled';
 
-		return (
+	return (
+		<Collapse in={!getIsPastDate() || showPastDates}>
 			<Card className='flex-between' sx={{ bgcolor: isActive && 'action.selected' }}>
 				<CardActionArea onClick={handleClick}>
 					<CardContent className='p-2 flex-between'>
@@ -45,9 +52,8 @@ const DateCard = ({ tourDate }) => {
 				</CardActionArea>
 				<DirectionsBtn location={tourDate.location} />
 			</Card>
-		);
-	}
-	return null;
+		</Collapse>
+	);
 };
 
 export default DateCard;

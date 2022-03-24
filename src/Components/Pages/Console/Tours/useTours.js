@@ -16,7 +16,18 @@ const useTours = () => {
 
 	const createTour = form => dispatch(createNewTour(form));
 
-	const updateTour = form => dispatch(editTour(form));
+	const updateTour = data => {
+		// calculate new tour info
+		const { dates } = data;
+		data = {
+			...data,
+			startDate: dates[0].date,
+			endDate: dates[dates.length - 1].date,
+			numDates: dates.length,
+		};
+
+		dispatch(editTour(data));
+	};
 
 	const deleteTour = path => dispatch(deleteActiveTour(path));
 

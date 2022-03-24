@@ -7,8 +7,9 @@ const PastDatesToggle = props => {
 
 	return (
 		<FormControlLabel
+			componentsProps={{ typography: { color: 'primary', variant: 'button' } }}
 			label='Past Dates'
-			control={<Switch size='small' checked={showPastDates} onClick={togglePastDates} />}
+			control={<Switch checked={showPastDates} onClick={togglePastDates} />}
 		/>
 	);
 };

@@ -14,18 +14,21 @@ export const Tour = () => {
 	};
 };
 
+// this is a mess, needs a refactor
 const TourForm = ({ title, id, onSubmit, submitBtn, values = Tour(), actions }) => {
 	const [name, setName] = useState(values.name);
 	const [notes, setNotes] = useState(values.notes);
 	const [startDate, setStartDate] = useState(values.startDate);
-	const [endDate, setEndDate] = useState(values.startDate);
-	const [numDates, setNumDates] = useState(values.startDate);
+	const [endDate, setEndDate] = useState(values.endDate);
+	const [numDates, setNumDates] = useState(values.numDates);
 	const [dates, setDates] = useState(values.dates);
 
 	const updateDates = newDates => {
-		setStartDate(newDates[0].date);
-		setEndDate(newDates[newDates.length - 1].date);
-		setNumDates(newDates.length);
+		if (newDates.length) {
+			setStartDate(newDates[0].date);
+			setEndDate(newDates[newDates.length - 1].date);
+			setNumDates(newDates.length);
+		}
 		setDates(newDates);
 	};
 

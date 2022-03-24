@@ -21,7 +21,7 @@ const EditTourModal = props => {
 			title={`Editing ${name}`}
 			onSubmit={handleSubmit}
 			id={EDIT_TOUR_FORM_ID}
-			values={{ name, notes, dates }}
+			values={activeTour}
 			submitBtn={<UpdateTourBtn />}
 			actions={actions}
 		/>
