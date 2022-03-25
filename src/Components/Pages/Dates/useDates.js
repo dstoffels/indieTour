@@ -1,13 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useTours from '../Console/Tours/useTours.js';
-import { setActiveDate, setEditing, setPastDates, updateActiveDate } from './datesSlice.js';
+import {
+	setActiveDate,
+	setActiveEvent,
+	setEditing,
+	setPastDates,
+	updateActiveDate,
+} from './datesSlice.js';
 
 const useDates = () => {
 	const dispatch = useDispatch();
 	const activeTourDates = useSelector(state => state.user?.activeMember?.activeTour?.dates);
-	const { showPastDates, activeDate, editing, originalData } = useSelector(
+	const { showPastDates, activeDate, editing, originalData, activeEvent } = useSelector(
 		state => state.dateControls,
 	);
+
+	const events = activeDate?.timeslots;
 
 	const unsavedChanges = JSON.stringify(activeDate) !== JSON.stringify(originalData);
 
@@ -17,11 +25,19 @@ const useDates = () => {
 
 	const togglePastDates = () => dispatch(setPastDates(!showPastDates));
 
-	const toggleEditMode = () => dispatch(setEditing(!editing));
+	const toggleEditMode = () => {
+		dispatch(setEditing(!editing));
+		dispatch(setActiveEvent(null));
+	};
 
 	const editActiveDate = data => dispatch(updateActiveDate(data));
 
-	const revertActiveDate = () => dispatch(setActiveDate(originalData));
+	const revertActiveDate = () => {
+		dispatch(setActiveDate(originalData));
+		dispatch(setActiveEvent(null));
+	};
+
+	const selectEvent = event => dispatch(setActiveEvent(event));
 
 	return {
 		activeTourDates,
@@ -36,6 +52,9 @@ const useDates = () => {
 		unsavedChanges,
 		editActiveDate,
 		revertActiveDate,
+		events,
+		activeEvent,
+		selectEvent,
 	};
 };
 

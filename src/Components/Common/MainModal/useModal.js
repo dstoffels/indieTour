@@ -6,6 +6,7 @@ import EditTourModal from 'Components/Pages/Console/Tours/EditTourModal/EditTour
 import NewTourModal from 'Components/Pages/Console/Tours/NewTourModal/NewTourModal.jsx';
 import AddDateModal from 'Components/Pages/Dates/AddDateModal/AddDateModal.jsx';
 import DeleteDateModal from 'Components/Pages/Dates/DateDetailsPanel/DeleteDateModal/DeleteDateModal.jsx';
+import DeleteEventModal from 'Components/Pages/Dates/DateDetailsPanel/Schedule/TimeSlot/TimeSlotCard/DeleteEventModal/DeleteEventModal.jsx';
 import DiscardChangesModal from 'Components/Pages/Dates/DiscardChangesModal/DiscardChangesModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { showDeleteModal } from '../DeleteModal/deleteModalSlice.js';
@@ -41,6 +42,9 @@ const useModal = () => {
 		editDate: 'editDate',
 		delDate: 'delDate',
 		discardDateChanges: 'discardDateChanges',
+
+		// Events
+		delEvent: 'delEvent',
 	};
 
 	const modals = {
@@ -58,6 +62,9 @@ const useModal = () => {
 		[modalKeys.newDate]: <AddDateModal />,
 		[modalKeys.delDate]: <DeleteDateModal />,
 		[modalKeys.discardDateChanges]: <DiscardChangesModal />,
+
+		// Events
+		[modalKeys.delEvent]: <DeleteEventModal />,
 	};
 
 	return {

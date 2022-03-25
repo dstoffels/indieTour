@@ -4,49 +4,55 @@ import React, { useEffect, useState } from 'react';
 import { eventBldr } from 'utils/helpers.js';
 import { placesPath } from 'utils/restPaths.js';
 
-const LocationField = ({ value, onChange, openOnStart = true, size }) => {
+const LocationField = ({
+	value,
+	name = 'location',
+	label = 'Location',
+	onChange,
+	openOnStart = true,
+	size,
+}) => {
 	const [open, setOpen] = useState(openOnStart && Boolean(value));
+	const [focused, setFocused] = useState(false);
 	const [options, setOptions] = useState([]);
 
 	const queryPlaces = async () => {
-		if (value) {
+		if (value && focused) {
+			setOpen(true);
 			const response = await axios.get(placesPath(value));
 			const locations = response.data.results.map(
 				({ name, formatted_address, business_status }) =>
 					`${business_status ? name + ': ' : ''}${formatted_address}`,
 			);
 			setOptions(locations);
+		} else {
+			setOpen(false);
+			setOptions([]);
 		}
 	};
 
-	const handleFocus = async () => {
-		await queryPlaces();
-		setOpen(true);
-	};
+	const handleFocus = () => setFocused(true);
 
-	const handleChange = (_e, newVal) => onChange(eventBldr('location', newVal));
-
-	useEffect(async () => {
-		await queryPlaces();
+	useEffect(() => {
+		queryPlaces();
 	}, [value]);
 
 	return (
 		<Autocomplete
 			open={open}
-			onBlur={() => setOpen(false)}
+			onBlur={() => setFocused(false)}
 			autoHighlight
 			onFocus={handleFocus}
 			value={value}
 			freeSolo
-			onChange={handleChange}
 			options={options}
+			ListboxProps={{ onClick: () => setOpen(false) }}
 			renderInput={params => (
 				<TextField
 					{...params}
-					label='Location'
-					multiline
+					label={label}
 					size={size}
-					name='location'
+					name={name}
 					value={value}
 					onChange={onChange}
 				/>

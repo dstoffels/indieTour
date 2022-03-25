@@ -90,6 +90,7 @@ export const setActiveTourAndFetchDates = createAsyncThunk(SET_TOUR, async (tour
 		dispatch(userSlice.actions.setUserMemberActiveTour(updatedTour));
 
 		dispatch(fetchUserBands());
+
 		// need conditional clearing of activeDate if tour didn't change
 		user.activeMember.activeTour.path !== updatedTour?.path && dispatch(setActiveDate(null));
 	});

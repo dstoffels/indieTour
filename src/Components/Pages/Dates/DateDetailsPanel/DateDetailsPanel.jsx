@@ -33,9 +33,9 @@ const DateDetailsPanel = () => {
 
 	if (activeDate) {
 		return (
-			<Panel title={activeDate?.date} actions={actions}>
+			<Panel title={`${activeDate?.date}\n${activeDate.title}`} actions={actions}>
 				<DateDetailsTabs value={tabIndex} onChange={setTabIndex} />
-				<div style={{ margin: '0 -0.5rem', overflowY: 'auto', height: '62.5vh' }}>
+				<div style={{ margin: '0 -0.5rem', overflowY: 'auto', height: '60.6vh' }}>
 					<div style={{ margin: '0.5rem' }}>
 						<DateTabPanel value={tabIndex} i={0}>
 							<DateDetails
@@ -45,7 +45,7 @@ const DateDetailsPanel = () => {
 							/>
 						</DateTabPanel>
 						<DateTabPanel value={tabIndex} i={1} slideDirection='right'>
-							<Schedule />
+							<Schedule tourDate={activeDate} />
 						</DateTabPanel>
 					</div>
 				</div>

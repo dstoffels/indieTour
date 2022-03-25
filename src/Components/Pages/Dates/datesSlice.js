@@ -2,9 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	showPastDates: false,
-	activeDate: null,
 	editing: false,
+	activeDate: null,
 	originalData: null,
+	activeEvent: null,
 };
 
 export const datesSlice = createSlice({
@@ -30,9 +31,19 @@ export const datesSlice = createSlice({
 		setOriginalData: (state, action) => {
 			state.originalData = action.payload;
 		},
+
+		setActiveEvent: (state, action) => {
+			state.activeEvent = action.payload;
+		},
 	},
 });
 
-export const { setPastDates, setActiveDate, setEditing, updateActiveDate, setOriginalData } =
-	datesSlice.actions;
+export const {
+	setPastDates,
+	setActiveDate,
+	setEditing,
+	updateActiveDate,
+	setOriginalData,
+	setActiveEvent,
+} = datesSlice.actions;
 export const dateControls = datesSlice.reducer;

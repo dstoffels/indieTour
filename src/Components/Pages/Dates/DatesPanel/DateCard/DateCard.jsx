@@ -13,14 +13,8 @@ const truncLocation = loc =>
 		.concat();
 
 const DateCard = ({ tourDate }) => {
-	const {
-		selectTourDate,
-		deselectTourDate,
-		showPastDates,
-		activeDate,
-		unsavedChanges,
-		originalData,
-	} = useDates();
+	const { selectTourDate, deselectTourDate, showPastDates, activeDate, unsavedChanges } =
+		useDates();
 
 	const [isActive, setIsActive] = useState(false);
 

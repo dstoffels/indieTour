@@ -17,6 +17,11 @@ const getNextDate = dates => {
 	}
 };
 
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
 const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 	const { form, handleChange, handleSubmit } = useForm(TourDate(getNextDate(tourDates)), submitCB);
 

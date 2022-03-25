@@ -5,11 +5,11 @@ import React from 'react';
 import useDates from '../useDates.js';
 
 const DiscardDateChangesBtn = props => {
-	const { revertActiveDate: resetActiveDate } = useDates();
+	const { revertActiveDate, selectEvent } = useDates();
 	const { closeDeleteModal } = useModal();
 
 	const handleClick = () => {
-		resetActiveDate();
+		revertActiveDate();
 		closeDeleteModal();
 	};
 	return (
