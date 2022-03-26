@@ -13,6 +13,7 @@ import React, { useState } from 'react';
 import useLogin from '../../../hooks/useLogin.js';
 import SignUpBtn from '../../Auth/AuthForm/SignUp/SignUpBtn.jsx';
 import SignUpForm from '../../Auth/AuthForm/SignUp/SignUpForm.jsx';
+import Logo from 'images/logo.png';
 
 const Home = props => {
 	useLogin();
@@ -22,28 +23,11 @@ const Home = props => {
 
 	return (
 		<Container>
+			<img width='100%' src={Logo} alt='' />
 			<Card
 				sx={{ maxWidth: 500, margin: 'auto', marginY: '2rem' }}
 				elevation={3}
 				className='welcome-dialog'>
-				<CardHeader
-					className='text-center'
-					title={
-						signup ? (
-							'Create new account'
-						) : (
-							<Typography variant='h4'>Welcome to indieTour!</Typography>
-						)
-					}
-					subheader={
-						signup ? (
-							''
-						) : (
-							<Typography variant='h6'>Tour management for the independent artist</Typography>
-						)
-					}
-				/>
-				<Divider />
 				<CardContent>
 					{signup ? (
 						<div className='p-2 w-100'>
