@@ -5,8 +5,8 @@ import Timeblock from './TimeBlock.jsx';
 import EventForm from './EventForm.jsx';
 import useModal from 'Components/Common/MainModal/useModal.js';
 
-const EventCard = ({ event, i, isFirst, isLast, activeEvent, selectEvent }) => {
-	const { editing, unsavedChanges } = useDates();
+const EventCard = ({ event, i, isFirst, isLast }) => {
+	const { editing, unsavedChanges, activeEvent, selectEvent } = useDates();
 	const { openDeleteModal, modalKeys } = useModal();
 
 	const isSelected = activeEvent?.key === event?.key;

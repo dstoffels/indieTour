@@ -6,7 +6,14 @@ import React from 'react';
 import useDates from '../useDates.js';
 
 const SaveDateBtn = () => {
-	const { unsavedChanges, activeTourDates, activeDate, selectTourDate } = useDates();
+	const {
+		unsavedChanges,
+		activeTourDates,
+		activeDate,
+		selectTourDate,
+		selectContact,
+		selectEvent,
+	} = useDates();
 	const { updateTour, activeTour } = useTours();
 	const { closeDeleteModal } = useModal();
 
@@ -17,6 +24,8 @@ const SaveDateBtn = () => {
 		const updatedTour = { ...activeTour, dates };
 		updateTour(updatedTour);
 		selectTourDate(activeDate);
+		selectEvent(null);
+		selectContact(null);
 		closeDeleteModal();
 	};
 

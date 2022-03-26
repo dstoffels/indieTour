@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useTours from '../Console/Tours/useTours.js';
 import {
+	setActiveContact,
 	setActiveDate,
 	setActiveEvent,
 	setEditing,
@@ -11,11 +12,12 @@ import {
 const useDates = () => {
 	const dispatch = useDispatch();
 	const activeTourDates = useSelector(state => state.user?.activeMember?.activeTour?.dates);
-	const { showPastDates, activeDate, editing, originalData, activeEvent } = useSelector(
-		state => state.dateControls,
-	);
+	const { showPastDates, activeDate, editing, originalData, activeEvent, activeContact } =
+		useSelector(state => state.dateControls);
 
 	const events = activeDate?.timeslots;
+
+	const contacts = activeDate?.contacts;
 
 	const unsavedChanges = JSON.stringify(activeDate) !== JSON.stringify(originalData);
 
@@ -39,6 +41,8 @@ const useDates = () => {
 
 	const selectEvent = event => dispatch(setActiveEvent(event));
 
+	const selectContact = contact => dispatch(setActiveContact(contact));
+
 	return {
 		activeTourDates,
 		showPastDates,
@@ -55,6 +59,9 @@ const useDates = () => {
 		events,
 		activeEvent,
 		selectEvent,
+		contacts,
+		activeContact,
+		selectContact,
 	};
 };
 

@@ -4,6 +4,7 @@ import ScrollWindow from 'Components/Common/ScrollWindow/ScrollWindow.jsx';
 import useWindow from 'hooks/useWindow.js';
 import React, { useRef, useState } from 'react';
 import useDates from '../useDates.js';
+import ContactsList from './Contacts/ContactsList.jsx';
 import DateDetails from './DateDetails/DateDetails.jsx';
 import DateDetailsTabs, { DateTabPanel } from './DateDetailsTabs.jsx';
 import DeleteDateModalBtn from './DeleteDateModal/DeleteDateModalBtn.jsx';
@@ -49,7 +50,7 @@ const DateDetailsPanel = () => {
 						<Schedule tourDate={activeDate} />
 					</DateTabPanel>
 					<DateTabPanel value={tabIndex} i={2} slideDirection='left'>
-						<div>Contacts List</div>
+						<ContactsList />
 					</DateTabPanel>
 				</ScrollWindow>
 			</Panel>

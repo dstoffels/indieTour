@@ -6,6 +6,7 @@ const initialState = {
 	activeDate: null,
 	originalData: null,
 	activeEvent: null,
+	activeContact: null,
 };
 
 export const datesSlice = createSlice({
@@ -35,6 +36,10 @@ export const datesSlice = createSlice({
 		setActiveEvent: (state, action) => {
 			state.activeEvent = action.payload;
 		},
+
+		setActiveContact: (state, action) => {
+			state.activeContact = action.payload;
+		},
 	},
 });
 
@@ -45,5 +50,6 @@ export const {
 	updateActiveDate,
 	setOriginalData,
 	setActiveEvent,
+	setActiveContact,
 } = datesSlice.actions;
 export const dateControls = datesSlice.reducer;

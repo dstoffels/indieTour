@@ -4,14 +4,14 @@ import React from 'react';
 import useDates from '../../useDates.js';
 import { Event } from './Schedule.jsx';
 
-const AddEventBtn = ({ setSelectedEvent }) => {
-	const { editing, activeDate, editActiveDate } = useDates();
+const AddEventBtn = () => {
+	const { editing, activeDate, editActiveDate, selectEvent } = useDates();
 
 	const handleClick = () => {
 		const newEvent = Event(activeDate.date);
 		const timeslots = [...activeDate.timeslots, newEvent];
 		editActiveDate({ ...activeDate, timeslots });
-		setSelectedEvent(newEvent);
+		selectEvent(newEvent);
 	};
 
 	return editing ? (

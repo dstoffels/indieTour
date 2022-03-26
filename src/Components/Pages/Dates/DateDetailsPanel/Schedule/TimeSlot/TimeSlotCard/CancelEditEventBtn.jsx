@@ -5,11 +5,16 @@ import useDates from 'Components/Pages/Dates/useDates.js';
 import React from 'react';
 
 const CancelEditDateBtn = props => {
-	const { unsavedChanges, selectEvent } = useDates();
+	const { unsavedChanges, selectEvent, selectContact } = useDates();
 	const { modalKeys, openDeleteModal } = useModal();
 
+	const clearSelected = () => {
+		selectEvent(null);
+		selectContact(null);
+	};
+
 	const handleClick = () => {
-		unsavedChanges ? openDeleteModal(modalKeys.discardDateChanges) : selectEvent(null);
+		unsavedChanges ? openDeleteModal(modalKeys.discardDateChanges) : clearSelected();
 	};
 
 	return (

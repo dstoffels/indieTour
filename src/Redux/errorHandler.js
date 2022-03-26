@@ -22,7 +22,7 @@ const thunkErrorHandler = async (thunkAPI, callback) => {
 					console.warn('token refreshed, reattempting request');
 					break;
 				default:
-					console.log(error);
+					console.error(error);
 			}
 		}
 	}

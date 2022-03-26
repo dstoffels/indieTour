@@ -21,23 +21,15 @@ export const Event = date => {
 };
 
 const Schedule = () => {
-	let { events, activeEvent, selectEvent } = useDates();
+	let { events, selectEvent } = useDates();
 
 	const eventCards = events.map((event, i, a) => (
-		<EventCard
-			key={event.key}
-			i={i}
-			event={event}
-			isFirst={i === 0}
-			isLast={i === a.length - 1}
-			activeEvent={activeEvent}
-			selectEvent={selectEvent}
-		/>
+		<EventCard key={event.key} i={i} event={event} isFirst={i === 0} isLast={i === a.length - 1} />
 	));
 
 	return (
 		<div>
-			<AddEventBtn setSelectedEvent={selectEvent} />
+			<AddEventBtn />
 			{eventCards}
 		</div>
 	);
