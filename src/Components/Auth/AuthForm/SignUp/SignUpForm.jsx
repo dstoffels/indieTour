@@ -18,8 +18,8 @@ const SignUpForm = ({ closeMenu }) => {
 
 	async function onSubmit() {
 		try {
-			await createEmailUser(form);
 			closeMenu();
+			await createEmailUser(form);
 		} catch (e) {
 			setError(e.code);
 		}

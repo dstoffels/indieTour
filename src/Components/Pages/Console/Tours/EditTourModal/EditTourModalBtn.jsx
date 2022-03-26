@@ -1,5 +1,6 @@
 import { Edit } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import withAdmin from 'Components/Auth/Authorization/withAdmin.jsx';
 import useModal from 'Components/Common/MainModal/useModal.js';
 import React from 'react';
 
@@ -14,4 +15,4 @@ const EditTourModalBtn = props => {
 	);
 };
 
-export default EditTourModalBtn;
+export default withAdmin(EditTourModalBtn);

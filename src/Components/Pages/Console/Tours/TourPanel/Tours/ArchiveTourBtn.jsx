@@ -1,5 +1,6 @@
 import { Archive } from '@mui/icons-material';
 import { Button, Tooltip } from '@mui/material';
+import withAdmin from 'Components/Auth/Authorization/withAdmin.jsx';
 import React from 'react';
 
 const ArchiveTourBtn = ({ tour, withText = false }) => {
@@ -18,4 +19,4 @@ const ArchiveTourBtn = ({ tour, withText = false }) => {
 	);
 };
 
-export default ArchiveTourBtn;
+export default withAdmin(ArchiveTourBtn);

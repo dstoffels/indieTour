@@ -1,4 +1,5 @@
 import { FormControlLabel, Stack, Switch, Tooltip, Typography } from '@mui/material';
+import withAdmin from 'Components/Auth/Authorization/withAdmin.jsx';
 import useModal from 'Components/Common/MainModal/useModal.js';
 import React from 'react';
 import useDates from '../useDates.js';
@@ -6,7 +7,6 @@ import useDates from '../useDates.js';
 const EditModeSwitch = () => {
 	const { editing, toggleEditMode, unsavedChanges } = useDates();
 	const { openDeleteModal, modalKeys } = useModal();
-	// get active and original data, discard  changes popup if different/unsaved
 
 	const handleChange = () =>
 		unsavedChanges ? openDeleteModal(modalKeys.discardDateChanges) : toggleEditMode();
@@ -24,4 +24,4 @@ const EditModeSwitch = () => {
 	);
 };
 
-export default EditModeSwitch;
+export default withAdmin(EditModeSwitch);

@@ -6,6 +6,7 @@ import useForm from 'hooks/useForm.js';
 import React, { useEffect } from 'react';
 import { eventBldr } from 'utils/helpers.js';
 import ConfirmSwitch from '../DateDetailsPanel/DateDetails/ConfirmSwitch.jsx';
+import IsShowDaySwitch from '../DateDetailsPanel/DateDetails/IsShowDaySwitch.jsx';
 import { ADD_DATE_FORM_ID } from './AddDateModal.jsx';
 import LocationField from './LocationField.jsx';
 
@@ -42,6 +43,7 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 						tourDates={tourDates}
 						size='medium'
 					/>
+					<IsShowDaySwitch value={form.isShowDay} onChange={handleChange} />
 					<ConfirmSwitch value={form.isConfirmed} onChange={handleChange} />
 				</div>
 				<TextField
@@ -52,14 +54,16 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 					onBlur={() => !form.location && handleChange(eventBldr('location', form.title))}
 				/>
 				<LocationField value={form.location} onChange={handleChange} />
-				<TextField
-					multiline
-					maxRows={4}
-					label='Deal'
-					name='deal'
-					onChange={handleChange}
-					value={form.deal}
-				/>
+				{form.isShowDay && (
+					<TextField
+						multiline
+						maxRows={4}
+						label='Deal'
+						name='deal'
+						onChange={handleChange}
+						value={form.deal}
+					/>
+				)}
 				<TextField
 					label='Notes'
 					multiline

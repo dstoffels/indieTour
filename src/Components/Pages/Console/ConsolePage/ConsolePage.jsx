@@ -10,7 +10,7 @@ import './Console.css';
 const ConsolePage = props => {
 	const { bands } = useBands();
 	return (
-		<Page route={CONSOLE}>
+		<Page centered route={CONSOLE}>
 			{Boolean(bands.length) && <TourPanel />}
 			<BandPanel />
 		</Page>

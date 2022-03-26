@@ -2,6 +2,7 @@ import React from 'react';
 import { Add } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import useModal from 'Components/Common/MainModal/useModal.js';
+import withAdmin from 'Components/Auth/Authorization/withAdmin.jsx';
 
 const NewTourModalBtn = props => {
 	const { modalKeys, openMainModal } = useModal();
@@ -13,4 +14,4 @@ const NewTourModalBtn = props => {
 	);
 };
 
-export default NewTourModalBtn;
+export default withAdmin(NewTourModalBtn);

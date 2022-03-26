@@ -33,7 +33,8 @@ export const fetchTours = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 	const { user } = thunkAPI.getState();
 
 	thunkErrorHandler(thunkAPI, async token => {
-		const response = await axios.get(toursPath(user.activeMember.bandPath), token);
+		const response =
+			Boolean(user.activeMember) && (await axios.get(toursPath(user.activeMember.bandPath), token));
 		thunkAPI.dispatch(toursSlice.actions.setTours(response.data));
 	});
 });

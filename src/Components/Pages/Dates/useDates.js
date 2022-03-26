@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useTours from '../Console/Tours/useTours.js';
 import {
+	clearDateControls,
 	setActiveContact,
 	setActiveDate,
 	setActiveEvent,
@@ -26,6 +27,8 @@ const useDates = () => {
 	const deselectTourDate = () => dispatch(setActiveDate(null));
 
 	const togglePastDates = () => dispatch(setPastDates(!showPastDates));
+
+	const resetDateControls = () => dispatch(clearDateControls());
 
 	const toggleEditMode = () => {
 		dispatch(setEditing(!editing));
@@ -62,6 +65,7 @@ const useDates = () => {
 		contacts,
 		activeContact,
 		selectContact,
+		resetDateControls,
 	};
 };
 

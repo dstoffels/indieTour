@@ -12,7 +12,7 @@ import LocationField from 'Components/Pages/Dates/AddDateModal/LocationField.jsx
 import React from 'react';
 import './Panel.css';
 
-const Panel = React.forwardRef(({ title = '', actions, children, sx }, ref) => {
+const Panel = ({ title = '', actions, children }) => {
 	const header = Boolean(title) && <h6 className='panel-header'>{title}</h6>;
 
 	return (
@@ -24,7 +24,7 @@ const Panel = React.forwardRef(({ title = '', actions, children, sx }, ref) => {
 			</Card>
 		</Grid>
 	);
-});
+};
 
 Panel.Section = ({ title, topActions, bottomActions, children }) => {
 	return (
@@ -50,7 +50,6 @@ Panel.Header = ({ label = '', onChange, name, size = 'small', children, editing 
 				fullWidth
 				rows={3}
 				size={size}
-				color='warning'
 				variant='outlined'
 				value={children}
 				label={label}
@@ -87,7 +86,6 @@ Panel.Field = ({
 				fullWidth
 				multiline={multiline}
 				size={size}
-				color='warning'
 				variant='outlined'
 				value={children}
 				label={label}

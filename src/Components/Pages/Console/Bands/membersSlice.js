@@ -11,7 +11,10 @@ const UPDATE = 'members/UPDATE';
 export const fetchMembers = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 	await thunkErrorHandler(thunkAPI, async token => {
 		const { user } = thunkAPI.getState();
-		const response = await axios.get(membersPath(user.activeMember.bandPath), token);
+
+		const response =
+			Boolean(user.activeMember) &&
+			(await axios.get(membersPath(user.activeMember.bandPath), token));
 		thunkAPI.dispatch(membersSlice.actions.setMembers(response.data));
 	});
 });

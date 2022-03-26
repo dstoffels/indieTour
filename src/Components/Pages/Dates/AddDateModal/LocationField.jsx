@@ -1,6 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { eventBldr } from 'utils/helpers.js';
 import { placesPath } from 'utils/restPaths.js';
 
 const LocationField = ({
@@ -11,26 +12,27 @@ const LocationField = ({
 	openOnStart = true,
 	size,
 }) => {
-	const [open, setOpen] = useState(openOnStart && Boolean(value));
-	const [focused, setFocused] = useState(false);
+	const [open, setOpen] = useState(false);
 	const [options, setOptions] = useState([]);
 
 	const queryPlaces = async () => {
-		if (value && focused) {
-			setOpen(true);
+		if (value) {
+			options.length ? setOpen(true) : setOpen(false);
 			const response = await axios.get(placesPath(value));
 			const locations = response.data.results.map(
 				({ name, formatted_address, business_status }) =>
 					`${business_status ? name + ': ' : ''}${formatted_address}`,
 			);
 			setOptions(locations);
-		} else {
 			setOpen(false);
 			setOptions([]);
 		}
 	};
 
-	const handleFocus = () => setFocused(true);
+	const handleClose = e => {
+		onChange(e);
+		setOpen(false);
+	};
 
 	useEffect(() => {
 		queryPlaces();
@@ -38,16 +40,18 @@ const LocationField = ({
 
 	return (
 		<Autocomplete
-			open={open}
-			onBlur={() => {
-				setFocused(false);
-				setOpen(false);
-			}}
-			autoHighlight
-			onFocus={handleFocus}
-			value={value}
-			freeSolo
 			options={options}
+			open={open}
+			onFocus={() => {
+				setOpen(Boolean(options.length));
+			}}
+			onBlur={handleClose}
+			autoHighlight
+			loading
+			value={value}
+			onSelect={onChange}
+			filterOptions={options => options}
+			freeSolo
 			ListboxProps={{ onClick: () => setOpen(false) }}
 			renderInput={params => (
 				<TextField

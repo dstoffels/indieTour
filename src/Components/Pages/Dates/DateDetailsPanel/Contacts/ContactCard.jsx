@@ -5,6 +5,7 @@ import {
 	CardContent,
 	Divider,
 	Stack,
+	Tooltip,
 	Typography,
 } from '@mui/material';
 import useModal from 'Components/Common/MainModal/useModal.js';
@@ -30,12 +31,14 @@ const ContactCard = ({ contact, i, isLast }) => {
 		) : (
 			<>
 				<CardActionArea onClick={handleClick}>
-					<CardContent className='p-2 flex-start w-100'>
-						<Stack className='w-100'>
-							<Typography variant='subtitle2'>{contact.title}</Typography>
-							<Typography variant='body2'>{contact.name}</Typography>
-						</Stack>
-					</CardContent>
+					<Tooltip title={contact.notes}>
+						<CardContent className='p-2 flex-start w-100'>
+							<Stack className='w-100'>
+								<Typography variant='subtitle2'>{contact.title}</Typography>
+								<Typography variant='body2'>{contact.name}</Typography>
+							</Stack>
+						</CardContent>
+					</Tooltip>
 				</CardActionArea>
 				{contact.phone && <Button>Call</Button>}
 				{contact.email && <Button>Email</Button>}

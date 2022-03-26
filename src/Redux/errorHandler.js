@@ -12,7 +12,7 @@ const thunkErrorHandler = async (thunkAPI, callback) => {
 		try {
 			await callback(token);
 		} catch (error) {
-			console.log(error.response);
+			console.error(error);
 
 			switch (error.response?.data) {
 				case 'auth/id-token-expired':
@@ -20,6 +20,9 @@ const thunkErrorHandler = async (thunkAPI, callback) => {
 					const newToken = getState().token;
 					await callback(newToken);
 					console.warn('token refreshed, reattempting request');
+					break;
+				case 'auth/argument-error':
+					console.error(error.response.code);
 					break;
 				default:
 					console.error(error);

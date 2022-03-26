@@ -6,6 +6,7 @@ import {
 	getAuth,
 	sendEmailVerification,
 	signInWithEmailAndPassword,
+	updatePassword,
 	updateProfile,
 } from 'firebase/auth';
 import { firebaseConfig } from './firebase.config.js';
@@ -43,4 +44,9 @@ export const emailLogin = async ({ email, password }) =>
 
 export const logOut = async () => {
 	await auth.signOut();
+};
+
+export const setPassword = async (token, password) => {
+	await updatePassword(auth.currentUser, password);
+	await axios.put(USER_PATH, { hasValidPW: true }, token);
 };

@@ -40,6 +40,7 @@ export const datesSlice = createSlice({
 		setActiveContact: (state, action) => {
 			state.activeContact = action.payload;
 		},
+		clearDateControls: () => initialState,
 	},
 });
 
@@ -51,5 +52,6 @@ export const {
 	setOriginalData,
 	setActiveEvent,
 	setActiveContact,
+	clearDateControls,
 } = datesSlice.actions;
 export const dateControls = datesSlice.reducer;
