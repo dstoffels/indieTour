@@ -2,23 +2,24 @@ import { Stack, Switch, Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import React from 'react';
 import ConfirmSwitch from './ConfirmSwitch.jsx';
+import IsShowDaySwitch from './IsShowDaySwitch.jsx';
 import Map from './Map.jsx';
 
 export const EDIT_DATE_FORM_ID = 'edit-date-form';
 
 const DateDetails = ({ activeDate, editMode, editActiveDate }) => {
-	const { date, title, location, isConfirmed, deal, notes } = activeDate;
+	const { date, title, location, isConfirmed, isShowDay, deal, notes } = activeDate;
 
 	const handleChange = e => {
 		editActiveDate({ ...activeDate, [e.target.name]: e.target.value });
 	};
 
 	const confirmed = isConfirmed ? (
-		<Typography color='primary' variant='button'>
+		<Typography color='primary' variant='overline'>
 			CONFIRMED
 		</Typography>
 	) : (
-		<Typography color='warning.main' variant='button'>
+		<Typography color='warning.main' variant='overline'>
 			UNCONFIRMED
 		</Typography>
 	);
@@ -28,16 +29,18 @@ const DateDetails = ({ activeDate, editMode, editActiveDate }) => {
 	return (
 		<form id={EDIT_DATE_FORM_ID} onSubmit={handleSubmit}>
 			<Stack spacing={2}>
-				<Stack direction='row' spacing={2} justifyContent='space-between'>
-					<Panel.Header
-						value={title}
-						label='Event Title'
-						name='title'
-						editing={editMode}
-						onChange={handleChange}>
-						{title}
-					</Panel.Header>
-					{editMode ? <ConfirmSwitch value={isConfirmed} onChange={handleChange} /> : confirmed}
+				<Panel.Header
+					value={title}
+					label='Event Title'
+					name='title'
+					editing={editMode}
+					onChange={handleChange}>
+					{title}
+				</Panel.Header>
+
+				<Stack direction='row' spacing={2}>
+					{editMode ? <IsShowDaySwitch value={isShowDay} onChange={handleChange} /> : confirmed}
+					{editMode && <ConfirmSwitch value={isConfirmed} onChange={handleChange} />}
 				</Stack>
 
 				<Panel.Field
@@ -49,11 +52,18 @@ const DateDetails = ({ activeDate, editMode, editActiveDate }) => {
 					{location}
 				</Panel.Field>
 
-				<Map location={location} />
+				{!editMode && <Map location={location} />}
 
-				<Panel.Field multiline label='Deal' show={deal} editing={editMode} onChange={handleChange}>
-					{deal}
-				</Panel.Field>
+				{isShowDay && (
+					<Panel.Field
+						multiline
+						label='Deal'
+						show={deal}
+						editing={editMode}
+						onChange={handleChange}>
+						{deal}
+					</Panel.Field>
+				)}
 
 				<Panel.Field
 					multiline

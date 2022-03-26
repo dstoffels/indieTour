@@ -1,8 +1,8 @@
-import { Delete, Save } from '@mui/icons-material';
-import { Button, Stack } from '@mui/material';
+import { Collapse, Slide, Stack } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
+import ScrollWindow from 'Components/Common/ScrollWindow/ScrollWindow.jsx';
 import useWindow from 'hooks/useWindow.js';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import useDates from '../useDates.js';
 import DateDetails from './DateDetails/DateDetails.jsx';
 import DateDetailsTabs, { DateTabPanel } from './DateDetailsTabs.jsx';
@@ -17,16 +17,18 @@ const DateDetailsPanel = () => {
 
 	const [tabIndex, setTabIndex] = useState(0);
 
-	const { activeDate, editing: editMode, editActiveDate } = useDates();
+	const { activeDate, editing, editActiveDate } = useDates();
+
+	const containerRef = useRef(null);
 
 	const actions = (
-		<Stack direction='row' spacing={3}>
-			{editMode && (
-				<>
+		<Stack direction='row'>
+			<Slide direction='up' container={containerRef.current} in={editing}>
+				<div>
 					<SaveDateBtn />
 					<DeleteDateModalBtn />
-				</>
-			)}
+				</div>
+			</Slide>
 			<EditModeSwitch />
 		</Stack>
 	);
@@ -35,20 +37,21 @@ const DateDetailsPanel = () => {
 		return (
 			<Panel title={`${activeDate?.date}\n${activeDate.title}`} actions={actions}>
 				<DateDetailsTabs value={tabIndex} onChange={setTabIndex} />
-				<div style={{ margin: '0 -0.5rem', overflowY: 'auto', height: '60.6vh' }}>
-					<div style={{ margin: '0.5rem' }}>
-						<DateTabPanel value={tabIndex} i={0}>
-							<DateDetails
-								activeDate={activeDate}
-								editMode={editMode}
-								editActiveDate={editActiveDate}
-							/>
-						</DateTabPanel>
-						<DateTabPanel value={tabIndex} i={1} slideDirection='right'>
-							<Schedule tourDate={activeDate} />
-						</DateTabPanel>
-					</div>
-				</div>
+				<ScrollWindow maxHeight='61vh'>
+					<DateTabPanel value={tabIndex} i={0}>
+						<DateDetails
+							activeDate={activeDate}
+							editMode={editing}
+							editActiveDate={editActiveDate}
+						/>
+					</DateTabPanel>
+					<DateTabPanel value={tabIndex} i={1} slideDirection={'left'}>
+						<Schedule tourDate={activeDate} />
+					</DateTabPanel>
+					<DateTabPanel value={tabIndex} i={2} slideDirection='left'>
+						<div>Contacts List</div>
+					</DateTabPanel>
+				</ScrollWindow>
 			</Panel>
 		);
 	}

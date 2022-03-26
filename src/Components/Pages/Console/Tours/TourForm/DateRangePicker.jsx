@@ -9,7 +9,7 @@ export const TourDate = (date = '', title = '') => {
 	return {
 		date,
 		title,
-		type: '',
+		isShowDay: false,
 		location: '',
 		deal: '',
 		notes: '',

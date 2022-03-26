@@ -4,6 +4,7 @@ import {
 	CardContent,
 	Divider,
 	Grid,
+	Slide,
 	TextField,
 	Typography,
 } from '@mui/material';
@@ -15,10 +16,10 @@ const Panel = React.forwardRef(({ title = '', actions, children, sx }, ref) => {
 	const header = Boolean(title) && <h6 className='panel-header'>{title}</h6>;
 
 	return (
-		<Grid sm={12} md={6} className='my-2' item>
-			<Card elevation={6}>
+		<Grid sm={12} md={6} className='my-2 stretch' item width='100%'>
+			<Card elevation={6} className='stretch'>
 				{header}
-				<CardContent>{children}</CardContent>
+				<CardContent className='stretch'>{children}</CardContent>
 				{Boolean(actions) && <CardActions className='justify-content-end'>{actions}</CardActions>}
 			</Card>
 		</Grid>
@@ -42,12 +43,13 @@ Panel.Section = ({ title, topActions, bottomActions, children }) => {
 
 Panel.Divider = props => <Divider className='my-4' />;
 
-Panel.Header = ({ label = '', onChange, name, children, editing = false }) => {
+Panel.Header = ({ label = '', onChange, name, size = 'small', children, editing = false }) => {
 	if (editing) {
 		return (
 			<TextField
 				fullWidth
 				rows={3}
+				size={size}
 				color='warning'
 				variant='outlined'
 				value={children}
@@ -58,7 +60,7 @@ Panel.Header = ({ label = '', onChange, name, children, editing = false }) => {
 		);
 	}
 	return (
-		<Typography color='primary' variant='h6' marginBottom={1}>
+		<Typography color='primary' variant='h6' marginBottom={0}>
 			{children}
 		</Typography>
 	);
@@ -69,6 +71,7 @@ Panel.Field = ({
 	label,
 	children,
 	onChange,
+	size = 'small',
 	name,
 	show = true,
 	editing = false,
@@ -76,14 +79,14 @@ Panel.Field = ({
 }) => {
 	if (editing) {
 		if (isLocationField) {
-			return <LocationField value={children} onChange={onChange} openOnStart={false} />;
+			return <LocationField value={children} size={size} onChange={onChange} openOnStart={false} />;
 		}
 
 		return (
 			<TextField
 				fullWidth
 				multiline={multiline}
-				// rows={3}
+				size={size}
 				color='warning'
 				variant='outlined'
 				value={children}

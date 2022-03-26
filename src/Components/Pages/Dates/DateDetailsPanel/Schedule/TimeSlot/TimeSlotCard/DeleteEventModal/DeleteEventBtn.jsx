@@ -18,7 +18,7 @@ const DeleteEventBtn = () => {
 	};
 	return (
 		<Button fullWidth color='error' variant='contained' onClick={handleClick}>
-			DELETE EVENT
+			YES, REMOVE EVENT
 		</Button>
 	);
 };

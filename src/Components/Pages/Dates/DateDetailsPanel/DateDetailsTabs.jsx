@@ -19,6 +19,7 @@ const DateDetailsTabs = ({ value, onChange }) => {
 			<Tabs variant='fullWidth' value={value} onChange={handleChange}>
 				<Tab label='Details' />
 				<Tab label='Schedule' />
+				<Tab label='Contacts' />
 			</Tabs>
 			<Divider sx={{ marginX: '-50px', marginBottom: 1 }} />
 		</div>

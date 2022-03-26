@@ -12,7 +12,6 @@ const EventCard = ({ event, i, isFirst, isLast, activeEvent, selectEvent }) => {
 	const isSelected = activeEvent?.key === event?.key;
 
 	const handleClick = () => {
-		// add save changes prompt to conditional
 		editing && !isSelected && unsavedChanges
 			? openDeleteModal(modalKeys.discardDateChanges)
 			: selectEvent(event);
@@ -26,7 +25,9 @@ const EventCard = ({ event, i, isFirst, isLast, activeEvent, selectEvent }) => {
 				<CardContent className='p-2 flex-start w-100'>
 					<Timeblock isFirst={isFirst} isLast={isLast} />
 					<Stack>
-						<Typography variant='body2'>{`${event.startTime} - ${event.endTime}`}</Typography>
+						<Typography variant='body2'>{`${event.startTime} ${
+							event.endTime && `- ${event.endTime}`
+						}`}</Typography>
 						<Typography variant='subtitle1'>{event.description}</Typography>
 					</Stack>
 				</CardContent>

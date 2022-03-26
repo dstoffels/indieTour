@@ -1,4 +1,4 @@
-import { Stack, Switch, Typography } from '@mui/material';
+import { FormControlLabel, Stack, Switch, Tooltip, Typography } from '@mui/material';
 import useModal from 'Components/Common/MainModal/useModal.js';
 import React from 'react';
 import useDates from '../useDates.js';
@@ -12,12 +12,15 @@ const EditModeSwitch = () => {
 		unsavedChanges ? openDeleteModal(modalKeys.discardDateChanges) : toggleEditMode();
 
 	return (
-		<Stack spacing={-1}>
-			<Typography color='warning.main' variant='body2'>
-				Edit Mode
-			</Typography>
-			<Switch color='warning' checked={editing} onChange={handleChange} className='mx-auto' />
-		</Stack>
+		<Tooltip title='Toggle edit mode'>
+			<FormControlLabel
+				label='Edit'
+				componentsProps={{ typography: { color: 'warning.main', variant: 'button' } }}
+				control={
+					<Switch color='warning' checked={editing} onChange={handleChange} className='mx-auto' />
+				}
+			/>
+		</Tooltip>
 	);
 };
 

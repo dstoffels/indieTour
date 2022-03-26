@@ -37,11 +37,11 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 		dispatch(setUser(user));
 
 		// if user was just created, activeMember will be null
-		if (user.activeMember) {
-			await dispatch(fetchUserBands());
-			await dispatch(fetchMembers());
-			await dispatch(fetchTours());
-		}
+		// if (user.activeMember) {
+		await dispatch(fetchUserBands());
+		await dispatch(fetchMembers());
+		await dispatch(fetchTours());
+		// }
 	});
 });
 

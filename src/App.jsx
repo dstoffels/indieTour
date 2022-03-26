@@ -16,7 +16,6 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from 'theme/theme.js';
 import MainModal from 'Components/Common/MainModal/MainModal.jsx';
 import './App.css';
-import { useCallback, useEffect } from 'react';
 
 function App() {
 	const { user } = useUser();

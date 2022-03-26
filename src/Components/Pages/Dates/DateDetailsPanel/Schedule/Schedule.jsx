@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useDates from '../../useDates.js';
 import AddEventBtn from './AddEventBtn.jsx';
 import EventCard from './TimeSlot/TimeSlotCard/EventCard.jsx';
@@ -12,7 +12,7 @@ export const Event = date => {
 		startAfterMidnight: false,
 		startLocation: '',
 		startTZ: '',
-		endTime: '12:00',
+		endTime: '',
 		endAfterMidnight: false,
 		endLocation: '',
 		endTZ: '',
