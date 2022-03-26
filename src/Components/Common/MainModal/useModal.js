@@ -5,6 +5,7 @@ import DeleteTourModal from 'Components/Pages/Console/Tours/DeleteTourModal/Dele
 import EditTourModal from 'Components/Pages/Console/Tours/EditTourModal/EditTourModal.jsx';
 import NewTourModal from 'Components/Pages/Console/Tours/NewTourModal/NewTourModal.jsx';
 import AddDateModal from 'Components/Pages/Dates/AddDateModal/AddDateModal.jsx';
+import DeleteContactModal from 'Components/Pages/Dates/DateDetailsPanel/Contacts/DeleteContactModal/DeleteContactModal.jsx';
 import DeleteDateModal from 'Components/Pages/Dates/DateDetailsPanel/DeleteDateModal/DeleteDateModal.jsx';
 import DeleteEventModal from 'Components/Pages/Dates/DateDetailsPanel/Schedule/TimeSlot/TimeSlotCard/DeleteEventModal/DeleteEventModal.jsx';
 import DiscardChangesModal from 'Components/Pages/Dates/DiscardChangesModal/DiscardChangesModal.jsx';
@@ -45,6 +46,9 @@ const useModal = () => {
 
 		// Events
 		delEvent: 'delEvent',
+
+		// Contacts
+		delContact: 'delContact',
 	};
 
 	const modals = {
@@ -65,6 +69,8 @@ const useModal = () => {
 
 		// Events
 		[modalKeys.delEvent]: <DeleteEventModal />,
+
+		[modalKeys.delContact]: <DeleteContactModal />,
 	};
 
 	return {

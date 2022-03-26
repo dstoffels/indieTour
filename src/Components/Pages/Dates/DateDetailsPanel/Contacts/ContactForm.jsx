@@ -2,6 +2,7 @@ import { CardContent, Slide, Stack, TextField, Typography } from '@mui/material'
 import React from 'react';
 import useDates from '../../useDates.js';
 import CancelEditDateBtn from '../Schedule/TimeSlot/TimeSlotCard/CancelEditEventBtn.jsx';
+import DeleteContactModalBtn from './DeleteContactModal/DeleteContactModalBtn.jsx';
 
 export const Contact = () => {
 	return {
@@ -83,6 +84,7 @@ const ContactForm = ({ contact, i }) => {
 						value={notes}
 						onChange={handleChange}
 					/>
+					<DeleteContactModalBtn />
 				</Stack>
 			</CardContent>
 		</Slide>

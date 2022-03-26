@@ -14,6 +14,9 @@ const DELETE = 'tours/delete';
 
 // THUNKS
 
+/**
+ * CREATE TOUR
+ */
 export const createNewTour = createAsyncThunk(NEW, async (form, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
 	const { user } = getState();
@@ -29,6 +32,9 @@ export const createNewTour = createAsyncThunk(NEW, async (form, thunkAPI) => {
 	});
 });
 
+/**
+ * FETCH TOURS
+ */
 export const fetchTours = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 	const { user } = thunkAPI.getState();
 
@@ -50,6 +56,9 @@ export const editTour = createAsyncThunk(EDIT, async (form, thunkAPI) => {
 	});
 });
 
+/**
+ * DELETE TOUR
+ */
 export const deleteActiveTour = createAsyncThunk(DELETE, async (path, thunkAPI) => {
 	const { dispatch } = thunkAPI;
 
