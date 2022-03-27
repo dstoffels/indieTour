@@ -1,9 +1,7 @@
-import { Collapse, Slide, Stack } from '@mui/material';
+import { Slide, Stack } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import ScrollWindow from 'Components/Common/ScrollWindow/ScrollWindow.jsx';
-import useWindow from 'hooks/useWindow.js';
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import useDates from '../useDates.js';
 import CloseDetailsBtn from './CloseDetailsBtn.jsx';
 import ContactsList from './Contacts/ContactsList.jsx';
@@ -15,8 +13,6 @@ import SaveDateBtn from './SaveDateBtn.jsx';
 import Schedule from './Schedule/Schedule.jsx';
 
 const DateDetailsPanel = () => {
-	// TODO: use screensize to determine if shown vs. dialog
-	const isMobile = useSelector(state => state);
 	const [tabIndex, setTabIndex] = useState(0);
 
 	const { activeDate, editing, editActiveDate } = useDates();

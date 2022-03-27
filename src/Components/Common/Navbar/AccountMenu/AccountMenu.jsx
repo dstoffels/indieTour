@@ -4,7 +4,6 @@ import AuthForm from 'Components/Auth/AuthForm/AuthForm/AuthForm.jsx';
 import LogOutBtn from 'Components/Auth/LogOutBtn/LogOutBtn.jsx';
 import useUser from 'hooks/useUser.js';
 import React, { useState } from 'react';
-import palette from 'theme/palette';
 
 const AccountMenu = props => {
 	// STATE

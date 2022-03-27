@@ -1,7 +1,6 @@
 import { Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { eventBldr } from 'utils/helpers.js';
 import { placesPath } from 'utils/restPaths.js';
 
 const LocationField = ({

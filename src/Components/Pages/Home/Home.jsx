@@ -1,18 +1,4 @@
-import {
-	Button,
-	Card,
-	CardActions,
-	CardContent,
-	CardHeader,
-	Collapse,
-	Container,
-	Divider,
-	Grid,
-	IconButton,
-	Paper,
-	Stack,
-	Typography,
-} from '@mui/material';
+import { Button, Collapse, Grid, IconButton, Paper, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import useLogin from '../../../hooks/useLogin.js';
 import SignUpBtn from '../../Auth/AuthForm/SignUp/SignUpBtn.jsx';
@@ -20,7 +6,7 @@ import SignUpForm from '../../Auth/AuthForm/SignUp/SignUpForm.jsx';
 import Logo from 'images/logo.png';
 import { AccountBox, Clear } from '@mui/icons-material';
 
-const Home = props => {
+const Home = () => {
 	useLogin();
 	const [signup, setSignup] = useState(false);
 

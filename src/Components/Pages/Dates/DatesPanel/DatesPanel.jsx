@@ -2,7 +2,6 @@ import { Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import ScrollWindow from 'Components/Common/ScrollWindow/ScrollWindow.jsx';
 import useTours from 'Components/Pages/Console/Tours/useTours.js';
-import useWindow from 'hooks/useWindow.js';
 import React from 'react';
 import AddDateModalBtn from '../AddDateModal/AddDateModalBtn.jsx';
 import DateCard from './DateCard/DateCard.jsx';
@@ -10,7 +9,6 @@ import PastDatesToggle from './PastDatesToggle.jsx';
 
 const DatesPanel = () => {
 	const { activeTour, activeTourDates } = useTours();
-	const { isMobile } = useWindow();
 
 	const tourDateCards = activeTourDates?.map((tourDate, i, a) => (
 		<div key={tourDate.date}>

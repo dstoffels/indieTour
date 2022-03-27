@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { fetchUserBands, setUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
+import { fetchUserBands } from 'Components/Pages/Console/Bands/bandsSlice.js';
 import { fetchMembers } from 'Components/Pages/Console/Bands/membersSlice.js';
 import { fetchTours } from 'Components/Pages/Console/Tours/toursSlice.js';
 import { setActiveDate } from 'Components/Pages/Dates/datesSlice.js';
-import { sortDates, sortMemberTourDates, sortTourDates } from 'utils/helpers.js';
+import { sortMemberTourDates, sortTourDates } from 'utils/helpers.js';
 import { restPath, USER_PATH } from 'utils/restPaths.js';
 import thunkErrorHandler from './errorHandler.js';
 
@@ -36,12 +36,9 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
 
 		dispatch(setUser(user));
 
-		// if user was just created, activeMember will be null
-		// if (user.activeMember) {
 		await dispatch(fetchUserBands());
 		await dispatch(fetchMembers());
 		await dispatch(fetchTours());
-		// }
 	});
 });
 

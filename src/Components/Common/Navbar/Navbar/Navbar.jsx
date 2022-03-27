@@ -25,7 +25,7 @@ const Navbar = () => {
 			<Toolbar className={`w-100 flex-${isMobile && isVerified ? 'end' : 'between'}`}>
 				{!isMobile && (
 					<>
-						<img width='100px' src={Logo} className='me-5' />
+						<img width='100px' src={Logo} className='me-5' alt='Indietour Logo' />
 						<Stack direction='row' spacing={4}>
 							<NavBtn
 								label='Dates'

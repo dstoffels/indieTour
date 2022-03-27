@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import Page from 'Components/Common/Page/Page.jsx';
 import { CONSOLE } from 'constants/routes.js';
 import useWindow from 'hooks/useWindow.js';

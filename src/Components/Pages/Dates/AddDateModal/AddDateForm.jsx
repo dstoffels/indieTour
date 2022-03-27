@@ -1,9 +1,9 @@
-import { Paper, Stack, Switch, TextField, Typography } from '@mui/material';
+import { Paper, Stack, TextField } from '@mui/material';
 import DatePicker from 'Components/Common/DatePicker/DatePicker.jsx';
 import ModalForm from 'Components/Common/ModalForm/ModalForm.jsx';
 import { TourDate } from 'Components/Pages/Console/Tours/TourForm/DateRangePicker.jsx';
 import useForm from 'hooks/useForm.js';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { eventBldr } from 'utils/helpers.js';
 import ConfirmSwitch from '../DateDetailsPanel/DateDetails/ConfirmSwitch.jsx';
 import IsShowDaySwitch from '../DateDetailsPanel/DateDetails/IsShowDaySwitch.jsx';
