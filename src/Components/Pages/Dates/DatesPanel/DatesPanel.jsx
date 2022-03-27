@@ -8,7 +8,7 @@ import DateCard from './DateCard/DateCard.jsx';
 import PastDatesToggle from './PastDatesToggle.jsx';
 
 const DatesPanel = props => {
-	const { activeTourDates } = useTours();
+	const { activeTour, activeTourDates } = useTours();
 	const [selectedDate, setSelectedDate] = useState('');
 
 	const tourDateCards = activeTourDates?.map((tourDate, i, a) => (
@@ -20,7 +20,7 @@ const DatesPanel = props => {
 
 	return (
 		<Panel
-			title='Tour Dates'
+			title={activeTour?.name}
 			actions={[
 				<PastDatesToggle key='past-dates-toggle' />,
 				<AddDateModalBtn key='date-modal-btn' />,

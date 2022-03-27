@@ -3,7 +3,6 @@ import Selector from 'Components/Common/Selector/Selector.jsx';
 import useTours from 'Components/Pages/Console/Tours/useTours.js';
 import React from 'react';
 import useBands from '../../Bands/useBands.js';
-import './TourSelector.css';
 
 const TourSelector = props => {
 	const { activeTour, tours, selectTour } = useTours();

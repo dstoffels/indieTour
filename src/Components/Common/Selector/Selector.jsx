@@ -38,7 +38,7 @@ const Selector = ({
 
 	if (defaultSelection) {
 		return (
-			<FormControl fullWidth className='selector'>
+			<FormControl focused fullWidth className='selector'>
 				<InputLabel>{label}</InputLabel>
 				<Select
 					size='small'

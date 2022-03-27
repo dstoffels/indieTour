@@ -2,13 +2,15 @@ import React, { memo, useEffect, useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import { Dashboard, DashboardOutlined, DateRange, DateRangeOutlined } from '@mui/icons-material';
 
-import './BottomNav.css';
 import { BOOKING, CONSOLE, DATES, TODAY } from 'constants/routes.js';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useWindow from 'hooks/useWindow.js';
+// import './BottomNav.css';
 
 const BottomNav = memo(props => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { isMobile } = useWindow();
 
 	const [value, setValue] = useState('');
 
@@ -21,38 +23,45 @@ const BottomNav = memo(props => {
 		navigate(newValue);
 	};
 
-	return (
-		<Paper className='bottom-nav-wrapper' elevation={5}>
-			<BottomNavigation value={value} onChange={handleChange} showLabels>
-				{/* <BottomNavigationAction
+	if (isMobile) {
+		return (
+			<Paper elevation={5}>
+				<BottomNavigation
+					value={value}
+					onChange={handleChange}
+					showLabels
+					sx={{ position: 'fixed', width: 1, bottom: 0 }}>
+					{/* <BottomNavigationAction
 					label='Today'
 					value={TODAY}
 					icon={
 						value === TODAY ? (
 							<InsertInvitation color='inherit' />
-						) : (
-							<InsertInvitationOutlined color='inherit' />
-						)
+							) : (
+								<InsertInvitationOutlined color='inherit' />
+								)
 					}
 				/> */}
-				<BottomNavigationAction
-					label='Dates'
-					value={DATES}
-					icon={value === DATES ? <DateRange /> : <DateRangeOutlined />}
-				/>
-				{/* <BottomNavigationAction
+					<BottomNavigationAction
+						label='Dates'
+						value={DATES}
+						icon={value === DATES ? <DateRange /> : <DateRangeOutlined />}
+					/>
+					{/* <BottomNavigationAction
 					label='Booking'
 					value={BOOKING}
 					icon={value === BOOKING ? <FactCheck /> : <FactCheckOutlined />}
 				/> */}
-				<BottomNavigationAction
-					label='Tours'
-					value={CONSOLE}
-					icon={value === CONSOLE ? <Dashboard /> : <DashboardOutlined />}
-				/>
-			</BottomNavigation>
-		</Paper>
-	);
+					<BottomNavigationAction
+						label='Tours'
+						value={CONSOLE}
+						icon={value === CONSOLE ? <Dashboard /> : <DashboardOutlined />}
+					/>
+				</BottomNavigation>
+			</Paper>
+		);
+	}
+	return null;
 });
 
 export default BottomNav;

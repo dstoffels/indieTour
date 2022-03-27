@@ -24,6 +24,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from 'theme/theme.js';
 import MainModal from 'Components/Common/MainModal/MainModal.jsx';
 import './App.css';
+import useWindow from 'hooks/useWindow.js';
 
 function App() {
 	const { user } = useUser();

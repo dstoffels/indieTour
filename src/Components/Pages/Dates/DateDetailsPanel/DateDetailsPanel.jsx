@@ -3,6 +3,7 @@ import Panel from 'Components/Common/Panel/Panel.jsx';
 import ScrollWindow from 'Components/Common/ScrollWindow/ScrollWindow.jsx';
 import useWindow from 'hooks/useWindow.js';
 import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import useDates from '../useDates.js';
 import ContactsList from './Contacts/ContactsList.jsx';
 import DateDetails from './DateDetails/DateDetails.jsx';
@@ -14,8 +15,7 @@ import Schedule from './Schedule/Schedule.jsx';
 
 const DateDetailsPanel = () => {
 	// TODO: use screensize to determine if shown vs. dialog
-	const { screenX } = useWindow();
-
+	const isMobile = useSelector(state => state);
 	const [tabIndex, setTabIndex] = useState(0);
 
 	const { activeDate, editing, editActiveDate } = useDates();

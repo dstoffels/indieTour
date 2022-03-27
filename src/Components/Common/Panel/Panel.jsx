@@ -4,7 +4,6 @@ import {
 	CardContent,
 	Divider,
 	Grid,
-	Slide,
 	TextField,
 	Typography,
 } from '@mui/material';
@@ -16,7 +15,7 @@ const Panel = ({ title = '', actions, children }) => {
 	const header = Boolean(title) && <h6 className='panel-header'>{title}</h6>;
 
 	return (
-		<Grid sm={12} md={6} className='my-2 stretch' item width='100%'>
+		<Grid xs={12} sm={6} className='my-2 stretch' item width='100%'>
 			<Card elevation={6} className='stretch'>
 				{header}
 				<CardContent className='stretch'>{children}</CardContent>
