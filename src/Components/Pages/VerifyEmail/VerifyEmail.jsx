@@ -17,9 +17,6 @@ const VerifyEmail = props => {
 		const checkForVerify = setInterval(async () => {
 			const { currentUser } = auth;
 			currentUser.reload();
-			// const { emailVerified } = currentUser;
-			// const user = await axios.put(USER_PATH, { emailVerified }, token);
-			// dispatch(setUser(user.data));
 			currentUser.emailVerified && navigate(CONSOLE);
 		}, 2000);
 		return () => clearInterval(checkForVerify);

@@ -11,12 +11,13 @@ import LocationField from 'Components/Pages/Dates/AddDateModal/LocationField.jsx
 import React from 'react';
 import './Panel.css';
 
-const Panel = ({ title = '', actions, children }) => {
+const Panel = ({ title = '', actions, closeBtn, children }) => {
 	const header = Boolean(title) && <h6 className='panel-header'>{title}</h6>;
 
 	return (
 		<Grid xs={12} sm={6} className='my-2 stretch' item width='100%'>
-			<Card elevation={6} className='stretch'>
+			<Card sx={{ position: 'relative' }} elevation={6} className='stretch'>
+				{Boolean(closeBtn) && <div className='upper-right'>{closeBtn}</div>}
 				{header}
 				<CardContent className='stretch'>{children}</CardContent>
 				{Boolean(actions) && <CardActions className='justify-content-end'>{actions}</CardActions>}

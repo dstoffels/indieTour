@@ -1,4 +1,12 @@
-import { Card, CardActionArea, CardContent, Collapse, Stack, Typography } from '@mui/material';
+import {
+	Card,
+	CardActionArea,
+	CardContent,
+	Collapse,
+	Divider,
+	Stack,
+	Typography,
+} from '@mui/material';
 import useModal from 'Components/Common/MainModal/useModal.js';
 import React, { useEffect, useState } from 'react';
 import useDates from '../../useDates.js';
@@ -12,7 +20,7 @@ const truncLocation = loc =>
 		.filter((seg, i) => !/\d/.test(seg) || i !== 0)
 		.concat();
 
-const DateCard = ({ tourDate }) => {
+const DateCard = ({ tourDate, isLast }) => {
 	const { selectTourDate, deselectTourDate, showPastDates, activeDate, unsavedChanges } =
 		useDates();
 
@@ -40,25 +48,28 @@ const DateCard = ({ tourDate }) => {
 
 	return (
 		<Collapse in={!getIsPastDate() || showPastDates}>
-			<Card
-				elevation={isActive ? 4 : 1}
-				className='flex-between'
-				sx={{ position: 'relative', zIndex: isActive && 1 }}>
-				<CardActionArea onClick={handleClick}>
-					<CardContent className='p-2 flex-between'>
-						<DateBlock fontStyle={fontStyle} color={color} date={tourDate.date} />
-						<Stack className='w-100 ps-3'>
-							<Typography fontStyle={fontStyle} color={color} variant='body1' fontWeight={600}>
-								{tourDate.title}
-							</Typography>
-							<Typography fontStyle={fontStyle} color={color} variant='caption'>
-								{truncLocation(tourDate.location)}
-							</Typography>
-						</Stack>
-					</CardContent>
-				</CardActionArea>
-				<DirectionsBtn location={tourDate.location} />
-			</Card>
+			<>
+				<Card
+					elevation={isActive ? 4 : 1}
+					className='flex-between'
+					sx={{ position: 'relative', zIndex: isActive && 1 }}>
+					<CardActionArea onClick={handleClick}>
+						<CardContent className='p-2 flex-between'>
+							<DateBlock fontStyle={fontStyle} color={color} date={tourDate.date} />
+							<Stack className='w-100 ps-3'>
+								<Typography fontStyle={fontStyle} color={color} variant='body1' fontWeight={600}>
+									{tourDate.title}
+								</Typography>
+								<Typography fontStyle={fontStyle} color={color} variant='caption'>
+									{truncLocation(tourDate.location)}
+								</Typography>
+							</Stack>
+						</CardContent>
+					</CardActionArea>
+					<DirectionsBtn location={tourDate.location} />
+				</Card>
+				{!isLast && <Divider />}
+			</>
 		</Collapse>
 	);
 };

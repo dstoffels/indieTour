@@ -1,4 +1,4 @@
-import { Card, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import NewTourModalBtn from 'Components/Pages/Console/Tours/NewTourModal/NewTourModalBtn.jsx';
 import React from 'react';
@@ -9,7 +9,9 @@ import MemberCard from './MemberCard.jsx';
 const BandInfo = props => {
 	const { activeMember, members } = useBands();
 
-	const memberCards = members.map(member => <MemberCard key={member.email} member={member} />);
+	const memberCards = members.map((member, i, a) => (
+		<MemberCard key={member.email} member={member} isLast={i === a.length - 1} />
+	));
 
 	const actions = (
 		<>

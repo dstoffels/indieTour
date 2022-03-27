@@ -5,6 +5,7 @@ import useWindow from 'hooks/useWindow.js';
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useDates from '../useDates.js';
+import CloseDetailsBtn from './CloseDetailsBtn.jsx';
 import ContactsList from './Contacts/ContactsList.jsx';
 import DateDetails from './DateDetails/DateDetails.jsx';
 import DateDetailsTabs, { DateTabPanel } from './DateDetailsTabs.jsx';
@@ -36,7 +37,10 @@ const DateDetailsPanel = () => {
 
 	if (activeDate) {
 		return (
-			<Panel title={`${activeDate?.date}\n${activeDate.title}`} actions={actions}>
+			<Panel
+				title={`${activeDate?.date}\n${activeDate.title}`}
+				actions={actions}
+				closeBtn={<CloseDetailsBtn />}>
 				<DateDetailsTabs value={tabIndex} onChange={setTabIndex} />
 				<ScrollWindow maxHeight='61vh'>
 					<DateTabPanel value={tabIndex} i={0}>
