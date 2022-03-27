@@ -37,16 +37,19 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 				title={`Adding date to ${tourName}`}
 				onSubmit={handleSubmit}
 				formId={ADD_DATE_FORM_ID}>
-				<div className='flex-between'>
+				<Stack direction='row' spacing={2} justifyContent='space-between'>
 					<DatePicker
 						value={form.date}
 						onChange={handleChange}
 						tourDates={tourDates}
 						size='medium'
 					/>
-					<IsShowDaySwitch value={form.isShowDay} onChange={handleChange} />
-					<ConfirmSwitch value={form.isConfirmed} onChange={handleChange} />
-				</div>
+					<Stack spacing={-1}>
+						<ConfirmSwitch value={form.isConfirmed} onChange={handleChange} />
+						<IsShowDaySwitch value={form.isShowDay} onChange={handleChange} />
+					</Stack>
+				</Stack>
+
 				<TextField
 					label='Event Title'
 					name='title'
@@ -55,6 +58,7 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 					onBlur={() => !form.location && handleChange(eventBldr('location', form.title))}
 				/>
 				<LocationField value={form.location} onChange={handleChange} />
+
 				{form.isShowDay && (
 					<TextField
 						multiline
@@ -65,6 +69,7 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 						value={form.deal}
 					/>
 				)}
+
 				<TextField
 					label='Notes'
 					multiline
@@ -74,6 +79,7 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 					value={form.notes}
 				/>
 			</ModalForm>
+
 			<Stack spacing={1} marginTop={2}>
 				{submitBtn}
 				{/* <div className='flex-end'>{actions}</div> */}

@@ -24,6 +24,7 @@ const LocationField = ({
 					`${business_status ? name + ': ' : ''}${formatted_address}`,
 			);
 			setOptions(locations);
+		} else {
 			setOpen(false);
 			setOptions([]);
 		}
