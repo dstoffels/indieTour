@@ -16,6 +16,7 @@ const getNextDate = dates => {
 		lastDate.setDate(lastDate.getDate() + 1);
 		return lastDate.toDateString();
 	}
+	return new Date().toDateString();
 };
 
 /**
@@ -33,7 +34,7 @@ const AddDateForm = ({ tourName, tourDates, submitBtn, onSubmit }) => {
 	return (
 		<Paper elevation={0} className='p-3'>
 			<ModalForm
-				title={`Add Date to ${tourName}`}
+				title={`Adding date to ${tourName}`}
 				onSubmit={handleSubmit}
 				formId={ADD_DATE_FORM_ID}>
 				<div className='flex-between'>
