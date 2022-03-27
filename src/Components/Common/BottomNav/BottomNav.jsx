@@ -1,17 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import {
-	Dashboard,
-	DashboardOutlined,
-	DateRange,
-	DateRangeOutlined,
-	FactCheck,
-	FactCheckOutlined,
-	InsertInvitation,
-	InsertInvitationOutlined,
-	Settings,
-	SettingsOutlined,
-} from '@mui/icons-material';
+import { Dashboard, DashboardOutlined, DateRange, DateRangeOutlined } from '@mui/icons-material';
 
 import './BottomNav.css';
 import { BOOKING, CONSOLE, DATES, TODAY } from 'constants/routes.js';

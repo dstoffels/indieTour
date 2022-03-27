@@ -1,10 +1,11 @@
-import { Stack, TextField } from '@mui/material';
+import { Paper, Stack, TextField } from '@mui/material';
 import { SIGNUP_FORM_ID } from 'Components/Auth/constants.js';
 import { createEmailUser } from 'fb/firebase.js';
 import useForm from 'hooks/useForm.js';
 import React, { useEffect, useState } from 'react';
 import EmailField from '../EmailField/EmailField.jsx';
 import PasswordField from '../PasswordField/PasswordField.jsx';
+import SignUpBtn from './SignUpBtn.jsx';
 
 const SignUpForm = ({ closeMenu }) => {
 	// STATE
@@ -29,7 +30,7 @@ const SignUpForm = ({ closeMenu }) => {
 
 	return (
 		<form id={SIGNUP_FORM_ID} onSubmit={handleSubmit} onClick={stopProp} onKeyDown={stopProp}>
-			<Stack spacing={2} marginTop={2}>
+			<Stack spacing={2}>
 				<EmailField value={form?.email} onChange={handleChange} />
 				<TextField
 					label='Username'

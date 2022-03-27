@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar } from '@mui/material';
 import AccountMenu from '../AccountMenu/AccountMenu.jsx';
-import TourSelector from '../../../Pages/Console/Tours/TourSelector/TourSelector.jsx';
+import TourSelector from 'Components/Pages/Console/Tours/TourSelector/TourSelector.jsx';
 
 const Navbar = props => {
 	return (

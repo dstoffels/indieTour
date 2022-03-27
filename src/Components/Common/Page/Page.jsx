@@ -1,19 +1,34 @@
-import { Grid } from '@mui/material';
+import { Grid, Slide } from '@mui/material';
 import React from 'react';
-import { Container, Row } from 'react-bootstrap';
 
 const Page = ({ children, centered }) => {
 	return (
-		<Container>
-			<Grid
-				container
-				spacing={2}
-				height='87.5vh'
-				alignItems='stretch'
-				justifyContent={centered ? 'center' : ''}>
-				{children}
-			</Grid>
-		</Container>
+		<Grid
+			container
+			item
+			direction='row'
+			justifyContent='center'
+			alignItems='stretch'
+			overflow='hidden'>
+			<Slide direction='left' in={true} appear>
+				<Grid
+					container
+					item
+					xl={8}
+					lg={9}
+					md={11}
+					sm={11}
+					xs={12}
+					columnSpacing={5}
+					maxHeight='87vh'
+					height='87vh'
+					overflow='auto'
+					alignItems='stretch'
+					justifyContent={centered ? 'center' : ''}>
+					{children}
+				</Grid>
+			</Slide>
+		</Grid>
 	);
 };
 
