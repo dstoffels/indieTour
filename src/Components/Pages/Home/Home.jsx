@@ -32,9 +32,9 @@ const Home = props => {
 				<img width='100%' src={Logo} alt='' />
 			</Grid>
 			<Grid container item justifyContent='center' marginTop={5}>
-				<Stack spacing={6}>
+				<Stack spacing={6} padding={2}>
 					<Collapse in={signup}>
-						<Paper elevation={12} className='p-3'>
+						<Paper elevation={4} className='p-3'>
 							<Stack spacing={2}>
 								<Stack direction='row' spacing={5} justifyContent='space-between'>
 									<Typography color='primary' variant='h5'>

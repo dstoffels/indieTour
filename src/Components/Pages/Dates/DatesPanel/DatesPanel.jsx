@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import ScrollWindow from 'Components/Common/ScrollWindow/ScrollWindow.jsx';
 import useTours from 'Components/Pages/Console/Tours/useTours.js';
@@ -22,6 +23,7 @@ const DatesPanel = () => {
 				<PastDatesToggle key='past-dates-toggle' />,
 				<AddDateModalBtn key='date-modal-btn' />,
 			]}>
+			{!activeTourDates?.length && <Typography>No tour dates yet...</Typography>}
 			<ScrollWindow maxHeight='70vh'>{tourDateCards}</ScrollWindow>
 		</Panel>
 	);

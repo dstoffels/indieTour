@@ -5,12 +5,14 @@ import { Dashboard, DashboardOutlined, DateRange, DateRangeOutlined } from '@mui
 import { BOOKING, CONSOLE, DATES, TODAY } from 'constants/routes.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useWindow from 'hooks/useWindow.js';
+import useBands from 'Components/Pages/Console/Bands/useBands.js';
 // import './BottomNav.css';
 
 const BottomNav = memo(props => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { isMobile } = useWindow();
+	const { activeMember } = useBands();
 
 	const [value, setValue] = useState('');
 
@@ -23,7 +25,7 @@ const BottomNav = memo(props => {
 		navigate(newValue);
 	};
 
-	if (isMobile) {
+	if (isMobile && activeMember) {
 		return (
 			<Paper elevation={5}>
 				<BottomNavigation

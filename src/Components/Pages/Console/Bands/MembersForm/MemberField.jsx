@@ -15,7 +15,7 @@ const MemberField = ({ i, member, onChange, members, setMembers }) => {
 	return (
 		<div className='d-flex'>
 			<FormControl fullWidth>
-				<InputLabel color='info' sx={{ color: 'white' }} htmlFor={`member-email-input-${i}`}>
+				<InputLabel sx={{ color: 'white' }} htmlFor={`member-email-input-${i}`}>
 					Member Email
 				</InputLabel>
 				<OutlinedInput
@@ -23,12 +23,10 @@ const MemberField = ({ i, member, onChange, members, setMembers }) => {
 					autoFocus
 					id={`member-email-input-${i}`}
 					label='Member Email'
-					color='info'
 					type='email'
 					required
 					value={member.email}
 					onChange={handleChange}
-					inputProps={{ style: { color: 'white' } }}
 					endAdornment={<AdminSwitch role={role} setRole={setRole} />}
 				/>
 			</FormControl>

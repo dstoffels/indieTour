@@ -51,7 +51,7 @@ export const fetchUser = createAsyncThunk(FETCH, async (_, thunkAPI) => {
  */
 export const setActiveMemberAndGetMembers = createAsyncThunk(SET_BAND, async (member, thunkAPI) => {
 	const { dispatch, getState } = thunkAPI;
-	const { bands, token } = getState();
+	const { bands } = getState();
 
 	await thunkErrorHandler(thunkAPI, token => {
 		member = member ? member : bands[0];

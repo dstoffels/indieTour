@@ -3,13 +3,12 @@ export const eventBldr = (name, value) => {
 };
 
 export const sortMemberTourDates = member => {
-	try {
+	if (member.activeTour) {
 		const dates = [...member.activeTour.dates];
 		dates.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
 		return { ...member, activeTour: { ...member.activeTour, dates } };
-	} catch (error) {
-		console.log(error);
 	}
+	return member;
 };
 
 export const sortTourDates = tour => {

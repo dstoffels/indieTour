@@ -1,18 +1,18 @@
 import { Button, Typography } from '@mui/material';
-import useUser from 'hooks/useUser.js';
+import useBands from 'Components/Pages/Console/Bands/useBands.js';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const NavBtn = ({ label, page, activeIcon, inactiveIcon, disabled = false }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { user } = useUser();
+	const { activeMember } = useBands();
 
 	const isActive = location.pathname === page;
 
 	const handleClick = () => navigate(page);
 
-	if (user) {
+	if (activeMember) {
 		return (
 			<Button
 				onClick={handleClick}
