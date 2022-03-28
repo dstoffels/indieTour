@@ -8,7 +8,7 @@ import {
 	Typography,
 } from '@mui/material';
 import useModal from 'Components/Common/MainModal/useModal.js';
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import useDates from '../../useDates.js';
 import DateBlock from './DateBlock.jsx';
 import DirectionsBtn from './DirectionsBtn.jsx';
@@ -20,6 +20,11 @@ const truncLocation = loc =>
 		.filter((seg, i) => !/\d/.test(seg) || i !== 0)
 		.concat();
 
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
 const DateCard = ({ tourDate, isLast }) => {
 	const { selectTourDate, deselectTourDate, showPastDates, activeDate, unsavedChanges } =
 		useDates();
@@ -74,4 +79,4 @@ const DateCard = ({ tourDate, isLast }) => {
 	);
 };
 
-export default DateCard;
+export default memo(DateCard);

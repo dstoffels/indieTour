@@ -31,7 +31,15 @@ const useTours = () => {
 
 	const deleteTour = path => dispatch(deleteActiveTour(path));
 
-	return { tours, activeTour, activeTourDates, selectTour, createTour, updateTour, deleteTour };
+	return {
+		tours,
+		activeTour,
+		activeTourDates,
+		selectTour,
+		createTour,
+		updateTour,
+		deleteTour,
+	};
 };
 
 export default useTours;

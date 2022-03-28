@@ -21,7 +21,7 @@ export const Event = date => {
 };
 
 const Schedule = () => {
-	let { events, selectEvent } = useDates();
+	const { events } = useDates();
 
 	const eventCards = events.map((event, i, a) => (
 		<EventCard key={event.key} i={i} event={event} isFirst={i === 0} isLast={i === a.length - 1} />

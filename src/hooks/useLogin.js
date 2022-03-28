@@ -1,4 +1,5 @@
-import { CONSOLE, DATES } from 'constants/routes.js';
+import useDates from 'Components/Pages/Dates/useDates.js';
+import { DATES, TODAY } from 'constants/routes.js';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from './useUser.js';
@@ -7,10 +8,11 @@ import useUser from './useUser.js';
 const useLogin = () => {
 	const navigate = useNavigate();
 	const { user } = useUser();
+	const { today } = useDates();
 
 	useEffect(() => {
 		if (user) {
-			navigate(DATES);
+			navigate(today ? TODAY : DATES);
 		}
 	}, [user]);
 };

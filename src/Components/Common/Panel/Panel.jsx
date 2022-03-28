@@ -102,7 +102,7 @@ Panel.Field = ({
 				<Typography color='primary' variant='caption'>
 					{label}
 				</Typography>
-				<Typography component='div' variant='body2'>
+				<Typography component='div' variant='body1'>
 					{children}
 				</Typography>
 			</div>

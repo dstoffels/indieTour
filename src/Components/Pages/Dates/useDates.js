@@ -16,6 +16,8 @@ const useDates = () => {
 	const { showPastDates, activeDate, editing, originalData, activeEvent, activeContact } =
 		useSelector(state => state.dateControls);
 
+	const today = activeTourDates?.find(({ date }) => date === new Date().toDateString());
+
 	const events = activeDate?.timeslots;
 
 	const contacts = activeDate?.contacts;
@@ -48,6 +50,7 @@ const useDates = () => {
 
 	return {
 		activeTourDates,
+		today,
 		showPastDates,
 		activeDate,
 		originalData,
