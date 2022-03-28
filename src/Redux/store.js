@@ -1,12 +1,23 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { user } from './userSlice.js';
-import { nav } from '../Components/Common/BottomNav/navSlice.js';
-import { band } from './bandsSlice.js';
-
+import { bands } from '../Components/Pages/Console/Bands/bandsSlice.js';
+import { members } from 'Components/Pages/Console/Bands/membersSlice.js';
+import { tours } from 'Components/Pages/Console/Tours/toursSlice.js';
+import { token } from 'Components/Auth/Authentication/authSlice.js';
+import { mainModal } from 'Components/Common/MainModal/mainModalSlice.js';
+import { deleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
+import { dateControls } from 'Components/Pages/Dates/datesSlice.js';
+import { isMobile } from './windowSlice.js';
 export const store = configureStore({
 	reducer: {
+		token,
 		user,
-		nav,
-		band,
+		bands,
+		tours,
+		members,
+		mainModal,
+		deleteModal,
+		dateControls,
+		isMobile,
 	},
 });

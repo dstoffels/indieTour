@@ -1,22 +1,12 @@
-import { Button, Stack, TextField } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
+import { SIGNUP_FORM_ID } from 'Components/Auth/constants.js';
+import { createEmailUser } from 'fb/firebase.js';
+import useForm from 'hooks/useForm.js';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { HOME, LOGIN, WAITING_ROOM } from '../../../../constants/routes.js';
-import { auth, createEmailUser } from '../../../../firebase/firebase.js';
-import useForm from '../../../../hooks/useForm.js';
-import AuthForm from '../AuthForm/AuthForm.jsx';
-import { SIGNUP_FORM_ID } from '../../constants.js';
-import EmailField from '../FormFields/EmailField/EmailField.jsx';
-import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
+import EmailField from '../EmailField/EmailField.jsx';
+import PasswordField from '../PasswordField/PasswordField.jsx';
 
-const SignUpForm = props => {
-	// HOOKS
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		auth.currentUser && navigate(HOME);
-	}, []);
-
+const SignUpForm = ({ closeMenu }) => {
 	// STATE
 	const [error, setError] = useState('');
 	const initialState = { email: '', displayName: '', password: '', confirmPassword: '' };
@@ -29,6 +19,7 @@ const SignUpForm = props => {
 	async function onSubmit() {
 		try {
 			await createEmailUser(form);
+			Boolean(closeMenu) && closeMenu();
 		} catch (e) {
 			setError(e.code);
 		}
@@ -38,13 +29,14 @@ const SignUpForm = props => {
 
 	return (
 		<form id={SIGNUP_FORM_ID} onSubmit={handleSubmit} onClick={stopProp} onKeyDown={stopProp}>
-			<Stack spacing={2} marginTop={2}>
+			<Stack spacing={2}>
 				<EmailField value={form?.email} onChange={handleChange} />
 				<TextField
 					label='Username'
 					name='displayName'
 					value={form.displayName}
 					onChange={handleChange}
+					InputLabelProps={{ sx: { color: 'white' } }}
 				/>
 				<PasswordField value={form.password} onChange={handleChange} label='Password' />
 				<PasswordField

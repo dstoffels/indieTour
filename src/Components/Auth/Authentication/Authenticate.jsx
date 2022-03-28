@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HOME, LOGIN, WAITING_ROOM } from '../../../constants/routes.js';
-import { auth } from '../../../firebase/firebase.js';
-import useUser from '../../../hooks/useUser.js';
+import useUser from 'hooks/useUser.js';
+import { HOME, PASSWORD, WAITING_ROOM } from 'constants/routes.js';
+import { auth } from 'fb/firebase.js';
 
 const Authenticate = ({ children }) => {
 	const navigate = useNavigate();
-	const user = useUser();
+	const { user } = useUser();
 
 	const verifyCurrentUser = () => {
 		if (!user) {
@@ -15,13 +14,19 @@ const Authenticate = ({ children }) => {
 			return null;
 		}
 
-		if (!user.emailVerified) {
+		if (!auth?.currentUser?.emailVerified) {
 			navigate(WAITING_ROOM);
 			return null;
 		}
+
+		if (!user.hasValidPW) {
+			navigate(PASSWORD);
+			return null;
+		}
+		// setAuthenticated(true);
 	};
 
-	useEffect(verifyCurrentUser, [user, verifyCurrentUser]);
+	useEffect(verifyCurrentUser, [user]);
 
 	return children;
 };

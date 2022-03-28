@@ -1,13 +1,13 @@
-import { Login, Logout, PersonAdd, Settings } from '@mui/icons-material';
-import { Avatar, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Login, Settings } from '@mui/icons-material';
+import { Avatar, Button, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material';
+import AuthForm from 'Components/Auth/AuthForm/AuthForm/AuthForm.jsx';
+import LogOutBtn from 'Components/Auth/LogOutBtn/LogOutBtn.jsx';
+import useUser from 'hooks/useUser.js';
 import React, { useState } from 'react';
-import useUser from '../../../../hooks/useUser.js';
-import AuthForm from '../../../Auth/AuthForm/AuthForm/AuthForm.jsx';
-import LogOutBtn from '../../../Auth/LogOutBtn/LogOutBtn.jsx';
 
-const AccoutMenu = props => {
+const AccountMenu = props => {
 	// STATE
-	const user = useUser();
+	const { user } = useUser();
 	// LOCAL STATE
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
@@ -24,28 +24,30 @@ const AccoutMenu = props => {
 			</MenuItem>,
 			<MenuItem key='settings-btn'>
 				<ListItemIcon>
-					<Settings />
+					<Settings color='primary' />
 				</ListItemIcon>
-				Settings
+				<Typography color='primary'>Settings</Typography>
 			</MenuItem>,
 			<LogOutBtn key='logout-btn' />,
 		]
 	) : (
-		<AuthForm />
+		<AuthForm closeMenu={handleClose} />
 	);
 
 	return (
 		<div>
-			<IconButton onClick={handleClick} size='small'>
+			<Button sx={{ textTransform: 'none' }} onClick={handleClick} size='small' color='primary'>
 				{user ? (
-					<Avatar sx={{ width: 32, height: 32 }}>{user?.displayName.charAt(0)}</Avatar>
+					<Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
+						{user?.displayName?.charAt(0)}
+					</Avatar>
 				) : (
 					<>
-						<span className='me-1'>Login</span>
+						<Typography className='me-1'>Login</Typography>
 						<Login />
 					</>
 				)}
-			</IconButton>
+			</Button>
 
 			<Menu
 				anchorEl={anchorEl}
@@ -55,11 +57,13 @@ const AccoutMenu = props => {
 				onClick={handleClose}
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+				MenuListProps={{
+					className: 'p-0',
+				}}
 				PaperProps={{
 					elevation: 5,
 					sx: {
 						...width,
-						backgroundColor: 'rgb(18,18,18)',
 						overflow: 'visible',
 						filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
 						mt: 1.5,
@@ -69,18 +73,6 @@ const AccoutMenu = props => {
 							ml: -0.5,
 							mr: 1,
 						},
-						'&:before': {
-							content: '""',
-							display: 'block',
-							position: 'absolute',
-							top: 0,
-							right: 14,
-							width: 10,
-							height: 10,
-							bgcolor: 'rgb(18,18,18)',
-							transform: 'translateY(-50%) rotate(45deg)',
-							zIndex: 0,
-						},
 					},
 				}}>
 				{menuItems}
@@ -89,4 +81,4 @@ const AccoutMenu = props => {
 	);
 };
 
-export default AccoutMenu;
+export default AccountMenu;

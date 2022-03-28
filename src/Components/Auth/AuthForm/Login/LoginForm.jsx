@@ -1,16 +1,12 @@
 import { Stack } from '@mui/material';
+import { LOGIN_FORM_ID } from 'Components/Auth/constants.js';
+import useForm from 'hooks/useForm.js';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { emailLogin } from '../../../../firebase/firebase.js';
-import useForm from '../../../../hooks/useForm.js';
-import { LOGIN_FORM_ID } from '../../constants.js';
-import EmailField from '../FormFields/EmailField/EmailField.jsx';
-import PasswordField from '../FormFields/PasswordField/PasswordField.jsx';
+import { emailLogin } from 'fb/firebase';
+import EmailField from '../EmailField/EmailField.jsx';
+import PasswordField from '../PasswordField/PasswordField.jsx';
 
-const LoginForm = props => {
-	// HOOKS
-	const navigate = useNavigate();
-
+const LoginForm = ({ closeMenu }) => {
 	// STATE
 	const initialState = { email: '', password: '' };
 	const { form, handleChange, handleSubmit } = useForm(initialState, login);
@@ -19,6 +15,7 @@ const LoginForm = props => {
 	async function login() {
 		try {
 			await emailLogin(form);
+			closeMenu();
 		} catch (e) {
 			setError(e.code);
 		}

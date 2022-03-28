@@ -1,20 +1,18 @@
+import useDates from 'Components/Pages/Dates/useDates.js';
+import { DATES, TODAY } from 'constants/routes.js';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { DATES } from '../constants/routes.js';
-import { fetchUserBands } from '../redux/bandsSlice.js';
 import useUser from './useUser.js';
 
+//**Fetches user's data with a single action */
 const useLogin = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const user = useUser();
-	const { prevPage } = useSelector(state => state.nav);
+	const { user } = useUser();
+	const { today } = useDates();
 
 	useEffect(() => {
 		if (user) {
-			navigate(prevPage);
-			dispatch(fetchUserBands());
+			navigate(today ? TODAY : DATES);
 		}
 	}, [user]);
 };
