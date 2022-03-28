@@ -52,7 +52,7 @@ const LocationField = ({
 			onSelect={onChange}
 			filterOptions={options => options}
 			freeSolo
-			ListboxProps={{ onClick: () => setOpen(false) }}
+			// ListboxProps={{ onClick: () => setOpen(false) }}
 			renderInput={params => (
 				<TextField
 					{...params}
