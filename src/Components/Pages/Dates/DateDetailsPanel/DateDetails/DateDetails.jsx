@@ -1,7 +1,6 @@
-import { Button, Stack, Switch, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import React from 'react';
-import ContactsList from '../Contacts/ContactsList.jsx';
 import ConfirmSwitch from './ConfirmSwitch.jsx';
 import IsShowDaySwitch from './IsShowDaySwitch.jsx';
 import Map from './Map.jsx';

@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
-import NewTourModalBtn from 'Components/Pages/Console/Tours/NewTourModal/NewTourModalBtn.jsx';
 import React from 'react';
 import EditBandModalBtn from '../../EditBandModal/EditBandModalBtn.jsx';
 import useBands from '../../useBands.js';
@@ -13,12 +12,7 @@ const BandInfo = props => {
 		<MemberCard key={member.email} member={member} isLast={i === a.length - 1} />
 	));
 
-	const actions = (
-		<>
-			<EditBandModalBtn />
-			<NewTourModalBtn />
-		</>
-	);
+	const actions = <EditBandModalBtn />;
 
 	if (activeMember) {
 		const { bandName } = activeMember;

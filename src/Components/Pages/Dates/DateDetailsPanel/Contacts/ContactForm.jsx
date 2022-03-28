@@ -74,7 +74,7 @@ const ContactForm = ({ contact, i }) => {
 						value={email}
 						onChange={handleChange}
 					/>
-
+					{/* 
 					<TextField
 						fullWidth
 						multiline
@@ -83,7 +83,7 @@ const ContactForm = ({ contact, i }) => {
 						name='notes'
 						value={notes}
 						onChange={handleChange}
-					/>
+					/> */}
 					<DeleteContactModalBtn />
 				</Stack>
 			</CardContent>
