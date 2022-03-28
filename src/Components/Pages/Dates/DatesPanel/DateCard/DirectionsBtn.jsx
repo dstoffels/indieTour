@@ -5,12 +5,15 @@ import React from 'react';
 const DirectionsBtn = ({ location }) => {
 	const handleClick = e => {
 		e.stopPropagation();
-		console.log('get directions');
 	};
 
 	if (location) {
 		return (
-			<Button color='primary' onClick={handleClick}>
+			<Button
+				href={`http://www.google.com/maps?saddr=My+Location&daddr=${location}`}
+				target='_blank'
+				color='primary'
+				onClick={handleClick}>
 				<LocationOn fontSize='large' />
 			</Button>
 		);
