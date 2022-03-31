@@ -39,20 +39,20 @@ const ContactForm = ({ contact, i }) => {
 					<TextField
 						fullWidth
 						required
-						label='Title'
+						label='Name'
 						size='small'
-						name='title'
-						value={title}
+						name='name'
+						value={name}
 						onChange={handleChange}
 					/>
 
 					<TextField
 						fullWidth
 						required
-						label='Name'
+						label='Title'
 						size='small'
-						name='name'
-						value={name}
+						name='title'
+						value={title}
 						onChange={handleChange}
 					/>
 
