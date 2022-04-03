@@ -7,7 +7,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import LocationField from 'Components/Pages/Dates/AddDateModal/LocationField.jsx';
+import LocationField from 'Components/Common/LocationField/LocationField.jsx';
 import React from 'react';
 import './Panel.css';
 

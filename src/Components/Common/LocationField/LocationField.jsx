@@ -16,7 +16,7 @@ const LocationField = ({
 
 	const queryPlaces = async () => {
 		if (value) {
-			options.length ? setOpen(true) : setOpen(false);
+			// options.length ? setOpen(true) : setOpen(false);
 			const response = await axios.get(placesPath(value));
 			const locations = response.data.results.map(
 				({ name, formatted_address, business_status }) =>
@@ -47,12 +47,15 @@ const LocationField = ({
 			}}
 			onBlur={handleClose}
 			autoHighlight
+			autoSelect
+			autoComplete
+			blurOnSelect
 			loading
 			value={value}
 			onSelect={onChange}
 			filterOptions={options => options}
 			freeSolo
-			// ListboxProps={{ onClick: () => setOpen(false) }}
+			ListboxProps={{ onClick: () => setOpen(false) }}
 			renderInput={params => (
 				<TextField
 					{...params}

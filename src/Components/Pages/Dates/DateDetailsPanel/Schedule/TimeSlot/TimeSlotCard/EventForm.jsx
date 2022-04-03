@@ -9,7 +9,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import LocationField from 'Components/Pages/Dates/AddDateModal/LocationField.jsx';
+import LocationField from 'Components/Common/LocationField/LocationField.jsx';
 import useDates from 'Components/Pages/Dates/useDates.js';
 import React, { useState } from 'react';
 import { eventBldr } from 'utils/helpers.js';
