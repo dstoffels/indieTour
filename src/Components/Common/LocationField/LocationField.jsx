@@ -3,14 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { placesPath } from 'utils/restPaths.js';
 
-const LocationField = ({
-	value,
-	name = 'location',
-	label = 'Location',
-	onChange,
-	openOnStart = true,
-	size,
-}) => {
+const LocationField = ({ value, name = 'location', label = 'Location', onChange, size }) => {
 	const [open, setOpen] = useState(false);
 	const [options, setOptions] = useState([]);
 

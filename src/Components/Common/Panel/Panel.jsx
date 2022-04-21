@@ -59,7 +59,7 @@ Panel.Header = ({ label = '', onChange, name, size = 'small', children, editing 
 		);
 	}
 	return (
-		<Typography color='primary' variant='h6' marginBottom={0}>
+		<Typography color='' variant='h6' marginBottom={0}>
 			{children}
 		</Typography>
 	);
