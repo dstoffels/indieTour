@@ -4,14 +4,15 @@ from contacts.models import Contact
 from bands.models import Band
 
 class Tour(Model):
-  name = CharField(max_length=255)
+  name = CharField(max_length=255, unique=True)
   band = ForeignKey(Band, on_delete=CASCADE)
-  notes = TextField(null=True)
+  notes = TextField(null=True, blank=True)
   users = ManyToManyField(User)
 
 class Date(Model):
   tour = ForeignKey(Tour, on_delete=CASCADE)
   date = DateField()
+  title = TextField()
   location = TextField(null=True)
   notes = TextField(null=True)
   is_show_day = BooleanField(default=False)
