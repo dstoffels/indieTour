@@ -35,12 +35,12 @@ class DateSerializer(serializers.ModelSerializer):
 class TourSerializer(serializers.ModelSerializer):
   class Meta:
     model = Tour
-    fields = ['id', 'name', 'notes', 'band_id', 'dates']
+    fields = ['id', 'name', 'notes', 'band_id']
     # depth = 1
 
-  dates = serializers.SerializerMethodField()
+  # dates = serializers.SerializerMethodField()
 
-  def get_dates(self, tour):
-    tour_dates = Date.objects.filter(tour_id=tour.id)
-    serializer = DateSerializer(tour_dates, many=True)
-    return serializer.data
+  # def get_dates(self, tour):
+  #   tour_dates = Date.objects.filter(tour_id=tour.id)
+  #   serializer = DateSerializer(tour_dates, many=True)
+  #   return serializer.data

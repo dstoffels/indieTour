@@ -12,7 +12,9 @@ from authentication.serializers import RegistrationSerializer
 @permission_classes([IsAuthenticated])
 def band_tours(request):
   if request.method == GET:
-    pass
+    tours = Tour.objects.filter(band_id=request.user.active_band_id)
+    serializer = TourSerializer(tours, many=True)
+    return Response(serializer.data)
   elif request.method == POST:
     serializer = TourSerializer(data=request.data)
     if serializer.is_valid():

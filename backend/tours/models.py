@@ -8,6 +8,7 @@ class Tour(Model):
   band = ForeignKey(Band, on_delete=CASCADE)
   notes = TextField(null=True, blank=True)
   users = ManyToManyField(User)
+  is_archived = BooleanField(default=False)
 
 class Date(Model):
   tour = ForeignKey(Tour, on_delete=CASCADE)
