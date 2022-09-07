@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.band_tours),
-    path('set/', views.set_active_tour)
+    path('active/', views.active_tour),
+    path('dates/', views.tour_dates),
 ]

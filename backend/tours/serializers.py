@@ -18,6 +18,7 @@ class DateSerializer(serializers.ModelSerializer):
   class Meta:
     model = Date
     fields = ['id', 'date', 'title', 'location', 'deal', 'notes', 'is_show_day', 'is_confirmed', 'timeslots', 'contacts']
+    depth = 1
 
   timeslots = serializers.SerializerMethodField()
   contacts = serializers.SerializerMethodField()
@@ -32,15 +33,28 @@ class DateSerializer(serializers.ModelSerializer):
     serializer = DateContactSerializer(date_contacts, many=True)
     return serializer.data
 
+  def is_valid_date(self, data):
+    if self.is_valid():
+      tour_dates = Date.objects.filter(tour_id=data["tour_id"])
+      for tour_date in tour_dates:
+        if str(tour_date.date) == data["date"]:
+          raise serializers.ValidationError('Date already exists in tour.')
+    else: return False
+    return True
+
 class TourSerializer(serializers.ModelSerializer):
   class Meta:
     model = Tour
-    fields = ['id', 'name', 'notes', 'band_id']
-    # depth = 1
+    fields = ['id', 'name', 'notes', 'band_id', 'is_archived']
 
-  # dates = serializers.SerializerMethodField()
+class ActiveTourSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Tour
+    fields = ['id', 'name', 'notes', 'band_id', 'dates']
 
-  # def get_dates(self, tour):
-  #   tour_dates = Date.objects.filter(tour_id=tour.id)
-  #   serializer = DateSerializer(tour_dates, many=True)
-  #   return serializer.data
+  dates = serializers.SerializerMethodField()
+
+  def get_dates(self, tour):
+    tour_dates = Date.objects.filter(tour_id=tour.id)
+    serializer = DateSerializer(tour_dates, many=True)
+    return serializer.data

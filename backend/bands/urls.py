@@ -4,5 +4,5 @@ from bands import views
 
 urlpatterns = [
     path('', views.user_bands),
-    path('set/', views.set_active_band)
+    # path('active/', views.band)
 ]
