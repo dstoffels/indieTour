@@ -13,16 +13,25 @@ import Footer from './components/Footer/Footer';
 
 // Util Imports
 import PrivateRoute from './utils/PrivateRoute';
+import Bookings from './components/Bookings/Bookings.jsx';
 
 function App() {
 	return (
 		<div>
 			<Navbar />
-			<Routes>
-				<Route path='/' element={<HomePage />} />
+			<Bookings />
+			{/* <Routes>
+				<Route
+					path='/'
+					element={
+						<PrivateRoute>
+							<HomePage />
+						</PrivateRoute>
+					}
+				/>
 				<Route path='/register' element={<RegisterPage />} />
 				<Route path='/login' element={<LoginPage />} />
-			</Routes>
+			</Routes> */}
 			<Footer />
 		</div>
 	);

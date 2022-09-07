@@ -1,19 +1,10 @@
 from rest_framework.permissions import BasePermission
-from authentication.models import User
 from tours.models import Tour
-from bands.models import Band
+from bands.models import  BandUser
 
 def is_band_admin(user_id, band_id):
-  user = User.objects.get(id=user_id)
-  band = Band.objects.get(id=band_id)
-  
-
-  if band.owner.id == user_id:
-    return True
-  for admin in band.admins.all():
-    if admin.id == user_id:
-      return True
-  return False
+  band_user = BandUser.objects.get(user_id=user_id, band_id=band_id)
+  return band_user.is_admin
 
 class IsBandAdmin(BasePermission):
   def has_permission(self, request, view):

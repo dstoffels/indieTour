@@ -29,14 +29,12 @@ const HomePage = () => {
 		fetchTours();
 	}, [token]);
 	return (
-		<PrivateRoute>
-			<div className='container'>
-				<h2>Welcome {user?.username}!</h2>
-				<select>
-					{tours && tours.map(tour => <option key={`tour-${tour.id}`}>{tour.name}</option>)}
-				</select>
-			</div>
-		</PrivateRoute>
+		<div className='container'>
+			<h2>Welcome {user?.username}!</h2>
+			<select>
+				{tours && tours.map(tour => <option key={`tour-${tour.id}`}>{tour.name}</option>)}
+			</select>
+		</div>
 	);
 };
 

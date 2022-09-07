@@ -6,4 +6,4 @@ class CustomUserAdmin(UserAdmin):
     pass
 
 # Register your models here.
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(User)

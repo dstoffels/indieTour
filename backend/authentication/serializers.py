@@ -13,7 +13,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # add below using the token["field name"] = user.name_of_property
         # token["is_student"] = user.is_student
 
-        token["username"] = user.username
+        # token["username"] = user.username
         token["first_name"] = user.first_name
         token['active_band_id'] = user.active_band_id
         token['active_tour_id'] = user.active_tour_id
@@ -32,17 +32,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = User
         # If added new columns through the User model, add them in the fields
         # list as seen below
-        fields = ('username', 'password', 'email',
-                  'first_name', 'last_name', 'active_band_id', 'active_tour_id')
+        fields = ( 'password', 'email', 'active_band_id', 'active_tour_id')
 
     def create(self, validated_data):
 
         user = User.objects.create(
-            username=validated_data['username'],
             email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-
+            
             # If added new columns through the User model, add them in this
             # create method. Example below:
 
