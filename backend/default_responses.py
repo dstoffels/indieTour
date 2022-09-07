@@ -2,7 +2,7 @@ from constants import *
 from rest_framework.response import Response
 from rest_framework import status
 
-def patch_view(request, instance, model_serializer):
+def put_default(request, instance, model_serializer):
   serializer = model_serializer(instance, data=request.data, partial=True)
   if serializer.is_valid():
     serializer.save()

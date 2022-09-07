@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from default_views import patch_view
+from default_responses import put_default
 from constants import *
 from .serializers import MyTokenObtainPairSerializer, RegistrationSerializer
 from rest_framework import generics
@@ -25,7 +25,7 @@ class RegisterView(generics.CreateAPIView):
 def update_user(request):
     user = User.objects.get(id=request.user.id)
     if request.method == PATCH:
-        return patch_view(request, user, RegistrationSerializer)
+        return put_default(request, user, RegistrationSerializer)
 
 
 
