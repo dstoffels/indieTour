@@ -9,7 +9,6 @@ from rest_framework.response import Response
 class BandUserSerializer(serializers.ModelSerializer):
   email = serializers.SerializerMethodField()
   username = serializers.SerializerMethodField()
-  active_band_id = serializers.SerializerMethodField()
 
   def get_email(self, band_user):
     return band_user.user.email
@@ -17,13 +16,11 @@ class BandUserSerializer(serializers.ModelSerializer):
   def get_username(self, band_user):
     return band_user.user.username
 
-  def get_active_band_id(self, band_user):
-    return band_user.user.active_band_id
-  
   class Meta:
     model = BandUser
-    fields = ['email', 'username', 'is_admin', 'is_owner','active_band_id']
+    fields = ['email', 'username', 'is_admin', 'is_owner']
     depth = 1
+
 
 class BandSerializer(serializers.ModelSerializer):
   class Meta:
@@ -43,7 +40,6 @@ class BandSerializer(serializers.ModelSerializer):
     band_users = BandUser.objects.filter(band_id=band.id)
     serializer = BandUserSerializer(band_users, many=True)
     return serializer.data
-
 
   def create_band(self, request):
     if self.is_valid():
