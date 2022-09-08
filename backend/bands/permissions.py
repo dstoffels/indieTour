@@ -3,13 +3,16 @@ from tours.models import Tour
 from bands.models import  BandUser
 
 def is_band_admin(user_id, band_id):
-  band_user = BandUser.objects.get(user_id=user_id, band_id=band_id)
-  return band_user.is_admin
+  try:
+    band_user = BandUser.objects.get(user_id=user_id, band_id=band_id)
+    return band_user.is_admin
+  except:
+    return False
 
 class IsBandAdmin(BasePermission):
   def has_permission(self, request, view):
     user_id = request.user.id
-    band_id = request.data["active_band_id"] if "active_band_id" in request.data else request.user.active_band_id
+    band_id = request.data["active_band_id"] if "active_band_id" in request.data else view.kwargs.get('id', None)
     return is_band_admin(user_id, band_id)
 
 class IsTourUser(BasePermission):

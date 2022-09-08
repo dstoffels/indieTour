@@ -16,6 +16,9 @@ class BandUser(Model):
   is_admin = BooleanField(default=False)
   is_owner = BooleanField(default=False)
 
+  def __str__(self) -> str:
+    return f'{self.user.email} ({self.band})'
+
 class BandUserInline(admin.TabularInline):
   model = BandUser
   extra = 1
