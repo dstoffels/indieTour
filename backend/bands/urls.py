@@ -4,5 +4,5 @@ from bands import views
 
 urlpatterns = [
     path('', views.user_bands),
-    path('<int:id>', views.band),
+    path('<int:band_id>', views.band),
 ]

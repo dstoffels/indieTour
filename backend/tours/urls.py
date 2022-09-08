@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.band_tours),
+    path('<int:tour_id>/', views.band_tours),
     # path('dates/', views.tour_dates),
 ]

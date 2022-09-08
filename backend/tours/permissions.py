@@ -8,7 +8,7 @@ class TourPermission(IsBandUser):
 
   def has_permission(self, request, view):
     if super().has_permission(request, view):
-      self.tour_id = request.data["active_tour_id"] if "active_tour_id" in request.data else view.kwargs.get('id', None)
+      self.tour_id = view.kwargs.get('tour_id', None)
       try:
         self.tour = Tour.objects.get(id=self.tour_id)
         return True
