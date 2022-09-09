@@ -4,12 +4,11 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from bands.permissions import IsBandUser
-from tours.permissions import IsTourUser
+from tours.tours.permissions import IsTourUser
 from constants import *
-from tours.models import Date, Tour
-from tours.serializers import ActiveTourSerializer, DateSerializer, TourSerializer
+from tours.models import Tour
+from tours.tours.serializers import ActiveTourSerializer, TourSerializer
 
-# TOURS
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated, IsBandUser])
 def band_tours(request):
@@ -27,7 +26,9 @@ def band_tours(request):
 @permission_classes([IsAuthenticated, IsTourUser])
 def tour(request, tour_id):
   if request.method == GET:
-    return active_tour_response(tour_id)
+    active_tour = Tour.objects.get(id=tour_id)
+    tour_serializer = ActiveTourSerializer(active_tour)
+    return Response(tour_serializer.data, status=status.HTTP_200_OK)
   elif request.method == PUT:
     tour = Tour.objects.get(id=tour_id)
     serializer = TourSerializer(tour, data=request.data)
@@ -36,13 +37,4 @@ def tour(request, tour_id):
     tour = get_object_or_404(Tour, pk=tour_id)
     tour.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
-
-def active_tour_response(tour_id):
-  active_tour = Tour.objects.get(id=tour_id)
-  tour_serializer = ActiveTourSerializer(active_tour)
-  return Response(tour_serializer.data, status=status.HTTP_200_OK)
-
-def error_response(serializer):
-  return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
   

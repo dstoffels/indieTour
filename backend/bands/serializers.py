@@ -2,7 +2,7 @@ from rest_framework import serializers
 from authentication.models import User
 from bands.models import Band, BandUser
 from tours.models import Tour
-from tours.serializers import TourSerializer
+from tours.tours.serializers import TourSerializer
 from rest_framework import status
 from rest_framework.response import Response
 

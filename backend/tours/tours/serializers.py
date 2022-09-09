@@ -1,53 +1,9 @@
 from rest_framework import serializers
 from authentication.models import User
-from authentication.serializers import RegistrationSerializer
-from bands.models import BandUser
-from tours.models import Tour, Date, DateContact, Timeslot
+from tours.dates.serializers import DateSerializer
+from tours.models import Tour, Date
 from rest_framework import status
 from rest_framework.response import Response
-
-
-class TimeslotSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Timeslot
-    fields = '__all__'
-    # depth = 1
-
-class DateContactSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = DateContact
-    fields = ['title', 'contact']
-    depth = 1
-
-class DateSerializer(serializers.ModelSerializer):
-  timeslots = serializers.SerializerMethodField()
-  contacts = serializers.SerializerMethodField()
-
-
-  class Meta:
-    model = Date
-    fields = ['id', 'date', 'title', 'location', 'deal', 'notes', 'is_show_day', 'is_confirmed', 'timeslots', 'contacts']
-    depth = 1
-
-
-  def get_timeslots(self, date):
-    date_timeslots = Timeslot.objects.filter(date_id=date.id)
-    serializer = TimeslotSerializer(date_timeslots, many=True)
-    return serializer.data
-
-  def get_contacts(self, date):
-    date_contacts = DateContact.objects.filter(date_id=date.id)
-    serializer = DateContactSerializer(date_contacts, many=True)
-    return serializer.data
-
-  def is_valid_date(self, data):
-    if self.is_valid():
-      tour_dates = Date.objects.filter(tour_id=data["tour_id"])
-      for tour_date in tour_dates:
-        if str(tour_date.date) == data["date"]:
-          raise serializers.ValidationError('Date already exists in tour.')
-    else: return False
-    return True
 
 class TourUserSerializer(serializers.ModelSerializer):
   class Meta:
@@ -80,9 +36,6 @@ class TourSerializer(serializers.ModelSerializer):
         users.remove(user_id)
 
     return list(set(list(admins) + users))
-
-
-
 
 class ActiveTourSerializer(serializers.ModelSerializer):
   users = serializers.SerializerMethodField()
