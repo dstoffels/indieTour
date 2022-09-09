@@ -18,8 +18,7 @@ class BandUserSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = BandUser
-    fields = ['email', 'username', 'is_admin', 'is_owner']
-    depth = 1
+    fields = ['id', 'email', 'username', 'is_admin', 'is_owner']
 
 class BandSerializer(serializers.ModelSerializer):
   class Meta:

@@ -20,3 +20,4 @@ class IsTourUser(TourPermission):
   def has_permission(self, request, view):
     if super().has_permission(request, view):
       return request.user in self.tour.users.all()
+    return False
