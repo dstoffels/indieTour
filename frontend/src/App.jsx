@@ -13,13 +13,15 @@ import Footer from './components/Footer/Footer';
 
 // Util Imports
 import PrivateRoute from './utils/PrivateRoute';
-import Bookings from './components/Bookings/Bookings.jsx';
+import Map from './components/Map/Map.jsx';
+import TimePicker from './components/TimePicker/TimePicker.jsx';
 
 function App() {
 	return (
 		<div>
 			<Navbar />
-			<Bookings />
+			<TimePicker />
+			<Map />
 			{/* <Routes>
 				<Route
 					path='/'

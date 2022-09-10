@@ -11,7 +11,7 @@ class BandPermission(BasePermission):
 
   def has_permission(self, request, view):
     self.user_id = request.user.id
-    self.band_id = view.kwargs.get('band_id', None) if "band_id" in view.kwargs else request.user.active_band_id
+    self.band_id = view.kwargs.get('band_id', None)
     try:
       self.band_user = BandUser.objects.get(user_id=self.user_id, band_id=self.band_id)
       return True
