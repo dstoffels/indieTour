@@ -22,14 +22,17 @@ def user_bands(request):
     serializer = BandSerializer(data=request.data)
     return serializer.create_band(request)
 
-@api_view([PUT, DELETE])
+@api_view([GET, PUT, DELETE])
 @permission_classes([IsAuthenticated, IsBandUser])
 def band(request, band_id):
   band = get_object_or_404(Band, id=band_id)
-  if request.method == PUT:
+  if request.method == GET:
+    serializer = BandSerializer(band)
+    return Response(serializer.data)
+  elif request.method == PUT:
     serializer = BandSerializer(band, data=request.data)
     return serializer.update_band(request)
-  if request.method == DELETE:
+  elif request.method == DELETE:
     serializer = BandSerializer(band)
     return serializer.delete_band(request, band_id)
 

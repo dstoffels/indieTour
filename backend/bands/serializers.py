@@ -23,16 +23,16 @@ class BandUserSerializer(serializers.ModelSerializer):
 class BandSerializer(serializers.ModelSerializer):
   class Meta:
     model = Band
-    fields = ['id', 'name', 'users' ]
+    fields = ['id', 'name', 'users', 'tours']
     depth = 1
 
-  # tours = serializers.SerializerMethodField()
+  tours = serializers.SerializerMethodField()
   users = serializers.SerializerMethodField()
 
-  # def get_tours(self, band):
-  #   band_tours = Tour.objects.filter(band_id=band.id)
-  #   serializer = TourSerializer(band_tours, many=True)
-  #   return serializer.data
+  def get_tours(self, band):
+    band_tours = Tour.objects.filter(band_id=band.id)
+    serializer = TourSerializer(band_tours, many=True)
+    return serializer.data
 
   def get_users(self, band):
     band_users = BandUser.objects.filter(band_id=band.id)

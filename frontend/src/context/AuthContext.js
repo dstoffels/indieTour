@@ -11,10 +11,11 @@ function setUserObject(user) {
 	if (!user) {
 		return null;
 	}
-	const { username, user_id, active_band_id, active_tour_id } = user;
+	const { username, email, user_id, active_band_id, active_tour_id } = user;
 	return {
 		username,
 		id: user_id,
+		email,
 		active_band_id,
 		active_tour_id,
 	};
