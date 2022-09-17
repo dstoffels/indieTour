@@ -1,17 +1,17 @@
 import { Button, Paper, Stack, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import AuthContext from 'context/AuthContext.js';
+import useAuth from 'hooks/useAuth.js';
 import useCustomForm from 'hooks/useCustomForm.js';
 import React, { useState } from 'react';
 import { useContext } from 'react';
 
 const LoginPanel = ({ onClose }) => {
-	const { loginUser: loginDefault, isServerError } = useContext(AuthContext);
+	const { login } = useAuth();
 	const defaultValues = { email: '', password: '' };
 	const [form, handleInputChange, handleSubmit, reset] = useCustomForm(defaultValues, loginUser);
 
 	function loginUser(data) {
-		loginDefault(data);
+		login(data);
 		onClose();
 	}
 

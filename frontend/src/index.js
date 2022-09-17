@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import { theme } from 'theme/theme.js';
 import { Provider } from 'react-redux';
-import { store } from 'store.js';
+import { store } from 'redux/store.js';
 
 ReactDOM.render(
 	<React.StrictMode>

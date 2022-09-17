@@ -34,12 +34,11 @@ export const AuthProvider = ({ children }) => {
 
 	const registerUser = async registerData => {
 		try {
+			const { username, password, email } = registerData;
 			let finalData = {
-				username: registerData.username,
-				password: registerData.password,
-				email: registerData.email,
-				first_name: registerData.firstName,
-				last_name: registerData.lastName,
+				username,
+				password,
+				email,
 			};
 			let response = await axios.post(`${BASE_URL}/register/`, finalData);
 			if (response.status === 201) {
@@ -85,7 +84,7 @@ export const AuthProvider = ({ children }) => {
 
 	const contextData = {
 		user,
-		token,
+		config: { headers: { Authorization: `Bearer ${token}` } },
 		loginUser,
 		logoutUser,
 		registerUser,

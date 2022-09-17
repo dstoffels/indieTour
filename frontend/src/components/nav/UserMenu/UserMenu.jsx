@@ -6,11 +6,12 @@ import useAuth from 'hooks/useAuth.js';
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logoutUser } from 'redux/userSlice.js';
 
 const UserMenu = ({}) => {
 	const navigate = useNavigate();
-	const [user] = useAuth();
-	const { logoutUser } = useContext(AuthContext);
+	const { user, logout } = useAuth();
+	// const { logoutUser } = useContext(AuthContext);
 	const [anchor, setAnchor] = useState(null);
 
 	const handleMenu = e => {
@@ -26,7 +27,7 @@ const UserMenu = ({}) => {
 
 	const handleLogout = () => {
 		handleClose();
-		logoutUser();
+		logout();
 	};
 
 	return (
