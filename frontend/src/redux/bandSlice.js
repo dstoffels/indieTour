@@ -1,10 +1,10 @@
 import axios from 'axios';
 import endpoints from 'utils/endpoints.js';
-
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
+import { getConfigObj } from './userSlice.js';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const activeBand = createSlice({
-	name: 'band',
+	name: 'activeBand',
 	initialState: null,
 	reducers: {
 		setBand: (state, action) => (state = action.payload),
@@ -13,11 +13,19 @@ const activeBand = createSlice({
 
 export default activeBand.reducer;
 
+// THUNKS
+const { setBand } = activeBand.actions;
+
 export const fetchActiveBand = createAsyncThunk(
-	'user/active/band',
+	'activeBand/GET',
 	async (_, { dispatch, getState }) => {
 		const { user } = getState(state => state);
-
-		const response = axios.post(endpoints.bands(user.active_band_id), {});
+		try {
+			const config = getConfigObj();
+			const response = await axios.get(endpoints.bands(user.activeBandId), config);
+			dispatch(setBand(response.data));
+		} catch (error) {
+			console.error(error.response.data);
+		}
 	},
 );

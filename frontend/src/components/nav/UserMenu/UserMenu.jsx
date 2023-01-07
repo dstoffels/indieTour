@@ -1,17 +1,13 @@
 import { AccountCircle, Login, Logout } from '@mui/icons-material';
 import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 import LoginPanel from 'components/auth/LoginPanel/LoginPanel.jsx';
-import AuthContext from 'context/AuthContext.js';
 import useAuth from 'hooks/useAuth.js';
 import React, { useState } from 'react';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from 'redux/userSlice.js';
 
 const UserMenu = ({}) => {
 	const navigate = useNavigate();
 	const { user, logout } = useAuth();
-	// const { logoutUser } = useContext(AuthContext);
 	const [anchor, setAnchor] = useState(null);
 
 	const handleMenu = e => {
@@ -51,6 +47,7 @@ const UserMenu = ({}) => {
 							</ListItemIcon>
 							<ListItemText>Profile</ListItemText>
 						</MenuItem>
+						<Divider />
 						<MenuItem onClick={handleLogout}>
 							<ListItemIcon>
 								<Logout />

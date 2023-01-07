@@ -17,31 +17,31 @@ const RegisterPanel = ({}) => {
 			<Box component='form' onSubmit={handleSubmit}>
 				<Stack padding={1} spacing={1}>
 					<TextField
-						size='small'
 						name='email'
+						type='email'
 						value={form.email}
 						onChange={handleInputChange}
 						label='Email'
 						required
 					/>
 					<TextField
-						size='small'
 						name='password'
+						type='password'
 						value={form.password}
 						onChange={handleInputChange}
 						label='Password'
 						required
 					/>
 					<TextField
-						size='small'
 						name='password2'
+						type='password'
 						value={form.password2}
 						onChange={handleInputChange}
 						label='Confirm Password'
 						required
+						error={form.password2 !== form.password}
 					/>
 					<TextField
-						size='small'
 						name='username'
 						value={form.username}
 						onChange={handleInputChange}

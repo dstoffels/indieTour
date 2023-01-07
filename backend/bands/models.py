@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db.models import CASCADE, CharField,ForeignKey, Model, ManyToManyField, BooleanField
 from authentication.models import User
 from django.contrib import admin
