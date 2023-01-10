@@ -19,5 +19,10 @@ class User(AbstractUser):
     # this will add a column to the user table
     # is_student = models.BooleanField('student status', default=False)
 
-    def __str__(self) -> str:
-        return f'({self.id}) {self.email}'
+    def set_active_band(self,band_id):
+        self.active_band_id = band_id
+        self.save()
+    
+    def set_active_tour(self, tour_id):
+        self.active_tour_id = tour_id
+        self.save()

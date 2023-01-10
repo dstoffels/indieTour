@@ -38,16 +38,16 @@ class TourSerializer(serializers.ModelSerializer):
     return list(set(list(admins) + users))
 
 class ActiveTourSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Tour
+    fields = ['id', 'name', 'notes', 'band_id', 'dates', 'users']
+    depth = 1
+
   users = serializers.SerializerMethodField()
 
   def get_users(self, tour):
     serializer = TourUserSerializer(tour.users, many=True)
     return serializer.data
-
-  class Meta:
-    model = Tour
-    fields = ['id', 'name', 'notes', 'band_id', 'dates', 'users']
-    depth = 1
 
   dates = serializers.SerializerMethodField()
 

@@ -8,7 +8,7 @@ const TourMenu = ({}) => {
 	const tours = ['Tour 1', 'Tour 2', 'Tour 3'];
 	const [tour, setTour] = useState(0);
 
-	const options = activeBand.tours.map(({ name }) => name);
+	const options = activeBand?.tours?.map(({ name }) => name);
 
 	const handleChange = e => setTour(e.target.value);
 	return (

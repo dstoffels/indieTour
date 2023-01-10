@@ -9,8 +9,8 @@ import UserListItem from '../UserListItem/UserListItem.jsx';
 const BandInfo = ({}) => {
 	const { activeBand } = useStore();
 
-	const users = activeBand.users.map(user => <UserListItem user={user} />);
-	const tours = activeBand.tours.map(tour => <TourListItem tour={tour} />);
+	const users = activeBand?.users?.map(user => <UserListItem user={user} />);
+	const tours = activeBand?.tours?.map(tour => <TourListItem tour={tour} />);
 
 	return (
 		<Grid container justifyContent='space-evenly'>

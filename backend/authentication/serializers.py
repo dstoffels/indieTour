@@ -16,8 +16,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token["username"] = user.username
         token["email"] = user.email
-        token['active_band_id'] = user.active_band_id
-        token['active_tour_id'] = user.active_tour_id
+        # token['active_band_id'] = user.active_band_id
+        # token['active_tour_id'] = user.active_tour_id
 
         return token
 
@@ -54,4 +54,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'active_band_id', 'active_tour_id']
+        fields = ['username', 'email', 'active_band_id', 'active_tour_id']
+
+class UserSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['active_band_id', 'active_tour_id']        
+        

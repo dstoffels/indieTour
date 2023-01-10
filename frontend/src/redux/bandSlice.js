@@ -16,16 +16,22 @@ export default activeBand.reducer;
 // THUNKS
 const { setBand } = activeBand.actions;
 
-export const fetchActiveBand = createAsyncThunk(
-	'activeBand/GET',
-	async (_, { dispatch, getState }) => {
-		const { user } = getState(state => state);
-		try {
-			const config = getConfigObj();
-			const response = await axios.get(endpoints.bands(user.activeBandId), config);
-			dispatch(setBand(response.data));
-		} catch (error) {
-			console.error(error.response.data);
-		}
-	},
-);
+export const fetchActiveBand = createAsyncThunk('activeBand/GET', async (_, { dispatch }) => {
+	try {
+		const config = getConfigObj();
+		const response = await axios.get(endpoints.activeBand(), config);
+		dispatch(setBand(response.data));
+	} catch (error) {
+		console.error(error.response.data);
+	}
+});
+
+export const setActiveBand = createAsyncThunk('activeBand/SET', async (bandId, { dispatch }) => {
+	try {
+		const config = getConfigObj();
+		const response = await axios.post(endpoints.activeBand(bandId), {}, config);
+		dispatch(setBand(response.data));
+	} catch (error) {
+		console.error(error.response.data);
+	}
+});

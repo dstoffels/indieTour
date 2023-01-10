@@ -5,6 +5,8 @@ from tours.tours import views as tour_views
 
 urlpatterns = [
     path('', views.user_bands),
-    path('<int:band_id>/', views.band),
+    path('<int:band_id>/', views.band_details),
+    path('active/', views.get_active_band),
+    path('<int:band_id>/active/', views.set_active_band),
     path('<int:band_id>/tours/', include('tours.tours.urls')),
 ]

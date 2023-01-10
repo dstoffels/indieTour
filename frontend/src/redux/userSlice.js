@@ -23,13 +23,11 @@ export const getConfigObj = () => {
 export const getUserObjectFromToken = () => {
 	const userToken = getAccessToken();
 	if (!userToken) return null;
-	const { username, email, user_id, active_band_id, active_tour_id } = jwtDecode(userToken);
+	const { username, email, user_id } = jwtDecode(userToken);
 	return {
 		id: user_id,
 		email,
 		username,
-		activeBandId: active_band_id,
-		activeTourId: active_tour_id,
 	};
 };
 
