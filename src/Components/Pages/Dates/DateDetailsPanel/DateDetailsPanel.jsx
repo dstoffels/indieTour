@@ -2,6 +2,7 @@ import { Slide, Stack } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import ScrollWindow from 'Components/Common/ScrollWindow/ScrollWindow.jsx';
 import React, { useRef, useState } from 'react';
+import DaySheetModalBtn from '../DaySheetModal/DaySheetModalBtn.jsx';
 import useDates from '../useDates.js';
 import CloseDetailsBtn from './CloseDetailsBtn.jsx';
 import ContactsList from './Contacts/ContactsList.jsx';

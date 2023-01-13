@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import Panel from 'Components/Common/Panel/Panel.jsx';
 import React from 'react';
+import DaySheetModalBtn from '../../DaySheetModal/DaySheetModalBtn.jsx';
 import ConfirmSwitch from './ConfirmSwitch.jsx';
 import IsShowDaySwitch from './IsShowDaySwitch.jsx';
 import Map from './Map.jsx';
@@ -27,14 +28,17 @@ const DateDetails = ({ activeDate, editMode, editActiveDate }) => {
 				{editMode && <ConfirmSwitch value={isConfirmed} onChange={handleChange} />}
 			</Stack>
 
-			<Panel.Header
-				value={title}
-				label='Event Title'
-				name='title'
-				editing={editMode}
-				onChange={handleChange}>
-				{title}
-			</Panel.Header>
+			<Stack direction='row' justifyContent='space-between'>
+				<Panel.Header
+					value={title}
+					label='Event Title'
+					name='title'
+					editing={editMode}
+					onChange={handleChange}>
+					{title}
+				</Panel.Header>
+				{!editMode && <DaySheetModalBtn />}
+			</Stack>
 
 			<Panel.Field
 				isLocationField

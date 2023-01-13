@@ -7,7 +7,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import LocationField from 'Components/Pages/Dates/AddDateModal/LocationField.jsx';
+import LocationField from 'Components/Common/LocationField/LocationField.jsx';
 import React from 'react';
 import './Panel.css';
 
@@ -59,7 +59,7 @@ Panel.Header = ({ label = '', onChange, name, size = 'small', children, editing 
 		);
 	}
 	return (
-		<Typography color='primary' variant='h6' marginBottom={0}>
+		<Typography color='' variant='h6' marginBottom={0}>
 			{children}
 		</Typography>
 	);

@@ -8,6 +8,7 @@ import { mainModal } from 'Components/Common/MainModal/mainModalSlice.js';
 import { deleteModal } from 'Components/Common/DeleteModal/deleteModalSlice.js';
 import { dateControls } from 'Components/Pages/Dates/datesSlice.js';
 import { isMobile } from './windowSlice.js';
+
 export const store = configureStore({
 	reducer: {
 		token,

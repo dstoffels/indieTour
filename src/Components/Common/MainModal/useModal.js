@@ -8,6 +8,7 @@ import AddDateModal from 'Components/Pages/Dates/AddDateModal/AddDateModal.jsx';
 import DeleteContactModal from 'Components/Pages/Dates/DateDetailsPanel/Contacts/DeleteContactModal/DeleteContactModal.jsx';
 import DeleteDateModal from 'Components/Pages/Dates/DateDetailsPanel/DeleteDateModal/DeleteDateModal.jsx';
 import DeleteEventModal from 'Components/Pages/Dates/DateDetailsPanel/Schedule/TimeSlot/TimeSlotCard/DeleteEventModal/DeleteEventModal.jsx';
+import DaySheetModal from 'Components/Pages/Dates/DaySheetModal/DaySheetModal.jsx';
 import DiscardChangesModal from 'Components/Pages/Dates/DiscardChangesModal/DiscardChangesModal.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { showDeleteModal } from '../DeleteModal/deleteModalSlice.js';
@@ -49,6 +50,9 @@ const useModal = () => {
 
 		// Contacts
 		delContact: 'delContact',
+
+		// Day Sheet
+		daySheet: 'daySheet',
 	};
 
 	const modals = {
@@ -70,7 +74,10 @@ const useModal = () => {
 		// Events
 		[modalKeys.delEvent]: <DeleteEventModal />,
 
+		// Contacts
 		[modalKeys.delContact]: <DeleteContactModal />,
+
+		[modalKeys.daySheet]: <DaySheetModal />,
 	};
 
 	return {

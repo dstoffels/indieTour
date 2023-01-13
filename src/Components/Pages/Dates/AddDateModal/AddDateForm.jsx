@@ -8,7 +8,7 @@ import { eventBldr } from 'utils/helpers.js';
 import ConfirmSwitch from '../DateDetailsPanel/DateDetails/ConfirmSwitch.jsx';
 import IsShowDaySwitch from '../DateDetailsPanel/DateDetails/IsShowDaySwitch.jsx';
 import { ADD_DATE_FORM_ID } from './AddDateModal.jsx';
-import LocationField from './LocationField.jsx';
+import LocationField from '../../../Common/LocationField/LocationField.jsx';
 
 const getNextDate = dates => {
 	if (dates.length) {

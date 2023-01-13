@@ -1,4 +1,4 @@
-const ROOT = 'http://127.0.0.1:3002';
+const ROOT = 'http://indietour.us-east-1.elasticbeanstalk.com/api';
 
 export const restPath = path => ROOT + path;
 

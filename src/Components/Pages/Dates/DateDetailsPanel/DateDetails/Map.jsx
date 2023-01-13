@@ -9,7 +9,7 @@ const Map = ({ location }) => {
 				style={{ width: '100%', height: '250px' }}
 				loading='lazy'
 				src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_API_KEY}
-        &q=${location}&q=${'new york city'}`}></iframe>
+        &q=${location}`}></iframe>
 		);
 	}
 	return null;
