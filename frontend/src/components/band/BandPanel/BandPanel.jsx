@@ -1,6 +1,7 @@
 import { AppBar, Paper, Toolbar, Typography } from '@mui/material';
 import useStore from 'hooks/useStore.js';
 import React, { useState } from 'react';
+import withActiveBand from 'utils/withActiveBand.js';
 import withAuth from 'utils/withAuth.js';
 import BandInfo from '../BandInfo/BandInfo.jsx';
 import BandMenu from '../BandMenu/BandMenu.jsx';
@@ -13,7 +14,7 @@ const BandPanel = ({}) => {
 					<div className='flex-grow'>
 						<BandMenu />
 					</div>
-					<Typography variant='h6'>Band Info</Typography>
+					{/* <Typography variant='h6'>Band Info</Typography> */}
 				</Toolbar>
 			</AppBar>
 			<BandInfo />
@@ -21,4 +22,4 @@ const BandPanel = ({}) => {
 	);
 };
 
-export default withAuth(BandPanel);
+export default withActiveBand(BandPanel);

@@ -1,25 +1,29 @@
 import SelectMenu from 'components/generic/SelectMenu/SelectMenu.jsx';
 import useStore from 'hooks/useStore.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { setActiveTour } from 'redux/tourSlice.js';
+import withActiveBand from 'utils/withActiveBand.js';
 import withAuth from 'utils/withAuth.js';
 
 const TourMenu = ({}) => {
-	const { activeBand } = useStore();
-	const tours = ['Tour 1', 'Tour 2', 'Tour 3'];
-	const [tour, setTour] = useState(0);
+	const { activeBand, activeTour, dispatch } = useStore();
+	const tours = activeBand?.tours ? activeBand.tours : [];
+	const options = tours.map(({ name }) => name);
 
-	const options = activeBand?.tours?.map(({ name }) => name);
+	const handleChange = tourName => {
+		const tour = tours.find(({ name }) => tourName == name);
+		dispatch(setActiveTour(tour.id));
+	};
 
-	const handleChange = e => setTour(e.target.value);
 	return (
 		<SelectMenu
+			init={activeTour ? activeTour.name : ''}
 			options={options}
-			value={tour}
 			onChange={handleChange}
 			id='tour-select'
-			label={activeBand?.name}
+			label={activeTour ? activeBand?.name : 'Select a tour'}
 		/>
 	);
 };
 
-export default withAuth(TourMenu);
+export default withAuth(withActiveBand(TourMenu));

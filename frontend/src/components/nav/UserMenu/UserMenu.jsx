@@ -1,4 +1,4 @@
-import { AccountCircle, Login, Logout } from '@mui/icons-material';
+import { AccountCircle, Add, AddBox, AddCircle, Login, Logout } from '@mui/icons-material';
 import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 import LoginPanel from 'components/auth/LoginPanel/LoginPanel.jsx';
 import useAuth from 'hooks/useAuth.js';
@@ -19,6 +19,11 @@ const UserMenu = ({}) => {
 	const handleProfile = () => {
 		handleClose();
 		navigate('/profile');
+	};
+
+	const handleNewBand = () => {
+		handleClose();
+		console.log('popup: new band modal');
 	};
 
 	const handleLogout = () => {
@@ -46,6 +51,12 @@ const UserMenu = ({}) => {
 								<AccountCircle />
 							</ListItemIcon>
 							<ListItemText>Profile</ListItemText>
+						</MenuItem>
+						<MenuItem onClick={handleNewBand}>
+							<ListItemIcon>
+								<AddCircle />
+							</ListItemIcon>
+							<ListItemText>New Band</ListItemText>
 						</MenuItem>
 						<Divider />
 						<MenuItem onClick={handleLogout}>

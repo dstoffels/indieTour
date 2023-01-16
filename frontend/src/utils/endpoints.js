@@ -7,7 +7,8 @@ const EDIT_USER = DOMAIN + 'auth/user/';
 
 const bands = (bandId = '') => `${DOMAIN}bands/${bandId && bandId + '/'}`;
 const activeBand = (bandId = '') => bands(bandId) + 'active/';
-const tours = (bandId, tourId = '') => bands(bandId) + `tours/${tourId && tourId}/`;
+const tours = (bandId, tourId = '') => bands(bandId) + `tours/${tourId && tourId + '/'}`;
+const activeTour = (bandId, tourId = '') => tours(bandId, tourId) + 'active/';
 const dates = (bandId, tourId, dateId = '') => tours(bandId, tourId) + `dates/${dateId && dateId}/`;
 
 export default {
@@ -18,5 +19,6 @@ export default {
 	bands,
 	activeBand,
 	tours,
+	activeTour,
 	dates,
 };

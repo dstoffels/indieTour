@@ -5,19 +5,16 @@ import './App.css';
 // Pages Imports
 import HomePage from './pages/HomePage/HomePage';
 
-// Component Imports
-import Footer from './components/Footer/Footer';
-
 // Util Imports
-import Map from './components/Map/Map.jsx';
 import Navbar from 'components/nav/NavBar/NavBar.jsx';
 import ProfilePage from 'pages/ProfilePage/ProfilePage.jsx';
-import { Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Container } from '@mui/material';
 import DashboardPage from 'pages/DashboardPage/DashboardPage.jsx';
 import PrivateOutlet from 'utils/PrivateOutlet.jsx';
-import useInit, { initialize } from 'utils/initialize.js';
+import { initialize } from 'utils/initialize.js';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import Modal from 'components/generic/Modal/Modal.jsx';
 
 function App() {
 	const dispatch = useDispatch();
@@ -35,7 +32,7 @@ function App() {
 					</Route>
 				</Routes>
 			</Container>
-			{/* <Footer /> */}
+			<Modal />
 		</div>
 	);
 }

@@ -15,9 +15,6 @@ import { AccountCircle, MoreVert } from '@mui/icons-material';
 const UserListItem = ({ user }) => {
 	return (
 		<ListItem disablePadding>
-			<ListItemIcon>
-				<AccountCircle />
-			</ListItemIcon>
 			<ListItemText primary={user.username} secondary={user.email} />
 			<Typography marginRight={3}>
 				{user.is_owner ? 'Owner' : user.is_admin ? 'Admin' : ''}
