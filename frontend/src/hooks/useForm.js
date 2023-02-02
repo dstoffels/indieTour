@@ -1,4 +1,4 @@
-import TourForm from 'components/forms/TourForm/TourForm.jsx';
+import TourForm from 'components/forms/tour/TourForm/TourForm.jsx';
 import { useDispatch } from 'react-redux';
 import { closeModal, setModalKey } from 'redux/modalSlice.js';
 

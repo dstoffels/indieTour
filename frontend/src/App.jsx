@@ -14,7 +14,7 @@ import PrivateOutlet from 'utils/PrivateOutlet.jsx';
 import { initialize } from 'utils/initialize.js';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Modal from 'components/generic/Modal/Modal.jsx';
+import Modal from 'components/generic/modal/Modal/Modal.jsx';
 
 function App() {
 	const dispatch = useDispatch();

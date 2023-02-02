@@ -2,14 +2,13 @@ import { Dialog } from '@mui/material';
 import useForm from 'hooks/useForm.js';
 import useStore from 'hooks/useStore.js';
 import React from 'react';
-import { closeModal, setModalKey } from 'redux/modalSlice.js';
 
-const Modal = ({}) => {
+const Modal = ({ zIndex = 100 }) => {
 	const { modal } = useStore();
-	const { forms, closeForm } = useForm();
+	const { forms } = useForm();
 
 	return (
-		<Dialog open={modal.open} onClose={closeForm}>
+		<Dialog sx={{ zIndex }} open={modal.open}>
 			{forms[modal.key]}
 		</Dialog>
 	);

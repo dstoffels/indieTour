@@ -6,6 +6,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from 'theme/theme.js';
 import { Provider } from 'react-redux';
 import { store } from 'redux/store.js';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -13,7 +15,9 @@ ReactDOM.render(
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<Provider store={store}>
-					<App />
+					<LocalizationProvider dateAdapter={AdapterMoment}>
+						<App />
+					</LocalizationProvider>
 				</Provider>
 			</ThemeProvider>
 		</Router>

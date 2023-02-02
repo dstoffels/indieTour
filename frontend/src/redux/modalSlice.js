@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const initialState = {
 	open: false,
 	key: null,
+	formData: null,
 };
 
 const modal = createSlice({
@@ -13,6 +14,12 @@ const modal = createSlice({
 			if (state.key != action.payload) state.key = action.payload;
 			state.open = true;
 		},
+		setFormData: (state, action) => {
+			state.formData = action.payload;
+		},
+		openModal: state => {
+			state.open = true;
+		},
 		closeModal: state => {
 			state.open = false;
 		},
@@ -21,4 +28,4 @@ const modal = createSlice({
 
 export default modal.reducer;
 
-export const { closeModal, setModalKey } = modal.actions;
+export const { openModal, closeModal, setModalKey, setFormData } = modal.actions;
