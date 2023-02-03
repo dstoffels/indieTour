@@ -2,18 +2,17 @@ import { CalendarMonth } from '@mui/icons-material';
 import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { StaticDatePicker } from '@mui/x-date-pickers';
+import moment from 'moment';
 import React from 'react';
 import { useState } from 'react';
 
-const DatePickerModal = ({ activeDate, title }) => {
+const DatePickerModal = ({ value, onChange }) => {
 	const [open, setOpen] = useState(false);
-	const [date, setDate] = useState(activeDate);
 
 	const handleClose = () => setOpen(false);
 
-	const handleChange = value => {
-		setDate(value.format('L'));
-		console.log(value.format('YYYY/MM/DD'));
+	const handleChange = date => {
+		onChange(date.format('YYYY-MM-DD'));
 		handleClose();
 	};
 
@@ -24,12 +23,12 @@ const DatePickerModal = ({ activeDate, title }) => {
 				variant='outlined'
 				onClick={() => setOpen(true)}
 				endIcon={<CalendarMonth />}>
-				{date}
+				{moment(value).format('L')}
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
 				<StaticDatePicker
 					displayStaticWrapperAs='desktop'
-					value={date}
+					value={value}
 					onChange={handleChange}
 					renderInput={params => <TextField {...params} />}
 				/>

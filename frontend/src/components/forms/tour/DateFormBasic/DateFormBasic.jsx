@@ -1,32 +1,53 @@
 import { DeleteForever } from '@mui/icons-material';
-import { Button, IconButton, ListItem, TextField } from '@mui/material';
+import { Button, IconButton, ListItem, ListItemButton, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import React from 'react';
+import moment from 'moment';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFormData, setFormData, setTourDate } from 'redux/modalSlice.js';
 import DatePickerModal from '../DatePickerModal/DatePickerModal.jsx';
 import './DateFormBasic.css';
 
-const DateFormBasic = ({ date = '', title = '', onDelete }) => {
-	const [formData, setFormData] = useState({ date, title });
-	const [hidden, setHidden] = useState(false);
+const DateFormBasic = ({ i, date = '', title = '' }) => {
+	const [showClose, setShowClose] = useState(false);
+	const dispatch = useDispatch();
+
+	const setDefault = () => {
+		if (!date) {
+			const init = { title, date: moment().format('YYYY-MM-DD'), hidden: false };
+			dispatch(setTourDate({ i, tourDate: init }));
+		}
+	};
+
+	useEffect(() => {
+		setDefault();
+	}, []);
+
+	const tourDate = useSelector(state => state.modal.formData.dates[i]);
 
 	const handleChange = (key, value) => {
-		const newData = { ...formData };
+		const newData = { ...tourDate };
 		newData[key] = value;
-		setFormData(newData);
+		dispatch(setTourDate({ i, tourDate: newData }));
 	};
 
 	return (
-		<Stack hidden={hidden} direction='row' spacing={1} justifyContent='space-between'>
-			<DatePickerModal title={formData.title} />
+		<Stack
+			className='tour-date-form'
+			hidden={tourDate?.hidden}
+			direction='row'
+			spacing={1}
+			justifyContent='space-between'>
+			<DatePickerModal value={tourDate?.date} onChange={value => handleChange('date', value)} />
 			<TextField
-				value={formData.title}
+				value={tourDate?.title}
 				onChange={e => handleChange('title', e.target.value)}
 				label='Title'
 				fullWidth
 			/>
-			<Stack pl={1} direction='row' alignItems='center'>
-				<IconButton edge='start' onClick={() => setHidden(true)} color='error'>
+			<Stack direction='row' alignItems='center'>
+				<IconButton onClick={() => handleChange('hidden', true)} color='error'>
 					<DeleteForever />
 				</IconButton>
 			</Stack>

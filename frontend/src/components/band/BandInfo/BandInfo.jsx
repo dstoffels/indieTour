@@ -3,7 +3,7 @@ import ListPanel from 'components/generic/ListPanel/ListPanel.jsx';
 import useForm from 'hooks/useForm.js';
 import useStore from 'hooks/useStore.js';
 import React from 'react';
-import { setModalKey } from 'redux/modalSlice.js';
+import { setFormData, setModalKey } from 'redux/modalSlice.js';
 import TourListItem from '../TourListItem/TourListItem.jsx';
 import UserListItem from '../UserListItem/UserListItem.jsx';
 
@@ -16,6 +16,12 @@ const BandInfo = ({}) => {
 	));
 
 	const handleAddTour = () => {
+		setFormData({
+			name: '',
+			notes: '',
+			users: [],
+			dates: [],
+		});
 		openForm(formKeys.newTour);
 	};
 

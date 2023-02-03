@@ -1,5 +1,5 @@
 import TourForm from 'components/forms/tour/TourForm/TourForm.jsx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal, setModalKey } from 'redux/modalSlice.js';
 
 const useForm = () => {

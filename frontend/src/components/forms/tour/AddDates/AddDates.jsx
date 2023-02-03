@@ -7,21 +7,17 @@ import DateFormBasic from '../DateFormBasic/DateFormBasic.jsx';
 const AddDates = ({}) => {
 	const [dateForms, setDateForms] = useState([]);
 
-	const handleDelete = dateForm => {
-		const i = dateForms.findIndex(dateForm);
-	};
-
 	const handleClick = () =>
 		setDateForms([
 			...dateForms,
-			<DateFormBasic key={`dateForm-${dateForms.length}`} onDelete={handleDelete} />,
+			<DateFormBasic key={`dateForm-${dateForms.length}`} i={dateForms.length} />,
 		]);
 
 	return (
 		<Stack spacing={1}>
 			{dateForms}
 			<Button onClick={handleClick} variant='text' startIcon={<CalendarMonth />}>
-				Add Date
+				Add Tour Date
 			</Button>
 		</Stack>
 	);
