@@ -4,6 +4,7 @@ import { closeModal, setModalKey } from 'redux/modalSlice.js';
 
 const useForm = () => {
 	const dispatch = useDispatch();
+	const { formData } = useSelector(state => state.modal);
 
 	const formKeys = {
 		newBand: 'newBand',
@@ -18,7 +19,7 @@ const useForm = () => {
 	const openForm = key => dispatch(setModalKey(key));
 	const closeForm = () => dispatch(closeModal());
 
-	return { formKeys, forms, openForm, closeForm };
+	return { formKeys, forms, openForm, closeForm, formData };
 };
 
 export default useForm;

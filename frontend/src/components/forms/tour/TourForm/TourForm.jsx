@@ -9,7 +9,9 @@ import AddDates from '../AddDates/AddDates.jsx';
 
 const TourForm = ({}) => {
 	const dispatch = useDispatch();
-	const handleSubmit = () => {};
+	const handleSubmit = formData => {
+		console.log(formData);
+	};
 
 	useEffect(() => {
 		dispatch(
@@ -23,7 +25,7 @@ const TourForm = ({}) => {
 	}, []);
 
 	return (
-		<ModalForm title='New Tour' submitText='Create Tour'>
+		<ModalForm title='New Tour' submitText='Create Tour' onSubmit={handleSubmit}>
 			<Stack spacing={2}>
 				<TextField label='Tour Name' name='name' required />
 				<AddDates />

@@ -1,0 +1,43 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "server",
+			"type": "shell",
+			"command": "& C:/Users/danst/.virtualenvs/backend-AhtSphSS/Scripts/Activate.ps1; python manage.py runserver",
+			"options": {
+				"cwd": "${workspaceFolder}/backend"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "client",
+			"type": "shell",
+			"command": "npm start",
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "pipenv",
+			"type": "shell",
+			"command": "pipenv shell",
+			"options": {
+				"cwd": "${workspaceFolder}/backend"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"problemMatcher": []
+		}
+	]
+}

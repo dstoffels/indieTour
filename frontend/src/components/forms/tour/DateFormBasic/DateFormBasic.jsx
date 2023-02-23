@@ -9,20 +9,19 @@ import { getFormData, setFormData, setTourDate } from 'redux/modalSlice.js';
 import DatePickerModal from '../DatePickerModal/DatePickerModal.jsx';
 import './DateFormBasic.css';
 
-const DateFormBasic = ({ i, date = '', title = '' }) => {
-	const [showClose, setShowClose] = useState(false);
+const DateFormBasic = ({ i }) => {
 	const dispatch = useDispatch();
 
-	const setDefault = () => {
-		if (!date) {
-			const init = { title, date: moment().format('YYYY-MM-DD'), hidden: false };
-			dispatch(setTourDate({ i, tourDate: init }));
-		}
-	};
+	// const setDefault = () => {
+	// 	if (!date) {
+	// 		// const init = { title, date: moment().format('YYYY-MM-DD'), hidden: false };
+	// 		dispatch(setTourDate({ i, tourDate: init }));
+	// 	}
+	// };
 
-	useEffect(() => {
-		setDefault();
-	}, []);
+	// useEffect(() => {
+	// 	setDefault();
+	// }, []);
 
 	const tourDate = useSelector(state => state.modal.formData.dates[i]);
 
@@ -33,26 +32,29 @@ const DateFormBasic = ({ i, date = '', title = '' }) => {
 	};
 
 	return (
-		<Stack
-			className='tour-date-form'
-			hidden={tourDate?.hidden}
-			direction='row'
-			spacing={1}
-			justifyContent='space-between'>
-			<DatePickerModal value={tourDate?.date} onChange={value => handleChange('date', value)} />
-			<TextField
-				value={tourDate?.title}
-				onChange={e => handleChange('title', e.target.value)}
-				label='Title'
-				fullWidth
-			/>
-			<Stack direction='row' alignItems='center'>
-				<IconButton onClick={() => handleChange('hidden', true)} color='error'>
-					<DeleteForever />
-				</IconButton>
+		tourDate && (
+			<Stack
+				className='tour-date-form'
+				hidden={tourDate.hidden}
+				direction='row'
+				spacing={1}
+				justifyContent='space-between'>
+				<DatePickerModal value={tourDate.date} onChange={value => handleChange('date', value)} />
+				<TextField
+					value={tourDate?.title}
+					onChange={e => handleChange('title', e.target.value)}
+					label='Title'
+					fullWidth
+				/>
+				<Stack direction='row' alignItems='center'>
+					<IconButton onClick={() => handleChange('hidden', true)} color='error'>
+						<DeleteForever />
+					</IconButton>
+				</Stack>
 			</Stack>
-		</Stack>
+		)
 	);
 };
 
 export default DateFormBasic;
+// frontend / src / components / forms / tour / DateFormBasic / DateFormBasic.jsx;

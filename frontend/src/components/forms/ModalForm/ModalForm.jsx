@@ -7,8 +7,16 @@ import './ModalForm.css';
 import CloseModalBtn from '../../generic/modal/CloseModalBtn/CloseModalBtn.jsx';
 
 const ModalForm = ({ title, children, submitText, onSubmit }) => {
+	const { closeForm, formData } = useForm();
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		onSubmit(formData);
+		closeForm();
+	};
+
 	return (
-		<form className='modal-form'>
+		<form className='modal-form' onSubmit={handleSubmit}>
 			<Stack direction='row' justifyContent='space-between'>
 				<DialogTitle>{title}</DialogTitle>
 				<CloseModalBtn x />
