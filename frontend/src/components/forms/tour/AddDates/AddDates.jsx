@@ -3,23 +3,31 @@ import { Button, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import moment from 'moment/moment.js';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setTourDate } from 'redux/modalSlice.js';
 import DateFormBasic from '../DateFormBasic/DateFormBasic.jsx';
 
-const AddDates = ({}) => {
-	const [dateForms, setDateForms] = useState([]);
-	const dispatch = useDispatch();
+const AddDates = ({ tourDates, setTourDates }) => {
+	// const [dateForms, setDateForms] = useState([]);
 
 	const handleClick = () => {
-		const tourDate = { title: '', date: moment().format('YYYY-MM-DD'), hidden: false };
-		dispatch(setTourDate({ i: dateForms.length, tourDate }));
-
-		setDateForms([
-			...dateForms,
-			<DateFormBasic key={`dateForm-${dateForms.length}`} i={dateForms.length} />,
-		]);
+		const lastDate = tourDates[tourDates.length - 1];
+		const newDate = {
+			title: '',
+			date: lastDate
+				? moment(lastDate.date).add(1, 'day').format('YYYY-MM-DD')
+				: moment().format('YYYY-MM-DD'),
+		};
+		setTourDates([...tourDates, newDate]);
 	};
+
+	const dateForms = tourDates.map((tourDate, i) => (
+		<DateFormBasic
+			key={`dateForm-${i}`}
+			tourDate={tourDate}
+			tourDates={tourDates}
+			setTourDates={setTourDates}
+			i={i}
+		/>
+	));
 
 	return (
 		<Stack spacing={1}>

@@ -1,6 +1,6 @@
 import TourForm from 'components/forms/tour/TourForm/TourForm.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, setModalKey } from 'redux/modalSlice.js';
+import { closeModal, setModalKey, updateFormData } from 'redux/modalSlice.js';
 
 const useForm = () => {
 	const dispatch = useDispatch();
@@ -18,8 +18,11 @@ const useForm = () => {
 
 	const openForm = key => dispatch(setModalKey(key));
 	const closeForm = () => dispatch(closeModal());
+	const setFormData = newFormData => dispatch(updateFormData(newFormData));
+	const handleFormChange = event =>
+		setFormData({ ...formData, [event.target.name]: event.target.value });
 
-	return { formKeys, forms, openForm, closeForm, formData };
+	return { formKeys, forms, openForm, closeForm, formData, setFormData, handleFormChange };
 };
 
 export default useForm;

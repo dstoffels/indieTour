@@ -1,12 +1,12 @@
 import { CalendarMonth } from '@mui/icons-material';
 import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { StaticDatePicker } from '@mui/x-date-pickers';
+import { PickersDay, StaticDatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import React from 'react';
 import { useState } from 'react';
 
-const DatePickerModal = ({ value, onChange }) => {
+const DatePickerModal = ({ tourDates = [], value, onChange }) => {
 	const [open, setOpen] = useState(false);
 
 	const handleClose = () => setOpen(false);
@@ -14,6 +14,16 @@ const DatePickerModal = ({ value, onChange }) => {
 	const handleChange = date => {
 		onChange(date.format('YYYY-MM-DD'));
 		handleClose();
+	};
+
+	const handleExistingTourDates = (day, _value, dayProps) => {
+		const dates = tourDates.map(dateObj => dateObj.date);
+		return (
+			<PickersDay
+				{...dayProps}
+				disabled={dates.includes(moment(dayProps.key).format('YYYY-MM-DD'))}
+			/>
+		);
 	};
 
 	return (
@@ -27,6 +37,7 @@ const DatePickerModal = ({ value, onChange }) => {
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
 				<StaticDatePicker
+					renderDay={handleExistingTourDates}
 					displayStaticWrapperAs='desktop'
 					value={value}
 					onChange={handleChange}

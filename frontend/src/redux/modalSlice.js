@@ -14,9 +14,10 @@ const modal = createSlice({
 			if (state.key != action.payload) state.key = action.payload;
 			state.open = true;
 		},
-		setFormData: (state, action) => {
+		updateFormData: (state, action) => {
 			state.formData = action.payload;
 		},
+		// deprecate setTourDate
 		setTourDate: (state, action) => {
 			const { i, tourDate } = action.payload;
 			state.formData.dates[i] = tourDate;
@@ -32,4 +33,4 @@ const modal = createSlice({
 
 export default modal.reducer;
 
-export const { openModal, closeModal, setModalKey, setFormData, setTourDate } = modal.actions;
+export const { openModal, closeModal, setModalKey, updateFormData, setTourDate } = modal.actions;

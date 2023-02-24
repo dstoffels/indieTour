@@ -1,34 +1,36 @@
 import { DeleteForever } from '@mui/icons-material';
 import { Button, IconButton, ListItem, ListItemButton, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
-import moment from 'moment';
 import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getFormData, setFormData, setTourDate } from 'redux/modalSlice.js';
+import moment from 'moment/moment.js';
 import DatePickerModal from '../DatePickerModal/DatePickerModal.jsx';
 import './DateFormBasic.css';
 
-const DateFormBasic = ({ i }) => {
-	const dispatch = useDispatch();
+const DateFormBasic = ({ i, tourDate, tourDates = [], setTourDates }) => {
+	const setTourDate = newTourDate => {
+		const newTourDates = [...tourDates];
+		newTourDates[i] = newTourDate;
+		setTourDates(newTourDates);
+	};
 
-	// const setDefault = () => {
-	// 	if (!date) {
-	// 		// const init = { title, date: moment().format('YYYY-MM-DD'), hidden: false };
-	// 		dispatch(setTourDate({ i, tourDate: init }));
-	// 	}
-	// };
+	const handleDate = value => {
+		const newTourDate = { ...tourDate, date: value };
+		const newTourDates = [...tourDates];
+		newTourDates[i] = newTourDate;
 
-	// useEffect(() => {
-	// 	setDefault();
-	// }, []);
+		newTourDates.sort(
+			(a, b) => moment(a.date).format('YYYYMMDD') - moment(b.date).format('YYYYMMDD'),
+		);
+		// setTourDate(newTourDate);
+		setTourDates(newTourDates);
+	};
 
-	const tourDate = useSelector(state => state.modal.formData.dates[i]);
+	const handleTitle = e => setTourDate({ ...tourDate, title: e.target.value });
 
-	const handleChange = (key, value) => {
-		const newData = { ...tourDate };
-		newData[key] = value;
-		dispatch(setTourDate({ i, tourDate: newData }));
+	const handleDelete = () => {
+		const newTourDates = [...tourDates];
+		newTourDates.splice(i, 1);
+		setTourDates(newTourDates);
 	};
 
 	return (
@@ -39,15 +41,10 @@ const DateFormBasic = ({ i }) => {
 				direction='row'
 				spacing={1}
 				justifyContent='space-between'>
-				<DatePickerModal value={tourDate.date} onChange={value => handleChange('date', value)} />
-				<TextField
-					value={tourDate?.title}
-					onChange={e => handleChange('title', e.target.value)}
-					label='Title'
-					fullWidth
-				/>
+				<DatePickerModal value={tourDate.date} onChange={handleDate} tourDates={tourDates} />
+				<TextField value={tourDate.title} onChange={handleTitle} label='Title' fullWidth />
 				<Stack direction='row' alignItems='center'>
-					<IconButton onClick={() => handleChange('hidden', true)} color='error'>
+					<IconButton onClick={handleDelete} color='error'>
 						<DeleteForever />
 					</IconButton>
 				</Stack>
@@ -57,4 +54,3 @@ const DateFormBasic = ({ i }) => {
 };
 
 export default DateFormBasic;
-// frontend / src / components / forms / tour / DateFormBasic / DateFormBasic.jsx;

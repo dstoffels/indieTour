@@ -15,6 +15,7 @@ import { initialize } from 'utils/initialize.js';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from 'components/generic/modal/Modal/Modal.jsx';
+import TourPage from 'pages/TourPage/TourPage.jsx';
 
 function App() {
 	const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
 					<Route path='' element={<PrivateOutlet />}>
 						<Route path='' element={<DashboardPage />} />
 						<Route path='/profile' element={<ProfilePage />} />
+						<Route path='/tour' element={<TourPage />} />
 					</Route>
 				</Routes>
 			</Container>
