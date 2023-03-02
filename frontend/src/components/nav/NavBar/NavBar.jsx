@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Toolbar } from '@mui/material';
 import UserMenu from 'components/nav/UserMenu/UserMenu.jsx';
-import TourMenu from '../TourMenu/TourMenu.jsx';
+import TourMenu from '../TourSelect/TourSelect.jsx';
 
 const Navbar = () => {
 	return (

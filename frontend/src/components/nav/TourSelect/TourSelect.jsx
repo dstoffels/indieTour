@@ -5,7 +5,7 @@ import { setActiveTour } from 'redux/tourSlice.js';
 import withActiveBand from 'utils/withActiveBand.js';
 import withAuth from 'utils/withAuth.js';
 
-const TourMenu = ({}) => {
+const TourSelect = ({}) => {
 	const { activeBand, activeTour, dispatch } = useStore();
 	const tours = activeBand?.tours ? activeBand.tours : [];
 	const options = tours.map(({ name }) => name);
@@ -26,4 +26,4 @@ const TourMenu = ({}) => {
 	);
 };
 
-export default withAuth(withActiveBand(TourMenu));
+export default withAuth(withActiveBand(TourSelect));

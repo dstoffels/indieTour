@@ -21,7 +21,7 @@ const DatePickerModal = ({ tourDates = [], value, onChange }) => {
 		return (
 			<PickersDay
 				{...dayProps}
-				disabled={dates.includes(moment(dayProps.key).format('YYYY-MM-DD'))}
+				disabled={dates.includes(moment(dayProps.key, 'LLLL').format('YYYY-MM-DD'))}
 			/>
 		);
 	};
