@@ -6,7 +6,7 @@ import { setActiveBand } from 'redux/bandSlice.js';
 import withActiveBand from 'utils/withActiveBand.js';
 import withAuth from 'utils/withAuth.js';
 
-const BandMenu = ({}) => {
+const BandSelect = ({}) => {
 	const { store, activeBand } = useStore();
 	const dispatch = useDispatch();
 	const bands = store.userBands ? store.userBands : [];
@@ -29,4 +29,4 @@ const BandMenu = ({}) => {
 	);
 };
 
-export default withActiveBand(BandMenu);
+export default withActiveBand(BandSelect);

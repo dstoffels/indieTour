@@ -36,7 +36,7 @@ class DateSerializer(serializers.ModelSerializer):
 
   def create_or_edit_date(self, request, tour_id):
     if self.is_valid():
-      tour_dates = Date.objects.filter(tour_id=tour_id, date=request.data['date'])
+      tour_dates = Date.objects.filter(tour_id=tour_id, date=self.data.date)
       tour_dates = tour_dates.exclude(id=self.instance.id) if self.instance else tour_dates
       if not len(tour_dates):
         self.save(tour_id=tour_id)

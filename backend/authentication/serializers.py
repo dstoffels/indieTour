@@ -3,7 +3,6 @@ from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
 from .models import User
-from django.contrib.auth import authenticate, get_user_model
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -15,9 +14,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # token["is_student"] = user.is_student
 
         token["username"] = user.username
-        token["email"] = user.email
-        # token['active_band_id'] = user.active_band_id
-        # token['active_tour_id'] = user.active_tour_id
+        token["first_name"] = user.first_name
 
         return token
 
@@ -33,14 +30,17 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = User
         # If added new columns through the User model, add them in the fields
         # list as seen below
-        fields = ( 'password', 'email', 'username', 'active_band_id', 'active_tour_id')
+        fields = ('username', 'password', 'email',
+                  'first_name', 'last_name',)
 
     def create(self, validated_data):
 
         user = User.objects.create(
-            email=validated_data['email'],
             username=validated_data['username'],
-            
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+
             # If added new columns through the User model, add them in this
             # create method. Example below:
 
@@ -50,14 +50,3 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'active_band_id', 'active_tour_id']
-
-class UserSettingsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['active_band_id', 'active_tour_id']        
-        

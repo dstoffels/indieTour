@@ -1,54 +1,43 @@
 import { Archive, Delete, DeleteForever, Edit, MoreVert } from '@mui/icons-material';
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import axios from 'axios';
+import useForm from 'hooks/useForm.js';
+import MenuButton from 'menus/MenuButton/MenuButton.jsx';
+import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateFormData } from 'redux/modalSlice.js';
+import { deleteTourThunk } from 'redux/tourSlice.js';
+import { getConfigObj } from 'redux/userSlice.js';
+import endpoints from 'utils/endpoints.js';
 
-const TourMenu = ({}) => {
-	const [anchor, setAnchor] = useState(null);
+const TourMenu = ({ tour }) => {
+	const dispatch = useDispatch();
+	const { formKeys, openForm } = useForm();
 
-	const handleMenu = e => {
-		e.stopPropagation();
-		setAnchor(e.currentTarget);
+	const handleEdit = () => {
+		openForm(formKeys.editTour, tour);
+	};
+	const handleArchive = () => {
+		console.log(tour.is_archived);
 	};
 
-	const handleClose = () => setAnchor(null);
-
-	const handleClick = e => {
-		e.stopPropagation();
-		handleClose();
+	const handleDelete = async () => {
+		dispatch(deleteTourThunk(tour.id));
 	};
 
 	return (
-		<>
-			<IconButton onClick={handleMenu}>
-				<MoreVert />
-			</IconButton>
-
-			<Menu
-				onClick={handleClick}
-				anchorEl={anchor}
-				keepMounted
-				open={Boolean(anchor)}
-				onClose={handleClose}>
-				<MenuItem>
-					<ListItemIcon>
-						<Edit fontSize='small' />
-					</ListItemIcon>
-					<ListItemText>Edit</ListItemText>
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<Archive fontSize='small' />
-					</ListItemIcon>
-					<ListItemText>Archive</ListItemText>
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<DeleteForever fontSize='small' />
-					</ListItemIcon>
-					<ListItemText>Delete</ListItemText>
-				</MenuItem>
-			</Menu>
-		</>
+		<MenuButton buttonIcon={<MoreVert />}>
+			<MenuButtonItem onClick={handleEdit} icon={<Edit />}>
+				Edit
+			</MenuButtonItem>
+			<MenuButtonItem onClick={handleArchive} icon={<Archive />}>
+				Archive
+			</MenuButtonItem>
+			<MenuButtonItem onClick={handleDelete} icon={<DeleteForever />}>
+				Delete
+			</MenuButtonItem>
+		</MenuButton>
 	);
 };
 

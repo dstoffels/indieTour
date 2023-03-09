@@ -30,7 +30,7 @@ const TourListItem = ({ tour }) => {
 					<CalendarMonth />
 				</ListItemIcon>
 				<ListItemText primary={<Typography>{tour.name}</Typography>} />
-				<TourMenu />
+				<TourMenu tour={tour} />
 			</ListItemButton>
 		</ListItem>
 	);

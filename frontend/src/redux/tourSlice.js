@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import endpoints from 'utils/endpoints.js';
+import { fetchActiveBand } from './bandSlice.js';
 import { getConfigObj } from './userSlice.js';
 
 const activeTour = createSlice({
@@ -41,5 +42,43 @@ export const setActiveTour = createAsyncThunk(
 			dispatch(setTour(null));
 			console.error(error.response.data);
 		}
+	},
+);
+
+export const createTour = createAsyncThunk(
+	'tour/CREATE',
+	async (formData, { dispatch, getState }) => {
+		try {
+			const { activeBand } = getState();
+			const config = getConfigObj();
+			const response = await axios.post(endpoints.tours(activeBand.id), formData, config);
+			dispatch(setActiveTour(response.data.id));
+			dispatch(fetchActiveBand());
+		} catch (error) {
+			console.error(error.response.data);
+		}
+	},
+);
+
+export const editTourThunk = createAsyncThunk('tour/EDIT', async (tour, { dispatch, getState }) => {
+	try {
+		const { activeBand } = getState();
+		const config = getConfigObj();
+		const response = await axios.put(endpoints.tours(activeBand.id, tour.id), tour, config);
+		dispatch(setActiveTour(response.data.id));
+		dispatch(fetchActiveBand());
+	} catch (error) {}
+});
+
+export const deleteTourThunk = createAsyncThunk(
+	'tour/DELETE',
+	async (tourId, { dispatch, getState }) => {
+		try {
+			const { activeBand } = getState();
+			const config = getConfigObj();
+			const response = await axios.delete(endpoints.tours(activeBand.id, tourId), config);
+			dispatch(setActiveTour(null));
+			dispatch(fetchActiveBand());
+		} catch (error) {}
 	},
 );

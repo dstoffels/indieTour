@@ -1,27 +1,20 @@
 import { Add, CalendarMonth } from '@mui/icons-material';
 import { Button, TextField } from '@mui/material';
 import { Stack } from '@mui/system';
+import axios from 'axios';
 import useForm from 'hooks/useForm.js';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { createTour } from 'redux/tourSlice.js';
 import ModalForm from '../../ModalForm/ModalForm.jsx';
 import AddDates from '../AddDates/AddDates.jsx';
 
-const TourForm = ({}) => {
+const TourForm = ({ onSubmit, submitText, title }) => {
 	const { setFormData, formData, handleFormChange } = useForm();
 
 	const handleSubmit = formData => {
-		console.log(formData);
+		onSubmit(formData);
 	};
-
-	useEffect(() => {
-		setFormData({
-			name: '',
-			notes: '',
-			users: [],
-			dates: [],
-		});
-	}, []);
 
 	const setTourDates = dates => {
 		setFormData({ ...formData, dates });
@@ -29,7 +22,7 @@ const TourForm = ({}) => {
 
 	return (
 		formData && (
-			<ModalForm title='New Tour' submitText='Create Tour' onSubmit={handleSubmit}>
+			<ModalForm title={title} submitText={submitText} onSubmit={handleSubmit}>
 				<Stack spacing={2}>
 					<TextField
 						label='Tour Name'

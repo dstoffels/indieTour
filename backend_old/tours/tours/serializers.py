@@ -50,8 +50,7 @@ class TourSerializer(serializers.ModelSerializer):
     if dates:
       for date in dates:
         ser = DateSerializer(data=date)
-        ser.is_valid(raise_exception=True)
-        ser.save(tour_id=self.instance.id)
+        ser.create_or_edit_date(request, self.instance.id)
 
 
 class ActiveTourSerializer(serializers.ModelSerializer):

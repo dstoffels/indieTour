@@ -16,7 +16,7 @@ class Tour(Model):
 class Date(Model):
   tour = ForeignKey(Tour, on_delete=CASCADE)
   date = DateField()
-  title = TextField()
+  title = TextField(null=True, blank=True)
   location = TextField(null=True)
   notes = TextField(null=True)
   is_show_day = BooleanField(default=False)
