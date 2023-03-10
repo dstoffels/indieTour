@@ -15,7 +15,11 @@ class  BandUserSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = BandUser
-    fields = ['user_id', 'username', 'email', 'is_admin']
+    fields = ['id', 'username', 'email', 'is_admin']
+
+  id = serializers.SerializerMethodField()
+  def get_id(self, band_user):
+     return band_user.user.id
 
   email = serializers.SerializerMethodField()
   def get_email(self, band_user):
