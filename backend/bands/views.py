@@ -28,7 +28,8 @@ def band_detail(req, band_id):
   band = get_object_or_404(Band, id=band_id)
   if req.method == GET:
     ser = BandSerializer(band)
-    return Response(ser.data)
+    return Response(ser.data, status=status.HTTP_200_OK)
+
   elif req.method == PUT:
     ser = BandSerializer(band, data=req.data)
     return ser.update_band(req)

@@ -25,8 +25,7 @@ class TourSerializer(serializers.ModelSerializer):
             self.save(band_id=band_id)
             
             # create tour users
-            users = req.data['users']
-            # for user in users:
+            DateSerializer.init_dates(req.data['dates'], self.instance.id)
 
             return Response(self.data, status=status.HTTP_201_CREATED)
         return Response({"name": "Cannot have duplicate tour names."}, status=status.HTTP_400_BAD_REQUEST)

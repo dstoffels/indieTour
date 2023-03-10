@@ -3,14 +3,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
-# from bands.permissions import IsBandUser
 from constants import *
-from bands.models import Band
-from bands.serializers import BandSerializer
 from .serializers import TourSerializer, Tour
 from authentication.models import User
 from django.core.mail import send_mail
-from django.db.models import Q
 
 
 @api_view([POST, GET])
