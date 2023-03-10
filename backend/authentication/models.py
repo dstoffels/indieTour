@@ -1,9 +1,18 @@
 # from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    active_band = models.ForeignKey('bands.Band', on_delete=models.DO_NOTHING, null=True)
+    active_tour = models.ForeignKey('tours.Tour', on_delete=models.DO_NOTHING, null=True)
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=255, unique=False)
+
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['password', 'username']
+    
     '''
     This is a custom version of the built in User class
     It contains all of the built in fields and functionality of the standard User

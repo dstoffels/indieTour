@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
     'corsheaders',
-    'cars.apps.CarsConfig'  # This app is for example use only
+    'bands',
+    'tours',
+    'dates',
+    'timeslots',
 ]
 
 MIDDLEWARE = [

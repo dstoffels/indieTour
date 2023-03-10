@@ -2,23 +2,27 @@ from django.db.models import CASCADE, CharField,ForeignKey, Model, ManyToManyFie
 from authentication.models import User
 from django.contrib import admin
 
+#BAND MODEL
 class Band(Model):
   name = CharField(max_length=255, unique=True)
-  users = ManyToManyField(User, through='BandUser')
+  users = ManyToManyField(User, through='BandUser', related_name='band_users')
   is_archived = BooleanField(default=False)
+  owner = ForeignKey(User, on_delete=CASCADE)
 
   def __str__(self) -> str:
     return self.name
 
+
+#BANDUSER MODEL
 class BandUser(Model):
   band = ForeignKey(Band, on_delete=CASCADE)
   user = ForeignKey(User, on_delete=CASCADE)
   is_admin = BooleanField(default=False)
-  is_owner = BooleanField(default=False)
 
   def __str__(self) -> str:
     return f'{self.user.email} ({self.band})'
 
+# ADMIN
 class BandUserInline(admin.TabularInline):
   model = BandUser
   extra = 1

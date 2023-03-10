@@ -154,6 +154,6 @@ SIMPLE_JWT = {
 }
 
 try:
-    from drf_jwt_backend.local_settings import *
+    from backend.drf_jwt_backend.local_settings import *
 except ImportError:
     pass
