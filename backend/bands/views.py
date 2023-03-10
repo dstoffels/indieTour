@@ -43,7 +43,8 @@ def set_active_band(req, band_id):
   band = get_object_or_404(Band, id=band_id)
   user.active_band = band
   user.save()
-  return Response(BandSerializer(band).data, status=status.HTTP_200_OK)
+  ser = BandSerializer(band)
+  return Response(ser.data, status=status.HTTP_200_OK)
 
 @api_view([GET])
 @permission_classes([IsAuthenticated])

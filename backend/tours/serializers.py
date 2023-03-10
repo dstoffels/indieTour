@@ -7,18 +7,20 @@ from rest_framework import status
 from rest_framework.response import Response
 
 class TourSerializer(serializers.ModelSerializer):
-    dates = DateSerializer(many=True, required=False)
+    dates = DateSerializer(many=True, required=False, read_only=True, source='date_set')
 
     class Meta:
         model = Tour
-        fields = ['id']
+        fields = ['id', 'name', 'notes', 'is_archived', 'dates']
 
-    def create(self, validated_data):
-        dates = validated_data.pop('dates')
-        tour = Tour.objects.create(**validated_data)
-        for date in dates:
-            Date.objects.create(tour=tour, **date)
-        return tour
+    def create_tour(self, req, band_id):
+        self.is_valid(raise_exception=True)
+        self.save(band_id=band_id)
+        return Response(self.data, status=status.HTTP_201_CREATED)
     
-    def update(self, instance: Tour, validated_data):
-        self.dates.data
+    def update_tour(self, req):
+        self.is_valid(raise_exception=True)
+        # need to update dates (date serializer method, init_dates?)
+        self.save()
+        return Response(self.data, status=status.HTTP_200_OK)
+
