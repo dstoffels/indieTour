@@ -1,7 +1,7 @@
 import SelectMenu from 'components/generic/SelectMenu/SelectMenu.jsx';
 import useStore from 'hooks/useStore.js';
 import React, { useEffect, useState } from 'react';
-import { setActiveTour } from 'redux/tourSlice.js';
+import { setActiveTourThunk } from 'redux/tourSlice.js';
 import withActiveBand from 'utils/withActiveBand.js';
 import withAuth from 'utils/withAuth.js';
 
@@ -12,7 +12,7 @@ const TourSelect = ({}) => {
 
 	const handleChange = tourName => {
 		const tour = tours.find(({ name }) => tourName == name);
-		dispatch(setActiveTour(tour.id));
+		dispatch(setActiveTourThunk(tour.id));
 	};
 
 	return (

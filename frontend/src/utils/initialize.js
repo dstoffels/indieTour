@@ -1,5 +1,5 @@
 import { fetchActiveBand } from 'redux/bandSlice.js';
-import { fetchActiveTour } from 'redux/tourSlice.js';
+import { fetchActiveTourThunk } from 'redux/tourSlice.js';
 import { fetchUserBands } from 'redux/userBandSlice.js';
 import { getUserObjectFromToken, setUser } from 'redux/userSlice.js';
 

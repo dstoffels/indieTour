@@ -9,13 +9,13 @@ import {
 } from '@mui/material';
 import { CalendarMonth, MoreVert } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
-import { setActiveTour } from 'redux/tourSlice.js';
+import { setActiveTourThunk } from 'redux/tourSlice.js';
 import useStore from 'hooks/useStore.js';
 import TourMenu from '../TourMenu/TourMenu.jsx';
 
 const TourListItem = ({ tour }) => {
 	const { dispatch, activeTour } = useStore();
-	const handleClick = e => dispatch(setActiveTour(tour.id));
+	const handleClick = e => dispatch(setActiveTourThunk(tour.id));
 	const handleOptionsClick = e => {
 		e.stopPropagation();
 		console.log('aaa');

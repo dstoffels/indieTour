@@ -6,9 +6,9 @@ import useForm from 'hooks/useForm.js';
 import useStore from 'hooks/useStore.js';
 import { updateFormData } from 'redux/modalSlice.js';
 import withActiveBand from 'utils/withActiveBand.js';
-import BandSelect from '../BandSelect/BandSelect.jsx';
-import TourListItem from '../TourListItem/TourListItem.jsx';
-import UserListItem from '../UserListItem/UserListItem.jsx';
+import BandSelect from '../../components/band/BandSelect/BandSelect.jsx';
+import TourListItem from '../../components/band/TourListItem/TourListItem.jsx';
+import UserListItem from '../../components/band/UserListItem/UserListItem.jsx';
 import { useDispatch } from 'react-redux';
 
 const BandPanel = ({}) => {

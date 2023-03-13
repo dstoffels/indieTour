@@ -5,7 +5,7 @@ import axios from 'axios';
 import useForm from 'hooks/useForm.js';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { createTour } from 'redux/tourSlice.js';
+import { createTourThunk } from 'redux/tourSlice.js';
 import ModalForm from '../../ModalForm/ModalForm.jsx';
 import AddDates from '../AddDates/AddDates.jsx';
 

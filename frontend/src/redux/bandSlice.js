@@ -2,7 +2,7 @@ import axios from 'axios';
 import endpoints from 'utils/endpoints.js';
 import { getConfigObj } from './userSlice.js';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchActiveTour, setActiveTour } from './tourSlice.js';
+import { fetchActiveTourThunk, setActiveTourThunk } from './tourSlice.js';
 
 const activeBand = createSlice({
 	name: 'activeBand',
@@ -22,7 +22,7 @@ export const fetchActiveBand = createAsyncThunk('activeBand/GET', async (_, { di
 		const config = getConfigObj();
 		const response = await axios.get(endpoints.activeBand(), config);
 		dispatch(setBand(response.data));
-		dispatch(fetchActiveTour(response.data.id));
+		dispatch(fetchActiveTourThunk(response.data.id));
 	} catch (error) {
 		console.error(error.response.data);
 	}
@@ -33,7 +33,7 @@ export const setActiveBand = createAsyncThunk('activeBand/SET', async (bandId, {
 		const config = getConfigObj();
 		const response = await axios.post(endpoints.activeBand(bandId), {}, config);
 		dispatch(setBand(response.data));
-		dispatch(setActiveTour());
+		dispatch(setActiveTourThunk());
 	} catch (error) {
 		console.error(error.response.data);
 	}

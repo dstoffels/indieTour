@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from bands.band_user_ser import BandUserSerializer
+from bands.band_user_serializer import BandUserSerializer
 from tours.models import Tour
 from dates.serializers import DateSerializer
 from dates.models import Date

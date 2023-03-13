@@ -5,7 +5,7 @@ from tours.serializers import TourSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from authentication.serializers import UserSerializer
-from .band_user_ser import BandUserSerializer
+from .band_user_serializer import BandUserSerializer
 
 # BAND SERIALIZER
 class BandSerializer(serializers.ModelSerializer):

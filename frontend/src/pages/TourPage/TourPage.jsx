@@ -1,7 +1,14 @@
-import React from 'react';
+import useTour from 'hooks/useTour.js';
+import React, { useEffect } from 'react';
 
 const TourPage = ({}) => {
-	return <div>Tour Page</div>;
+	const { fetchActiveTour, activeTour } = useTour();
+
+	useEffect(() => {
+		fetchActiveTour();
+	}, []);
+
+	return <div></div>;
 };
 
 export default TourPage;

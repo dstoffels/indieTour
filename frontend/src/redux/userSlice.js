@@ -72,5 +72,7 @@ export const registerUser = createAsyncThunk('user/register', async (userInfo, {
 			const { email, password } = userInfo;
 			dispatch(loginUser({ email, password }));
 		}
-	} catch {}
+	} catch (error) {
+		console.error(error.response.data);
+	}
 });

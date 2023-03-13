@@ -2,12 +2,12 @@ from django.db.models import CASCADE, DO_NOTHING, TextField, TimeField, CharFiel
 from dates.models import Date
 
 class TimeslotType(Model):
-    name = CharField(max_length=255)
+    name = CharField(max_length=255, unique=True)
 
 class Timeslot(Model):
     date = ForeignKey(Date, on_delete=DO_NOTHING)
     description = TextField(null=True,blank=True)
-    start_time = TimeField(null=True,blank=True)
+    start_time = TimeField()
     end_time = TimeField(null=True,blank=True)
     start_location = TextField(null=True,blank=True)
     end_location = TextField(null=True,blank=True)

@@ -7,7 +7,6 @@ class User(AbstractUser):
     active_band = models.ForeignKey('bands.Band', on_delete=models.DO_NOTHING, null=True)
     active_tour = models.ForeignKey('tours.Tour', on_delete=models.DO_NOTHING, null=True)
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=255, unique=False)
 
 
     USERNAME_FIELD = 'email'
