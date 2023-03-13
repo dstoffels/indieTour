@@ -9,7 +9,6 @@ import HomePage from './pages/HomePage/HomePage';
 import Navbar from 'components/nav/NavBar/NavBar.jsx';
 import ProfilePage from 'pages/ProfilePage/ProfilePage.jsx';
 import { Container } from '@mui/material';
-import DashboardPage from 'pages/DashboardPage/DashboardPage.jsx';
 import PrivateOutlet from 'utils/PrivateOutlet.jsx';
 import { initialize } from 'utils/initialize.js';
 import { useEffect } from 'react';

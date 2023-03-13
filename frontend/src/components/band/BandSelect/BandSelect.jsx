@@ -24,7 +24,7 @@ const BandSelect = ({}) => {
 			keyName='name'
 			onChange={handleChange}
 			id='band-select'
-			label='My Bands'
+			label='Active Band'
 		/>
 	);
 };
