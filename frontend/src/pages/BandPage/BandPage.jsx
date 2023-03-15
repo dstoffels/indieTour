@@ -18,9 +18,9 @@ const BandPage = ({}) => {
 	const { activeTour } = useTour();
 	const { formKeys, openForm } = useForm();
 
-	const tours = activeBand?.tours?.map((tour, i) => (
-		<TourListItem key={`${i}-${tour.id}`} tour={tour} />
-	));
+	let tours = activeBand?.tours?.length
+		? activeBand?.tours?.map((tour, i) => <TourListItem key={`${i}-${tour.id}`} tour={tour} />)
+		: 'No Tours Yet';
 
 	const handleAddTour = () => {
 		openForm(formKeys.newTour, {

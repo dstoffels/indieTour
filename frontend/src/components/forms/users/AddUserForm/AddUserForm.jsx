@@ -4,9 +4,7 @@ import { Stack } from '@mui/system';
 import useBand from 'hooks/useBand.js';
 import React from 'react';
 
-const AddUserForm = ({ user, users, setUsers, i, forTour }) => {
-	const bandUsers = useBand().activeBand.users;
-
+const AddUserForm = ({ user, users, setUsers, i, forTour, bandUsers = [] }) => {
 	const setUser = newUser => {
 		const newUsers = [...users];
 		newUsers[i] = newUser;
