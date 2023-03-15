@@ -1,10 +1,10 @@
 import useAuth from 'hooks/useAuth.js';
-import useStore from 'hooks/useStore.js';
+import useBand from 'hooks/useBand.js';
 import React, { useState } from 'react';
 
-const withAuth = Component => props => {
+const withAdmin = Component => props => {
 	const { user } = useAuth();
-	const { activeBand } = useStore();
+	const { activeBand } = useBand();
 
 	const isAdmin = Boolean(
 		activeBand.owner.id === user.id || activeBand.users.find(bandUser => bandUser.id === user.id),
@@ -13,4 +13,4 @@ const withAuth = Component => props => {
 	return isAdmin ? <Component {...props} /> : null;
 };
 
-export default withAuth;
+export default withAdmin;

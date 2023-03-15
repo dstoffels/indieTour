@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const withAuth = Component => props => {
 	const { user } = useAuth();
-	return user ? <Component {...props} /> : null;
+	return user ? <Component {...props} /> : <div></div>;
 };
 
 export default withAuth;

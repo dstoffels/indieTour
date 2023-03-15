@@ -24,7 +24,7 @@ const SelectMenu = ({ options = [], init = '', onChange, id = '', label }) => {
 	return options.length ? (
 		<FormControl sx={{ m: 1, width: '90%', maxWidth: 300 }} size='medium'>
 			<InputLabel id={id}>{label}</InputLabel>
-			<Select labelId={id} label={label} value={value} onChange={handleChange}>
+			<Select size='small' labelId={id} label={label} value={value} onChange={handleChange}>
 				{menuItems}
 			</Select>
 		</FormControl>

@@ -8,11 +8,10 @@ from timeslots.serializers import TimeslotSerializer
 
 class DateSerializer(serializers.ModelSerializer):
     @staticmethod
-    def init_dates(dates, tour_id):
+    def create_or_update(dates, tour_id):
         for date_data in dates:
             date, created = Date.objects.get_or_create(tour_id=tour_id, date=date_data['date'])
-            if not created:
-                date.save(*date_data)
+            date.save(*date_data)
 
     timeslots = TimeslotSerializer(many=True, read_only=True, source='timeslot_set')
 

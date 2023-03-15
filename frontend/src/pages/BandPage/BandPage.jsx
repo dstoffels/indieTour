@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
+import React from 'react';
 import ListPanel from 'components/generic/ListPanel/ListPanel.jsx';
-import Panel from 'components/Panel/Panel.jsx';
+import Page from 'pages/Page/Page.jsx';
 import useForm from 'hooks/useForm.js';
-import useStore from 'hooks/useStore.js';
-import { updateFormData } from 'redux/modalSlice.js';
-import withActiveBand from 'utils/withActiveBand.js';
-import BandSelect from '../../components/band/BandSelect/BandSelect.jsx';
 import TourListItem from '../../components/band/TourListItem/TourListItem.jsx';
 import UserListItem from '../../components/band/UserListItem/UserListItem.jsx';
-import { useDispatch } from 'react-redux';
+import BandSelect from 'components/band/BandSelect/BandSelect.jsx';
+import { AddCircle } from '@mui/icons-material';
+import { IconButton, Typography } from '@mui/material';
+import Panel from 'components/generic/Panel/Panel.jsx';
+import useBand from 'hooks/useBand.js';
+import useTour from 'hooks/useTour.js';
+import WithActiveTour from 'utils/WithActiveTour/WithActiveTour.jsx';
+import TourMenu from 'components/band/TourMenu/TourMenu.jsx';
 
-const BandPanel = ({}) => {
-	const { activeBand } = useStore();
+const BandPage = ({}) => {
+	const { activeBand } = useBand();
+	const { activeTour } = useTour();
 	const { formKeys, openForm } = useForm();
 
 	const tours = activeBand?.tours?.map((tour, i) => (
@@ -28,17 +31,28 @@ const BandPanel = ({}) => {
 		});
 	};
 
-	const users = activeBand?.users?.map((user, i) => (
-		<UserListItem key={`${i}-${user.id}`} user={user} />
-	));
 	return (
-		<Panel title={activeBand.name} headerEl={<BandSelect />}>
-			<Grid container justifyContent='space-evenly' spacing={2} padding={2}>
-				<ListPanel title='Tours' list={tours} onAdd={handleAddTour} />
-				<ListPanel title='Users' list={users} />
-			</Grid>
-		</Panel>
+		<Page select={<BandSelect />}>
+			<Page.SplitBody>
+				<ListPanel
+					size={3}
+					title='Tours'
+					list={tours}
+					actionBtn={
+						<IconButton variant='text' color='primary' onClick={handleAddTour}>
+							<AddCircle fontSize='large' />
+						</IconButton>
+					}
+				/>
+				<WithActiveTour>
+					<Panel size={9} title={activeTour?.name} actionBtn={<TourMenu tour={activeTour} />}>
+						<Typography variant='overline'>Notes</Typography>
+						{activeTour?.notes}
+					</Panel>
+				</WithActiveTour>
+			</Page.SplitBody>
+		</Page>
 	);
 };
 
-export default withActiveBand(BandPanel);
+export default BandPage;

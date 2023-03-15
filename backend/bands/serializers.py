@@ -23,12 +23,12 @@ class BandSerializer(serializers.ModelSerializer):
         self.save(owner=request.user)
          
         # create band users
-        BandUserSerializer.init_users(request.data['users'], self.instance.id)
+        BandUserSerializer.create_or_update(request.data['users'], self.instance.id)
         return Response(self.data, status=status.HTTP_201_CREATED)
     
     def update_band(self, req):
        self.is_valid(raise_exception=True)
-       self.instance.users.clear()
-       BandUserSerializer.init_users(req.data['users'], self.instance.id)
+    #    self.instance.users.clear()
+       BandUserSerializer.create_or_update(req.data['users'], self.instance.id)
        self.save()
        return Response(self.data, status=status.HTTP_200_OK)

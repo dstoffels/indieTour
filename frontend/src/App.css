@@ -15,12 +15,12 @@ html {
 }
 
 body {
-	padding-top: 64px;
+	/* padding-top: 64px; */
 	/* background-color: #000; */
 }
 
 .app {
-	padding-top: 20px;
+	height: 100vh;
 }
 
 .flex-grow {

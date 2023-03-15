@@ -52,5 +52,5 @@ def set_active_tour(req, band_id, tour_id):
 @permission_classes([IsAuthenticated])
 def get_active_tour(req, band_id):
     user = get_object_or_404(User, id=req.user.id)
-    ser = TourSerializer(user.active_tour)
+    ser = TourSerializer(user.active_tour) if user.active_tour else None
     return Response(ser.data, status=status.HTTP_200_OK)

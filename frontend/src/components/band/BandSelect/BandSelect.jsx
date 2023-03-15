@@ -1,32 +1,29 @@
 import SelectMenu from 'components/generic/SelectMenu/SelectMenu.jsx';
-import useStore from 'hooks/useStore.js';
-import { useState } from 'react';
+import useBand from 'hooks/useBand.js';
 import { useDispatch } from 'react-redux';
-import { setActiveBand } from 'redux/bandSlice.js';
-import withActiveBand from 'utils/withActiveBand.js';
-import withAuth from 'utils/withAuth.js';
+import { setActiveBandThunk } from 'redux/bandSlice.js';
 
 const BandSelect = ({}) => {
-	const { store, activeBand } = useStore();
+	const { activeBand, userBands } = useBand();
 	const dispatch = useDispatch();
-	const bands = store.userBands ? store.userBands : [];
+	const bands = userBands ? userBands : [];
 	const options = bands.map(({ name }) => name);
 
 	const handleChange = bandName => {
 		const band = bands.find(({ name }) => bandName == name);
-		dispatch(setActiveBand(band?.id));
+		dispatch(setActiveBandThunk(band?.id));
 	};
 
 	return (
 		<SelectMenu
 			options={options}
-			init={activeBand.name}
+			init={activeBand?.name}
 			keyName='name'
 			onChange={handleChange}
 			id='band-select'
-			label='Active Band'
+			label='My Bands'
 		/>
 	);
 };
 
-export default withActiveBand(BandSelect);
+export default BandSelect;

@@ -16,7 +16,7 @@ const ModalForm = ({ title, children, submitText, onSubmit }) => {
 	};
 
 	return (
-		<form className='modal-form' onSubmit={handleSubmit}>
+		<form className='modal-form' onSubmit={handleSubmit} autoComplete='off'>
 			<Stack direction='row' justifyContent='space-between'>
 				<DialogTitle>{title}</DialogTitle>
 				<CloseModalBtn x />

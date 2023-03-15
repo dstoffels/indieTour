@@ -4,36 +4,34 @@ import './App.css';
 
 // Pages Imports
 import HomePage from './pages/HomePage/HomePage';
+import ProfilePage from 'pages/ProfilePage/ProfilePage.jsx';
+import TourPage from 'pages/TourPage/TourPage.jsx';
+import BandPage from 'pages/BandPage/BandPage.jsx';
 
 // Util Imports
-import Navbar from 'components/nav/NavBar/NavBar.jsx';
-import ProfilePage from 'pages/ProfilePage/ProfilePage.jsx';
 import { Container } from '@mui/material';
 import PrivateOutlet from 'utils/PrivateOutlet.jsx';
 import { initialize } from 'utils/initialize.js';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from 'components/generic/modal/Modal/Modal.jsx';
-import TourPage from 'pages/TourPage/TourPage.jsx';
-import BandPage from 'pages/BandPage/BandPage.jsx';
+import TodayPage from 'pages/TodayPage/TodayPage.jsx';
 
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => initialize(dispatch), []);
 
 	return (
-		<div>
-			<Navbar />
-			<Container className='app'>
-				<Routes>
-					<Route path='/home' element={<HomePage />} />
-					<Route path='' element={<PrivateOutlet />}>
-						<Route path='' element={<BandPage />} />
-						<Route path='/profile' element={<ProfilePage />} />
-						<Route path='/tour' element={<TourPage />} />
-					</Route>
-				</Routes>
-			</Container>
+		<div className='app'>
+			<Routes>
+				<Route path='/home' element={<HomePage />} />
+				<Route path='' element={<PrivateOutlet />}>
+					<Route path='' element={<BandPage />} />
+					<Route path='/profile' element={<ProfilePage />} />
+					<Route path='/tour' element={<TourPage />} />
+					<Route path='/today' element={<TodayPage />} />
+				</Route>
+			</Routes>
 			<Modal />
 		</div>
 	);

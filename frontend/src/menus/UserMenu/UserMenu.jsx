@@ -1,13 +1,19 @@
-import { AccountCircle, Add, AddBox, AddCircle, Login, Logout } from '@mui/icons-material';
+import { AccountCircle, Add, AddBox, AddCircle, Edit, Login, Logout } from '@mui/icons-material';
 import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 import LoginPanel from 'components/auth/LoginPanel/LoginPanel.jsx';
 import useAuth from 'hooks/useAuth.js';
+import useBand from 'hooks/useBand.js';
+import useForm from 'hooks/useForm.js';
+import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import WithAdmin from 'utils/WithAdmin/WithAdmin.jsx';
 
 const UserMenu = ({}) => {
 	const navigate = useNavigate();
 	const { user, logout } = useAuth();
+	const { formKeys, openForm } = useForm();
+	const { activeBand } = useBand();
 	const [anchor, setAnchor] = useState(null);
 
 	const handleMenu = e => {
@@ -22,8 +28,13 @@ const UserMenu = ({}) => {
 	};
 
 	const handleNewBand = () => {
+		openForm(formKeys.newBand, { name: '', users: [] });
 		handleClose();
-		console.log('popup: new band modal');
+	};
+
+	const handleEditBand = () => {
+		openForm(formKeys.editBand, activeBand);
+		handleClose();
 	};
 
 	const handleLogout = () => {
@@ -45,26 +56,23 @@ const UserMenu = ({}) => {
 				onClose={handleClose}>
 				{user ? (
 					<div>
-						<MenuItem disabled>Welcome {user?.username}!</MenuItem>
-						<MenuItem onClick={handleProfile}>
-							<ListItemIcon>
-								<AccountCircle />
-							</ListItemIcon>
-							<ListItemText>Profile</ListItemText>
-						</MenuItem>
-						<MenuItem onClick={handleNewBand}>
-							<ListItemIcon>
-								<AddCircle />
-							</ListItemIcon>
-							<ListItemText>New Band</ListItemText>
-						</MenuItem>
+						<MenuButtonItem disabled>{user?.username}</MenuButtonItem>
+						<MenuButtonItem onClick={handleProfile} icon={<AccountCircle />}>
+							Profile
+						</MenuButtonItem>
 						<Divider />
-						<MenuItem onClick={handleLogout}>
-							<ListItemIcon>
-								<Logout />
-							</ListItemIcon>
-							<ListItemText>Logout</ListItemText>
-						</MenuItem>
+						<MenuButtonItem onClick={handleNewBand} icon={<AddCircle />}>
+							New Band
+						</MenuButtonItem>
+						<WithAdmin>
+							<MenuButtonItem onClick={handleEditBand} icon={<Edit />}>
+								Edit Band
+							</MenuButtonItem>
+						</WithAdmin>
+						<Divider />
+						<MenuButtonItem onClick={handleLogout} icon={<Logout />}>
+							Logout
+						</MenuButtonItem>
 					</div>
 				) : (
 					<LoginPanel onClose={handleClose} />

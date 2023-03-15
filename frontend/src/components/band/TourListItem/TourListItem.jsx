@@ -21,16 +21,15 @@ const TourListItem = ({ tour }) => {
 		console.log('aaa');
 	};
 
-	const activeColor = { color: tour.id == activeTour?.id ? 'secondary' : '' };
+	const activeColor = tour.id == activeTour?.id ? 'primary' : '';
 
 	return (
 		<ListItem disablePadding>
-			<ListItemButton onClick={handleClick}>
+			<ListItemButton onClick={handleClick} color='primary'>
 				<ListItemIcon>
-					<CalendarMonth />
+					<CalendarMonth color={activeColor} />
 				</ListItemIcon>
-				<ListItemText primary={<Typography>{tour.name}</Typography>} />
-				<TourMenu tour={tour} />
+				<ListItemText primary={<Typography color={activeColor}>{tour.name}</Typography>} />
 			</ListItemButton>
 		</ListItem>
 	);

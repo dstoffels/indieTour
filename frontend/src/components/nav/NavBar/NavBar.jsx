@@ -1,21 +1,20 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Toolbar } from '@mui/material';
-import UserMenu from 'components/nav/UserMenu/UserMenu.jsx';
-import TourMenu from '../TourSelect/TourSelect.jsx';
-import { Link } from 'react-router-dom';
+import UserMenu from 'menus/UserMenu/UserMenu.jsx';
 import NavLink from 'components/NavLink/NavLink.jsx';
 
-const Navbar = () => {
+const Navbar = ({ select }) => {
 	return (
 		<AppBar position='fixed'>
 			<Toolbar>
 				<div className='flex justify-between flex-grow align-center'>
-					<TourMenu />
 					<nav>
+						<NavLink to='/today'>TODAY</NavLink>
 						<NavLink to='/tour'>TOUR</NavLink>
 						<NavLink to='/'>BAND</NavLink>
 					</nav>
+					{select}
 					<UserMenu />
 				</div>
 			</Toolbar>
