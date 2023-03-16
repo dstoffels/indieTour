@@ -1,6 +1,6 @@
 import { fetchActiveBandThunk } from 'redux/bandSlice.js';
 import { fetchActiveTourThunk } from 'redux/tourSlice.js';
-import { fetchUserBands } from 'redux/userBandSlice.js';
+import { fetchUserBandsThunk } from 'redux/userBandSlice.js';
 import { getUserObjectFromToken, setUser } from 'redux/userSlice.js';
 
 export const initialize = dispatch => {
@@ -8,6 +8,6 @@ export const initialize = dispatch => {
 	dispatch(setUser(user));
 	if (user) {
 		dispatch(fetchActiveBandThunk());
-		dispatch(fetchUserBands());
+		dispatch(fetchUserBandsThunk());
 	}
 };

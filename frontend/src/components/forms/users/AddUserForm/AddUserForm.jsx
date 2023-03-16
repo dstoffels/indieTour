@@ -1,33 +1,56 @@
-import { DeleteForever } from '@mui/icons-material';
-import { Autocomplete, FormControlLabel, IconButton, Switch, TextField } from '@mui/material';
+import { Check, Close, DeleteForever } from '@mui/icons-material';
+import {
+	Autocomplete,
+	Button,
+	FormControlLabel,
+	IconButton,
+	Switch,
+	TextField,
+} from '@mui/material';
 import { Stack } from '@mui/system';
+import axios from 'axios';
 import useBand from 'hooks/useBand.js';
-import React from 'react';
+import useEnterKey from 'hooks/useEnterKey.js';
+import useEscKey from 'hooks/useEscKey.js';
+import React, { useEffect, useState } from 'react';
+import { getConfigObj } from 'redux/userSlice.js';
+import endpoints from 'utils/endpoints.js';
 
-const AddUserForm = ({ user, users, setUsers, i, forTour, bandUsers = [] }) => {
-	const setUser = newUser => {
-		const newUsers = [...users];
-		newUsers[i] = newUser;
-		setUsers(newUsers);
-	};
+const AddUserForm = ({ forTour, bandUsers = [] }) => {
+	const [isActive, setIsActive] = useState(false);
+	const [email, setEmail] = useState('');
+	const [is_admin, setIsAdmin] = useState(false);
 
-	const handleEmail = e => setUser({ ...user, email: e.target.value });
-	const handleAdmin = e => setUser({ ...user, is_admin: e.target.checked });
+	useEffect(() => {
+		setEmail('');
+		setIsAdmin(false);
+	}, [isActive]);
 
-	const handleDelete = () => {
-		const newUsers = [...users];
-		newUsers.splice(i, 1);
-		setUsers(newUsers);
+	const { isAdmin, activeBand, fetchActiveBand } = useBand();
+
+	useEscKey(() => setIsActive(false));
+
+	const handleEmail = e => setEmail(e.target.value);
+	const handleAdmin = e => setIsAdmin(e.target.checked);
+	const handleActive = () => setIsActive(!isActive);
+	console.log(is_admin);
+
+	const handleSubmit = async e => {
+		e.preventDefault();
+		const config = getConfigObj();
+		await axios.post(endpoints.bandusers(activeBand.id), { email, is_admin }, config);
+		fetchActiveBand();
+		handleActive();
 	};
 
 	const userEmails = forTour ? bandUsers.map(({ email }) => email) : [];
 
-	return (
-		user && (
+	return isActive ? (
+		<form onSubmit={handleSubmit} autoComplete='off'>
 			<Stack direction='row' spacing={1} justifyContent='space-between'>
 				{forTour ? (
 					<Autocomplete
-						value={user.email}
+						value={email}
 						onSelect={handleEmail}
 						freeSolo
 						autoSelect
@@ -39,7 +62,7 @@ const AddUserForm = ({ user, users, setUsers, i, forTour, bandUsers = [] }) => {
 									required
 									{...params}
 									label='Email'
-									value={user.email}
+									value={email}
 									onChange={handleEmail}
 								/>
 							</form>
@@ -47,23 +70,33 @@ const AddUserForm = ({ user, users, setUsers, i, forTour, bandUsers = [] }) => {
 					/>
 				) : (
 					<TextField
+						variant='standard'
 						required
 						label='Email'
 						type='email'
-						value={user.email}
+						value={email}
 						onChange={handleEmail}
 					/>
 				)}
 				<FormControlLabel
-					control={<Switch checked={user.is_admin} onChange={handleAdmin} />}
+					control={<Switch checked={is_admin} onChange={handleAdmin} />}
 					label='Admin'
 				/>
 				<Stack direction='row' alignItems='center'>
-					<IconButton onClick={handleDelete} color='error'>
-						<DeleteForever />
+					<IconButton color='info' variant='contained' type='submit'>
+						<Check />
+					</IconButton>
+					<IconButton onClick={handleActive} color='error'>
+						<Close />
 					</IconButton>
 				</Stack>
 			</Stack>
+		</form>
+	) : (
+		isAdmin && (
+			<Button color='info' onClick={handleActive}>
+				Add Member
+			</Button>
 		)
 	);
 };

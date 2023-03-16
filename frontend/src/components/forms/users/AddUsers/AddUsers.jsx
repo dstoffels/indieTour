@@ -1,4 +1,4 @@
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, GroupAdd, PersonAdd } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { Stack } from '@mui/system';
 import useBand from 'hooks/useBand.js';
@@ -35,15 +35,17 @@ const AddUsers = ({ users, setUsers, forTour = false }) => {
 	return (
 		<Stack spacing={1}>
 			{userForms}
-			<Button onClick={handleClick} startIcon={<AccountCircle />}>
-				Add User
-			</Button>
-
-			{forTour && (
-				<Button onClick={handleAllUsers} startIcon={<AccountCircle />}>
-					Add All Users
+			<Stack spacing={1} direction='row' justifyContent='space-evenly'>
+				<Button onClick={handleClick} startIcon={<PersonAdd />}>
+					Add Member
 				</Button>
-			)}
+
+				{forTour && (
+					<Button onClick={handleAllUsers} startIcon={<GroupAdd />}>
+						Add All Band Members
+					</Button>
+				)}
+			</Stack>
 		</Stack>
 	);
 };

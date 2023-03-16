@@ -15,7 +15,7 @@ class BandSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Band
-        fields = ['id', 'name', 'tours', 'users', 'owner']
+        fields = ['id', 'name', 'owner', 'tours', 'users']
         depth = 1
 
     def create_band(self, request):

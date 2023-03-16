@@ -1,31 +1,55 @@
-import { Add, AddCircle } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import React from 'react';
 import ListPanel from 'components/generic/ListPanel/ListPanel.jsx';
-import TourSelect from 'components/nav/TourSelect/TourSelect.jsx';
-import useTour from 'hooks/useTour.js';
 import Page from 'pages/Page/Page.jsx';
-import React, { useEffect } from 'react';
+import useForm from 'hooks/useForm.js';
+import TourListItem from '../../components/band/TourListItem/TourListItem.jsx';
+import UserListItem from '../../components/band/UserListItem/UserListItem.jsx';
+import BandSelect from 'components/band/BandSelect/BandSelect.jsx';
+import { AddCircle } from '@mui/icons-material';
+import { IconButton, Typography } from '@mui/material';
+import Panel from 'components/generic/Panel/Panel.jsx';
+import useBand from 'hooks/useBand.js';
+import useTour from 'hooks/useTour.js';
+import WithActiveTour from 'utils/WithActiveTour/WithActiveTour.jsx';
+import TourMenu from 'components/band/TourMenu/TourMenu.jsx';
 
 const TourPage = ({}) => {
-	const { fetchActiveTour, activeTour } = useTour();
+	const { activeBand } = useBand();
+	const { activeTour } = useTour();
+	const { formKeys, openForm } = useForm();
 
-	useEffect(() => {
-		fetchActiveTour();
-	}, []);
+	let tours = activeBand?.tours?.length
+		? activeBand?.tours?.map((tour, i) => <TourListItem key={`${i}-${tour.id}`} tour={tour} />)
+		: 'No Tours Yet';
+
+	const handleAddTour = () => {
+		openForm(formKeys.newTour, {
+			name: '',
+			notes: '',
+			users: [],
+			dates: [],
+		});
+	};
 
 	return (
-		<Page select={<TourSelect />}>
+		<Page select={<BandSelect />}>
 			<Page.SplitBody>
 				<ListPanel
 					size={3}
-					title='Dates'
+					title='Tours'
+					list={tours}
 					actionBtn={
-						<IconButton variant='text' color='primary'>
+						<IconButton variant='text' color='primary' onClick={handleAddTour}>
 							<AddCircle fontSize='large' />
 						</IconButton>
 					}
 				/>
-				<ListPanel size={9} title='date goes here' />
+				<WithActiveTour>
+					<Panel size={9} title={activeTour?.name} actionBtn={<TourMenu tour={activeTour} />}>
+						<Typography variant='overline'>Notes</Typography>
+						{activeTour?.notes}
+					</Panel>
+				</WithActiveTour>
 			</Page.SplitBody>
 		</Page>
 	);

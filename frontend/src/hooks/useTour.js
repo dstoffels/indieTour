@@ -1,5 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { createTourThunk, editTourThunk, fetchActiveTourThunk } from '../redux/tourSlice.js';
+import {
+	createTourThunk,
+	editTourThunk,
+	fetchActiveTourThunk,
+	setActiveTourThunk,
+} from '../redux/tourSlice.js';
 import useStore from './useStore.js';
 
 const useTour = () => {
@@ -13,8 +18,9 @@ const useTour = () => {
 	};
 
 	const fetchActiveTour = () => dispatch(fetchActiveTourThunk());
+	const setActiveTour = tourId => dispatch(setActiveTourThunk(tourId));
 
-	return { createNewTour, updateTour, fetchActiveTour, activeTour };
+	return { createNewTour, updateTour, fetchActiveTour, setActiveTour, activeTour };
 };
 
 export default useTour;

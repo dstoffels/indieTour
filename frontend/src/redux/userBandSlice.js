@@ -15,7 +15,7 @@ export default userBands.reducer;
 const { setUserBands } = userBands.actions;
 
 // THUNKS
-export const fetchUserBands = createAsyncThunk('userBands/GET', async (_, { dispatch }) => {
+export const fetchUserBandsThunk = createAsyncThunk('userBands/GET', async (_, { dispatch }) => {
 	try {
 		const config = getConfigObj();
 		const response = await axios.get(endpoints.bands(), config);

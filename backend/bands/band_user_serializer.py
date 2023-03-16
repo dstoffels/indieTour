@@ -17,7 +17,7 @@ class BandUserSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = BandUser
-    fields = ['id', 'username', 'email', 'is_admin']
+    fields = ['id', 'username', 'email', 'is_admin', 'banduser_id']
 
   id = serializers.SerializerMethodField()
   def get_id(self, band_user):
@@ -31,8 +31,6 @@ class BandUserSerializer(serializers.ModelSerializer):
   def get_username(self, band_user):
     return band_user.user.username
   
-  
-  # def create(self, validated_data):
-  #   # need to create new users if they don't exist
-  #   self.get_or_create_user(validated_data)
-  #   return super().create(validated_data)
+  banduser_id = serializers.SerializerMethodField()
+  def get_banduser_id(self, band_user):
+    return band_user.id

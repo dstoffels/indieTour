@@ -11,6 +11,7 @@ const Navbar = ({ select }) => {
 				<div className='flex justify-between flex-grow align-center'>
 					<nav>
 						<NavLink to='/today'>TODAY</NavLink>
+						<NavLink to='/dates'>DATES</NavLink>
 						<NavLink to='/tour'>TOUR</NavLink>
 						<NavLink to='/'>BAND</NavLink>
 					</nav>

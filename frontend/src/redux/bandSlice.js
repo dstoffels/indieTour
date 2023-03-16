@@ -3,7 +3,7 @@ import endpoints from 'utils/endpoints.js';
 import { getConfigObj } from './userSlice.js';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchActiveTourThunk, setActiveTourThunk } from './tourSlice.js';
-import { fetchUserBands } from './userBandSlice.js';
+import { fetchUserBandsThunk } from './userBandSlice.js';
 
 const activeBand = createSlice({
 	name: 'activeBand',
@@ -49,7 +49,7 @@ export const createNewBandThunk = createAsyncThunk(
 		try {
 			const config = getConfigObj();
 			const response = await axios.post(endpoints.bands(), bandData, config);
-			dispatch(fetchUserBands());
+			dispatch(fetchUserBandsThunk());
 			dispatch(setActiveBandThunk(response.data.id));
 		} catch (error) {
 			console.error(error.response.data);
@@ -65,7 +65,7 @@ export const editBandThunk = createAsyncThunk(
 			const { activeBand } = getState();
 
 			const response = await axios.put(endpoints.bands(activeBand.id), bandData, config);
-			dispatch(fetchUserBands());
+			dispatch(fetchUserBandsThunk());
 			dispatch(fetchActiveBandThunk());
 		} catch (error) {
 			console.error(error.response.data);
@@ -78,7 +78,7 @@ export const deleteBandThunk = createAsyncThunk('band/DELETE', async (bandId, { 
 		const config = getConfigObj();
 
 		const response = await axios.delete(endpoints.bands(bandId), config);
-		dispatch(fetchUserBands());
+		dispatch(fetchUserBandsThunk());
 		dispatch(fetchActiveBandThunk());
 	} catch (error) {
 		console.error(error.response.data);

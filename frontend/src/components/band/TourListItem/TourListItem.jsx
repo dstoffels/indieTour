@@ -12,10 +12,11 @@ import { useDispatch } from 'react-redux';
 import { setActiveTourThunk } from 'redux/tourSlice.js';
 import useStore from 'hooks/useStore.js';
 import TourMenu from '../TourMenu/TourMenu.jsx';
+import useTour from 'hooks/useTour.js';
 
 const TourListItem = ({ tour }) => {
-	const { dispatch, activeTour } = useStore();
-	const handleClick = e => dispatch(setActiveTourThunk(tour.id));
+	const { activeTour, setActiveTour } = useTour();
+	const handleClick = e => setActiveTour(tour.id);
 	const handleOptionsClick = e => {
 		e.stopPropagation();
 		console.log('aaa');
