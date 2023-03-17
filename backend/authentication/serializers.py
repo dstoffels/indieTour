@@ -7,14 +7,14 @@ from .models import User
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
-    def get_token(cls, user):
+    def get_token(cls, user: User):
         token = super().get_token(user)
         # for any additional fields you'd like to add to the JWT sent back in response
         # add below using the token["field name"] = user.name_of_property
         # token["is_student"] = user.is_student
 
         token["username"] = user.username
-        token["first_name"] = user.first_name
+        token["email"] = user.email
 
         return token
 
@@ -52,4 +52,4 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'last_login']

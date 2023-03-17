@@ -96,13 +96,11 @@ const AddUserForm = ({ forTour, bandUsers = [] }) => {
 				</Stack>
 			</Stack>
 		</form>
-	) : (
-		isAdmin && (
-			<Button startIcon={<Add />} onClick={handleActive}>
-				Add Member
-			</Button>
-		)
-	);
+	) : isAdmin ? (
+		<Button startIcon={<Add />} onClick={handleActive}>
+			Add Member
+		</Button>
+	) : null;
 };
 
 export default AddUserForm;

@@ -39,7 +39,8 @@ const useBand = () => {
 	};
 
 	const isOwner = user?.id === activeBand?.owner?.id;
-	const isAdmin = isOwner || activeBand?.users?.find(bandUser => bandUser.id === user?.id).is_admin;
+	const isAdmin =
+		isOwner || activeBand?.users?.find(bandUser => bandUser.id === user?.id)?.is_admin;
 
 	return {
 		activeBand,

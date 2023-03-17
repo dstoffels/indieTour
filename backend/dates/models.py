@@ -1,8 +1,10 @@
-from django.db.models import CASCADE, Model, ForeignKey, CharField, TextField, ManyToManyField, DateField, BooleanField, TimeField
+import uuid
+from django.db.models import CASCADE, Model, ForeignKey, CharField, TextField, ManyToManyField, DateField, BooleanField, TimeField,UUIDField
 from tours.models import Tour
 
 # Create your models here.
 class Date(Model):
+  id = UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
   tour = ForeignKey(Tour, on_delete=CASCADE)
   date = DateField()
   title = TextField(null=True, blank=True)
