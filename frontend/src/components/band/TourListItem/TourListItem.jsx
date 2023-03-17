@@ -13,10 +13,12 @@ import { setActiveTourThunk } from 'redux/tourSlice.js';
 import useStore from 'hooks/useStore.js';
 import TourMenu from '../TourMenu/TourMenu.jsx';
 import useTour from 'hooks/useTour.js';
+import ListPanelItem from 'components/generic/ListPanelItem/ListPanelItem.jsx';
+import withActiveTour from 'utils/withActiveTour.js';
 
-const TourListItem = ({ tour }) => {
-	const { activeTour, setActiveTour } = useTour();
+const TourListItem = ({ tour, activeTour, setActiveTour }) => {
 	const handleClick = e => setActiveTour(tour.id);
+
 	const handleOptionsClick = e => {
 		e.stopPropagation();
 		console.log('aaa');
@@ -25,15 +27,12 @@ const TourListItem = ({ tour }) => {
 	const activeColor = tour.id == activeTour?.id ? 'primary' : '';
 
 	return (
-		<ListItem disablePadding>
-			<ListItemButton onClick={handleClick} color='primary'>
-				<ListItemIcon>
-					<CalendarMonth color={activeColor} />
-				</ListItemIcon>
-				<ListItemText primary={<Typography color={activeColor}>{tour.name}</Typography>} />
-			</ListItemButton>
-		</ListItem>
+		<ListPanelItem onClick={handleClick}>
+			<Typography variant='body1' color={activeColor}>
+				{tour.name}
+			</Typography>
+		</ListPanelItem>
 	);
 };
 
-export default TourListItem;
+export default withActiveTour(TourListItem);

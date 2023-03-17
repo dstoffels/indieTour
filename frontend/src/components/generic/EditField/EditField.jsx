@@ -51,10 +51,10 @@ const EditField = ({
 
 	useEffect(() => {
 		setValue(initValue);
-	}, [isEditing]);
+	}, [initValue]);
 
 	return (
-		<div onClick={handleClick} ref={wrapperRef} className={canEdit && 'edit-field'}>
+		<div onClick={handleClick} ref={wrapperRef} className={canEdit ? 'edit-field' : ''}>
 			{isEditing ? (
 				<form autoComplete='new-password' onSubmit={handleSubmit}>
 					<TextField

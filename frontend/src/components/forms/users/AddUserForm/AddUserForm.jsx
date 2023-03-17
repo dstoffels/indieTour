@@ -1,4 +1,4 @@
-import { Check, Close, DeleteForever } from '@mui/icons-material';
+import { Add, Check, Close, DeleteForever } from '@mui/icons-material';
 import {
 	Autocomplete,
 	Button,
@@ -10,7 +10,6 @@ import {
 import { Stack } from '@mui/system';
 import axios from 'axios';
 import useBand from 'hooks/useBand.js';
-import useEnterKey from 'hooks/useEnterKey.js';
 import useEscKey from 'hooks/useEscKey.js';
 import React, { useEffect, useState } from 'react';
 import { getConfigObj } from 'redux/userSlice.js';
@@ -21,29 +20,32 @@ const AddUserForm = ({ forTour, bandUsers = [] }) => {
 	const [email, setEmail] = useState('');
 	const [is_admin, setIsAdmin] = useState(false);
 
-	useEffect(() => {
+	const clearForm = () => {
 		setEmail('');
 		setIsAdmin(false);
-	}, [isActive]);
+	};
 
-	const { isAdmin, activeBand, fetchActiveBand } = useBand();
+	const { isAdmin, isOwner, activeBand, fetchActiveBand } = useBand();
 
 	useEscKey(() => setIsActive(false));
 
 	const handleEmail = e => setEmail(e.target.value);
 	const handleAdmin = e => setIsAdmin(e.target.checked);
 	const handleActive = () => setIsActive(!isActive);
-	console.log(is_admin);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 		const config = getConfigObj();
 		await axios.post(endpoints.bandusers(activeBand.id), { email, is_admin }, config);
+		clearForm();
 		fetchActiveBand();
-		handleActive();
 	};
 
 	const userEmails = forTour ? bandUsers.map(({ email }) => email) : [];
+
+	useEffect(() => {
+		clearForm();
+	}, [isActive]);
 
 	return isActive ? (
 		<form onSubmit={handleSubmit} autoComplete='off'>
@@ -78,10 +80,12 @@ const AddUserForm = ({ forTour, bandUsers = [] }) => {
 						onChange={handleEmail}
 					/>
 				)}
-				<FormControlLabel
-					control={<Switch checked={is_admin} onChange={handleAdmin} />}
-					label='Admin'
-				/>
+				{isOwner && (
+					<FormControlLabel
+						control={<Switch size='small' checked={is_admin} onChange={handleAdmin} />}
+						label='Admin'
+					/>
+				)}
 				<Stack direction='row' alignItems='center'>
 					<IconButton color='info' variant='contained' type='submit'>
 						<Check />
@@ -94,7 +98,7 @@ const AddUserForm = ({ forTour, bandUsers = [] }) => {
 		</form>
 	) : (
 		isAdmin && (
-			<Button color='info' onClick={handleActive}>
+			<Button startIcon={<Add />} onClick={handleActive}>
 				Add Member
 			</Button>
 		)
