@@ -20,15 +20,15 @@ def tour_dates(req, band_id, tour_id):
         ser = DateSerializer(data=req.data)
         return ser.create_date(req, tour_id)
 
-@api_view([GET, PUT, DELETE])
+@api_view([GET, PATCH, DELETE])
 @permission_classes([IsAuthenticated])    
 def tour_date_detail(req, band_id, tour_id, date_id):
     date = get_object_or_404(Date, id=date_id)
     if req.method == GET:
         ser = DateSerializer(date)
         return Response(ser.data, status=status.HTTP_200_OK)
-    elif req.method == PUT:
-        ser = DateSerializer(date, data=req.data)
+    elif req.method == PATCH:
+        ser = DateSerializer(date, data=req.data, partial=True)
         return ser.update_date(req)
     elif req.method == DELETE:
         date.delete()

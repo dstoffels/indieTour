@@ -1,7 +1,7 @@
 import { Close } from '@mui/icons-material';
 import { FormControlLabel, IconButton, Stack, Switch, Typography } from '@mui/material';
 import axios from 'axios';
-import ListPanelItem from 'components/generic/ListPanelItem/ListPanelItem.jsx';
+import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
 import useAuth from 'hooks/useAuth.js';
 import useBand from 'hooks/useBand.js';
 import useTour from 'hooks/useTour.js';
@@ -38,7 +38,7 @@ const UserPanelItem = ({ banduser, forTour = false }) => {
 	const color = banduser.id === user.id ? 'primary' : '';
 
 	return (
-		<ListPanelItem>
+		<PanelListItem>
 			<Stack direction='row' justifyContent='space-between'>
 				<div className='flex-grow'>
 					<Typography color={color}>{banduser.username}</Typography>
@@ -58,7 +58,7 @@ const UserPanelItem = ({ banduser, forTour = false }) => {
 					</IconButton>
 				)}
 			</Stack>
-		</ListPanelItem>
+		</PanelListItem>
 	);
 };
 

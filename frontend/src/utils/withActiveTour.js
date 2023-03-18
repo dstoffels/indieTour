@@ -5,6 +5,13 @@ import React from 'react';
 import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from './endpoints.js';
 
+/**
+ * State to Props:
+ * vars: activeBand, activeTour, isAdmin, isOwner
+ * fns: setActiveTour, fetchActiveTour, updateTour, deleteTour, addTourUser
+ * @param {*} Component
+ * @returns
+ */
 const withActiveTour = Component => props => {
 	const { activeTour, setActiveTour, fetchActiveTour } = useTour();
 	const { activeBand, fetchActiveBand, fetchUserBands, isOwner, isAdmin } = useBand();
@@ -44,6 +51,15 @@ const withActiveTour = Component => props => {
 			console.error(error.response.data);
 		}
 	};
+	const addTourDate = async formData => {
+		try {
+			await axios.post(endpoints.dates(activeBand.id, activeTour.id), formData, config);
+			fetchActiveBand();
+			fetchActiveTour();
+		} catch (error) {
+			console.error(error.response.data);
+		}
+	};
 
 	return activeTour ? (
 		<Component
@@ -57,6 +73,7 @@ const withActiveTour = Component => props => {
 			isAdmin={isAdmin}
 			isOwner={isOwner}
 			addTourUser={addTourUser}
+			addTourDate={addTourDate}
 		/>
 	) : null;
 };

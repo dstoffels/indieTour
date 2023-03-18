@@ -5,7 +5,7 @@ from tours.models import Tour
 # Create your models here.
 class Date(Model):
   id = UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
-  tour = ForeignKey(Tour, on_delete=CASCADE)
+  tour = ForeignKey(Tour, on_delete=CASCADE, related_name='tourdates')
   date = DateField()
   title = TextField(null=True, blank=True)
   location = TextField(null=True, blank=True)

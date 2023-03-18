@@ -5,6 +5,7 @@ import EditField from 'components/generic/EditField/EditField.jsx';
 import TourDetailsPanel from 'components/tour/TourDetailsPanel/TourDetailsPanel.jsx';
 import { Grid } from '@mui/material';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
+import DatesListPanel from 'components/dates/DatesListPanel/DatesListPanel.jsx';
 
 const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser }) => {
 	return (
@@ -22,6 +23,7 @@ const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser })
 				/>
 			}>
 			<Grid container spacing={1}>
+				<DatesListPanel activeTour={activeTour} size={4} elevation={-1} />
 				<UserPanel
 					title='Personnel'
 					forTour

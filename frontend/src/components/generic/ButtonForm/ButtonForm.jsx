@@ -3,9 +3,17 @@ import { Button, IconButton, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import useEscKey from 'hooks/useEscKey.js';
 import React, { useState } from 'react';
-import ListPanelItem from '../ListPanelItem/ListPanelItem.jsx';
+import PanelListItem from '../PanelListItem/PanelListItem.jsx';
 
-const ButtonForm = ({ formData, onSubmit, children, info, btnText, btnIcon = <Add /> }) => {
+const ButtonForm = ({
+	formData,
+	onSubmit,
+	children,
+	info,
+	btnText,
+	btnIcon = <Add />,
+	autoClose = true,
+}) => {
 	const [showForm, setShowForm] = useState(false);
 
 	const handleShowForm = () => setShowForm(!showForm);
@@ -15,11 +23,11 @@ const ButtonForm = ({ formData, onSubmit, children, info, btnText, btnIcon = <Ad
 	const handleSubmit = e => {
 		e.preventDefault();
 		onSubmit(formData);
-		setShowForm(false);
+		autoClose && setShowForm(false);
 	};
 
 	return (
-		<ListPanelItem>
+		<PanelListItem>
 			{showForm ? (
 				<form onSubmit={handleSubmit} autoComplete='off'>
 					<Stack direction='row' spacing={1} justifyContent='space-between'>
@@ -40,7 +48,7 @@ const ButtonForm = ({ formData, onSubmit, children, info, btnText, btnIcon = <Ad
 					{btnText}
 				</Button>
 			)}
-		</ListPanelItem>
+		</PanelListItem>
 	);
 };
 

@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import ListPanelItem from 'components/generic/ListPanelItem/ListPanelItem.jsx';
+import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
 import React from 'react';
 
 const BandListItem = ({ band, activeBand, setActiveband }) => {
@@ -8,14 +8,14 @@ const BandListItem = ({ band, activeBand, setActiveband }) => {
 	};
 
 	return (
-		<ListPanelItem
+		<PanelListItem
 			key={`band-${band.id}`}
 			onClick={handleClick}
 			active={band.id === activeBand?.id}>
 			<Typography variant='h6' color={band?.id === activeBand?.id ? 'primary' : ''}>
 				{band.name}
 			</Typography>
-		</ListPanelItem>
+		</PanelListItem>
 	);
 };
 

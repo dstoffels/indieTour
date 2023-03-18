@@ -10,5 +10,3 @@ const ClickableTextField = ({ label, value, onChange }) => {
 		</FormControl>
 	);
 };
-
-export default ClickableTextField;

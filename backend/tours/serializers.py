@@ -13,7 +13,7 @@ class TourUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', "is_admin"]
 
 class TourSerializer(serializers.ModelSerializer):
-    dates = DateSerializer(many=True, required=False, read_only=True, source='date_set')
+    dates = serializers.SerializerMethodField()
     users = BandUserSerializer(many=True, read_only=True)
 
     class Meta:
@@ -47,4 +47,8 @@ class TourSerializer(serializers.ModelSerializer):
             self.save()
             return Response(self.data, status=status.HTTP_200_OK)
         return Response({"name": "Cannot have duplicate tour names."}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get_dates(self, tour: Tour):
+        dates = tour.tourdates.all().order_by('date')
+        return DateSerializer(dates, many=True).data
 

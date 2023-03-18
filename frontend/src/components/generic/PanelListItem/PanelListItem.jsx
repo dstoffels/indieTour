@@ -1,17 +1,7 @@
 import React from 'react';
+import { Box, Divider, ListItemButton, ListItemIcon } from '@mui/material';
 
-import {
-	Box,
-	Divider,
-	IconButton,
-	ListItem,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Typography,
-} from '@mui/material';
-
-const ListPanelItem = ({ onClick, icon, active, color = 'primary', children }) => {
+const PanelListItem = ({ onClick, icon, active, color = 'primary', children }) => {
 	children = (
 		<Box padding={1} width='100%'>
 			{children}
@@ -33,4 +23,4 @@ const ListPanelItem = ({ onClick, icon, active, color = 'primary', children }) =
 	);
 };
 
-export default ListPanelItem;
+export default PanelListItem;

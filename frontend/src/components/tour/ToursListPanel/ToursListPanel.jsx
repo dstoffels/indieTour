@@ -3,7 +3,7 @@ import NewTourForm from 'components/forms/tour/NewTourForm/NewTourForm.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import React, { useState } from 'react';
 import withActiveBand from 'utils/withActiveBand.js';
-import TourListItem from '../../band/TourListItem/TourListItem.jsx';
+import TourListItem from '../TourListItem/TourListItem.jsx';
 
 const ToursListPanel = ({ activeBand, size, elevation }) => {
 	const [showArchived, setShowArchived] = useState(false);

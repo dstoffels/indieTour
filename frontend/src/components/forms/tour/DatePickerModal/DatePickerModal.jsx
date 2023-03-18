@@ -1,5 +1,4 @@
-import { CalendarMonth } from '@mui/icons-material';
-import { Button, Dialog, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
+import { Button, Popover, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { PickersDay, StaticDatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
@@ -7,9 +6,13 @@ import React from 'react';
 import { useState } from 'react';
 
 const DatePickerModal = ({ tourDates = [], value, onChange }) => {
-	const [open, setOpen] = useState(false);
+	const [anchor, setAnchor] = useState();
 
-	const handleClose = () => setOpen(false);
+	const handleOpen = e => {
+		setAnchor(e.currentTarget);
+	};
+
+	const handleClose = () => setAnchor(null);
 
 	const handleChange = date => {
 		onChange(date.format('YYYY-MM-DD'));
@@ -26,16 +29,21 @@ const DatePickerModal = ({ tourDates = [], value, onChange }) => {
 		);
 	};
 
+	const open = Boolean(anchor);
+
 	return (
 		<>
-			<Button
-				sx={{ px: 4 }}
-				variant='outlined'
-				onClick={() => setOpen(true)}
-				endIcon={<CalendarMonth />}>
-				{moment(value).format('L')}
+			<Button sx={{ padding: 0.5 }} variant='text' onClick={handleOpen} onLoad={handleOpen}>
+				<Stack>
+					<Typography variant='caption'>{moment(value).format('ddd')}</Typography>
+					<Typography>{moment(value).format('MMM DD')}</Typography>
+				</Stack>
 			</Button>
-			<Dialog open={open} onClose={handleClose}>
+			<Popover
+				open={open}
+				onClose={handleClose}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+				anchorEl={anchor}>
 				<StaticDatePicker
 					renderDay={handleExistingTourDates}
 					displayStaticWrapperAs='desktop'
@@ -43,7 +51,7 @@ const DatePickerModal = ({ tourDates = [], value, onChange }) => {
 					onChange={handleChange}
 					renderInput={params => <TextField {...params} />}
 				/>
-			</Dialog>
+			</Popover>
 		</>
 	);
 };

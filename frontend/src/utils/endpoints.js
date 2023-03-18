@@ -14,7 +14,8 @@ const tours = (bandId, tourId = '') => bands(bandId) + `tours/${tourId && tourId
 const tourusers = (bandId, tourId, banduserId = '') =>
 	tours(bandId, tourId) + `users/${banduserId && banduserId + '/'}`;
 const activeTour = (bandId, tourId = '') => tours(bandId, tourId) + 'active/';
-const dates = (bandId, tourId, dateId = '') => tours(bandId, tourId) + `dates/${dateId && dateId}/`;
+const dates = (bandId, tourId, dateId = '') =>
+	tours(bandId, tourId) + `dates/${dateId && dateId + '/'}`;
 
 export default {
 	REGISTER_USER,
