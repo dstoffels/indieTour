@@ -11,7 +11,9 @@ from constants import *
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-User = get_user_model()
+from rest_framework_simplejwt.tokens import RefreshToken
+from .models import User
+# User = get_user_model()
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -36,16 +38,30 @@ def all_users(req):
     users = User.objects.all()
     return Response(UserSerializer(users, many=True).data)
 
-@api_view([POST])
+@api_view([GET])
+def new_user(req, uid):
+    user = get_object_or_404(User, id=uid)
+    if user.password:
+        return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+    refresh = RefreshToken.for_user(user)
+    return Response(str(refresh.access_token), status=status.HTTP_200_OK)
+
+@api_view([PATCH])
 @permission_classes([IsAuthenticated])
-def update_password(req):
+def update_user(req):
     user = get_object_or_404(User, id=req.user.id)
-    old_pw = req.data['old_pw']
-    new_pw = req.data['new_pw']
-    if user.check_password(old_pw):
-        user.set_password(new_pw)
+    if req.data.get('password', False) and not user.password:
+        user.set_password(req.data['password'])
         user.save()
-        return Response(status=status.HTTP_202_ACCEPTED)
-    else:
-        return Response({"password": "Password incorrect."}, status=status.HTTP_401_UNAUTHORIZED)
-    
+        
+    if req.data.get('old_pw', False):
+        old_pw = req.data['old_pw']
+        new_pw = req.data['new_pw']
+        if user.check_password(old_pw):
+            user.set_password(new_pw)
+        else:
+            return Response({"password": "Incorrect password."}, status=status.HTTP_401_UNAUTHORIZED)
+    ser = UserSerializer(user, data=req.data, partial=True)
+    ser.is_valid(raise_exception=True)
+    ser.save()
+    return Response(user.email, status=status.HTTP_202_ACCEPTED)

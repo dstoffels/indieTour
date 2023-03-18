@@ -13,6 +13,7 @@ from tours.models import Tour
 from django.core.mail import send_mail
 from django.db.models import Q
 from itertools import chain
+import uuid
 
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated])

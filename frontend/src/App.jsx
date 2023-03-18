@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import Modal from 'components/generic/modal/Modal/Modal.jsx';
 import TodayPage from 'pages/TodayPage/TodayPage.jsx';
 import DatesPage from 'pages/DatesPage/DatesPage.jsx';
+import NewUserPage from 'pages/Page/NewUserPage/NewUserPage.jsx';
 
 function App() {
 	const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
 		<div className='app'>
 			<Routes>
 				<Route path='/home' element={<HomePage />} />
+				<Route path='/user/:uid' element={<NewUserPage />} />
 				<Route path='' element={<PrivateOutlet />}>
 					<Route path='' element={<BandPage />} />
 					<Route path='/profile' element={<ProfilePage />} />

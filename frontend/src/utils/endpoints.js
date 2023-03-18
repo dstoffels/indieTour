@@ -3,8 +3,9 @@ const DOMAIN = process.env.REACT_APP_API_DOMAIN;
 const REGISTER_USER = DOMAIN + 'auth/register/';
 const LOGIN = DOMAIN + 'auth/login/';
 const REFRESH = DOMAIN + 'auth/login/refresh/';
-const EDIT_USER = DOMAIN + 'auth/user/';
+const USER = DOMAIN + 'auth/user/';
 
+const user = (uid = '') => `${USER}${uid && uid + '/'}`;
 const bands = (bandId = '') => `${DOMAIN}bands/${bandId && bandId + '/'}`;
 const activeBand = (bandId = '') => bands(bandId) + 'active/';
 const bandusers = (bandId, banduserId = '') =>
@@ -17,11 +18,12 @@ export default {
 	REGISTER_USER,
 	LOGIN,
 	REFRESH,
-	EDIT_USER,
+	USER,
 	bands,
 	activeBand,
 	bandusers,
 	tours,
 	activeTour,
 	dates,
+	user,
 };
