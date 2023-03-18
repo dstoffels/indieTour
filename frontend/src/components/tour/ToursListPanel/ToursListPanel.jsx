@@ -27,4 +27,4 @@ const ToursListPanel = ({ activeBand, size, elevation }) => {
 	);
 };
 
-export default withActiveBand(ToursListPanel);
+export default ToursListPanel;

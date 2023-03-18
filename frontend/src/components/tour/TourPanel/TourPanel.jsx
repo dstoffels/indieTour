@@ -6,7 +6,7 @@ import TourDetailsPanel from 'components/tour/TourDetailsPanel/TourDetailsPanel.
 import { Grid } from '@mui/material';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 
-const TourPanel = ({ activeTour, updateTour, isAdmin }) => {
+const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser }) => {
 	return (
 		<Panel
 			size={9}
@@ -22,8 +22,15 @@ const TourPanel = ({ activeTour, updateTour, isAdmin }) => {
 				/>
 			}>
 			<Grid container spacing={1}>
+				<UserPanel
+					title='Personnel'
+					forTour
+					users={activeTour.users}
+					bandUsers={activeBand.users}
+					isAdmin={isAdmin}
+					onSubmit={addTourUser}
+				/>
 				<TourDetailsPanel />
-				<UserPanel forTour />
 			</Grid>
 		</Panel>
 	);

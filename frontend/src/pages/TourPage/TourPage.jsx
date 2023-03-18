@@ -5,11 +5,11 @@ import ToursListPanel from 'components/tour/ToursListPanel/ToursListPanel.jsx';
 import withActiveBand from 'utils/withActiveBand.js';
 import TourPanel from 'components/tour/TourPanel/TourPanel.jsx';
 
-const TourPage = ({}) => {
+const TourPage = ({ activeBand }) => {
 	return (
 		<Page select={<BandSelect />}>
 			<Page.SplitBody>
-				<ToursListPanel size={3} />
+				<ToursListPanel activeBand={activeBand} size={3} />
 				<TourPanel />
 			</Page.SplitBody>
 		</Page>

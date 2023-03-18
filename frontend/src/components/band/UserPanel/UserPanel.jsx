@@ -1,21 +1,45 @@
-import { Box } from '@mui/material';
 import AddUserForm from 'components/forms/users/AddUserForm/AddUserForm.jsx';
-import ListPanelItem from 'components/generic/ListPanelItem/ListPanelItem.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
-import React from 'react';
-import withActiveBand from 'utils/withActiveBand.js';
+import React, { useState } from 'react';
+import AllMembersSwitch from '../AllMembersSwitch/AllMembersSwitch.jsx';
 import UserPanelItem from '../UserPanelItem/UserPanelItem.jsx';
 
-const UserPanel = ({ activeBand, forTour = false }) => {
-	const userList = activeBand.users.map(banduser => (
-		<UserPanelItem key={`user-${banduser.id}`} banduser={banduser} />
+const UserPanel = ({
+	users = [],
+	forTour = false,
+	bandUsers = [],
+	onSubmit,
+	isAdmin,
+	title = '',
+}) => {
+	const userList = users.map(banduser => (
+		<UserPanelItem key={`user-${banduser.id}`} banduser={banduser} forTour={forTour} />
 	));
+
 	return (
-		<Panel size={4} elevation={-1} title='Members' titleSize={6}>
-			<AddUserForm forTour={forTour} bandUsers={activeBand.users} />
+		<Panel
+			size={4}
+			elevation={-1}
+			title={title}
+			titleSize={6}
+			actionBtn={
+				<AllMembersSwitch
+					users={bandUsers}
+					checked={users.length === bandUsers.length}
+					forTour={forTour}
+					onSubmit={onSubmit}
+				/>
+			}>
+			<AddUserForm
+				forTour={forTour}
+				users={users}
+				bandUsers={bandUsers}
+				onSubmit={onSubmit}
+				isAdmin={isAdmin}
+			/>
 			{userList}
 		</Panel>
 	);
 };
 
-export default withActiveBand(UserPanel);
+export default UserPanel;

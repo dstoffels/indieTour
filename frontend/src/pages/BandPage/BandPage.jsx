@@ -1,14 +1,11 @@
 import React from 'react';
 import Page from 'pages/Page/Page.jsx';
-import { Grid } from '@mui/material';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useBand from 'hooks/useBand.js';
-import EditField from 'components/generic/EditField/EditField.jsx';
-import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 import BandListItem from 'components/band/BandListItem/BandListItem.jsx';
-import BandOwnerPanel from 'components/band/BandOwnerPanel/BandOwnerPanel.jsx';
-import ToursListPanel from 'components/tour/ToursListPanel/ToursListPanel.jsx';
+
 import NewBandForm from 'components/forms/band/NewBandForm/NewBandForm.jsx';
+import BandPanel from 'components/band/BandPanel/BandPanel.jsx';
 
 const BandPage = ({}) => {
 	const {
@@ -39,25 +36,7 @@ const BandPage = ({}) => {
 					<NewBandForm />
 					{bandList}
 				</Panel>
-				<Panel
-					padding={1}
-					size={9}
-					titleEl={
-						<EditField
-							variant='h5'
-							label='Band Name'
-							initValue={activeBand?.name}
-							name='name'
-							onSubmit={handleBandPatch}
-							canEdit={isAdmin}
-						/>
-					}>
-					<Grid container spacing={1}>
-						<ToursListPanel size={4} elevation={-1} />
-						<UserPanel />
-						<BandOwnerPanel />
-					</Grid>
-				</Panel>
+				<BandPanel />
 			</Page.SplitBody>
 		</Page>
 	);

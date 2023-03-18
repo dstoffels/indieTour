@@ -23,4 +23,4 @@ const BandOwnerPanel = ({ activeBand, isOwner }) => {
 	);
 };
 
-export default withActiveBand(BandOwnerPanel);
+export default BandOwnerPanel;

@@ -4,12 +4,14 @@ import axios from 'axios';
 import ListPanelItem from 'components/generic/ListPanelItem/ListPanelItem.jsx';
 import useAuth from 'hooks/useAuth.js';
 import useBand from 'hooks/useBand.js';
+import useTour from 'hooks/useTour.js';
 import React from 'react';
 import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from 'utils/endpoints.js';
 
-const UserPanelItem = ({ banduser }) => {
+const UserPanelItem = ({ banduser, forTour = false }) => {
 	const { isAdmin, isOwner, activeBand, fetchActiveBand } = useBand();
+	const { activeTour } = useTour();
 	const { user } = useAuth();
 
 	const handleAdmin = async e => {
@@ -24,7 +26,12 @@ const UserPanelItem = ({ banduser }) => {
 
 	const handleDeleteUser = async e => {
 		const config = getConfigObj();
-		await axios.delete(endpoints.bandusers(activeBand.id, banduser.banduser_id), config);
+
+		const url = forTour
+			? endpoints.tourusers(activeBand.id, activeTour.id, banduser.banduser_id)
+			: endpoints.bandusers(activeBand.id, banduser.banduser_id);
+
+		await axios.delete(url, config);
 		fetchActiveBand();
 	};
 

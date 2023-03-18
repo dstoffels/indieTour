@@ -1,17 +1,9 @@
 import { Autocomplete, TextField } from '@mui/material';
-import axios from 'axios';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
-import useBand from 'hooks/useBand.js';
-import useEscKey from 'hooks/useEscKey.js';
-import React, { useEffect, useState } from 'react';
-import { getConfigObj } from 'redux/userSlice.js';
-import endpoints from 'utils/endpoints.js';
+import React, { useState } from 'react';
 
-const AddUserForm = ({ forTour, bandUsers = [] }) => {
+const AddUserForm = ({ onSubmit, isAdmin, forTour, users = [], bandUsers = [] }) => {
 	const [email, setEmail] = useState('');
-
-	const { isAdmin, activeBand, fetchActiveBand } = useBand();
-
 	const handleEmail = e => setEmail(e.target.value);
 
 	const clearForm = () => {
@@ -19,13 +11,15 @@ const AddUserForm = ({ forTour, bandUsers = [] }) => {
 	};
 
 	const handleSubmit = async () => {
-		const config = getConfigObj();
-		await axios.post(endpoints.bandusers(activeBand.id), { email }, config);
+		onSubmit({ email });
 		clearForm();
-		fetchActiveBand();
 	};
 
-	const userEmails = forTour ? bandUsers.map(({ email }) => email) : [];
+	const userEmails = forTour
+		? bandUsers
+				.map(({ email }) => email)
+				.filter(email => !users.map(({ email }) => email).includes(email))
+		: [];
 
 	return isAdmin ? (
 		<ButtonForm
