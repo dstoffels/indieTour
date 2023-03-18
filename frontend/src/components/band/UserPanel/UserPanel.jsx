@@ -6,13 +6,13 @@ import React from 'react';
 import withActiveBand from 'utils/withActiveBand.js';
 import UserPanelItem from '../UserPanelItem/UserPanelItem.jsx';
 
-const UserPanel = ({ activeBand, btns }) => {
+const UserPanel = ({ activeBand, forTour = false }) => {
 	const userList = activeBand.users.map(banduser => (
 		<UserPanelItem key={`user-${banduser.id}`} banduser={banduser} />
 	));
 	return (
 		<Panel size={4} elevation={-1} title='Members' titleSize={6}>
-			<AddUserForm />
+			<AddUserForm forTour={forTour} bandUsers={activeBand.users} />
 			{userList}
 		</Panel>
 	);

@@ -2,7 +2,7 @@ import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import useBand from 'hooks/useBand.js';
 import React from 'react';
 import BandForm from '../BandForm/BandForm.jsx';
-import DeleteBandPopover from '../DeleteBandPopover/DeleteBandPopover.jsx';
+import DeleteBandPopover from '../../../band/DeleteBandPopover/DeleteBandPopover.jsx';
 
 const EditBandForm = ({}) => {
 	const { editBand } = useBand();

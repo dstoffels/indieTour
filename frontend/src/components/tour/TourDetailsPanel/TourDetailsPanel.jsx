@@ -16,7 +16,7 @@ const TourDetailsPanel = ({ activeTour, deleteTour, fetchActiveTour, updateTour 
 
 	const archiveSwitch = isAdmin ? (
 		<FormControlLabel
-			control={<Switch value={activeTour.is_archived} onChange={handleArchived} />}
+			control={<Switch checked={activeTour.is_archived} onChange={handleArchived} />}
 			label='Archive'
 			name='is_archved'
 		/>

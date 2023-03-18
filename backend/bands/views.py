@@ -17,7 +17,7 @@ import uuid
 
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated])
-def user_bands(req):
+def bands_table(req):
   if req.method == GET:
     users_bands = list(chain(Band.objects.filter(owner=req.user), Band.objects.filter(banduser__user=req.user)))
     ser = BandSerializer(users_bands, many=True)
@@ -88,7 +88,6 @@ def banduser_table(req, band_id):
     return Response(ser.data, status=status.HTTP_201_CREATED)
     
 
-
 @api_view([PATCH, DELETE])
 @permission_classes([IsAuthenticated])
 def banduser_detail(req, band_id, banduser_id):
@@ -98,7 +97,6 @@ def banduser_detail(req, band_id, banduser_id):
     ser.is_valid(raise_exception=True)
     ser.save()
     return Response(ser.data, status=status.HTTP_200_OK)
-
   if req.method == DELETE:
     banduser.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)

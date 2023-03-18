@@ -9,7 +9,7 @@ import withActiveBand from './withActiveBand.js';
 
 const withActiveTour = Component => props => {
 	const { activeTour, setActiveTour, fetchActiveTour } = useTour();
-	const { fetchActiveBand, fetchUserBands } = useBand();
+	const { activeBand, fetchActiveBand, fetchUserBands, isOwner, isAdmin } = useBand();
 
 	const config = getConfigObj();
 
@@ -45,6 +45,8 @@ const withActiveTour = Component => props => {
 			fetchActiveTour={fetchActiveTour}
 			updateTour={updateTour}
 			deleteTour={deleteTour}
+			isAdmin={isAdmin}
+			isOwner={isOwner}
 		/>
 	) : null;
 };

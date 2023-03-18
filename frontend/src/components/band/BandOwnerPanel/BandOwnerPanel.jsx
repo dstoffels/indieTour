@@ -1,6 +1,6 @@
 import { Box, Divider, Paper, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import DeleteBandPopover from 'components/forms/band/DeleteBandPopover/DeleteBandPopover.jsx';
+import DeleteBandPopover from 'components/band/DeleteBandPopover/DeleteBandPopover.jsx';
 import DangerZone from 'components/generic/DangerZone/DangerZone.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useAuth from 'hooks/useAuth.js';

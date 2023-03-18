@@ -7,7 +7,7 @@ import EditField from 'components/generic/EditField/EditField.jsx';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 import BandListItem from 'components/band/BandListItem/BandListItem.jsx';
 import BandOwnerPanel from 'components/band/BandOwnerPanel/BandOwnerPanel.jsx';
-import BandToursPanel from 'components/band/BandToursPanel/BandToursPanel.jsx';
+import ToursListPanel from 'components/tour/ToursListPanel/ToursListPanel.jsx';
 import NewBandForm from 'components/forms/band/NewBandForm/NewBandForm.jsx';
 
 const BandPage = ({}) => {
@@ -53,7 +53,7 @@ const BandPage = ({}) => {
 						/>
 					}>
 					<Grid container spacing={1}>
-						<BandToursPanel />
+						<ToursListPanel size={4} elevation={-1} />
 						<UserPanel />
 						<BandOwnerPanel />
 					</Grid>

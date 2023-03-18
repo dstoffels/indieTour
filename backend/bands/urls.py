@@ -2,7 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.user_bands),
+    path('', views.bands_table),
     path('active/', views.get_active_band),
     path('<str:band_id>/', views.band_detail),
     path('<str:band_id>/users/', views.banduser_table),

@@ -41,9 +41,7 @@ const AddUserForm = ({ forTour, bandUsers = [] }) => {
 					fullWidth
 					options={userEmails}
 					renderInput={params => (
-						<form autoComplete='off'>
-							<TextField required {...params} label='Email' value={email} onChange={handleEmail} />
-						</form>
+						<TextField required {...params} label='Email' value={email} onChange={handleEmail} />
 					)}
 				/>
 			) : (
