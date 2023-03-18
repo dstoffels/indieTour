@@ -18,9 +18,9 @@ def band_tours(req, band_id):
         return Response(data=ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
         ser = TourSerializer(data=req.data)
-        return ser.create_tour(req, band_id)
+        return ser.create_or_update(req, band_id)
   
-@api_view([GET, PUT, DELETE])
+@api_view([GET, PUT, PATCH, DELETE])
 @permission_classes([IsAuthenticated])
 def tour_detail(req, band_id, tour_id):
     tour = get_object_or_404(Tour, id=tour_id)
@@ -29,7 +29,10 @@ def tour_detail(req, band_id, tour_id):
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == PUT:
         ser = TourSerializer(tour, data=req.data)
-        return ser.update_tour(req)
+        return ser.create_or_update(req)
+    elif req.method == PATCH:
+        ser = TourSerializer(tour, data=req.data, partial=True)
+        return ser.create_or_update(req, band_id)
     elif req.method == DELETE:
         tour.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

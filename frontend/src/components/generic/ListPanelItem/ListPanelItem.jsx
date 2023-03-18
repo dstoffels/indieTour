@@ -12,8 +12,6 @@ import {
 } from '@mui/material';
 
 const ListPanelItem = ({ onClick, icon, active, color = 'primary', children }) => {
-	const activeColor = active ? color : '';
-
 	children = (
 		<Box padding={1} width='100%'>
 			{children}
@@ -21,21 +19,17 @@ const ListPanelItem = ({ onClick, icon, active, color = 'primary', children }) =
 	);
 
 	return (
-		<>
-			<ListItem disablePadding color={activeColor}>
-				{onClick ? (
-					<ListItemButton onClick={onClick} color={activeColor}>
-						{icon && (
-							<ListItemIcon>{React.cloneElement(icon, { customProps: color })}</ListItemIcon>
-						)}
-						{children}
-					</ListItemButton>
-				) : (
-					children
-				)}
-			</ListItem>
+		<div>
+			{onClick ? (
+				<ListItemButton onClick={onClick}>
+					{icon && <ListItemIcon>{React.cloneElement(icon, { customProps: color })}</ListItemIcon>}
+					{children}
+				</ListItemButton>
+			) : (
+				children
+			)}
 			<Divider />
-		</>
+		</div>
 	);
 };
 

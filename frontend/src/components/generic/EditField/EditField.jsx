@@ -7,11 +7,14 @@ import './EditField.css';
 
 const EditField = ({
 	label,
-	initValue,
+	initValue = '',
 	name,
 	variant = 'body1',
 	canEdit = false,
 	onSubmit = async () => {},
+	children,
+	multiline,
+	fullWidth,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [error, setError] = useState(null);
@@ -53,11 +56,16 @@ const EditField = ({
 		setValue(initValue);
 	}, [initValue]);
 
+	let className = canEdit ? 'edit-field' : '';
+	className += !isEditing ? ' inactive' : '';
+
 	return (
-		<div onClick={handleClick} ref={wrapperRef} className={canEdit ? 'edit-field' : ''}>
+		<div onClick={handleClick} ref={wrapperRef} className={className}>
 			{isEditing ? (
 				<form autoComplete='new-password' onSubmit={handleSubmit}>
 					<TextField
+						multiline={multiline}
+						fullWidth={fullWidth}
 						size='small'
 						label={label}
 						autoFocus
@@ -79,7 +87,10 @@ const EditField = ({
 					/>
 				</form>
 			) : (
-				<Typography variant={variant}>{initValue}</Typography>
+				<div>
+					{children}
+					<Typography variant={variant}>{initValue}</Typography>
+				</div>
 			)}
 			<Popper anchorEl={anchor} open={Boolean(error)}>
 				<Box sx={{ backgroundColor: 'background.paper' }} padding={1}>

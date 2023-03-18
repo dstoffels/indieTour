@@ -1,5 +1,5 @@
 import { AppBar, Box, Grid, Paper, Stack, Toolbar, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Panel = ({
 	size,
@@ -10,6 +10,8 @@ const Panel = ({
 	elevation = 0,
 	padding = 0,
 }) => {
+	const [form, setForm] = useState(null);
+
 	return (
 		<Grid item xs={12} md={size} height='100%' sx={{ overflowY: 'auto' }}>
 			<Paper elevation={5 + elevation} sx={{ height: '100%', borderRadius: 0 }}>
@@ -21,7 +23,6 @@ const Panel = ({
 						</div>
 					</Toolbar>
 				</AppBar>
-				{/* {(title || actionBtn) && <Box sx={{ backgroundColor: 'black', px: 2, py: 1 }}></Box>} */}
 				<Box padding={padding}>{children}</Box>
 			</Paper>
 		</Grid>

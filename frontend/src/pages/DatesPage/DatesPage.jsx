@@ -1,6 +1,6 @@
 import { Add, AddCircle } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import ListPanel from 'components/generic/ListPanel/ListPanel.jsx';
+import Panel from 'components/generic/Panel/Panel.jsx';
 import TourSelect from 'components/nav/TourSelect/TourSelect.jsx';
 import useTour from 'hooks/useTour.js';
 import Page from 'pages/Page/Page.jsx';
@@ -16,7 +16,7 @@ const DatesPage = ({}) => {
 	return (
 		<Page select={<TourSelect />}>
 			<Page.SplitBody>
-				<ListPanel
+				<Panel
 					size={3}
 					title='Dates'
 					actionBtn={
@@ -25,7 +25,7 @@ const DatesPage = ({}) => {
 						</IconButton>
 					}
 				/>
-				<ListPanel size={9} title='date goes here' />
+				<Panel size={9} title='date goes here' />
 			</Page.SplitBody>
 		</Page>
 	);

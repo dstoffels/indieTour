@@ -17,7 +17,6 @@ class BandUserSerializer(serializers.ModelSerializer):
         if user_created:
           BandUserSerializer.send_new_user_email(banduser)
           
-        banduser.is_admin = band_user_data['is_admin']
         banduser.save()
         band_users.append(banduser)
       return band_users

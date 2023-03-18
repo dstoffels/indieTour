@@ -1,7 +1,7 @@
 import EditTourForm from 'components/forms/tour/EditTourForm/EditTourForm.jsx';
-import NewBandForm from 'components/forms/band/NewBandForm/NewBandForm.jsx';
+import NewBandFormOLD from 'components/forms/band/NewBandFormOLD/NewBandFormOLD.jsx';
 import EditBandForm from 'components/forms/band/EditBandForm/EditBandForm.jsx';
-import NewTourForm from 'components/forms/tour/NewTourForm/NewTourForm.jsx';
+import NewTourFormOLD from 'components/forms/tour/NewTourFormOLD/NewTourFormOLD.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal, setModalKey, updateFormData } from 'redux/modalSlice.js';
 
@@ -17,9 +17,9 @@ const useForm = () => {
 	};
 
 	const forms = {
-		newBand: <NewBandForm />,
+		newBand: <NewBandFormOLD />,
 		editBand: <EditBandForm />,
-		newTour: <NewTourForm />,
+		newTour: <NewTourFormOLD />,
 		editTour: <EditTourForm />,
 	};
 

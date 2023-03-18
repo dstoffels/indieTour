@@ -20,11 +20,11 @@ import uuid
 def user_bands(req):
   if req.method == GET:
     users_bands = list(chain(Band.objects.filter(owner=req.user), Band.objects.filter(banduser__user=req.user)))
-    serializer = BandSerializer(users_bands, many=True)
-    return Response(serializer.data)
+    ser = BandSerializer(users_bands, many=True)
+    return Response(ser.data)
   elif req.method == POST:
-    serializer = BandSerializer(data=req.data)
-    return serializer.create_band(req)
+    ser = BandSerializer(data=req.data)
+    return ser.create_band(req)
 
 @api_view([GET, PUT, DELETE, PATCH])
 @permission_classes([IsAuthenticated])
