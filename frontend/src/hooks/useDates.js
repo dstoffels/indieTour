@@ -29,7 +29,42 @@ const useDates = () => {
 		}
 	};
 
-	return { activeDate, setActiveDate, updateDate };
+	const deleteDate = async dateId => {
+		try {
+			await axios.delete(endpoints.dates(activeTour.band_id, activeTour.id, dateId), config);
+			fetchActiveTour();
+		} catch (error) {
+			console.error(error.response.data);
+		}
+	};
+
+	const addTimeslot = async formData => {
+		try {
+			await axios.post(
+				endpoints.timeslots(activeTour.band_id, activeTour.id, activeDate.id),
+				formData,
+				config,
+			);
+			fetchActiveTour();
+		} catch (error) {
+			console.error(error.response.data);
+		}
+	};
+
+	const updateTimeslot = async (formData, timeslotId) => {
+		try {
+			await axios.patch(
+				endpoints.timeslots(activeTour.band_id, activeTour.id, activeDate.id, timeslotId),
+				formData,
+				config,
+			);
+			fetchActiveTour();
+		} catch (error) {
+			console.error(error.response.data);
+		}
+	};
+
+	return { activeDate, setActiveDate, updateDate, deleteDate, addTimeslot, updateTimeslot };
 };
 
 export default useDates;

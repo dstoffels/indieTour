@@ -6,8 +6,9 @@ import TourDetailsPanel from 'components/tour/TourDetailsPanel/TourDetailsPanel.
 import { Grid } from '@mui/material';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 import DatesListPanel from 'components/dates/DatesListPanel/DatesListPanel.jsx';
+import useDates from 'hooks/useDates.js';
 
-const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser }) => {
+const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser, addTourDate }) => {
 	return (
 		<Panel
 			size={9}
@@ -23,7 +24,13 @@ const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser })
 				/>
 			}>
 			<Grid container spacing={1}>
-				<DatesListPanel activeTour={activeTour} size={4} elevation={-1} />
+				<DatesListPanel
+					forTour
+					activeTour={activeTour}
+					size={4}
+					elevation={-1}
+					addTourDate={addTourDate}
+				/>
 				<UserPanel
 					title='Personnel'
 					forTour

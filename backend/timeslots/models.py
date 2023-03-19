@@ -8,12 +8,12 @@ class TimeslotType(Model):
 
 class Timeslot(Model):
     id = UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
-    date = ForeignKey(Date, on_delete=DO_NOTHING)
-    description = TextField(null=True,blank=True)
+    date = ForeignKey(Date, on_delete=DO_NOTHING, related_name='schedule')
+    description = TextField(default='', blank=True)
     start_time = TimeField()
-    end_time = TimeField(null=True,blank=True)
-    start_location = TextField(null=True,blank=True)
-    end_location = TextField(null=True,blank=True)
+    end_time = TimeField(null=True, blank=True)
+    start_location = TextField(default='', blank=True)
+    end_location = TextField(default='', blank=True)
     type = ForeignKey(TimeslotType, on_delete=DO_NOTHING,null=True, blank=True)
     after_midnight = BooleanField(default=False)
 

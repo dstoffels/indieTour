@@ -16,6 +16,8 @@ const tourusers = (bandId, tourId, banduserId = '') =>
 const activeTour = (bandId, tourId = '') => tours(bandId, tourId) + 'active/';
 const dates = (bandId, tourId, dateId = '') =>
 	tours(bandId, tourId) + `dates/${dateId && dateId + '/'}`;
+const timeslots = (bandId, tourId, dateId, timeslotId = '') =>
+	dates(bandId, tourId, dateId) + `timeslots/${timeslotId && timeslotId + '/'}`;
 
 export default {
 	REGISTER_USER,
@@ -29,5 +31,6 @@ export default {
 	tourusers,
 	activeTour,
 	dates,
+	timeslots,
 	user,
 };

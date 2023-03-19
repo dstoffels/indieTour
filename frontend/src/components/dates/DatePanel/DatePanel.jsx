@@ -1,12 +1,14 @@
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useDates from 'hooks/useDates.js';
 import moment from 'moment';
 import React from 'react';
+import DateDetailsPanel from '../DateDetailsPanel/DateDetailsPanel.jsx';
+import SchedulePanel from '../SchedulePanel/SchedulePanel.jsx';
 
 const DatePanel = ({ activeTour, isAdmin }) => {
-	const { activeDate, updateDate } = useDates();
+	const { activeDate, updateDate, deleteDate } = useDates();
 
 	return activeDate ? (
 		<Panel
@@ -14,17 +16,28 @@ const DatePanel = ({ activeTour, isAdmin }) => {
 			padding={1}
 			titleEl={
 				<div>
-					<Typography>{moment(activeDate?.date).format('dddd DD MMMM YYYY')}</Typography>
+					<Typography variant='h5'>
+						{moment(activeDate?.date).format('dddd DD MMMM YYYY')}
+					</Typography>
 					<EditField
 						label='Title'
 						initValue={activeDate?.title}
 						name='title'
-						variant='h5'
+						variant='overline'
 						onSubmit={updateDate}
-						canEdit={isAdmin}
-					/>
+						canEdit={isAdmin}></EditField>
 				</div>
-			}></Panel>
+			}>
+			<Grid container spacing={1}>
+				<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
+				<DateDetailsPanel
+					activeDate={activeDate}
+					isAdmin={isAdmin}
+					updateDate={updateDate}
+					deleteDate={deleteDate}
+				/>
+			</Grid>
+		</Panel>
 	) : null;
 };
 

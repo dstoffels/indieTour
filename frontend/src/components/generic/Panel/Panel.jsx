@@ -5,6 +5,7 @@ const Panel = ({
 	size,
 	title,
 	titleEl,
+	titleVariant = 'h5',
 	actionBtn = null,
 	children,
 	elevation = 0,
@@ -18,7 +19,7 @@ const Panel = ({
 				<AppBar elevation={2 + elevation} position='relative'>
 					<Toolbar>
 						<div className='flex justify-between flex-grow align-center'>
-							{titleEl ? titleEl : <Typography variant='h5'>{title}</Typography>}
+							{titleEl ? titleEl : <Typography variant={titleVariant}>{title}</Typography>}
 							{actionBtn}
 						</div>
 					</Toolbar>

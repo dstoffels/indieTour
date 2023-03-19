@@ -2,7 +2,8 @@ import { Add, Check, Close } from '@mui/icons-material';
 import { Button, IconButton, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import useEscKey from 'hooks/useEscKey.js';
-import React, { useState } from 'react';
+import useOutsideClick from 'hooks/useOutsideClick.js';
+import React, { useEffect, useState } from 'react';
 import PanelListItem from '../PanelListItem/PanelListItem.jsx';
 
 const ButtonForm = ({
@@ -13,6 +14,8 @@ const ButtonForm = ({
 	btnText,
 	btnIcon = <Add />,
 	autoClose = true,
+	direction = 'row',
+	onOpen = () => {},
 }) => {
 	const [showForm, setShowForm] = useState(false);
 
@@ -20,17 +23,23 @@ const ButtonForm = ({
 
 	useEscKey(() => setShowForm(false));
 
+	useOutsideClick(() => setShowForm(false));
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		onSubmit(formData);
 		autoClose && setShowForm(false);
 	};
 
+	useEffect(() => {
+		onOpen();
+	}, [showForm]);
+
 	return (
 		<PanelListItem>
 			{showForm ? (
 				<form onSubmit={handleSubmit} autoComplete='off'>
-					<Stack direction='row' spacing={1} justifyContent='space-between'>
+					<Stack direction={direction} spacing={1} justifyContent='space-between'>
 						{children}
 						<Stack direction='row' alignItems='center'>
 							<IconButton color='info' variant='contained' type='submit'>

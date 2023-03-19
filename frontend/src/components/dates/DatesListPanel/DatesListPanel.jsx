@@ -4,9 +4,9 @@ import React from 'react';
 import DateListItem from '../DateListItem/DateListItem.jsx';
 import NewDateForm from '../NewDateForm/NewDateForm.jsx';
 
-const DatesListPanel = ({ size, elevation, activeTour, isAdmin, addTourDate }) => {
+const DatesListPanel = ({ size, elevation, activeTour, isAdmin, addTourDate, forTour }) => {
 	const tourdates = activeTour.dates.map((tourdate, i) => (
-		<DateListItem i={i} key={`date-${tourdate.id}`} tourdate={tourdate} />
+		<DateListItem i={i} key={`date-${tourdate.id}`} tourdate={tourdate} forTour={forTour} />
 	));
 
 	return (

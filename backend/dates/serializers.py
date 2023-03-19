@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from .models import Date
-from authentication.models import User
-from tours.models import Tour
 from rest_framework import status
 from rest_framework.response import Response
 from timeslots.serializers import TimeslotSerializer
@@ -13,7 +11,10 @@ class DateSerializer(serializers.ModelSerializer):
             date, created = Date.objects.get_or_create(tour_id=tour_id, date=date_data['date'])
             date.save(*date_data)
 
-    timeslots = TimeslotSerializer(many=True, read_only=True, source='timeslot_set')
+    timeslots = serializers.SerializerMethodField()
+
+    def get_timeslots(self, date):
+        return TimeslotSerializer(date.schedule.all().order_by('start_time'), many=True).data
 
     class Meta:
         model = Date

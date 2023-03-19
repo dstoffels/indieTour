@@ -6,7 +6,10 @@ import React, { useState } from 'react';
 const RegisterPanel = ({}) => {
 	const { register } = useAuth();
 	const defaultValues = { email: '', password: '', password2: '', username: '' };
-	const [form, handleInputChange, handleSubmit, reset] = useCustomForm(defaultValues, registerUser);
+	const { formData, handleChange, handleSubmit, reset } = useCustomForm(
+		defaultValues,
+		registerUser,
+	);
 
 	function registerUser(userInfo) {
 		register(userInfo);
@@ -19,32 +22,32 @@ const RegisterPanel = ({}) => {
 					<TextField
 						name='email'
 						type='email'
-						value={form.email}
-						onChange={handleInputChange}
+						value={formData.email}
+						onChange={handleChange}
 						label='Email'
 						required
 					/>
 					<TextField
 						name='password'
 						type='password'
-						value={form.password}
-						onChange={handleInputChange}
+						value={formData.password}
+						onChange={handleChange}
 						label='Password'
 						required
 					/>
 					<TextField
 						name='password2'
 						type='password'
-						value={form.password2}
-						onChange={handleInputChange}
+						value={formData.password2}
+						onChange={handleChange}
 						label='Confirm Password'
 						required
-						error={form.password2 !== form.password}
+						error={formData.password2 !== formData.password}
 					/>
 					<TextField
 						name='username'
-						value={form.username}
-						onChange={handleInputChange}
+						value={formData.username}
+						onChange={handleChange}
 						label='Username'
 						required
 					/>

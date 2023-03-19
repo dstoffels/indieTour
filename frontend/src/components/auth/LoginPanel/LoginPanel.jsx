@@ -8,7 +8,7 @@ import { useContext } from 'react';
 const LoginPanel = ({ onClose }) => {
 	const { login } = useAuth();
 	const defaultValues = { email: '', password: '' };
-	const [form, handleInputChange, handleSubmit, reset] = useCustomForm(defaultValues, loginUser);
+	const { formData, handleChange, handleSubmit, reset } = useCustomForm(defaultValues, loginUser);
 
 	function loginUser(data) {
 		login(data);
@@ -24,8 +24,8 @@ const LoginPanel = ({ onClose }) => {
 					type='email'
 					required
 					name='email'
-					value={form.email}
-					onChange={handleInputChange}
+					value={formData.email}
+					onChange={handleChange}
 				/>
 				<TextField
 					label='Password'
@@ -33,8 +33,8 @@ const LoginPanel = ({ onClose }) => {
 					size='small'
 					type='password'
 					required
-					value={form.password}
-					onChange={handleInputChange}
+					value={formData.password}
+					onChange={handleChange}
 				/>
 				<Button type='submit'>Login</Button>
 			</Stack>
