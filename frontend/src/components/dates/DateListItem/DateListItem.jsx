@@ -3,14 +3,18 @@ import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
 import useDates from 'hooks/useDates.js';
 import moment from 'moment';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
 import './DateListItem.css';
 
 const DateListItem = ({ tourdate, i, activetour, forTour = null }) => {
 	const { activeDate, setActiveDate, deleteDate } = useDates();
 
+	const navigate = useNavigate();
+
 	const handleClick = e => {
 		setActiveDate(i);
+		navigate('/dates');
 	};
 
 	const activeColor = tourdate.id == activeDate?.id ? 'primary' : '';
