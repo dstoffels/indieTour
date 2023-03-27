@@ -1,5 +1,5 @@
 import { AppBar, Grid, Paper, Toolbar, Typography } from '@mui/material';
-import Navbar from 'components/nav/NavBar/NavBar.jsx';
+import Navbar from 'pages/NavBar/NavBar.jsx';
 import React from 'react';
 import './Page.css';
 

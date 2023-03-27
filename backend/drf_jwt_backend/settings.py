@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'tours',
     'dates',
     'timeslots',
+    'proxy',
 ]
 
 MIDDLEWARE = [

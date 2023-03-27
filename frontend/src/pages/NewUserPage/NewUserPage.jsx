@@ -3,7 +3,7 @@ import NewUserPanel from 'components/auth/NewUserPanel/NewUserPanel.jsx';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import endpoints from 'utils/endpoints.js';
-import Page from '../Page.jsx';
+import Page from '../Page/Page.jsx';
 
 const NewUserPage = ({}) => {
 	const [tempToken, setTempToken] = useState(null);

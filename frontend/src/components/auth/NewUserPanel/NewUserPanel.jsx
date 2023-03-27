@@ -10,7 +10,7 @@ const NewUserPanel = ({ token }) => {
 	console.log(token);
 
 	const defaultValues = { password: '', password2: '', username: '' };
-	const [form, handleInputChange, handleSubmit, reset] = useCustomForm(defaultValues, updateUser);
+	const { formData, handleChange, handleSubmit, reset } = useCustomForm(defaultValues, updateUser);
 
 	async function updateUser(formData) {
 		try {
@@ -20,7 +20,7 @@ const NewUserPanel = ({ token }) => {
 				},
 			});
 
-			login({ email: response.data, password: form.password });
+			login({ email: response.data, password: formData.password });
 		} catch (error) {}
 	}
 
@@ -34,27 +34,27 @@ const NewUserPanel = ({ token }) => {
 					</Typography>
 					<TextField
 						name='username'
-						value={form.username}
-						onChange={handleInputChange}
+						value={formData.username}
+						onChange={handleChange}
 						label='Username'
 						required
 					/>
 					<TextField
 						name='password'
 						type='password'
-						value={form.password}
-						onChange={handleInputChange}
+						value={formData.password}
+						onChange={handleChange}
 						label='Password'
 						required
 					/>
 					<TextField
 						name='password2'
 						type='password'
-						value={form.password2}
-						onChange={handleInputChange}
+						value={formData.password2}
+						onChange={handleChange}
 						label='Confirm Password'
 						required
-						error={form.password2 !== form.password}
+						error={formData.password2 !== formData.password}
 					/>
 					<Button type='submit'>Register</Button>
 				</Stack>

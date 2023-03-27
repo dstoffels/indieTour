@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Toolbar } from '@mui/material';
 import UserMenu from 'menus/UserMenu/UserMenu.jsx';
-import NavLink from 'components/NavLink/NavLink.jsx';
+import NavLink from 'pages/NavLink/NavLink.jsx';
 
 const Navbar = ({ select }) => {
 	return (

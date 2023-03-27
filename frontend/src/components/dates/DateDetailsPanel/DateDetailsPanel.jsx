@@ -1,6 +1,8 @@
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
 import DangerZone from 'components/generic/DangerZone/DangerZone.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
+import LocationField from 'components/generic/LocationField/LocationField.jsx';
+import Map from 'components/generic/Map/Map.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import React from 'react';
 import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
@@ -21,7 +23,9 @@ const DateDetailsPanel = ({ activeDate, isAdmin, updateDate, deleteDate }) => {
 
 	return (
 		<Panel title='Details' size={6} elevation={-1} padding={2} actionBtn={confirmedSwitch}>
+			<LocationField label='Location' initValue={activeDate.location} canEdit={isAdmin} />
 			<EditField
+				id='places-autocomplete'
 				label='Location'
 				initValue={activeDate.location}
 				name='location'

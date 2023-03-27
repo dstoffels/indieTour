@@ -15,6 +15,7 @@ const EditField = ({
 	children,
 	multiline,
 	fullWidth,
+	id,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [error, setError] = useState(null);
@@ -64,6 +65,7 @@ const EditField = ({
 			{isEditing ? (
 				<form autoComplete='new-password' onSubmit={handleSubmit}>
 					<TextField
+						id={id}
 						multiline={multiline}
 						fullWidth={fullWidth}
 						size='small'
