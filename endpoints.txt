@@ -68,7 +68,7 @@
       /log
         GET log entries by prospect
         POST log entry to prospect
-    /logentry
+    /log_entry
       /<logentry_id>
         GET by id
         PATCH logentry
