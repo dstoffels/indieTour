@@ -1,18 +1,3 @@
-"""drf_jwt_backend URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 
@@ -22,7 +7,8 @@ urlpatterns = [
     path("api/band", include("bands.urls")),
     path("api/tour", include("tours.urls")),
     path("api/date", include("dates.urls")),  # timeslots accessed via api/date/timeslot
+    path("api/prospect", include("prospects.urls")),  # log_entries accessed via api/prospect/logentry
     path("api/contact", include("contacts.urls")),
     path("api/venue", include("venues.urls")),
-    path("gapi", include("gapi.urls")),
+    path("gapi", include("gapi.urls")),  # proxy for google apis
 ]

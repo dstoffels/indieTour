@@ -2,7 +2,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.tour_dates),
-    path('<str:date_id>/', views.tour_date_detail),
-    path('<str:date_id>/timeslots/', include('timeslots.urls')),
+    path("", views.tour_dates),
+    path("/<uuid:date_id>", views.tour_date_detail),
+    path("/<uuid:date_id>/schedule", include("timeslots.urls")),
+    path("/<uuid:date_id>/contacts", include("contacts.urls")),
+    path("/<uuid:date_id>/prospects", include("prospects.urls")),
+    path("/timeslot", include("timeslots.urls")),
 ]

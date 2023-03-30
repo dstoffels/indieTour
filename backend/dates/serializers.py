@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.response import Response
 from timeslots.serializers import TimeslotSerializer
 from venues.serializers import VenueSerializer
-from .models import Prospect, LogEntry
 
 
 class DateSerializer(serializers.ModelSerializer):
@@ -42,18 +41,3 @@ class DateSerializer(serializers.ModelSerializer):
         self.is_valid(raise_exception=True)
         self.save()
         return Response(self.data, status=status.HTTP_200_OK)
-
-
-class LogEntrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LogEntry
-        fields = "__all__"
-
-
-class ProspectSerializer(serializers.ModelSerializer):
-    venue = VenueSerializer()
-    log_entries = LogEntrySerializer(many=True)
-
-    class Meta:
-        model = Prospect
-        fields = ("id", "venue", "date", "notes", "status", "log_entries")

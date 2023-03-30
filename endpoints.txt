@@ -11,12 +11,12 @@
   /band
     POST new band
     GET bands by user
-    /active
-      POST: set active band
     /<band_id>
       GET band by id
       PATCH band
       DELETE band
+      /active
+        POST: set active band
       /tours
         GET tours by band
         POST new tour for band
@@ -27,20 +27,20 @@
           PATCH band user
           DELETE band user
   /tour
-    /active
-      POST: set active tour
     /<tour_id>
       GET tour by id
       PATCH tour
       DELETE tour
-      /dates
-        GET dates by tour
-        POST new date to tour
+      /active
+        POST: set active tour
       /users
         GET tour users
         POST new tour user
         /<banduser_id>
           DELETE tour user
+      /dates
+        GET dates by tour
+        POST new date to tour
   /date
     /<date_id>
       GET date by id
@@ -68,11 +68,11 @@
       /log
         GET log entries by prospect
         POST log entry to prospect
-  /logentry
-    /<logentry_id>
-      GET by id
-      PATCH logentry
-      DELETE logentry
+    /logentry
+      /<logentry_id>
+        GET by id
+        PATCH logentry
+        DELETE logentry
   /venue
     POST new venue
     GET all venues
@@ -80,6 +80,13 @@
       GET venue by id
       PATCH venue
       DELETE venue
+  /contact
+    POST new contact
+    GET contacts by user
+    /<contact_id>
+      GET contact by id
+      PATCH contact
+      DELETE contact
 /gapi
   /maps
     /place
