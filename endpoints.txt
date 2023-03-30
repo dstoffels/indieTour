@@ -55,11 +55,11 @@
       /prospects
         GET prospects by date
         POST new prospect venue to date
-  /timeslot
-    /<timeslot_id>
-      GET timeslot by id
-      PATCH timeslot
-      DELETE timeslot
+    /timeslot
+      /<timeslot_id>
+        GET timeslot by id
+        PATCH timeslot
+        DELETE timeslot
   /prospect
     /<prospect_id>
       GET prospect by id
@@ -68,6 +68,11 @@
       /log
         GET log entries by prospect
         POST log entry to prospect
+  /logentry
+    /<logentry_id>
+      GET by id
+      PATCH logentry
+      DELETE logentry
   /venue
     POST new venue
     GET all venues

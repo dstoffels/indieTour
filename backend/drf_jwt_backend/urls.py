@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/auth/', include('authentication.urls')),
-    path('api/bands/', include('bands.urls')),
-    path('gapi/', include('proxy.urls'))
+    path("admin", admin.site.urls),
+    path("api/auth", include("authentication.urls")),
+    path("api/band", include("bands.urls")),
+    path("api/tour", include("tours.urls")),
+    path("api/date", include("dates.urls")),  # timeslots accessed via api/date/timeslot
+    path("api/contact", include("contacts.urls")),
+    path("api/venue", include("venues.urls")),
+    path("gapi", include("gapi.urls")),
 ]
