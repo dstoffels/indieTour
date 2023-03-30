@@ -32,6 +32,7 @@ const DatePanel = ({ activeTour, isAdmin }) => {
 				<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
 				<DateDetailsPanel
 					activeDate={activeDate}
+					activeTour={activeTour}
 					isAdmin={isAdmin}
 					updateDate={updateDate}
 					deleteDate={deleteDate}

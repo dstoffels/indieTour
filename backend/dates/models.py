@@ -1,18 +1,16 @@
-import uuid
-from django.db.models import CASCADE, Model, ForeignKey, TextField, DateField, BooleanField, UUIDField
+from django.db import models
 from tours.models import Tour
+from uuid_model import  UUIDModel
 
-# Create your models here.
-class Date(Model):
-  id = UUIDField(primary_key=True, default= uuid.uuid4, editable=False)
-  tour = ForeignKey(Tour, on_delete=CASCADE, related_name='tourdates')
-  date = DateField()
-  title = TextField(default='', blank=True)
-  location = TextField(default='', blank=True)
-  notes = TextField(default='', blank=True)
-  is_show_day = BooleanField(default=False)
-  is_confirmed = BooleanField(default=False)
-  deal = TextField(null=True)
+class Date(UUIDModel):
+    date = models.DateField()
+    place_id = models.CharField(max_length=255, blank=True)
+    location = models.CharField(max_length=255, blank=True)
+    notes = models.TextField(blank=True)
+    deal = models.TextField(blank=True)
+    title = models.CharField(max_length=255, blank=True)
+    is_show_day = models.BooleanField(default=False)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tourdates')
 
-  def __str__(self) -> str:
-    return f'{self.date} {self.title} ({self.tour.name})'
+    def __str__(self):
+        return f"{self.date} - {self.title}"

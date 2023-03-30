@@ -1,13 +1,17 @@
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
+import axios from 'axios';
 import DangerZone from 'components/generic/DangerZone/DangerZone.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import LocationField from 'components/generic/LocationField/LocationField.jsx';
-import Map from 'components/generic/Map/Map.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
+import useTour from 'hooks/useTour.js';
 import React from 'react';
+import { getConfigObj } from 'redux/userSlice.js';
+import endpoints from 'utils/endpoints.js';
 import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
 
-const DateDetailsPanel = ({ activeDate, isAdmin, updateDate, deleteDate }) => {
+const DateDetailsPanel = ({ activeDate, activeTour, isAdmin, updateDate, deleteDate }) => {
+	const { fetchActiveTour } = useTour();
 	const handleSwitch = e => {
 		updateDate({ [e.target.name]: e.target.checked });
 	};
@@ -21,20 +25,25 @@ const DateDetailsPanel = ({ activeDate, isAdmin, updateDate, deleteDate }) => {
 		/>
 	);
 
+	const handleLocation = async formData => {
+		const config = getConfigObj();
+		const response = await axios.patch(
+			endpoints.dates(activeTour.band_id, activeTour.id, activeDate.id),
+			formData,
+			config,
+		);
+		await fetchActiveTour();
+	};
+
 	return (
 		<Panel title='Details' size={6} elevation={-1} padding={2} actionBtn={confirmedSwitch}>
-			<LocationField label='Location' initValue={activeDate.location} canEdit={isAdmin} />
-			<EditField
-				id='places-autocomplete'
+			<LocationField
 				label='Location'
 				initValue={activeDate.location}
-				name='location'
 				canEdit={isAdmin}
-				onSubmit={updateDate}>
-				<Typography variant='overline' color='primary'>
-					Location
-				</Typography>
-			</EditField>
+				activeDate={activeDate}
+				onSubmit={handleLocation}
+			/>
 			<EditField
 				label='Notes'
 				initValue={activeDate.notes}

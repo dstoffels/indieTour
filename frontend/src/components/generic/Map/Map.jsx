@@ -7,7 +7,6 @@ const Map = ({ data = null }) => {
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 	});
 
-	console.log(data);
 	return (
 		isLoaded &&
 		data && (

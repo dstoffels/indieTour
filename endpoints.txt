@@ -1,0 +1,90 @@
+/api
+  /auth
+    /register
+      POST (unprotected)
+    /login
+      POST (unprotected)
+    /user
+      PATCH user
+      /<user_id>
+      GET token for new user (unprotected)
+  /band
+    POST new band
+    GET bands by user
+    /active
+      POST: set active band
+    /<band_id>
+      GET band by id
+      PATCH band
+      DELETE band
+      /tours
+        GET tours by band
+        POST new tour for band
+      /users
+        POST new band user
+        GET band users
+        /<banduser_id>
+          PATCH band user
+          DELETE band user
+  /tour
+    /active
+      POST: set active tour
+    /<tour_id>
+      GET tour by id
+      PATCH tour
+      DELETE tour
+      /dates
+        GET dates by tour
+        POST new date to tour
+      /users
+        GET tour users
+        POST new tour user
+        /<banduser_id>
+          DELETE tour user
+  /date
+    /<date_id>
+      GET date by id
+      PATCH date
+      DELETE date
+      /schedule
+        GET timeslots by date
+        POST new timeslot to date
+      /contacts
+        GET contacts by date and prospect venue
+        POST new date contacts
+      /prospects
+        GET prospects by date
+        POST new prospect venue to date
+  /timeslot
+    /<timeslot_id>
+      GET timeslot by id
+      PATCH timeslot
+      DELETE timeslot
+  /prospect
+    /<prospect_id>
+      GET prospect by id
+      PATCH prospect
+      DELETE prospect
+      /log
+        GET log entries by prospect
+        POST log entry to prospect
+  /venue
+    POST new venue
+    GET all venues
+    /<venue_id>
+      GET venue by id
+      PATCH venue
+      DELETE venue
+/gapi
+  /maps
+    /place
+      /autocomplete
+        GET [key, query]
+      /findplacefromtext
+        GET [key, query]
+    
+
+
+
+
+

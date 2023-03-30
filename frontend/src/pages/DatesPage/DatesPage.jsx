@@ -11,7 +11,7 @@ const DatesPage = ({ activeTour, addTourDate, isAdmin, isOwner }) => {
 		<Page select={<TourSelect />}>
 			<Page.SplitBody>
 				<DatesListPanel addTourDate={addTourDate} activeTour={activeTour} size={3} />
-				<DatePanel isAdmin={isAdmin} />
+				<DatePanel isAdmin={isAdmin} activeTour={activeTour} />
 			</Page.SplitBody>
 		</Page>
 	);
