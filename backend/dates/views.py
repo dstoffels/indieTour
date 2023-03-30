@@ -9,9 +9,10 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from .serializers import DateSerializer, Date
 
+
 @api_view([POST, GET])
 @permission_classes([IsAuthenticated])
-def tour_dates(req, band_id, tour_id):
+def tour_dates(req, tour_id):
     if req.method == GET:
         dates = Date.objects.filter(tour_id=tour_id)
         ser = DateSerializer(dates, many=True)
@@ -20,9 +21,10 @@ def tour_dates(req, band_id, tour_id):
         ser = DateSerializer(data=req.data)
         return ser.create_date(req, tour_id)
 
+
 @api_view([GET, PATCH, DELETE])
-@permission_classes([IsAuthenticated])    
-def tour_date_detail(req, band_id, tour_id, date_id):
+@permission_classes([IsAuthenticated])
+def tour_date_detail(req, date_id):
     date = get_object_or_404(Date, id=date_id)
     if req.method == GET:
         ser = DateSerializer(date)

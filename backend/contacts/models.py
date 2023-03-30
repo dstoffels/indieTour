@@ -1,8 +1,8 @@
 from django.db import models
-from uuid import uuid4
+from uuid_model import UUIDModel
 
-class Contact(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+
+class Contact(UUIDModel):
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=20, blank=True)
     email = models.CharField(max_length=255, blank=True)

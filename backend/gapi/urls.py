@@ -2,6 +2,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('places/', views.places),
-    path('places/autocomplete/', views.autocomplete),
+    path("/maps/place/findplacefromtext", views.places),
+    path("/maps/place/autocomplete", views.autocomplete),
 ]

@@ -46,7 +46,7 @@ def prospect_log(req, prospect_id):
 @api_view([GET, PATCH, DELETE])
 @permission_classes([IsAuthenticated])
 def log_entry_detail(req, log_entry_id):
-    log_entry = get_object_or_404(LogEntry, id=prospect_id)
+    log_entry = get_object_or_404(LogEntry, id=log_entry_id)
     if req.method == GET:
         pass
     elif req.method == PATCH:
