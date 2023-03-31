@@ -37,11 +37,13 @@
       /users
         GET tour users
         POST new tour user
-        /<banduser_id>
-          DELETE tour user
       /dates
         GET dates by tour
         POST new date to tour
+      /user
+        /<touruser_id>
+          DELETE tour user
+
   /date
     /<date_id>
       GET date by id
@@ -101,7 +103,7 @@
       /autocomplete
         GET [key, query]
       /findplacefromtext
-        GET [key, query]
+        GET [key, input]
       /details
         GET  [key, place_id]
     
