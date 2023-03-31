@@ -10,29 +10,46 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('dates', '0001_initial'),
+        ("dates", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TimeslotType',
+            name="TimeslotType",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=255, unique=True)),
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=255, unique=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="authentication.user",
+                        null=True,
+                        related_name="user_timeslot_types",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Timeslot',
+            name="Timeslot",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('start_time', models.TimeField()),
-                ('end_time', models.TimeField(blank=True, null=True)),
-                ('start_location', models.TextField(blank=True, null=True)),
-                ('end_location', models.TextField(blank=True, null=True)),
-                ('after_midnight', models.BooleanField(default=False)),
-                ('date', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='dates.date')),
-                ('type', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='timeslots.timeslottype')),
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("description", models.TextField(blank=True, null=True)),
+                ("start_time", models.TimeField()),
+                ("end_time", models.TimeField(blank=True, null=True)),
+                ("start_location", models.TextField(blank=True, null=True)),
+                ("end_location", models.TextField(blank=True, null=True)),
+                ("after_midnight", models.BooleanField(default=False)),
+                ("date", models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to="dates.date")),
+                (
+                    "type",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="timeslots.timeslottype",
+                    ),
+                ),
             ],
         ),
     ]

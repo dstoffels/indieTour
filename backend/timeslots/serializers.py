@@ -7,20 +7,15 @@ from .models import Timeslot, TimeslotType
 class TimeslotTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimeslotType
-        fields = "__all__"
+        exclude = ["user"]
 
 
 class TimeslotSerializer(serializers.ModelSerializer):
-    types = serializers.SerializerMethodField()
-
-    def get_types(self, timeslot):
-        types = TimeslotType.objects.all()
-        return TimeslotTypeSerializer(types, many=True).data
-
     class Meta:
         model = Timeslot
-        fields = "__all__"
+        exclude = ["date"]
 
+    type_id = serializers.IntegerField(write_only=True)
     type = serializers.SerializerMethodField()
 
     def get_type(self, timeslot):
@@ -35,3 +30,10 @@ class TimeslotSerializer(serializers.ModelSerializer):
         self.is_valid(raise_exception=True)
         self.save()
         return Response(self.data, status=status.HTTP_200_OK)
+
+    types = serializers.SerializerMethodField()
+    date_id = serializers.CharField(source="date.id")
+
+    def get_types(self, timeslot):
+        types = TimeslotType.objects.all()
+        return TimeslotTypeSerializer(types, many=True).data

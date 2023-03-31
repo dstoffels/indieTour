@@ -94,6 +94,8 @@
         GET [key, query]
       /findplacefromtext
         GET [key, query]
+      /details
+        GET  [key, place_id]
     
 
 
