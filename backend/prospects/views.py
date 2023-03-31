@@ -12,11 +12,13 @@ from .serializers import ProspectSerializer, LogEntrySerializer
 
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated])
-def prospect_log(req, date_id):
+def date_prospects(req, date_id):
     if req.method == GET:
-        pass
+        date_prospects = Prospect.objects.filter(date_id=date_id)
+        ser = ProspectSerializer(date_prospects, many=True)
+        return Response(ser.data)
     elif req.method == POST:
-        pass
+        return ProspectSerializer.create_or_update(req, date_id)
     return Response("prospects table")
 
 
@@ -25,22 +27,30 @@ def prospect_log(req, date_id):
 def prospect_detail(req, prospect_id):
     prospect = get_object_or_404(Prospect, id=prospect_id)
     if req.method == GET:
-        pass
+        ser = ProspectSerializer(prospect)
+        return Response(ser.data)
     elif req.method == PATCH:
-        pass
+        ser = ProspectSerializer(prospect, data=req.data, partial=True)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(ser.data)
     elif req.method == DELETE:
-        pass
-    return Response("prospect detail")
+        prospect.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated])
 def prospect_log(req, prospect_id):
     if req.method == GET:
-        pass
+        log_entries = LogEntry.objects.filter(prospect_id=prospect_id)
+        ser = LogEntrySerializer(log_entries, many=True)
+        return Response(ser.data)
     elif req.method == POST:
-        pass
-    return Response("prospect log")
+        ser = LogEntrySerializer(data=req.data)
+        ser.is_valid(raise_exception=True)
+        ser.save(prospect_id=prospect_id)
+        return Response(ser.data)
 
 
 @api_view([GET, PATCH, DELETE])
@@ -48,9 +58,13 @@ def prospect_log(req, prospect_id):
 def log_entry_detail(req, log_entry_id):
     log_entry = get_object_or_404(LogEntry, id=log_entry_id)
     if req.method == GET:
-        pass
+        ser = LogEntrySerializer(log_entry)
+        return Response(ser.data)
     elif req.method == PATCH:
-        pass
+        ser = LogEntrySerializer(log_entry, data=req.data, partial=True)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(ser.data)
     elif req.method == DELETE:
-        pass
-    return Response("log entry detail")
+        log_entry.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

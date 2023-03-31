@@ -6,17 +6,25 @@ from django.shortcuts import get_object_or_404
 from constants import *
 from authentication.models import User
 from django.core.mail import send_mail
-from .serializers import ContactSerializer, Contact
+from .serializers import (
+    ContactSerializer,
+    Contact,
+    ContactMethodSerializer,
+    ContactMethod,
+    DateContactSerializer,
+    DateContact,
+)
 
 
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated])
-def contacts_table(req):
+def date_contacts(req, date_id):
     if req.method == GET:
-        pass
+        date_contacts = DateContact.objects.filter(date_id=date_id)
+        ser = DateContactSerializer(date_contacts, many=True)
+        return Response(ser.data)
     elif req.method == POST:
-        pass
-    return Response("contacts table")
+        return DateContactSerializer.create_or_update(req, date_id)
 
 
 @api_view([GET, PATCH, DELETE])
@@ -24,9 +32,40 @@ def contacts_table(req):
 def contact_detail(req, contact_id):
     contact = get_object_or_404(Contact, id=contact_id)
     if req.method == GET:
-        pass
+        ser = ContactSerializer(contact)
+        return Response(ser.data)
     elif req.method == PATCH:
-        pass
+        ser = ContactSerializer(contact, data=req.data, partial=True)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(ser.data)
     elif req.method == DELETE:
-        pass
-    return Response("contact detail")
+        contact.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view([POST])
+@permission_classes([IsAuthenticated])
+def methods_table(req, contact_id):
+    ContactMethod.objects.create(**req.data, contact_id=contact_id)
+    contact = get_object_or_404(Contact, id=contact_id)
+    ser = ContactSerializer(contact)
+    return Response(ser.data)
+
+
+@api_view([GET, PATCH, DELETE])
+@permission_classes([IsAuthenticated])
+def method_detail(req, method_id):
+    contact_method = get_object_or_404(ContactMethod, id=method_id)
+    contact = get_object_or_404(Contact, id=contact_method.contact.id)
+    contact_ser = ContactSerializer(contact)
+    if req.method == GET:
+        return Response(ContactMethodSerializer(contact_method).data)
+    elif req.method == PATCH:
+        ser = ContactMethodSerializer(contact_method, data=req.data)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(contact_ser.data)
+    elif req.method == DELETE:
+        contact_method.delete()
+        return Response(contact_ser.data)

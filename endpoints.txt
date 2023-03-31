@@ -23,9 +23,10 @@
       /users
         POST new band user
         GET band users
-        /<banduser_id>
-          PATCH band user
-          DELETE band user
+    /user
+      /<banduser_id>
+        PATCH band user
+        DELETE band user
   /tour
     /<tour_id>
       GET tour by id
@@ -87,6 +88,13 @@
       GET contact by id
       PATCH contact
       DELETE contact
+      /methods
+        POST new method
+    /method
+      /<method_id>
+        GET method by id
+        PATCH method
+        DELETE method
 /gapi
   /maps
     /place

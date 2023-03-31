@@ -7,6 +7,6 @@ urlpatterns = [
     path("/<uuid:band_id>", views.band_detail),
     path("/<uuid:band_id>/active", views.set_active_band),
     path("/<uuid:band_id>/users", views.banduser_table),
-    path("/<uuid:band_id>/users/<uuid:banduser_id>", views.banduser_detail),
+    path("/user/<uuid:banduser_id>", views.banduser_detail),
     path("/<uuid:band_id>/tours", include("tours.urls")),
 ]

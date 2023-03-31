@@ -2,16 +2,17 @@ from django.db import models
 from uuid_model import UUIDModel
 
 
-class StatusType(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
 class Prospect(UUIDModel):
+    STATUS_CHOICES = [
+        ("UNCONFIRMED", "UNCONFIRMED"),
+        ("INQUIRY SENT", "INQUIRY SENT"),
+        ("UNAVAILABLE", "UNAVAILABLE"),
+        ("OFFER RECEIVED", "OFFER RECEIVED"),
+        ("CONFIRMED", "CONFIRMED"),
+    ]
+
     notes = models.TextField(blank=True)
-    status = models.ForeignKey(StatusType, on_delete=models.PROTECT)
+    status = models.CharField(choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0], max_length=50)
     date = models.ForeignKey("dates.Date", on_delete=models.CASCADE)
     venue = models.ForeignKey("venues.Venue", on_delete=models.CASCADE)
 

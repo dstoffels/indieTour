@@ -7,7 +7,6 @@ from constants import *
 from django.core.mail import send_mail
 from django.db.models import Q
 from .serializers import TimeslotSerializer, Timeslot
-from .models import TimeslotType
 
 
 @api_view([POST, GET])
@@ -35,17 +34,3 @@ def timeslot_detail(req, timeslot_id):
     elif req.method == DELETE:
         timeslot.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-@api_view([GET, POST])
-@permission_classes([AllowAny])
-def timeslot_types(req, band_id, tour_id, date_id):
-    if req.method == GET:
-        types = TimeslotType.objects.all()
-        names = [type.name for type in types]
-        print(names)
-        return Response(names)
-
-    elif req.method == POST:
-        new_type = TimeslotType.objects.create(name=req.data)
-        return Response(new_type.name)

@@ -13,20 +13,19 @@ from authentication.models import User
 from uuid_model import UUIDModel
 
 
-class TimeslotType(Model):
-    name = CharField(max_length=255, unique=True)
-    user = ForeignKey(User, on_delete=CASCADE, null=True, blank=True, related_name="user_timeslot_types")
-
-    def __str__(self) -> str:
-        return self.name
-
-
 class Timeslot(UUIDModel):
+    TYPES = [
+        ("Event", "Event"),
+        ("Drive", "Drive"),
+        ("Flight", "Flight"),
+        ("Meeting", "Meeting"),
+    ]
+
     date = ForeignKey(Date, on_delete=DO_NOTHING, related_name="schedule")
     description = TextField(default="", blank=True)
     start_time = TimeField()
     end_time = TimeField(null=True, blank=True)
     start_location = TextField(default="", blank=True)
     end_location = TextField(default="", blank=True)
-    type = ForeignKey(TimeslotType, on_delete=DO_NOTHING, null=True)
+    type = CharField(max_length=25, choices=TYPES, blank=True)
     after_midnight = BooleanField(default=False)

@@ -9,24 +9,24 @@ from .band_user_serializer import BandUserSerializer
 
 # BAND SERIALIZER
 class BandSerializer(serializers.ModelSerializer):
-    tours = TourSerializer(many=True, required=False, read_only=True, source='tour_set')
-    users = BandUserSerializer(many=True, read_only=True, source='banduser_set')
+    # tours = TourSerializer(many=True, required=False, read_only=True, source='tour_set')
+    # users = BandUserSerializer(many=True, read_only=True, source='banduser_set')
     owner = UserSerializer(read_only=True)
 
     class Meta:
         model = Band
-        fields = ['id', 'name', 'owner', 'tours', 'users']
         depth = 1
+        exclude = ["users"]
 
     def create_band(self, req):
         self.is_valid(raise_exception=True)
         self.save(owner=req.user)
         req.user.active_band_id = self.instance.id
         req.user.save()
-        
+
         return Response(self.data, status=status.HTTP_201_CREATED)
-    
+
     def update_band(self, req):
-       self.is_valid(raise_exception=True)
-       self.save()
-       return Response(self.data, status=status.HTTP_200_OK)
+        self.is_valid(raise_exception=True)
+        self.save()
+        return Response(self.data, status=status.HTTP_200_OK)

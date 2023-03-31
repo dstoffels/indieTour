@@ -1,19 +1,35 @@
 from rest_framework import serializers
 from rest_framework.response import Response
-from venues.serializers import VenueSerializer
+from venues.serializers import VenueSerializer, Venue
 from .models import Prospect, LogEntry
 
 
 class LogEntrySerializer(serializers.ModelSerializer):
+    prospect_id = serializers.CharField(read_only=True)
+
     class Meta:
         model = LogEntry
-        fields = "__all__"
+        exclude = ["prospect"]
 
 
 class ProspectSerializer(serializers.ModelSerializer):
-    venue = VenueSerializer()
-    log_entries = LogEntrySerializer(many=True)
-
     class Meta:
         model = Prospect
-        fields = ("id", "venue", "date", "notes", "status", "log_entries")
+        exclude = ["date"]
+
+    venue = VenueSerializer()
+    log_entries = LogEntrySerializer(many=True, read_only=True)
+    date_id = serializers.CharField(source="date.id", read_only=True)
+    status_choices = serializers.SerializerMethodField()
+
+    def get_status_choices(self, prospect):
+        return map(lambda s: s[0], Prospect.STATUS_CHOICES)
+
+    @staticmethod
+    def create_or_update(req, date_id):
+        venue, created = Venue.objects.get_or_create(**req.data.get("venue"), creator=req.user)
+
+        prospect = Prospect.objects.create(date_id=date_id, venue=venue, notes=req.data["notes"])
+
+        ser = ProspectSerializer(prospect)
+        return Response(ser.data)
