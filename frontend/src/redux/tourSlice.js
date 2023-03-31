@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import endpoints from 'utils/endpoints.js';
 import { fetchActiveBandThunk } from './bandSlice.js';
-import { getConfigObj } from './userSlice.js';
+
+const config = '';
 
 const activeTour = createSlice({
 	name: 'activeTour',
@@ -20,7 +21,7 @@ export const fetchActiveTourThunk = createAsyncThunk(
 	'activeTour/GET',
 	async (_, { dispatch, getState }) => {
 		try {
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const { activeBand } = getState();
 			const response = activeBand
 				? await axios.get(endpoints.activeTour(activeBand.id), config)
@@ -41,7 +42,7 @@ export const setActiveTourThunk = createAsyncThunk(
 
 			tourId = tourId ? tourId : activeBand.tours[0].id;
 
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const response = await axios.post(endpoints.activeTour(activeBand.id, tourId), {}, config);
 			dispatch(setTour(response.data));
 		} catch (error) {
@@ -56,7 +57,7 @@ export const createTourThunk = createAsyncThunk(
 	async (formData, { dispatch, getState }) => {
 		try {
 			const { activeBand } = getState();
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const response = await axios.post(endpoints.tours(activeBand.id), formData, config);
 			dispatch(setActiveTourThunk(response.data.id));
 		} catch (error) {
@@ -71,7 +72,7 @@ export const editTourThunk = createAsyncThunk(
 	async (formData, { dispatch, getState }) => {
 		try {
 			const { activeBand } = getState();
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const response = await axios.put(
 				endpoints.tours(activeBand.id, formData.id),
 				formData,
@@ -91,7 +92,7 @@ export const deleteTourThunk = createAsyncThunk(
 	async (tourId, { dispatch, getState }) => {
 		try {
 			const { activeBand } = getState();
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const response = await axios.delete(endpoints.tours(activeBand.id, tourId), config);
 			dispatch(setActiveTourThunk(null));
 			dispatch(fetchActiveBandThunk());

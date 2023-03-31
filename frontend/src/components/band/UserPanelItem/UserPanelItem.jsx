@@ -4,34 +4,29 @@ import axios from 'axios';
 import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
 import useAuth from 'hooks/useAuth.js';
 import useBand from 'hooks/useBand.js';
+import useAPI from 'hooks/useAPI.js';
 import useTour from 'hooks/useTour.js';
 import React from 'react';
-import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from 'utils/endpoints.js';
 
 const UserPanelItem = ({ banduser, forTour = false }) => {
 	const { isAdmin, isOwner, activeBand, fetchActiveBand } = useBand();
 	const { activeTour } = useTour();
 	const { user } = useAuth();
+	const api = useAPI();
 
 	const handleAdmin = async e => {
-		const config = getConfigObj();
-		await axios.patch(
-			endpoints.bandusers(activeBand.id, banduser.banduser_id),
-			{ is_admin: e.target.checked },
-			config,
-		);
+		await api.band.user.detail.patch(banduser.banduser_id, { is_admin: e.target.checked });
+		// TODO: need to sort whether endpoint returns updated banduser list or if called from frontend
 		fetchActiveBand();
 	};
 
 	const handleDeleteUser = async e => {
-		const config = getConfigObj();
-
 		const url = forTour
-			? endpoints.tourusers(activeBand.id, activeTour.id, banduser.banduser_id)
-			: endpoints.bandusers(activeBand.id, banduser.banduser_id);
+			? await api.tour.user.detail.delete(banduser.id)
+			: await api.band.user.detail.delete(banduser.id);
 
-		await axios.delete(url, config);
+		// TODO: need to sort whether endpoint returns updated banduser list or if called from frontend
 		fetchActiveBand();
 	};
 

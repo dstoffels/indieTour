@@ -1,13 +1,12 @@
 import axios from 'axios';
 import useBand from 'hooks/useBand.js';
 import React from 'react';
-import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from './endpoints.js';
 
 const withActiveBand = Component => props => {
 	const { activeBand, setActiveband, fetchActiveBand, isOwner, isAdmin } = useBand();
 
-	const config = getConfigObj();
+	const config = '';
 
 	const updateBand = async formData => {
 		try {
@@ -27,20 +26,7 @@ const withActiveBand = Component => props => {
 		}
 	};
 
-	return activeBand ? (
-		<Component
-			{...props}
-			activeBand={activeBand}
-			setActiveband={setActiveband}
-			fetchActiveBand={fetchActiveBand}
-			isOwner={isOwner}
-			isAdmin={isAdmin}
-			updateBand={updateBand}
-			addBandUser={addBandUser}
-		/>
-	) : (
-		<div></div>
-	);
+	return activeBand ? <Component {...props} /> : <div></div>;
 };
 
 export default withActiveBand;

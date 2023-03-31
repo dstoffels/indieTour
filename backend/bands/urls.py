@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path("", views.bands_table),
-    path("/active", views.get_active_band),
+    path("/active", views.user_active_band),
     path("/<uuid:band_id>", views.band_detail),
     path("/<uuid:band_id>/active", views.set_active_band),
     path("/<uuid:band_id>/users", views.banduser_table),

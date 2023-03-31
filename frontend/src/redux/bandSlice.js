@@ -1,9 +1,10 @@
 import axios from 'axios';
 import endpoints from 'utils/endpoints.js';
-import { getConfigObj } from './userSlice.js';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchActiveTourThunk, setActiveTourThunk } from './tourSlice.js';
 import { fetchUserBandsThunk } from './userBandSlice.js';
+
+const config = '';
 
 const activeBand = createSlice({
 	name: 'activeBand',
@@ -20,7 +21,7 @@ const { setBand } = activeBand.actions;
 
 export const fetchActiveBandThunk = createAsyncThunk('activeBand/GET', async (_, { dispatch }) => {
 	try {
-		const config = getConfigObj();
+		// const config = getConfigObj();
 		const response = await axios.get(endpoints.activeBand(), config);
 		dispatch(setBand(response.data));
 		dispatch(fetchActiveTourThunk(response.data.id));
@@ -33,7 +34,7 @@ export const setActiveBandThunk = createAsyncThunk(
 	'activeBand/SET',
 	async (bandId, { dispatch }) => {
 		try {
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const response = await axios.post(endpoints.activeBand(bandId), {}, config);
 			dispatch(setBand(response.data));
 			dispatch(setActiveTourThunk());
@@ -47,7 +48,7 @@ export const createNewBandThunk = createAsyncThunk(
 	'band/CREATE',
 	async (bandData, { dispatch }) => {
 		try {
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const response = await axios.post(endpoints.bands(), bandData, config);
 			dispatch(fetchUserBandsThunk());
 			dispatch(setActiveBandThunk(response.data.id));
@@ -61,7 +62,7 @@ export const editBandThunk = createAsyncThunk(
 	'band/UPDATE',
 	async (bandData, { dispatch, getState }) => {
 		try {
-			const config = getConfigObj();
+			// const config = getConfigObj();
 			const { activeBand } = getState();
 
 			const response = await axios.put(endpoints.bands(activeBand.id), bandData, config);
@@ -75,7 +76,7 @@ export const editBandThunk = createAsyncThunk(
 
 export const deleteBandThunk = createAsyncThunk('band/DELETE', async (bandId, { dispatch }) => {
 	try {
-		const config = getConfigObj();
+		// const config = getConfigObj();
 
 		const response = await axios.delete(endpoints.bands(bandId), config);
 		dispatch(fetchUserBandsThunk());

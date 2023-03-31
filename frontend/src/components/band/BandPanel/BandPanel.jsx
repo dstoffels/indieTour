@@ -21,7 +21,8 @@ const BandPanel = ({ activeBand, isAdmin, isOwner, updateBand, addBandUser }) =>
 					onSubmit={updateBand}
 					canEdit={isAdmin}
 				/>
-			}>
+			}
+		>
 			<Grid container spacing={1}>
 				<ToursListPanel activeBand={activeBand} size={4} elevation={-1} />
 				<UserPanel

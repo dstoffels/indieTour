@@ -55,25 +55,29 @@ def band_detail(req, band_id):
 @api_view([POST])
 @permission_classes([IsAuthenticated])
 def set_active_band(req, band_id):
-    user = get_object_or_404(User, id=req.user.id)
-    band = get_object_or_404(Band, id=band_id)
-    band_tours = Tour.objects.filter(band_id=band_id)
-    user.active_tour = band_tours[len(band_tours) - 1] if len(band_tours) > 0 else None
-    user.active_band = band
-    user.save()
-    ser = BandSerializer(band)
-    return Response(ser.data, status=status.HTTP_200_OK)
+    pass
 
 
-@api_view([GET])
+@api_view([GET, POST])
 @permission_classes([IsAuthenticated])
-def get_active_band(req):
-    user = get_object_or_404(User, id=req.user.id)
-    data = None
-    if user.active_band:
-        ser = BandSerializer(user.active_band)
-        data = ser.data
-    return Response(data, status=status.HTTP_200_OK)
+def user_active_band(req):
+    if req.method == POST:
+        user = get_object_or_404(User, id=req.user.id)
+        band_id = req.data["band_id"]
+        band = get_object_or_404(Band, id=band_id)
+        band_tours = Tour.objects.filter(band_id=band_id)
+        user.active_tour = band_tours[len(band_tours) - 1] if len(band_tours) > 0 else None
+        user.active_band = band
+        user.save()
+        ser = BandSerializer(band)
+        return Response(ser.data, status=status.HTTP_200_OK)
+    elif req.method == GET:
+        user = get_object_or_404(User, id=req.user.id)
+        data = None
+        if user.active_band:
+            ser = BandSerializer(user.active_band)
+            data = ser.data
+        return Response(data, status=status.HTTP_200_OK)
 
 
 @api_view([GET, POST])
@@ -84,8 +88,8 @@ def banduser_table(req, band_id):
         ser = BandUserSerializer(bandusers, many=True)
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
-        bandusers = BandUserSerializer.create_or_update([req.data], band_id)
-        ser = BandUserSerializer(bandusers[0])
+        banduser = BandUserSerializer.create_or_update(req, band_id)
+        ser = BandUserSerializer(banduser)
         return Response(ser.data, status=status.HTTP_201_CREATED)
 
 

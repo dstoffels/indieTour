@@ -40,23 +40,21 @@ def tour_detail(req, tour_id):
 # ACTIVE TOUR #
 
 
-@api_view([POST])
+@api_view([POST, GET])
 @permission_classes([IsAuthenticated])
-def set_active_tour(req, tour_id):
-    user = get_object_or_404(User, id=req.user.id)
-    tour = get_object_or_404(Tour, id=tour_id)
-    user.active_tour = tour
-    user.save()
-    ser = TourSerializer(tour)
-    return Response(ser.data, status=status.HTTP_200_OK)
-
-
-@api_view([GET])
-@permission_classes([IsAuthenticated])
-def get_active_tour(req):
-    user = get_object_or_404(User, id=req.user.id)
-    data = TourSerializer(user.active_tour).data if user.active_tour else None
-    return Response(data, status=status.HTTP_200_OK)
+def user_active_tour(req):
+    if req.method == POST:
+        tour_id = req.data["tour_id"]
+        user = get_object_or_404(User, id=req.user.id)
+        tour = get_object_or_404(Tour, id=tour_id)
+        user.active_tour = tour
+        user.save()
+        ser = TourSerializer(tour)
+        return Response(ser.data, status=status.HTTP_200_OK)
+    elif req.method == GET:
+        user = get_object_or_404(User, id=req.user.id)
+        data = TourSerializer(user.active_tour).data if user.active_tour else None
+        return Response(data, status=status.HTTP_200_OK)
 
 
 # TOUR USERS
@@ -67,13 +65,14 @@ def get_active_tour(req):
 def touruser_table(req, tour_id):
     tour = get_object_or_404(Tour, id=tour_id)
     if req.method == GET:
-        tourusers = tour.users.all()
+        tourusers = TourUser.objects.filter(tour_id=tour_id)
+        for user in tourusers:
+            print(user)
         ser = TourUserSerializer(tourusers, many=True)
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
-        tourusers = BandUserSerializer.create_or_update([req.data], tour.band_id)
-        tour.users.add(*tourusers)
-        ser = BandUserSerializer(tour.users, many=True)
+        touruser = TourUserSerializer.create_or_update(req, tour_id)
+        ser = TourUserSerializer(touruser)
         return Response(ser.data, status=status.HTTP_201_CREATED)
 
 

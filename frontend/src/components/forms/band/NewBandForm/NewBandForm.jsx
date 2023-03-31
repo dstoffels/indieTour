@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import axios from 'axios';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
 import useBand from 'hooks/useBand.js';
-import useRequests from 'hooks/useRequests.js';
+import useAPI from 'hooks/useAPI.js';
 import React, { useState } from 'react';
 import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from 'utils/endpoints.js';
@@ -10,7 +10,7 @@ import endpoints from 'utils/endpoints.js';
 const NewBandForm = ({ onPost }) => {
 	const [name, setName] = useState('');
 
-	const requests = useRequests();
+	const requests = useAPI();
 
 	const handleName = e => setName(e.target.value);
 

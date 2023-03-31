@@ -6,23 +6,34 @@ from dates.serializers import DateSerializer
 from dates.models import Date
 from rest_framework import status
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 
 class TourUserSerializer(serializers.ModelSerializer):
+    banduser = BandUserSerializer()
+    tour_id = serializers.CharField(source="tour.id")
+
     class Meta:
         model = TourUser
-        fields = "__all__"
-        # fields = ['id', 'user', "is_admin"]
+        exclude = ["tour"]
+
+    @staticmethod
+    def create_or_update(req, tour_id):
+        tour = get_object_or_404(Tour, id=tour_id)
+        banduser = BandUserSerializer.create_or_update(req, tour.band.id)
+
+        touruser, created = TourUser.objects.get_or_create(banduser=banduser, tour=tour)
+        touruser.save()
+        return touruser
 
 
 class TourSerializer(serializers.ModelSerializer):
-    dates = serializers.SerializerMethodField()
-    users = BandUserSerializer(many=True, read_only=True)
+    # dates = serializers.SerializerMethodField()
+    # users = TourUserSerializer(many=True, read_only=True)
 
     class Meta:
         model = Tour
-        fields = ["id", "name", "notes", "is_archived", "users", "dates", "band_id"]
-        depth = 1
+        exclude = ["band", "users"]
 
     def has_valid_name(self, band_id):
         name = self.validated_data.get("name", False)

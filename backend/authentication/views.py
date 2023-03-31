@@ -13,7 +13,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
-# User = get_user_model()
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -26,17 +25,19 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegistrationSerializer
 
     def post(self, request, *args, **kwargs):
-        subject = 'Welcome to indietour!'
+        subject = "Welcome to indietour!"
         message = f"Hello {request.data['username']}, thank you for signing up for indietour."
         email_from = settings.EMAIL_HOST_USER
-        recipients = [request.data['email']]
-        send_mail( subject, message, email_from, recipients)
+        recipients = [request.data["email"]]
+        send_mail(subject, message, email_from, recipients)
         return super().post(request, *args, **kwargs)
+
 
 @api_view([GET])
 def all_users(req):
     users = User.objects.all()
     return Response(UserSerializer(users, many=True).data)
+
 
 @api_view([GET])
 def new_user(req, uid):
@@ -46,17 +47,18 @@ def new_user(req, uid):
     refresh = RefreshToken.for_user(user)
     return Response(str(refresh.access_token), status=status.HTTP_200_OK)
 
+
 @api_view([PATCH])
 @permission_classes([IsAuthenticated])
 def update_user(req):
     user = get_object_or_404(User, id=req.user.id)
-    if req.data.get('password', False) and not user.password:
-        user.set_password(req.data['password'])
+    if req.data.get("password", False) and not user.password:
+        user.set_password(req.data["password"])
         user.save()
-        
-    if req.data.get('old_pw', False):
-        old_pw = req.data['old_pw']
-        new_pw = req.data['new_pw']
+
+    if req.data.get("old_pw", False):
+        old_pw = req.data["old_pw"]
+        new_pw = req.data["new_pw"]
         if user.check_password(old_pw):
             user.set_password(new_pw)
         else:

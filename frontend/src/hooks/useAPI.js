@@ -16,7 +16,7 @@ const PROSPECT = `${API}/prospect`;
 const VENUE = `${API}/venue`;
 const CONTACT = `${API}/contact`;
 
-const useRequests = () => {
+const useAPI = () => {
 	const config = useJWT();
 
 	const get = async url => {
@@ -70,13 +70,14 @@ const useRequests = () => {
 		band: {
 			post: async body => await post(BAND, body),
 			get_all: async () => await get(BAND),
+			active: {
+				post: async band_id => await post(`${BAND}/active`, { band_id }),
+				get: async () => await get(`${BAND}/active`),
+			},
 			detail: {
 				get: async band_id => await get(`${BAND}/${band_id}`),
 				patch: async (band_id, body) => await patch(`${BAND}/${band_id}`, body),
 				delete: async band_id => await deleteRequest(`${BAND}/${band_id}`),
-				active: {
-					post: async band_id => await post(`${BAND}/${band_id}/active`),
-				},
 				tours: {
 					post: async (band_id, body) => await post(`${BAND}/${band_id}/tours`, body),
 					get: async band_id => await get(`${BAND}/${band_id}/tours`),
@@ -95,13 +96,14 @@ const useRequests = () => {
 		},
 
 		tour: {
+			active: {
+				post: async tour_id => await post(`${TOUR}/active`, { tour_id }),
+				get: async () => await get(`${TOUR}/active`),
+			},
 			detail: {
 				get: async tour_id => await get(`${TOUR}/${tour_id}`),
 				patch: async (tour_id, body) => await patch(`${TOUR}/${tour_id}`, body),
 				delete: async tour_id => await deleteRequest(`${TOUR}/${tour_id}`),
-				active: {
-					post: async tour_id => await post(`${TOUR}/${tour_id}/active`),
-				},
 				users: {
 					get: async tour_id => await get(`${TOUR}/${tour_id}/users`),
 					post: async (tour_id, body) => await post(`${TOUR}/${tour_id}/users`, body),
@@ -208,4 +210,4 @@ const useRequests = () => {
 		},
 	};
 };
-export default useRequests;
+export default useAPI;

@@ -8,9 +8,9 @@ import {
 	setActiveBandThunk,
 } from 'redux/bandSlice.js';
 import { fetchUserBandsThunk } from 'redux/userBandSlice.js';
-import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from 'utils/endpoints.js';
 import useStore from './useStore.js';
+import useAPI from './useAPI.js';
 
 const useBand = () => {
 	const dispatch = useDispatch();
@@ -26,16 +26,13 @@ const useBand = () => {
 	const fetchUserBands = () => dispatch(fetchUserBandsThunk());
 	const setActiveband = bandId => dispatch(setActiveBandThunk(bandId));
 
+	const api = useAPI();
+
 	const handleBandPatch = async data => {
-		const config = getConfigObj();
-		try {
-			const response = await axios.patch(endpoints.bands(activeBand.id), data, config);
-			fetchActiveBand();
-			fetchUserBands();
-			return null;
-		} catch (error) {
-			return error.response.data;
-		}
+		const response = await api.band.detail.patch(activeBand.id, data);
+		fetchActiveBand();
+		fetchUserBands();
+		return null;
 	};
 
 	const isOwner = user?.id === activeBand?.owner?.id;

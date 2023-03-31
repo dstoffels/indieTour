@@ -6,22 +6,30 @@ import BandListItem from 'components/band/BandListItem/BandListItem.jsx';
 
 import NewBandForm from 'components/forms/band/NewBandForm/NewBandForm.jsx';
 import BandPanel from 'components/band/BandPanel/BandPanel.jsx';
-import useRequests from 'hooks/useRequests.js';
+import useAPI from 'hooks/useAPI.js';
+import useAuth from 'hooks/useAuth.js';
 
 const BandPage = ({}) => {
-	const { activeBand, handleBandPatch, isAdmin, isOwner, setActiveband, fetchActiveBand } =
-		useBand();
+	const { handleBandPatch, isAdmin, isOwner, setActiveband } = useBand();
 	const [userBands, setUserBands] = useState([]);
+	const [activeBand, setActiveBand] = useState(null);
 
-	const { band } = useRequests();
+	const { user } = useAuth();
+	const api = useAPI();
 
 	const fetchUserBands = async () => {
-		const response = await band.get_all();
+		const response = await api.band.get_all();
 		setUserBands(response.data);
+	};
+
+	const fetchActiveBand = async () => {
+		const response = await api.band.detail.get(user.active_band_id);
+		setActiveBand(response.data);
 	};
 
 	useEffect(() => {
 		fetchUserBands();
+		fetchActiveBand();
 	}, []);
 
 	const bandList = userBands?.map(band => (
@@ -40,7 +48,7 @@ const BandPage = ({}) => {
 					<NewBandForm onPost={fetchUserBands} />
 					{bandList}
 				</Panel>
-				<BandPanel />
+				{activeBand && <BandPanel activeBand={activeBand} />}
 			</Page.SplitBody>
 		</Page>
 	);

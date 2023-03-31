@@ -1,9 +1,7 @@
-import { AccountCircle, Add, AddBox, AddCircle, Edit, Login, Logout } from '@mui/icons-material';
-import { Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
+import { AccountCircle, Login, Logout } from '@mui/icons-material';
+import { Divider, IconButton, Menu } from '@mui/material';
 import LoginPanel from 'components/auth/LoginPanel/LoginPanel.jsx';
 import useAuth from 'hooks/useAuth.js';
-import useBand from 'hooks/useBand.js';
-import useForm from 'hooks/useForm.js';
 import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

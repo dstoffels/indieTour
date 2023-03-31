@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import endpoints from 'utils/endpoints.js';
-import { getConfigObj } from './userSlice.js';
+
+const config = '';
 
 const userBands = createSlice({
 	name: 'userBands',
@@ -17,7 +18,7 @@ const { setUserBands } = userBands.actions;
 // THUNKS
 export const fetchUserBandsThunk = createAsyncThunk('userBands/GET', async (_, { dispatch }) => {
 	try {
-		const config = getConfigObj();
+		// const config = getConfigObj();
 		const response = await axios.get(endpoints.bands(), config);
 		dispatch(setUserBands(response.data));
 	} catch (error) {

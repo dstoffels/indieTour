@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 // import { loginUser, logoutUser, registerUser } from 'redux/userSlice.js';
-import useRequests from './useRequests.js';
+import useAPI from './useAPI.js';
 import jwtDecode from 'jwt-decode';
 
 const getAccessToken = () => {
@@ -12,12 +12,15 @@ export const getUserObjectFromToken = () => {
 	const userToken = getAccessToken();
 
 	if (!userToken) return null;
-	const { username, email, user_id, is_active } = jwtDecode(userToken);
+	const { username, email, user_id, is_active, active_band_id, active_tour_id } =
+		jwtDecode(userToken);
 	return {
 		id: user_id,
 		email,
 		username,
 		is_active,
+		active_band_id,
+		active_tour_id,
 	};
 };
 
@@ -34,7 +37,7 @@ export const useJWT = () => {
 
 const useAuth = () => {
 	const navigate = useNavigate();
-	const { auth } = useRequests();
+	const { auth } = useAPI();
 
 	const user = getUserObjectFromToken();
 

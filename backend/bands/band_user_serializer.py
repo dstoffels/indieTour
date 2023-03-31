@@ -1,52 +1,40 @@
 from rest_framework import serializers
-from authentication.models import User
+from authentication.serializers import User, UserSerializer
 from bands.models import BandUser
 from django.core.mail import send_mail
 from django.conf import settings
+from rest_framework.response import Response
+from rest_framework import status
+
 
 # BANDUSER SERIALIZER
 class BandUserSerializer(serializers.ModelSerializer):
-  @staticmethod
-  def create_or_update(users, band_id):
-      band_users = []
-      for band_user_data in users:
-        user, user_created = User.objects.get_or_create(email=band_user_data['email'])
-        banduser, banduser_created = BandUser.objects.get_or_create(user=user, band_id = band_id)
+    @staticmethod
+    def create_or_update(req, band_id):
+
+        user, user_created = User.objects.get_or_create(email=req.data["email"])
+        banduser, banduser_created = BandUser.objects.get_or_create(user=user, band_id=band_id)
 
         # send email to new user
         if user_created:
-          BandUserSerializer.send_new_user_email(banduser)
-          
+            BandUserSerializer.send_new_user_email(banduser)
+
         banduser.save()
-        band_users.append(banduser)
-      return band_users
+        return banduser
 
-  class Meta:
-    model = BandUser
-    fields = ['id', 'username', 'email', 'is_admin', 'banduser_id']
+    user = UserSerializer()
 
-  id = serializers.SerializerMethodField()
-  def get_id(self, band_user):
-     return band_user.user.id
+    class Meta:
 
-  email = serializers.SerializerMethodField()
-  def get_email(self, band_user):
-    return band_user.user.email
+        model = BandUser
+        exclude = ["band"]
 
-  username = serializers.SerializerMethodField()
-  def get_username(self, band_user):
-    return band_user.user.username
-  
-  banduser_id = serializers.SerializerMethodField()
-  def get_banduser_id(self, band_user):
-    return band_user.id
-  
-  @staticmethod
-  def send_new_user_email(banduser: BandUser):
-        subject = f'You have been invited to join {banduser.band.name}!'
-        message = f'''Please follow this link to setup your account:
+    @staticmethod
+    def send_new_user_email(banduser: BandUser):
+        subject = f"You have been invited to join {banduser.band.name}!"
+        message = f"""Please follow this link to setup your account:
 http://localhost:3000/user/{banduser.user.id}
-'''
+"""
         email_from = settings.EMAIL_HOST_USER
         recipients = [banduser.user.email]
-        send_mail( subject, message, email_from, recipients)
+        send_mail(subject, message, email_from, recipients)

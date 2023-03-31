@@ -2,7 +2,6 @@ import axios from 'axios';
 import useBand from 'hooks/useBand.js';
 import useTour from 'hooks/useTour.js';
 import React from 'react';
-import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from './endpoints.js';
 
 /**
@@ -16,7 +15,7 @@ const withActiveTour = Component => props => {
 	const { activeTour, setActiveTour, fetchActiveTour } = useTour();
 	const { activeBand, fetchActiveBand, fetchUserBands, isOwner, isAdmin } = useBand();
 
-	const config = getConfigObj();
+	const config = '';
 
 	const updateTour = async formData => {
 		try {

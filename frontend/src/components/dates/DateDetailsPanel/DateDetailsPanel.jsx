@@ -6,11 +6,12 @@ import LocationField from 'components/generic/LocationField/LocationField.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useTour from 'hooks/useTour.js';
 import React from 'react';
-import { getConfigObj } from 'redux/userSlice.js';
 import endpoints from 'utils/endpoints.js';
 import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
+import useAPI from 'hooks/useAPI.js';
 
 const DateDetailsPanel = ({ activeDate, activeTour, isAdmin, updateDate, deleteDate }) => {
+	const api = useAPI();
 	const { fetchActiveTour } = useTour();
 	const handleSwitch = e => {
 		updateDate({ [e.target.name]: e.target.checked });
@@ -26,12 +27,7 @@ const DateDetailsPanel = ({ activeDate, activeTour, isAdmin, updateDate, deleteD
 	);
 
 	const handleLocation = async formData => {
-		const config = getConfigObj();
-		const response = await axios.patch(
-			endpoints.dates(activeTour.band_id, activeTour.id, activeDate.id),
-			formData,
-			config,
-		);
+		const response = await api.date.detail.patch(activeDate.id, formData);
 		await fetchActiveTour();
 	};
 
@@ -51,7 +47,8 @@ const DateDetailsPanel = ({ activeDate, activeTour, isAdmin, updateDate, deleteD
 				canEdit={isAdmin}
 				onSubmit={updateDate}
 				fullWidth
-				multiline>
+				multiline
+			>
 				<Typography variant='overline' color='primary'>
 					Notes
 				</Typography>

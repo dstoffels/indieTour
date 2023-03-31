@@ -18,10 +18,14 @@ import Modal from 'components/generic/modal/Modal/Modal.jsx';
 import TodayPage from 'pages/TodayPage/TodayPage.jsx';
 import DatesPage from 'pages/DatesPage/DatesPage.jsx';
 import NewUserPage from 'pages/NewUserPage/NewUserPage.jsx';
+import useAuth from 'hooks/useAuth.js';
 
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => initialize(dispatch), []);
+
+	const { user } = useAuth();
+	console.log(user);
 
 	return (
 		<>

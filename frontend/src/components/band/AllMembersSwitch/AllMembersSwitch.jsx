@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { FormControlLabel, Switch } from '@mui/material';
 import useTour from 'hooks/useTour.js';
-import axios from 'axios';
-import endpoints from 'utils/endpoints.js';
-import useBand from 'hooks/useBand.js';
-import { getConfigObj } from 'redux/userSlice.js';
+import useAPI from 'hooks/useAPI.js';
 
 const AllMembersSwitch = ({ forTour, checked, users = [], onSubmit }) => {
 	const { activeTour, fetchActiveTour } = useTour();
+	const { tour } = useAPI();
 
 	const handleAllMembers = () => {
-		const config = getConfigObj();
 		users.forEach(async user => {
 			checked
-				? await axios.delete(
-						endpoints.tourusers(activeTour.band_id, activeTour.id, user.banduser_id),
-						config,
-				  )
-				: await onSubmit(user);
+				? await tour.user.detail.delete()
+				: // await axios.delete(
+				  // 		endpoints.tourusers(activeTour.band_id, activeTour.id, user.banduser_id),
+				  // 		config,
+				  //   )
+				  await onSubmit(user);
 			fetchActiveTour();
 		});
 	};

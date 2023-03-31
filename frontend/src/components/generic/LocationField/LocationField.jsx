@@ -1,12 +1,10 @@
 import { Check } from '@mui/icons-material';
 import { Autocomplete, IconButton, Stack, TextField, Typography } from '@mui/material';
-import axios from 'axios';
 import useEscKey from 'hooks/useEscKey.js';
 import useOutsideClick from 'hooks/useOutsideClick.js';
 import React, { useEffect, useRef, useState } from 'react';
-import { getConfigObj } from 'redux/userSlice.js';
-import endpoints from 'utils/endpoints.js';
 import Map from '../Map/Map.jsx';
+import useAPI from 'hooks/useAPI.js';
 
 const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 	const [value, setValue] = useState(initValue);
@@ -15,6 +13,8 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 	const [buffer, setBuffer] = useState(-1);
 	const [isEditing, setIsEditing] = useState(false);
 	const [locationData, setLocationData] = useState(null);
+
+	const api = useAPI();
 
 	const handleCancel = e => {
 		setIsEditing(false);
@@ -45,15 +45,13 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 	};
 
 	const autocompletePlaces = async (query = '') => {
-		const config = getConfigObj();
-		const response = await axios.get(endpoints.placesAutocomplete(query), config);
+		const response = await api.gapi.maps.place.autocomplete.get(query);
 		const newOptions = response.data.predictions;
 		setOptions(newOptions);
 	};
 
-	const fetchPlace = async (places_id = '') => {
-		const config = getConfigObj();
-		const response = await axios.get(endpoints.places(places_id), config);
+	const fetchPlace = async (place_id = '') => {
+		const response = await api.gapi.maps.place.details.get(place_id);
 		const data = response.data.candidates[0];
 		setLocationData(data);
 	};
@@ -112,7 +110,8 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 								disabled={initValue === location}
 								color='success'
 								type='submit'
-								onClick={e => e.stopPropagation()}>
+								onClick={e => e.stopPropagation()}
+							>
 								<Check />
 							</IconButton>
 						</Stack>

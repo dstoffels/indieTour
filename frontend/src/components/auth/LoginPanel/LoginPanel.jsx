@@ -2,7 +2,7 @@ import { Button, Paper, Stack, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import useAuth from 'hooks/useAuth.js';
 import useCustomForm from 'hooks/useCustomForm.js';
-import useRequests from 'hooks/useRequests.js';
+import useAPI from 'hooks/useAPI.js';
 import React, { useState } from 'react';
 import { useContext } from 'react';
 

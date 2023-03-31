@@ -11,12 +11,13 @@
   /band
     POST new band
     GET bands by user
+    /active
+      GET: get user's active band
+      POST: set user's active band
     /<band_id>
       GET band by id
       PATCH band
       DELETE band
-      /active
-        POST: set active band
       /tours
         GET tours by band
         POST new tour for band
