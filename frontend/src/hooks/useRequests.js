@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getConfigObj } from 'redux/userSlice.js';
+import useAuth, { useJWT } from './useAuth.js';
 
 const DOMAIN = process.env.REACT_APP_API_DOMAIN;
 const KEY = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -16,21 +17,21 @@ const VENUE = `${API}/venue`;
 const CONTACT = `${API}/contact`;
 
 const useRequests = () => {
-	const config = getConfigObj();
+	const config = useJWT();
 
 	const get = async url => {
 		try {
 			const response = await axios.get(url, config);
-			return response.data;
+			return response;
 		} catch (error) {
 			console.error(error.response.data);
 		}
 	};
 
-	const post = async (url, body) => {
+	const post = async (url, body, jwt = true) => {
 		try {
-			const response = await axios.post(url, body, config);
-			return response.data;
+			const response = await axios.post(url, body, jwt ? config : null);
+			return response;
 		} catch (error) {
 			console.error(error.response.data);
 		}
@@ -38,7 +39,7 @@ const useRequests = () => {
 	const patch = async (url, body) => {
 		try {
 			const response = await axios.patch(url, body, config);
-			return response.data;
+			return response;
 		} catch (error) {
 			console.error(error.response.data);
 		}
@@ -47,7 +48,7 @@ const useRequests = () => {
 	const deleteRequest = async url => {
 		try {
 			const response = await axios.delete(url, config);
-			return response.data;
+			return response;
 		} catch (error) {
 			console.error(error.response.data);
 		}
@@ -56,10 +57,10 @@ const useRequests = () => {
 	return {
 		auth: {
 			register: {
-				post: async () => await post(`${AUTH}/register`),
+				post: async formData => await post(`${AUTH}/register`, formData, false),
 			},
 			login: {
-				post: async () => await post(`${AUTH}/login`),
+				post: async credentials => await post(`${AUTH}/login`, credentials),
 			},
 			user: {
 				patch: async body => await patch(`${AUTH}/user`, body),
@@ -68,7 +69,7 @@ const useRequests = () => {
 		},
 		band: {
 			post: async body => await post(BAND, body),
-			get: async () => await get(BAND),
+			get_all: async () => await get(BAND),
 			detail: {
 				get: async band_id => await get(`${BAND}/${band_id}`),
 				patch: async (band_id, body) => await patch(`${BAND}/${band_id}`, body),

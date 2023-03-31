@@ -6,14 +6,7 @@ import React, { useState } from 'react';
 const RegisterPanel = ({}) => {
 	const { register } = useAuth();
 	const defaultValues = { email: '', password: '', password2: '', username: '' };
-	const { formData, handleChange, handleSubmit, reset } = useCustomForm(
-		defaultValues,
-		registerUser,
-	);
-
-	function registerUser(userInfo) {
-		register(userInfo);
-	}
+	const { formData, handleChange, handleSubmit, reset } = useCustomForm(defaultValues, register);
 
 	return (
 		<Paper elevation={2}>

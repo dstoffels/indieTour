@@ -9,8 +9,6 @@ from .band_user_serializer import BandUserSerializer
 
 # BAND SERIALIZER
 class BandSerializer(serializers.ModelSerializer):
-    # tours = TourSerializer(many=True, required=False, read_only=True, source='tour_set')
-    # users = BandUserSerializer(many=True, read_only=True, source='banduser_set')
     owner = UserSerializer(read_only=True)
 
     class Meta:

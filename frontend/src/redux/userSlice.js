@@ -4,6 +4,10 @@ import { initialize } from 'utils/initialize.js';
 import jwtDecode from 'jwt-decode';
 import endpoints from 'utils/endpoints.js';
 
+export const getConfigObj = () => {
+	return { headers: { Authorization: `Bearer ${getAccessToken()}` } };
+};
+
 const getAccessToken = () => {
 	const tokenPair = JSON.parse(localStorage.getItem('token'));
 	return tokenPair ? tokenPair.access : null;
@@ -15,10 +19,6 @@ const setTokenPair = jwt => localStorage.setItem('token', JSON.stringify(jwt));
 
 const setAccessToken = accessToken =>
 	setTokenPair({ refresh: getRefreshToken(), access: accessToken });
-
-export const getConfigObj = () => {
-	return { headers: { Authorization: `Bearer ${getAccessToken()}` } };
-};
 
 export const getUserObjectFromToken = () => {
 	const userToken = getAccessToken();

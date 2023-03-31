@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Page from 'pages/Page/Page.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useBand from 'hooks/useBand.js';
@@ -6,19 +6,23 @@ import BandListItem from 'components/band/BandListItem/BandListItem.jsx';
 
 import NewBandForm from 'components/forms/band/NewBandForm/NewBandForm.jsx';
 import BandPanel from 'components/band/BandPanel/BandPanel.jsx';
+import useRequests from 'hooks/useRequests.js';
 
 const BandPage = ({}) => {
-	const {
-		activeBand,
-		userBands,
-		handleBandPatch,
-		isAdmin,
-		isOwner,
-		setActiveband,
-		fetchActiveBand,
-	} = useBand();
+	const { activeBand, handleBandPatch, isAdmin, isOwner, setActiveband, fetchActiveBand } =
+		useBand();
+	const [userBands, setUserBands] = useState([]);
 
-	const handleAddBand = () => {};
+	const { band } = useRequests();
+
+	const fetchUserBands = async () => {
+		const response = await band.get_all();
+		setUserBands(response.data);
+	};
+
+	useEffect(() => {
+		fetchUserBands();
+	}, []);
 
 	const bandList = userBands?.map(band => (
 		<BandListItem
@@ -33,7 +37,7 @@ const BandPage = ({}) => {
 		<Page>
 			<Page.SplitBody>
 				<Panel size={3} title='Bands'>
-					<NewBandForm />
+					<NewBandForm onPost={fetchUserBands} />
 					{bandList}
 				</Panel>
 				<BandPanel />

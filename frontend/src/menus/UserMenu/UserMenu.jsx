@@ -7,13 +7,10 @@ import useForm from 'hooks/useForm.js';
 import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import WithAdmin from 'utils/WithAdmin/WithAdmin.jsx';
 
 const UserMenu = ({}) => {
 	const navigate = useNavigate();
 	const { user, logout } = useAuth();
-	const { formKeys, openForm } = useForm();
-	const { activeBand } = useBand();
 	const [anchor, setAnchor] = useState(null);
 
 	const handleMenu = e => {
@@ -27,19 +24,10 @@ const UserMenu = ({}) => {
 		navigate('/profile');
 	};
 
-	const handleNewBand = () => {
-		openForm(formKeys.newBand, { name: '', users: [] });
-		handleClose();
-	};
-
-	const handleEditBand = () => {
-		openForm(formKeys.editBand, activeBand);
-		handleClose();
-	};
-
 	const handleLogout = () => {
 		handleClose();
 		logout();
+		console.log(localStorage.getItem('token'));
 	};
 
 	return (
@@ -53,22 +41,14 @@ const UserMenu = ({}) => {
 				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
 				open={Boolean(anchor)}
-				onClose={handleClose}>
+				onClose={handleClose}
+			>
 				{user ? (
 					<div>
 						<MenuButtonItem disabled>{user?.username}</MenuButtonItem>
 						<MenuButtonItem onClick={handleProfile} icon={<AccountCircle />}>
 							Profile
 						</MenuButtonItem>
-						<Divider />
-						<MenuButtonItem onClick={handleNewBand} icon={<AddCircle />}>
-							New Band
-						</MenuButtonItem>
-						<WithAdmin>
-							<MenuButtonItem onClick={handleEditBand} icon={<Edit />}>
-								Edit Band
-							</MenuButtonItem>
-						</WithAdmin>
 						<Divider />
 						<MenuButtonItem onClick={handleLogout} icon={<Logout />}>
 							Logout

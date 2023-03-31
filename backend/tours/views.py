@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from constants import *
-from .serializers import TourSerializer, Tour
+from .serializers import TourSerializer, Tour, TourUserSerializer, TourUser
 from bands.band_user_serializer import BandUserSerializer, BandUser
 from authentication.models import User
 from django.core.mail import send_mail
@@ -68,8 +68,7 @@ def touruser_table(req, tour_id):
     tour = get_object_or_404(Tour, id=tour_id)
     if req.method == GET:
         tourusers = tour.users.all()
-        print(tourusers)
-        ser = BandUserSerializer(tourusers, many=True)
+        ser = TourUserSerializer(tourusers, many=True)
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
         tourusers = BandUserSerializer.create_or_update([req.data], tour.band_id)
@@ -80,9 +79,9 @@ def touruser_table(req, tour_id):
 
 @api_view([DELETE])
 @permission_classes([IsAuthenticated])
-def touruser_detail(req, tour_id, banduser_id):
-    tour = get_object_or_404(Tour, id=tour_id)
-    touruser = tour.users.get(id=banduser_id)
+def touruser_detail(req, touruser_id):
+    touruser = get_object_or_404(TourUser, id=touruser_id)
+    ser = TourSerializer(touruser.tour)
     if req.method == DELETE:
-        tour.users.remove(touruser)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        touruser.delete()
+        return Response(ser.data)

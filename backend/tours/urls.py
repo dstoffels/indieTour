@@ -6,6 +6,6 @@ urlpatterns = [
     path("/<uuid:tour_id>", views.tour_detail),
     path("/<uuid:tour_id>/active", views.set_active_tour),
     path("/<uuid:tour_id>/users", views.touruser_table),
-    path("/<uuid:tour_id>/users/<uuid:banduser_id>", views.touruser_detail),
+    path("/user/<uuid:touruser_id>", views.touruser_detail),
     path("/<uuid:tour_id>/dates", include("dates.urls")),
 ]
