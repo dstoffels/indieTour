@@ -89,7 +89,7 @@ const useAPI = () => {
 			},
 			user: {
 				detail: {
-					patch: async banduser_id => await patch(`${BAND}/user/${banduser_id}`),
+					patch: async (banduser_id, body) => await patch(`${BAND}/user/${banduser_id}`, body),
 					delete: async banduser_id => await deleteRequest(`${BAND}/user/${banduser_id}`),
 				},
 			},

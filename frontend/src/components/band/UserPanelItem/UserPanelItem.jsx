@@ -10,24 +10,19 @@ import React from 'react';
 import endpoints from 'utils/endpoints.js';
 
 const UserPanelItem = ({ banduser, forTour = false }) => {
-	const { isAdmin, isOwner, activeBand, fetchActiveBand } = useBand();
-	const { activeTour } = useTour();
+	const { isAdmin, isOwner, updateBanduser, deleteBanduser } = useBand();
+	const { removeTouruser } = useTour();
 	const { user } = useAuth();
 	const api = useAPI();
 
 	const handleAdmin = async e => {
-		await api.band.user.detail.patch(banduser.banduser_id, { is_admin: e.target.checked });
-		// TODO: need to sort whether endpoint returns updated banduser list or if called from frontend
-		fetchActiveBand();
+		await updateBanduser(banduser.banduser_id, { is_admin: e.target.checked });
 	};
 
 	const handleDeleteUser = async e => {
 		const url = forTour
-			? await api.tour.user.detail.delete(banduser.id)
-			: await api.band.user.detail.delete(banduser.id);
-
-		// TODO: need to sort whether endpoint returns updated banduser list or if called from frontend
-		fetchActiveBand();
+			? await removeTouruser(banduser.touruser_id)
+			: await deleteBanduser(banduser.banduser_id);
 	};
 
 	const color = banduser.id === user.id ? 'primary' : '';

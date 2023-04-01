@@ -2,6 +2,7 @@ import { TextField } from '@mui/material';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
 import useAPI from 'hooks/useAPI.js';
 import useBand from 'hooks/useBand.js';
+import useTour from 'hooks/useTour.js';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,15 +11,16 @@ const NewTourForm = ({}) => {
 	const api = useAPI();
 
 	const { activeBand, fetchActiveBand } = useBand();
+	const { createNewTour } = useTour();
 	const navigate = useNavigate();
 
 	const handleName = e => setName(e.target.value);
 
 	const handleSubmit = async () => {
-		const response = await api.band.detail.tours.post(activeBand.id, { name });
+		createNewTour({ name });
 		fetchActiveBand();
 		setName('');
-		navigate('/tour');
+		// navigate('/tour');
 	};
 
 	return (

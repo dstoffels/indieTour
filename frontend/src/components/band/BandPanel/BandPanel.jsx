@@ -6,8 +6,11 @@ import ToursListPanel from 'components/tour/ToursListPanel/ToursListPanel.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import { Grid } from '@mui/material';
 import Panel from 'components/generic/Panel/Panel.jsx';
+import useBand from 'hooks/useBand.js';
 
-const BandPanel = ({ activeBand, isAdmin, isOwner, updateBand, addBandUser }) => {
+const BandPanel = ({}) => {
+	const { activeBand, isAdmin, isOwner, updateActiveBand, addBandUser } = useBand();
+
 	return (
 		<Panel
 			padding={1}
@@ -18,13 +21,13 @@ const BandPanel = ({ activeBand, isAdmin, isOwner, updateBand, addBandUser }) =>
 					label='Band Name'
 					initValue={activeBand?.name}
 					name='name'
-					onSubmit={updateBand}
+					onSubmit={updateActiveBand}
 					canEdit={isAdmin}
 				/>
 			}
 		>
 			<Grid container spacing={1}>
-				<ToursListPanel activeBand={activeBand} size={4} elevation={-1} />
+				<ToursListPanel size={4} elevation={-1} />
 				<UserPanel
 					users={activeBand.users}
 					onSubmit={addBandUser}

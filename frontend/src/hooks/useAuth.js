@@ -12,15 +12,12 @@ export const getUserObjectFromToken = () => {
 	const userToken = getAccessToken();
 
 	if (!userToken) return null;
-	const { username, email, user_id, is_active, active_band_id, active_tour_id } =
-		jwtDecode(userToken);
+	const { username, email, user_id, is_active } = jwtDecode(userToken);
 	return {
 		id: user_id,
 		email,
 		username,
 		is_active,
-		active_band_id,
-		active_tour_id,
 	};
 };
 

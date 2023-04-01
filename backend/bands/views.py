@@ -36,26 +36,20 @@ def band_detail(req, band_id):
     if req.method == GET:
         ser = BandSerializer(band)
         return Response(ser.data, status=status.HTTP_200_OK)
-
     elif req.method == PATCH:
         ser = BandSerializer(band, data=req.data, partial=True)
         ser.is_valid(raise_exception=True)
         ser.save()
         return Response(ser.data, status=status.HTTP_200_OK)
-
     elif req.method == DELETE:
         band.delete()
         user = get_object_or_404(User, id=req.user.id)
         users_bands = Band.objects.filter(Q(owner__id=req.user.id) | Q(banduser__user_id=req.user.id))
         user.active_band = users_bands[0] if len(users_bands) > 0 else None
         user.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-@api_view([POST])
-@permission_classes([IsAuthenticated])
-def set_active_band(req, band_id):
-    pass
+        ser = BandSerializer(user.active_band)
+        return Response(ser.data, status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view([GET, POST])
@@ -89,7 +83,7 @@ def banduser_table(req, band_id):
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
         banduser = BandUserSerializer.create_or_update(req, band_id)
-        ser = BandUserSerializer(banduser)
+        ser = BandSerializer(banduser.band)
         return Response(ser.data, status=status.HTTP_201_CREATED)
 
 
@@ -97,14 +91,14 @@ def banduser_table(req, band_id):
 @permission_classes([IsAuthenticated])
 def banduser_detail(req, banduser_id):
     banduser = get_object_or_404(BandUser, id=banduser_id)
-    bandusers = BandUser.objects.filter(band_id=banduser.band.id)
-    bandusers_ser = BandUserSerializer(bandusers, many=True)
+    band_ser = BandSerializer(banduser.band)
 
     if req.method == PATCH:
+        print(req.data)
         ser = BandUserSerializer(banduser, data=req.data, partial=True)
         ser.is_valid(raise_exception=True)
         ser.save()
-        return Response(bandusers_ser.data)
+        return Response(band_ser.data)
     if req.method == DELETE:
         banduser.delete()
-        return Response(bandusers_ser.data)
+        return Response(band_ser.data)

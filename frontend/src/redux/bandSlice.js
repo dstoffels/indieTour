@@ -2,7 +2,6 @@ import axios from 'axios';
 import endpoints from 'utils/endpoints.js';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchActiveTourThunk, setActiveTourThunk } from './tourSlice.js';
-import { fetchUserBandsThunk } from './userBandSlice.js';
 
 const config = '';
 
@@ -17,7 +16,7 @@ const activeBand = createSlice({
 export default activeBand.reducer;
 
 // THUNKS
-const { setBand } = activeBand.actions;
+export const { setBand } = activeBand.actions;
 
 export const fetchActiveBandThunk = createAsyncThunk('activeBand/GET', async (_, { dispatch }) => {
 	try {
@@ -50,7 +49,7 @@ export const createNewBandThunk = createAsyncThunk(
 		try {
 			// const config = getConfigObj();
 			const response = await axios.post(endpoints.bands(), bandData, config);
-			dispatch(fetchUserBandsThunk());
+			// dispatch(fetchUserBandsThunk());
 			dispatch(setActiveBandThunk(response.data.id));
 		} catch (error) {
 			console.error(error.response.data);
@@ -58,30 +57,30 @@ export const createNewBandThunk = createAsyncThunk(
 	},
 );
 
-export const editBandThunk = createAsyncThunk(
-	'band/UPDATE',
-	async (bandData, { dispatch, getState }) => {
-		try {
-			// const config = getConfigObj();
-			const { activeBand } = getState();
+// export const editBandThunk = createAsyncThunk(
+// 	'band/UPDATE',
+// 	async (bandData, { dispatch, getState }) => {
+// 		try {
+// 			// const config = getConfigObj();
+// 			const { activeBand } = getState();
 
-			const response = await axios.put(endpoints.bands(activeBand.id), bandData, config);
-			dispatch(fetchUserBandsThunk());
-			dispatch(fetchActiveBandThunk());
-		} catch (error) {
-			console.error(error.response.data);
-		}
-	},
-);
+// 			const response = await axios.put(endpoints.bands(activeBand.id), bandData, config);
+// 			dispatch(fetchUserBandsThunk());
+// 			dispatch(fetchActiveBandThunk());
+// 		} catch (error) {
+// 			console.error(error.response.data);
+// 		}
+// 	},
+// );
 
-export const deleteBandThunk = createAsyncThunk('band/DELETE', async (bandId, { dispatch }) => {
-	try {
-		// const config = getConfigObj();
+// export const deleteBandThunk = createAsyncThunk('band/DELETE', async (bandId, { dispatch }) => {
+// 	try {
+// 		// const config = getConfigObj();
 
-		const response = await axios.delete(endpoints.bands(bandId), config);
-		dispatch(fetchUserBandsThunk());
-		dispatch(fetchActiveBandThunk());
-	} catch (error) {
-		console.error(error.response.data);
-	}
-});
+// 		const response = await axios.delete(endpoints.bands(bandId), config);
+// 		dispatch(fetchUserBandsThunk());
+// 		dispatch(fetchActiveBandThunk());
+// 	} catch (error) {
+// 		console.error(error.response.data);
+// 	}
+// });

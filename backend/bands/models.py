@@ -7,7 +7,7 @@ from uuid_model import UUIDModel
 # BAND MODEL
 class Band(UUIDModel):
     name = CharField(max_length=255, unique=True)
-    users = ManyToManyField(User, through="BandUser", related_name="band_users")
+    users = ManyToManyField(to=User, through="BandUser", related_name="band_users")
     is_archived = BooleanField(default=False)
     owner = ForeignKey(User, on_delete=CASCADE)
 

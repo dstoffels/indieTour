@@ -10,12 +10,15 @@ from django.shortcuts import get_object_or_404
 
 
 class TourUserSerializer(serializers.ModelSerializer):
-    banduser = BandUserSerializer()
-    tour_id = serializers.CharField(source="tour.id")
+    touruser_id = serializers.CharField(source="id")
+    banduser_id = serializers.CharField(source="banduser.id")
+    user_id = serializers.CharField(source="banduser.user.id")
+    email = serializers.CharField(source="banduser.user.email")
+    username = serializers.CharField(source="banduser.user.username")
 
     class Meta:
         model = TourUser
-        exclude = ["tour"]
+        fields = ("touruser_id", "banduser_id", "user_id", "email", "username")
 
     @staticmethod
     def create_or_update(req, tour_id):
@@ -28,12 +31,17 @@ class TourUserSerializer(serializers.ModelSerializer):
 
 
 class TourSerializer(serializers.ModelSerializer):
-    # dates = serializers.SerializerMethodField()
-    # users = TourUserSerializer(many=True, read_only=True)
+    band_id = serializers.CharField(source="band.id")
+    users = serializers.SerializerMethodField()
+
+    def get_users(self, tour):
+        tourusers = TourUser.objects.filter(tour=tour)
+        ser = TourUserSerializer(tourusers, many=True)
+        return ser.data
 
     class Meta:
         model = Tour
-        exclude = ["band", "users"]
+        exclude = ["band"]
 
     def has_valid_name(self, band_id):
         name = self.validated_data.get("name", False)

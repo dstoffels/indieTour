@@ -31,7 +31,8 @@ const TourDetailsPanel = ({ activeTour, deleteTour, fetchActiveTour, updateTour 
 				canEdit
 				onSubmit={updateTour}
 				multiline
-				fullWidth>
+				fullWidth
+			>
 				<Typography variant='overline' color='primary'>
 					Notes
 				</Typography>
@@ -43,4 +44,4 @@ const TourDetailsPanel = ({ activeTour, deleteTour, fetchActiveTour, updateTour 
 	);
 };
 
-export default withActiveTour(TourDetailsPanel);
+export default TourDetailsPanel;

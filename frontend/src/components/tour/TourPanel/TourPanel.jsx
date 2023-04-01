@@ -7,8 +7,12 @@ import { Grid } from '@mui/material';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 import DatesListPanel from 'components/dates/DatesListPanel/DatesListPanel.jsx';
 import useDates from 'hooks/useDates.js';
+import useTour from 'hooks/useTour.js';
+import useBand from 'hooks/useBand.js';
 
-const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser, addTourDate }) => {
+const TourPanel = ({ addTourDate }) => {
+	const { isAdmin } = useBand();
+	const { activeBand, activeTour, updateActiveTour, addTouruser, deleteActiveTour } = useTour();
 	return (
 		<Panel
 			size={9}
@@ -19,27 +23,32 @@ const TourPanel = ({ activeBand, activeTour, updateTour, isAdmin, addTourUser, a
 					initValue={activeTour.name}
 					name='name'
 					variant='h5'
-					onSubmit={updateTour}
+					onSubmit={updateActiveTour}
 					canEdit={isAdmin}
 				/>
-			}>
+			}
+		>
 			<Grid container spacing={1}>
-				<DatesListPanel
+				{/* <DatesListPanel
 					forTour
 					activeTour={activeTour}
 					size={4}
 					elevation={-1}
 					addTourDate={addTourDate}
-				/>
+				/> */}
 				<UserPanel
 					title='Personnel'
 					forTour
 					users={activeTour.users}
 					bandUsers={activeBand.users}
 					isAdmin={isAdmin}
-					onSubmit={addTourUser}
+					onSubmit={addTouruser}
 				/>
-				<TourDetailsPanel />
+				<TourDetailsPanel
+					activeTour={activeTour}
+					deleteTour={deleteActiveTour}
+					updateTour={updateActiveTour}
+				/>
 			</Grid>
 		</Panel>
 	);

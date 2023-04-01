@@ -2,15 +2,34 @@ import { FormControlLabel, Switch } from '@mui/material';
 import NewTourForm from 'components/forms/tour/NewTourForm/NewTourForm.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import React, { useState } from 'react';
-import withActiveBand from 'utils/withActiveBand.js';
 import TourListItem from '../TourListItem/TourListItem.jsx';
+import useTour from 'hooks/useTour.js';
+import { useEffect } from 'react';
 
-const ToursListPanel = ({ activeBand, size, elevation }) => {
+const ToursListPanel = ({ size, elevation }) => {
 	const [showArchived, setShowArchived] = useState(false);
+	const [tours, setTours] = useState([]);
 
-	const toursList = activeBand.tours
+	const { activeBand, activeTour, fetchBandTours, setActiveTour, fetchActiveTour } = useTour();
+
+	useEffect(() => {
+		fetchActiveTour();
+	}, [activeBand]);
+
+	useEffect(() => {
+		fetchBandTours(setTours);
+	}, [activeTour, activeBand]);
+
+	const toursList = tours
 		.filter(tour => showArchived === tour.is_archived || !tour.is_archived)
-		.map(tour => <TourListItem tour={tour} key={`tour-${tour.id}`} />);
+		.map(tour => (
+			<TourListItem
+				tour={tour}
+				key={`tour-${tour.id}`}
+				activeTour={activeTour}
+				setActiveTour={setActiveTour}
+			/>
+		));
 
 	const archivedBtn = (
 		<FormControlLabel

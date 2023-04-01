@@ -9,6 +9,15 @@ from rest_framework import status
 
 # BANDUSER SERIALIZER
 class BandUserSerializer(serializers.ModelSerializer):
+    banduser_id = serializers.CharField(source="id")
+    user_id = serializers.CharField(source="user.id")
+    email = serializers.CharField(source="user.email")
+    username = serializers.CharField(source="user.username")
+
+    class Meta:
+        model = BandUser
+        fields = ("banduser_id", "user_id", "email", "is_admin", "username")
+
     @staticmethod
     def create_or_update(req, band_id):
 
@@ -21,13 +30,6 @@ class BandUserSerializer(serializers.ModelSerializer):
 
         banduser.save()
         return banduser
-
-    user = UserSerializer()
-
-    class Meta:
-
-        model = BandUser
-        exclude = ["band"]
 
     @staticmethod
     def send_new_user_email(banduser: BandUser):

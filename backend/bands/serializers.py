@@ -10,11 +10,17 @@ from .band_user_serializer import BandUserSerializer
 # BAND SERIALIZER
 class BandSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
+    users = serializers.SerializerMethodField()
+
+    def get_users(self, band):
+        bandusers = BandUser.objects.filter(band=band)
+        ser = BandUserSerializer(bandusers, many=True)
+        return ser.data
 
     class Meta:
         model = Band
         depth = 1
-        exclude = ["users"]
+        fields = "__all__"
 
     def create_band(self, req):
         self.is_valid(raise_exception=True)
