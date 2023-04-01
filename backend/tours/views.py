@@ -22,6 +22,9 @@ def band_tours(req, band_id):
         return ser.create_or_update(req, band_id)
 
 
+# TOUR DETAIL
+
+
 @api_view([GET, PATCH, DELETE])
 @permission_classes([IsAuthenticated])
 def tour_detail(req, tour_id):
@@ -72,7 +75,7 @@ def touruser_table(req, tour_id):
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
         touruser = TourUserSerializer.create_or_update(req, tour_id)
-        ser = TourUserSerializer(touruser)
+        ser = TourSerializer(tour)
         return Response(ser.data, status=status.HTTP_201_CREATED)
 
 

@@ -15,15 +15,17 @@ class TourUserSerializer(serializers.ModelSerializer):
     user_id = serializers.CharField(source="banduser.user.id")
     email = serializers.CharField(source="banduser.user.email")
     username = serializers.CharField(source="banduser.user.username")
+    is_admin = serializers.BooleanField(source="banduser.is_admin")
 
     class Meta:
         model = TourUser
-        fields = ("touruser_id", "banduser_id", "user_id", "email", "username")
+        fields = ("touruser_id", "banduser_id", "user_id", "email", "username", "is_admin")
 
     @staticmethod
     def create_or_update(req, tour_id):
         tour = get_object_or_404(Tour, id=tour_id)
         banduser = BandUserSerializer.create_or_update(req, tour.band.id)
+        print(banduser.user.email)
 
         touruser, created = TourUser.objects.get_or_create(banduser=banduser, tour=tour)
         touruser.save()
@@ -31,7 +33,7 @@ class TourUserSerializer(serializers.ModelSerializer):
 
 
 class TourSerializer(serializers.ModelSerializer):
-    band_id = serializers.CharField(source="band.id")
+    band_id = serializers.CharField(source="band.id", read_only=True)
     users = serializers.SerializerMethodField()
 
     def get_users(self, tour):
@@ -54,12 +56,13 @@ class TourSerializer(serializers.ModelSerializer):
     def create_or_update(self, req, band_id):
         self.is_valid(raise_exception=True)
         if self.has_valid_name(band_id):
+            res_status = status.HTTP_200_OK if self.instance.id else status.HTTP_201_CREATED
             self.save(band_id=band_id)
 
             req.user.active_tour = self.instance
             req.user.save()
 
-            return Response(self.data, status=status.HTTP_201_CREATED)
+            return Response(self.data, res_status)
         return Response({"name": "Cannot have duplicate tour names."}, status=status.HTTP_400_BAD_REQUEST)
 
     def update_tour(self, req, band_id):

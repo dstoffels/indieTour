@@ -7,7 +7,7 @@ const TourListItem = ({ tour, activeTour, setActiveTour }) => {
 	const navigate = useNavigate();
 	const handleClick = async e => {
 		await setActiveTour(tour.id);
-		// navigate('/tour');
+		navigate('/tour');
 	};
 	const activeColor = tour.id == activeTour?.id ? 'primary' : '';
 

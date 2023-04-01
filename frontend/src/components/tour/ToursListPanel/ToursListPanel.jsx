@@ -18,7 +18,7 @@ const ToursListPanel = ({ size, elevation }) => {
 
 	useEffect(() => {
 		fetchBandTours(setTours);
-	}, [activeTour, activeBand]);
+	}, [activeBand, activeTour]);
 
 	const toursList = tours
 		.filter(tour => showArchived === tour.is_archived || !tour.is_archived)

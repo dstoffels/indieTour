@@ -9,7 +9,7 @@ import BandPanel from 'components/band/BandPanel/BandPanel.jsx';
 import useAPI from 'hooks/useAPI.js';
 
 const BandPage = ({}) => {
-	const { isAdmin, isOwner, activeBand, setActiveBand, fetchActiveBand } = useBand();
+	const { activeBand, setActiveBand } = useBand();
 	const [userBands, setUserBands] = useState([]);
 
 	const fetchUserBands = async () => {
@@ -22,10 +22,6 @@ const BandPage = ({}) => {
 	useEffect(() => {
 		fetchUserBands();
 	}, [activeBand]);
-
-	useEffect(() => {
-		fetchActiveBand();
-	}, []);
 
 	const bandList = userBands?.map(band => (
 		<BandListItem

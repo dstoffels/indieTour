@@ -18,9 +18,9 @@ const NewTourForm = ({}) => {
 
 	const handleSubmit = async () => {
 		createNewTour({ name });
-		fetchActiveBand();
+		// fetchActiveBand();
 		setName('');
-		// navigate('/tour');
+		navigate('/tour');
 	};
 
 	return (

@@ -3,23 +3,16 @@ import { FormControlLabel, Switch } from '@mui/material';
 import useTour from 'hooks/useTour.js';
 import useAPI from 'hooks/useAPI.js';
 
-const AllMembersSwitch = ({ forTour, checked, users = [], onSubmit }) => {
-	const { activeTour, fetchActiveTour } = useTour();
+const AllMembersSwitch = ({ forTour, checked, bandusers = [], tourusers = [], onSubmit }) => {
+	const { activeTour, activeBand, fetchActiveTour, addTouruser, removeTouruser } = useTour();
 	const api = useAPI();
 
-	console.log(users);
-
 	const handleAllMembers = () => {
-		users.forEach(async user => {
-			checked
-				? await api.tour.user.detail.delete(user.touruser_id)
-				: // await axios.delete(
-				  // 		endpoints.tourusers(activeTour.band_id, activeTour.id, user.banduser_id),
-				  // 		config,
-				  //   )
-				  await onSubmit(user);
-			fetchActiveTour();
-		});
+		checked
+			? activeTour.users.forEach(async ({ touruser_id }) => await removeTouruser(touruser_id))
+			: activeBand.users.forEach(async user => await addTouruser(user));
+
+		fetchActiveTour();
 	};
 
 	return forTour ? (

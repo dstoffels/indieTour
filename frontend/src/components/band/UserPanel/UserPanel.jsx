@@ -13,7 +13,7 @@ const UserPanel = ({
 	title = '',
 }) => {
 	const userList = users.map(banduser => (
-		<UserPanelItem key={`user-${banduser.id}`} banduser={banduser} forTour={forTour} />
+		<UserPanelItem key={`user-${banduser.banduser_id}`} banduser={banduser} forTour={forTour} />
 	));
 
 	return (
@@ -29,7 +29,8 @@ const UserPanel = ({
 					forTour={forTour}
 					onSubmit={onSubmit}
 				/>
-			}>
+			}
+		>
 			<AddUserForm
 				forTour={forTour}
 				users={users}

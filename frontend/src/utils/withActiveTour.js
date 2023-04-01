@@ -1,7 +1,7 @@
 import axios from 'axios';
 import useBand from 'hooks/useBand.js';
 import useTour from 'hooks/useTour.js';
-import React from 'react';
+import React, { useEffect } from 'react';
 import endpoints from './endpoints.js';
 
 /**
@@ -12,7 +12,11 @@ import endpoints from './endpoints.js';
  * @returns
  */
 const withActiveTour = Component => props => {
-	const { activeTour } = useTour();
+	const { activeTour, fetchActiveTour } = useTour();
+
+	useEffect(() => {
+		fetchActiveTour();
+	}, []);
 
 	return activeTour ? <Component {...props} /> : null;
 };
