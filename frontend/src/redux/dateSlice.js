@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const selectedDateIndex = createSlice({
-	name: 'selectedDateIndex',
-	initialState: 0,
+const activeDate = createSlice({
+	name: 'activeDate',
+	initialState: null,
 	reducers: {
-		setSelectedDateIndex: (state, action) => (state = action.payload),
+		storeActiveDate: (state, action) => (state = action.payload),
 	},
 });
 
-export default selectedDateIndex.reducer;
+export default activeDate.reducer;
 
-export const { setSelectedDateIndex } = selectedDateIndex.actions;
+export const { storeActiveDate } = activeDate.actions;

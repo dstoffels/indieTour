@@ -3,9 +3,21 @@ import Panel from 'components/generic/Panel/Panel.jsx';
 import React from 'react';
 import DateListItem from '../DateListItem/DateListItem.jsx';
 import NewDateForm from '../NewDateForm/NewDateForm.jsx';
+import useAPI from 'hooks/useAPI.js';
+import useDates from 'hooks/useDates.js';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-const DatesListPanel = ({ size, elevation, activeTour, isAdmin, addTourDate, forTour }) => {
-	const tourdates = activeTour.dates.map((tourdate, i) => (
+const DatesListPanel = ({ size, elevation, isAdmin, addTourDate, forTour }) => {
+	const [tourdates, setTourdates] = useState([]);
+
+	const { activeTour, fetchTourDates } = useDates();
+
+	useEffect(() => {
+		fetchTourDates(setTourdates);
+	}, []);
+
+	const datesList = tourdates.map((tourdate, i) => (
 		<DateListItem i={i} key={`date-${tourdate.id}`} tourdate={tourdate} forTour={forTour} />
 	));
 
@@ -14,9 +26,10 @@ const DatesListPanel = ({ size, elevation, activeTour, isAdmin, addTourDate, for
 			title='Tour Dates'
 			size={size}
 			elevation={elevation}
-			actionBtn={<FormControlLabel label='Past Dates' control={<Switch />} />}>
-			<NewDateForm activeTour={activeTour} addTourDate={addTourDate} />
-			{tourdates}
+			actionBtn={<FormControlLabel label='Past Dates' control={<Switch />} />}
+		>
+			<NewDateForm tourdates={tourdates} addTourDate={addTourDate} />
+			{datesList}
 		</Panel>
 	);
 };

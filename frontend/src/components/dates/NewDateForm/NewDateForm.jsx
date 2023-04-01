@@ -6,9 +6,9 @@ import useEscKey from 'hooks/useEscKey.js';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
-const NewDateForm = ({ activeTour, addTourDate }) => {
+const NewDateForm = ({ tourdates, addTourDate }) => {
 	const getNextDate = () => {
-		const lastDate = activeTour.dates[activeTour.dates.length - 1];
+		const lastDate = tourdates[tourdates.length - 1];
 		return lastDate
 			? moment(lastDate.date).add(1, 'day').format('YYYY-MM-DD')
 			: moment().format('YYYY-MM-DD');
@@ -31,11 +31,11 @@ const NewDateForm = ({ activeTour, addTourDate }) => {
 
 	useEffect(() => {
 		clearForm();
-	}, [activeTour]);
+	}, [tourdates]);
 
 	return (
 		<ButtonForm btnText='Add Date' onSubmit={handleSubmit} autoClose={false}>
-			<DatePickerModal value={date} onChange={handleDate} tourDates={activeTour.dates} />
+			<DatePickerModal value={date} onChange={handleDate} tourDates={tourdates.dates} />
 			<TextField value={title} onChange={handleTitle} variant='standard' label='Title' />
 		</ButtonForm>
 	);

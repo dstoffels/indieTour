@@ -29,13 +29,13 @@ const TourPanel = ({ addTourDate }) => {
 			}
 		>
 			<Grid container spacing={1}>
-				{/* <DatesListPanel
+				<DatesListPanel
 					forTour
 					activeTour={activeTour}
 					size={4}
 					elevation={-1}
 					addTourDate={addTourDate}
-				/> */}
+				/>
 				<UserPanel
 					title='Personnel'
 					forTour

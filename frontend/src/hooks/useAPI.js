@@ -109,7 +109,7 @@ const useAPI = () => {
 					post: async (tour_id, body) => await post(`${TOUR}/${tour_id}/users`, body),
 				},
 				dates: {
-					get: async tour_id => await get(`${TOUR}/${tour_id}/dates`),
+					getAll: async tour_id => await get(`${TOUR}/${tour_id}/dates`),
 					post: async (tour_id, body) => await post(`${TOUR}/${tour_id}/dates`, body),
 				},
 			},
