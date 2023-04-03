@@ -4,21 +4,20 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from 'theme/theme.js';
-import { Provider } from 'react-redux';
-import { store } from 'redux/store.js';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { GlobalStateProvider } from 'context/GlobalStateContext.js';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<Provider store={store}>
-					<LocalizationProvider dateAdapter={AdapterMoment}>
+				<LocalizationProvider dateAdapter={AdapterMoment}>
+					<GlobalStateProvider>
 						<App />
-					</LocalizationProvider>
-				</Provider>
+					</GlobalStateProvider>
+				</LocalizationProvider>
 			</ThemeProvider>
 		</Router>
 	</React.StrictMode>,

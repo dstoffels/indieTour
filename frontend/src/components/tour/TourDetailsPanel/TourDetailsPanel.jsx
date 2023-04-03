@@ -4,14 +4,15 @@ import EditField from 'components/generic/EditField/EditField.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useBand from 'hooks/useBand.js';
 import React from 'react';
-import withActiveTour from 'utils/withActiveTour.js';
 import DeleteTourPopover from '../DeleteTourPopover/DeleteTourPopover.jsx';
+import useTour from 'hooks/useTour.js';
 
-const TourDetailsPanel = ({ activeTour, deleteTour, fetchActiveTour, updateTour }) => {
+const TourDetailsPanel = () => {
 	const { isOwner, isAdmin } = useBand();
+	const { activeTour, deleteTour, deleteActiveTour, updateActiveTour } = useTour();
 
-	const handleArchived = e => {
-		updateTour({ is_archived: e.target.checked });
+	const handleArchived = (e) => {
+		updateActiveTour({ is_archived: e.target.checked });
 	};
 
 	const archiveSwitch = isAdmin ? (
@@ -29,7 +30,7 @@ const TourDetailsPanel = ({ activeTour, deleteTour, fetchActiveTour, updateTour 
 				initValue={activeTour.notes}
 				name='notes'
 				canEdit
-				onSubmit={updateTour}
+				onSubmit={updateActiveTour}
 				multiline
 				fullWidth
 			>
@@ -38,7 +39,7 @@ const TourDetailsPanel = ({ activeTour, deleteTour, fetchActiveTour, updateTour 
 				</Typography>
 			</EditField>
 			<DangerZone show={isOwner}>
-				<DeleteTourPopover activeTour={activeTour} deleteTour={deleteTour} />
+				<DeleteTourPopover activeTour={activeTour} deleteTour={deleteActiveTour} />
 			</DangerZone>
 		</Panel>
 	);

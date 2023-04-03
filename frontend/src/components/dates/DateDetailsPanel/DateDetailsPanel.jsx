@@ -1,19 +1,17 @@
 import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
-import axios from 'axios';
 import DangerZone from 'components/generic/DangerZone/DangerZone.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import LocationField from 'components/generic/LocationField/LocationField.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useTour from 'hooks/useTour.js';
 import React from 'react';
-import endpoints from 'utils/endpoints.js';
 import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
 import useAPI from 'hooks/useAPI.js';
 
 const DateDetailsPanel = ({ activeDate, activeTour, isAdmin, updateDate, deleteDate }) => {
 	const api = useAPI();
 	const { fetchActiveTour } = useTour();
-	const handleSwitch = e => {
+	const handleSwitch = (e) => {
 		updateDate({ [e.target.name]: e.target.checked });
 	};
 
@@ -26,7 +24,7 @@ const DateDetailsPanel = ({ activeDate, activeTour, isAdmin, updateDate, deleteD
 		/>
 	);
 
-	const handleLocation = async formData => {
+	const handleLocation = async (formData) => {
 		const response = await api.date.detail.patch(activeDate.id, formData);
 		await fetchActiveTour();
 	};

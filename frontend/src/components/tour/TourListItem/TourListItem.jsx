@@ -2,11 +2,13 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
 import { useNavigate } from 'react-router-dom';
+import useTour from 'hooks/useTour.js';
 
-const TourListItem = ({ tour, activeTour, setActiveTour }) => {
+const TourListItem = ({ tour }) => {
+	const { activeTour, setUserActiveTour } = useTour();
 	const navigate = useNavigate();
-	const handleClick = async e => {
-		await setActiveTour(tour.id);
+	const handleClick = async (e) => {
+		await setUserActiveTour(tour.id);
 		navigate('/tour');
 	};
 	const activeColor = tour.id == activeTour?.id ? 'primary' : '';

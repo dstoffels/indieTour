@@ -1,5 +1,4 @@
 import React from 'react';
-import withActiveBand from 'utils/withActiveBand.js';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 import BandOwnerPanel from 'components/band/BandOwnerPanel/BandOwnerPanel.jsx';
 import ToursListPanel from 'components/tour/ToursListPanel/ToursListPanel.jsx';
@@ -8,10 +7,13 @@ import { Grid } from '@mui/material';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useBand from 'hooks/useBand.js';
 
-const BandPanel = ({}) => {
-	const { activeBand, isAdmin, isOwner, updateActiveBand, addBandUser } = useBand();
+const BandPanel = () => {
+	const { activeBand, setActiveBand, updateActiveBand, withActiveBand, isAdmin, isOwner } =
+		useBand();
 
-	return (
+	activeBand && console.log(activeBand);
+
+	return withActiveBand(
 		<Panel
 			padding={1}
 			size={9}
@@ -28,16 +30,11 @@ const BandPanel = ({}) => {
 		>
 			<Grid container spacing={1}>
 				<ToursListPanel size={4} elevation={-1} />
-				<UserPanel
-					users={activeBand.users}
-					onSubmit={addBandUser}
-					isAdmin={isAdmin}
-					title='Members'
-				/>
-				<BandOwnerPanel activeBand={activeBand} isOwner={isOwner} />
+				<UserPanel title='Members' />
+				<BandOwnerPanel />
 			</Grid>
-		</Panel>
+		</Panel>,
 	);
 };
 
-export default withActiveBand(BandPanel);
+export default BandPanel;

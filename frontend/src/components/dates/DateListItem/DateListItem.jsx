@@ -12,9 +12,8 @@ const DateListItem = ({ tourdate, i, activetour, forTour = null }) => {
 
 	const navigate = useNavigate();
 
-	const handleClick = e => {
-		setActiveDate(i);
-		navigate('/dates');
+	const handleClick = (e) => {
+		navigate(`/dates/${tourdate.id}`);
 	};
 
 	const activeColor = tourdate.id == activeDate?.id ? 'primary' : '';
@@ -28,7 +27,8 @@ const DateListItem = ({ tourdate, i, activetour, forTour = null }) => {
 				direction='row'
 				alignItems='center'
 				spacing={3}
-				justifyContent='space-between'>
+				justifyContent='space-between'
+			>
 				<Stack textAlign='center'>
 					<Typography color={activeColor} variant='caption'>
 						{moment(tourdate.date).format('ddd')}

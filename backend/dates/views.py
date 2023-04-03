@@ -14,7 +14,7 @@ from .serializers import DateSerializer, Date
 @permission_classes([IsAuthenticated])
 def tour_dates(req, tour_id):
     if req.method == GET:
-        dates = Date.objects.filter(tour_id=tour_id)
+        dates = Date.objects.filter(tour_id=tour_id).order_by("date")
         ser = DateSerializer(dates, many=True)
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:

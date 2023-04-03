@@ -4,7 +4,7 @@ import React from 'react';
 import BandForm from '../BandForm/BandForm.jsx';
 import DeleteBandPopover from '../../../band/DeleteBandPopover/DeleteBandPopover.jsx';
 
-const EditBandForm = ({}) => {
+const EditBandForm = ({ activeBand, setActiveBand }) => {
 	const { editBand } = useBand();
 
 	return (
@@ -15,7 +15,7 @@ const EditBandForm = ({}) => {
 						DANGER ZONE!
 					</Typography>
 					<Divider />
-					<DeleteBandPopover />
+					<DeleteBandPopover activeBand={activeBand} setActiveBand={setActiveBand} />
 				</Stack>
 			</Paper>
 		</BandForm>

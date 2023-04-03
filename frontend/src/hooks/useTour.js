@@ -1,65 +1,58 @@
-import { useDispatch } from 'react-redux';
-import { createTourThunk, editTourThunk, setTour } from '../redux/tourSlice.js';
-import useStore from './useStore.js';
+import { useGlobalState } from 'context/GlobalStateContext.js';
 import useAPI from './useAPI.js';
 
 const useTour = () => {
-	const { activeTour, activeBand } = useStore();
-	const dispatch = useDispatch();
-	const dispatchActiveTour = tour => dispatch(setTour(tour));
-	const api = useAPI();
+	const { activeBand, activeTour, setActiveTour } = useGlobalState();
+	const api = useAPI(``);
 
-	const fetchBandTours = async setterCB => {
-		const response = await api.band.detail.tours.get(activeBand.id);
-		setterCB(response.data);
+	const setUserActiveTour = (tour_id) => {
+		api.tour.active.post(tour_id, setActiveTour);
 	};
 
-	const setActiveTour = async tour_id => {
-		const response = await api.tour.active.post(tour_id);
-		dispatchActiveTour(response.data);
+	const fetchUserActiveTour = () => {
+		api.tour.active.get(setActiveTour);
 	};
 
-	const fetchActiveTour = async () => {
-		const response = await api.tour.active.get();
-		dispatchActiveTour(response.data);
+	const createNewTour = (tourData) => {
+		api.band.detail.tours.post(activeBand?.id, tourData, setActiveTour);
 	};
 
-	const createNewTour = async tourData => {
-		const response = await api.band.detail.tours.post(activeBand.id, tourData);
-		dispatchActiveTour(response.data);
+	const fetchBandTours = (callback) => {
+		api.band.detail.tours.get(activeBand?.id, callback);
 	};
 
-	const updateActiveTour = async tourData => {
-		const response = await api.tour.detail.patch(activeTour.id, tourData);
-		dispatchActiveTour(response.data);
+	const updateActiveTour = (tourData) => {
+		api.tour.detail.patch(activeTour.id, tourData, setActiveTour);
 	};
 
-	const deleteActiveTour = async () => {
-		const response = await api.tour.detail.delete(activeTour.id);
-		dispatchActiveTour(response.data);
+	const deleteActiveTour = () => {
+		api.tour.detail.delete(activeTour.id, setActiveTour);
 	};
 
-	const addTouruser = async userData => {
-		const response = await api.tour.detail.users.post(activeTour.id, userData);
-		dispatchActiveTour(response.data);
+	const addTouruser = (email) => {
+		api.tour.detail.users.post(activeTour.id, { email }, setActiveTour);
 	};
 
-	const removeTouruser = async touruser_id => {
-		const response = await api.tour.user.detail.delete(touruser_id);
-		dispatchActiveTour(response.data);
+	const removeTouruser = (touruser_id) => {
+		api.tour.user.detail.delete(touruser_id, setActiveTour);
+	};
+
+	const withActiveTour = (jsx) => {
+		return activeTour ? jsx : null;
 	};
 
 	return {
-		activeBand,
 		activeTour,
-		fetchBandTours,
+		tourusers: activeTour?.users,
+		fetchUserActiveTour,
+		setUserActiveTour,
 		createNewTour,
+		fetchBandTours,
 		updateActiveTour,
 		deleteActiveTour,
-		fetchActiveTour,
-		setActiveTour,
 		addTouruser,
 		removeTouruser,
+		withActiveTour,
 	};
 };
 

@@ -1,5 +1,3 @@
-import endpoints from 'utils/endpoints.js';
-import axios from 'axios';
 import { Box, Button, Paper, Stack, TextField, Typography } from '@mui/material';
 import useAuth from 'hooks/useAuth.js';
 import useCustomForm from 'hooks/useCustomForm.js';
@@ -14,13 +12,12 @@ const NewUserPanel = ({ token }) => {
 
 	async function updateUser(formData) {
 		try {
-			const response = await axios.patch(endpoints.user(), formData, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
-
-			login({ email: response.data, password: formData.password });
+			// const response = await axios.patch(endpoints.user(), formData, {
+			// 	headers: {
+			// 		Authorization: `Bearer ${token}`,
+			// 	},
+			// });
+			// login({ email: response.data, password: formData.password });
 		} catch (error) {}
 	}
 

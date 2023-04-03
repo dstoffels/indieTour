@@ -10,7 +10,6 @@ import BandPage from 'pages/BandPage/BandPage.jsx';
 
 // Util Imports
 import PrivateOutlet from 'utils/PrivateOutlet.jsx';
-import Modal from 'components/generic/modal/Modal/Modal.jsx';
 import TodayPage from 'pages/TodayPage/TodayPage.jsx';
 import DatesPage from 'pages/DatesPage/DatesPage.jsx';
 import NewUserPage from 'pages/NewUserPage/NewUserPage.jsx';
@@ -27,10 +26,11 @@ function App() {
 						<Route path='/profile' element={<ProfilePage />} />
 						<Route path='/tour' element={<TourPage />} />
 						<Route path='/dates' element={<DatesPage />} />
+						<Route path='/dates/:date_id' element={<DatesPage />} />
 						<Route path='/today' element={<TodayPage />} />
 					</Route>
 				</Routes>
-				<Modal />
+				{/* <Modal /> */}
 			</div>
 		</>
 	);

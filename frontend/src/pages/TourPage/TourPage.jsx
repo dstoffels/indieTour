@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Page from 'pages/Page/Page.jsx';
 import BandSelect from 'components/band/BandSelect/BandSelect.jsx';
 import ToursListPanel from 'components/tour/ToursListPanel/ToursListPanel.jsx';
-import withActiveBand from 'utils/withActiveBand.js';
 import TourPanel from 'components/tour/TourPanel/TourPanel.jsx';
+import useBand from 'hooks/useBand.js';
 
-const TourPage = ({ activeBand }) => {
-	return (
+const TourPage = ({}) => {
+	const { activeBand, fetchUserActiveBand, withActiveBand } = useBand();
+
+	useEffect(() => {
+		!activeBand && fetchUserActiveBand();
+	}, []);
+
+	return withActiveBand(
 		<Page select={<BandSelect />}>
 			<Page.SplitBody>
-				<ToursListPanel activeBand={activeBand} size={3} />
+				<ToursListPanel size={3} />
 				<TourPanel />
 			</Page.SplitBody>
-		</Page>
+		</Page>,
 	);
 };
 
-export default withActiveBand(TourPage);
+export default TourPage;

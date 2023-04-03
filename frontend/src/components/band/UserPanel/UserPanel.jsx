@@ -3,17 +3,22 @@ import Panel from 'components/generic/Panel/Panel.jsx';
 import React, { useState } from 'react';
 import AllMembersSwitch from '../AllMembersSwitch/AllMembersSwitch.jsx';
 import UserPanelItem from '../UserPanelItem/UserPanelItem.jsx';
+import useBand from 'hooks/useBand.js';
+import useTour from 'hooks/useTour.js';
 
-const UserPanel = ({
-	users = [],
-	forTour = false,
-	bandUsers = [],
-	onSubmit,
-	isAdmin,
-	title = '',
-}) => {
-	const userList = users.map(banduser => (
-		<UserPanelItem key={`user-${banduser.banduser_id}`} banduser={banduser} forTour={forTour} />
+const UserPanel = ({ forTour = false, title = '' }) => {
+	const { isAdmin, bandusers } = useBand();
+	const { tourusers } = useTour();
+
+	let users = forTour ? tourusers : bandusers;
+
+	const userList = users.map((banduser) => (
+		<UserPanelItem
+			key={`user-${banduser.id}`}
+			banduser={banduser}
+			forTour={forTour}
+			isAdmin={isAdmin}
+		/>
 	));
 
 	return (
@@ -24,20 +29,13 @@ const UserPanel = ({
 			titleSize={6}
 			actionBtn={
 				<AllMembersSwitch
-					users={bandUsers}
-					checked={users.length === bandUsers.length}
+					users={bandusers}
+					checked={users.length === bandusers.length}
 					forTour={forTour}
-					onSubmit={onSubmit}
 				/>
 			}
 		>
-			<AddUserForm
-				forTour={forTour}
-				users={users}
-				bandUsers={bandUsers}
-				onSubmit={onSubmit}
-				isAdmin={isAdmin}
-			/>
+			<AddUserForm forTour={forTour} users={users} />
 			{userList}
 		</Panel>
 	);

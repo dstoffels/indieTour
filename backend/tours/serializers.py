@@ -10,7 +10,6 @@ from django.shortcuts import get_object_or_404
 
 
 class TourUserSerializer(serializers.ModelSerializer):
-    touruser_id = serializers.CharField(source="id")
     banduser_id = serializers.CharField(source="banduser.id")
     user_id = serializers.CharField(source="banduser.user.id")
     email = serializers.CharField(source="banduser.user.email")
@@ -19,7 +18,7 @@ class TourUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TourUser
-        fields = ("touruser_id", "banduser_id", "user_id", "email", "username", "is_admin")
+        fields = ("id", "banduser_id", "user_id", "email", "username", "is_admin")
 
     @staticmethod
     def create_or_update(req, tour_id):
@@ -56,7 +55,11 @@ class TourSerializer(serializers.ModelSerializer):
     def create_or_update(self, req, band_id):
         self.is_valid(raise_exception=True)
         if self.has_valid_name(band_id):
-            res_status = status.HTTP_200_OK if self.instance.id else status.HTTP_201_CREATED
+            try:
+                self.instance.id
+                res_status = status.HTTP_200_OK
+            except:
+                res_status = status.HTTP_201_CREATED
             self.save(band_id=band_id)
 
             req.user.active_tour = self.instance
@@ -71,7 +74,3 @@ class TourSerializer(serializers.ModelSerializer):
             self.save()
             return Response(self.data, status=status.HTTP_200_OK)
         return Response({"name": "Cannot have duplicate tour names."}, status=status.HTTP_400_BAD_REQUEST)
-
-    def get_dates(self, tour: Tour):
-        dates = tour.tourdates.all().order_by("date")
-        return DateSerializer(dates, many=True).data

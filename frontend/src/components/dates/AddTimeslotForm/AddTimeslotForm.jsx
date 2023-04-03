@@ -2,8 +2,6 @@ import { FormControlLabel, Stack, Switch, TextField } from '@mui/material';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
 import useCustomForm from 'hooks/useCustomForm.js';
 import useDates from 'hooks/useDates.js';
-import useForm from 'hooks/useForm.js';
-import moment from 'moment';
 import React from 'react';
 
 const initValues = {
@@ -24,7 +22,8 @@ const AddTimeslotForm = ({}) => {
 			formData={formData}
 			onSubmit={addTimeslot}
 			btnText='Add Timeslot'
-			direction='column'>
+			direction='column'
+		>
 			<Stack direction='row' spacing={1}>
 				<TextField
 					required

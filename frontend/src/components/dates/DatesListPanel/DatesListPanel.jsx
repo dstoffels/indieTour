@@ -7,11 +7,12 @@ import useAPI from 'hooks/useAPI.js';
 import useDates from 'hooks/useDates.js';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import useTour from 'hooks/useTour.js';
 
 const DatesListPanel = ({ size, elevation, isAdmin, addTourDate, forTour }) => {
 	const [tourdates, setTourdates] = useState([]);
 
-	const { activeTour, fetchTourDates } = useDates();
+	const { activeTour, fetchTourDates, createTourDate } = useDates();
 
 	useEffect(() => {
 		fetchTourDates(setTourdates);
@@ -28,7 +29,7 @@ const DatesListPanel = ({ size, elevation, isAdmin, addTourDate, forTour }) => {
 			elevation={elevation}
 			actionBtn={<FormControlLabel label='Past Dates' control={<Switch />} />}
 		>
-			<NewDateForm tourdates={tourdates} addTourDate={addTourDate} />
+			<NewDateForm tourdates={tourdates} addTourDate={createTourDate} />
 			{datesList}
 		</Panel>
 	);

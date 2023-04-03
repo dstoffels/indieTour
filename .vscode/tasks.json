@@ -6,8 +6,8 @@
 		{
 			"label": "server",
 			"type": "shell",
-			// "command": "& C:/Users/danst/.virtualenvs/backend-AhtSphSS/Scripts/Activate.ps1; python manage.py runserver",
-			"command": "& C:/Users/danst/.virtualenvs/backend-t3sEQWX5/Scripts/Activate.ps1; python manage.py runserver",
+			"command": "& C:/Users/danst/.virtualenvs/backend-AhtSphSS/Scripts/Activate.ps1; python manage.py runserver",
+			// "command": "& C:/Users/danst/.virtualenvs/backend-t3sEQWX5/Scripts/Activate.ps1; python manage.py runserver",
 			"options": {
 				"cwd": "${workspaceFolder}/backend"
 			},

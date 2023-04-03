@@ -16,7 +16,7 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 
 	const api = useAPI();
 
-	const handleCancel = e => {
+	const handleCancel = (e) => {
 		setIsEditing(false);
 	};
 
@@ -38,7 +38,7 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 		setLocation(newVal);
 	};
 
-	const handleSubmit = e => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		onSubmit({ location });
 		handleCancel();
@@ -52,6 +52,7 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 
 	const fetchPlace = async (place_id = '') => {
 		const response = await api.gapi.maps.place.details.get(place_id);
+		console.log(response);
 		const data = response.data.candidates[0];
 		setLocationData(data);
 	};
@@ -91,12 +92,12 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 								value={value}
 								onChange={handleChange}
 								onInputChange={handleInputChange}
-								filterOptions={o => o}
+								filterOptions={(o) => o}
 								filterSelectedOptions
-								getOptionLabel={option =>
+								getOptionLabel={(option) =>
 									typeof option === 'string' ? option : option.description
 								}
-								renderInput={params => (
+								renderInput={(params) => (
 									<TextField
 										{...params}
 										autoFocus
@@ -110,7 +111,7 @@ const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
 								disabled={initValue === location}
 								color='success'
 								type='submit'
-								onClick={e => e.stopPropagation()}
+								onClick={(e) => e.stopPropagation()}
 							>
 								<Check />
 							</IconButton>

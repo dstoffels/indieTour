@@ -1,22 +1,18 @@
 import { TextField } from '@mui/material';
-import axios from 'axios';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
 import useBand from 'hooks/useBand.js';
-import useAPI from 'hooks/useAPI.js';
 import React, { useState } from 'react';
-import { getConfigObj } from 'redux/userSlice.js';
-import endpoints from 'utils/endpoints.js';
 
-const NewBandForm = ({ onPost }) => {
+const NewBandForm = ({}) => {
 	const [name, setName] = useState('');
 
-	const requests = useAPI();
+	const { createNewBand } = useBand();
 
-	const handleName = e => setName(e.target.value);
+	const handleName = (e) => setName(e.target.value);
 
-	const handleSubmit = async () => {
-		const response = await requests.band.post({ name });
-		onPost();
+	const handleSubmit = () => {
+		createNewBand({ name });
+		setName('');
 	};
 
 	return (

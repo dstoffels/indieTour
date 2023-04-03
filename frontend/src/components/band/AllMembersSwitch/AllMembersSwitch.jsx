@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormControlLabel, Switch } from '@mui/material';
+import useBand from 'hooks/useBand.js';
 import useTour from 'hooks/useTour.js';
-import useAPI from 'hooks/useAPI.js';
 
-const AllMembersSwitch = ({ forTour, checked, bandusers = [], tourusers = [], onSubmit }) => {
-	const { activeTour, activeBand, fetchActiveTour, addTouruser, removeTouruser } = useTour();
-	const api = useAPI();
+const AllMembersSwitch = ({ forTour, checked }) => {
+	const { bandusers } = useBand();
+	const { tourusers, addTouruser, removeTouruser } = useTour();
 
 	const handleAllMembers = () => {
 		checked
-			? activeTour.users.forEach(async ({ touruser_id }) => await removeTouruser(touruser_id))
-			: activeBand.users.forEach(async user => await addTouruser(user));
-
-		fetchActiveTour();
+			? tourusers.forEach(({ id }) => removeTouruser(id))
+			: bandusers.forEach(({ email }) => addTouruser(email));
 	};
 
 	return forTour ? (

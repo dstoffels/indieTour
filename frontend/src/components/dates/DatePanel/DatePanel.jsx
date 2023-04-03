@@ -7,8 +7,8 @@ import React from 'react';
 import DateDetailsPanel from '../DateDetailsPanel/DateDetailsPanel.jsx';
 import SchedulePanel from '../SchedulePanel/SchedulePanel.jsx';
 
-const DatePanel = ({ activeTour, isAdmin }) => {
-	const { activeDate, updateDate, deleteDate } = useDates();
+const DatePanel = ({ activeTour, activeDate, isAdmin }) => {
+	const { updateDate, deleteDate } = useDates();
 
 	return activeDate ? (
 		<Panel
@@ -25,9 +25,11 @@ const DatePanel = ({ activeTour, isAdmin }) => {
 						name='title'
 						variant='overline'
 						onSubmit={updateDate}
-						canEdit={isAdmin}></EditField>
+						canEdit={isAdmin}
+					></EditField>
 				</div>
-			}>
+			}
+		>
 			<Grid container spacing={1}>
 				<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
 				<DateDetailsPanel
