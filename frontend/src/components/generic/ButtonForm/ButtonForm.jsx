@@ -17,6 +17,7 @@ const ButtonForm = ({
 	direction = 'row',
 	onOpen = () => {},
 	divider = true,
+	disabled,
 }) => {
 	const [showForm, setShowForm] = useState(false);
 
@@ -43,7 +44,7 @@ const ButtonForm = ({
 					<Stack direction={direction} spacing={1} justifyContent='space-between'>
 						{children}
 						<Stack direction='row' alignItems='center'>
-							<IconButton color='info' variant='contained' type='submit'>
+							<IconButton color='info' variant='contained' type='submit' disabled={disabled}>
 								<Check />
 							</IconButton>
 							<IconButton onClick={handleShowForm} color='error'>

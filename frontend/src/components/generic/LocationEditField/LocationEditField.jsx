@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import LocationField from '../LocationField/LocationField.jsx';
 import { IconButton, Stack, Typography } from '@mui/material';
 import { Check } from '@mui/icons-material';
 import useBand from 'hooks/useBand.js';
-import useCtrlEnterKeys from 'hooks/useCtrlEnterKeys.js';
 import useEscKey from 'hooks/useEscKey.js';
+import useOutsideClick from 'hooks/useOutsideClick.js';
 
 const LocationEditField = ({ initValue, onSubmit }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [place, setPlace] = useState({ description: initValue });
 	const { isAdmin } = useBand();
-
-	console.log(place);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -19,19 +17,36 @@ const LocationEditField = ({ initValue, onSubmit }) => {
 		setIsEditing(false);
 	};
 
-	useEscKey(() => setIsEditing(false));
+	const handleCancel = () => {
+		setIsEditing(false);
+		setPlace({ description: initValue });
+	};
+
+	useEscKey(handleCancel);
+
+	const ref = useRef(null);
+	const [handleClose, handleOpen] = useOutsideClick(ref, handleCancel);
 
 	const handleClick = () => setIsEditing(true);
 
 	let className = isAdmin ? 'edit-field' : '';
 	className += !isEditing ? ' inactive' : '';
 
+	useEffect(() => {
+		setPlace({ description: initValue });
+	}, [isEditing]);
+
 	return (
-		<div onClick={handleClick} className={className}>
+		<div ref={ref} onClick={handleClick} className={className}>
 			{isEditing ? (
 				<form onSubmit={handleSubmit}>
 					<Stack direction='row' justifyContent='space-between' alignItems='center'>
-						<LocationField value={place} onSelect={setPlace} />
+						<LocationField
+							value={place}
+							onSelect={setPlace}
+							onOpen={handleOpen}
+							onClose={handleClose}
+						/>
 						<IconButton
 							disabled={initValue === place?.description}
 							color='success'

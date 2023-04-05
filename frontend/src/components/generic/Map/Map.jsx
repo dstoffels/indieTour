@@ -5,7 +5,6 @@ import useAPI from 'hooks/useAPI.js';
 
 const Map = ({ place_id }) => {
 	const [data, setData] = useState(null);
-
 	const api = useAPI();
 
 	const { isLoaded } = useJsApiLoader({

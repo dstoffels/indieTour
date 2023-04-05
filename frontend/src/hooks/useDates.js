@@ -18,8 +18,23 @@ const useDates = (callback) => {
 		activeTour && api.tour.detail.dates.getAll(activeTour.id, callback);
 	};
 
-	const addTourDate = (dateData) => {
-		api.tour.detail.dates.post(activeTour.id, dateData, (responseData) => {
+	const parsePlace = (place) => {
+		const { terms, place_id, description } = place;
+		let political_location = terms
+			.reverse()
+			.filter((term, i) => i < 3)
+			.reverse()
+			.map(({ value }) => value)
+			.join(', ');
+
+		const { main_text } = place.structured_formatting;
+
+		return { place_id, political_location, title: main_text, location: description };
+	};
+
+	const addTourDate = (date, place) => {
+		const data = { date, ...parsePlace(place) };
+		api.tour.detail.dates.post(activeTour.id, data, (responseData) => {
 			setActiveDate(responseData);
 			fetchTourDates();
 		});

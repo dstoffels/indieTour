@@ -11,7 +11,7 @@ import { Box } from '@mui/material';
 
 const initValue = { description: '' };
 
-const LocationField = ({ value, onSelect = (option) => {} }) => {
+const LocationField = ({ value, onSelect = (option) => {}, onOpen, onClose }) => {
 	value = value || initValue;
 
 	const [inputValue, setInputValue] = useState(value ? value.description : '');
@@ -22,7 +22,7 @@ const LocationField = ({ value, onSelect = (option) => {} }) => {
 	const api = useAPI();
 
 	const handleInputChange = (event) => {
-		setInputValue(event.target.value);
+		setInputValue(event ? event.target.value : '');
 	};
 
 	const handleOptionSelect = (option) => {
@@ -57,6 +57,8 @@ const LocationField = ({ value, onSelect = (option) => {} }) => {
 			inputValue={inputValue}
 			onInputChange={handleInputChange}
 			onChange={(event, option) => handleOptionSelect(option)}
+			onOpen={onOpen}
+			onClose={onClose}
 			renderInput={(params) => (
 				<TextField
 					{...params}

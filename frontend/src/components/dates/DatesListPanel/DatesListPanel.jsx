@@ -18,12 +18,8 @@ const DatesListPanel = ({ size, elevation }) => {
 		fetchTourDates(setTourDates);
 	}, [activeTour]);
 
-	const handleNewTourDate = (dateData) => {
-		addTourDate(dateData);
-	};
-
 	const datesList = tourdates.map((tourdate, i) => (
-		<DateListItem i={i} key={`date-${tourdate.id}`} tourdate={tourdate} />
+		<DateListItem key={`date-${tourdate.id}`} tourdate={tourdate} />
 	));
 
 	return (
@@ -33,7 +29,7 @@ const DatesListPanel = ({ size, elevation }) => {
 			elevation={elevation}
 			actionBtn={<FormControlLabel label='Past Dates' control={<Switch />} />}
 		>
-			<NewDateForm tourdates={tourdates} addTourDate={handleNewTourDate} />
+			<NewDateForm tourdates={tourdates} setTourDates={setTourDates} />
 			{datesList}
 		</Panel>
 	);

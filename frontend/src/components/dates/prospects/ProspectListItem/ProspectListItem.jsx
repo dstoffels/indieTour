@@ -24,16 +24,16 @@ const ProspectListItem = ({ prospect, onChange }) => {
 
 	return (
 		<PanelListItem onClick={handleClick}>
-			<Stack direction='row' justifyContent='space-between' alignItems='center'>
+			<Stack spacing={1} direction='row' justifyContent='space-between' alignItems='center'>
 				<Stack>
 					<Typography fontWeight={600}>{prospect.venue.name}</Typography>
 					<Typography variant='caption'>{prospect.venue.formatted_address}</Typography>
 				</Stack>
-				<FormControl>
-					<Select variant='standard' value={prospect.status} onChange={handleStatus}>
+				<div className='flex-grow'>
+					<Select fullWidth variant='standard' value={prospect.status} onChange={handleStatus}>
 						{options}
 					</Select>
-				</FormControl>
+				</div>
 			</Stack>
 		</PanelListItem>
 	);

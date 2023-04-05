@@ -3,11 +3,10 @@ import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
 import moment from 'moment';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
 import './DateListItem.css';
 import useDates from 'hooks/useDates.js';
 
-const DateListItem = ({ tourdate, i, deleteDate, forTour = null }) => {
+const DateListItem = ({ tourdate }) => {
 	const { activeDate } = useDates();
 
 	const navigate = useNavigate();
@@ -18,7 +17,7 @@ const DateListItem = ({ tourdate, i, deleteDate, forTour = null }) => {
 
 	const activeColor = tourdate.id == activeDate?.id ? 'primary' : '';
 
-	const confirmedClass = tourdate.is_confirmed ? 'confirmed-date' : 'unconfirmed-date';
+	const confirmedClass = tourdate.is_show_day ? 'confirmed-date' : 'unconfirmed-date';
 
 	return (
 		<PanelListItem onClick={handleClick}>
@@ -37,7 +36,12 @@ const DateListItem = ({ tourdate, i, deleteDate, forTour = null }) => {
 						{moment(tourdate.date).format('DD MMM')}
 					</Typography>
 				</Stack>
-				<Typography color={activeColor}>{tourdate.title}</Typography>
+				<Stack textAlign='right'>
+					<Typography color={activeColor}>{tourdate.title}</Typography>
+					<Typography variant='caption' color={activeColor}>
+						{tourdate.political_location}
+					</Typography>
+				</Stack>
 			</Stack>
 		</PanelListItem>
 	);

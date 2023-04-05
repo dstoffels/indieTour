@@ -20,7 +20,17 @@ class DateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Date
-        fields = ["id", "date", "location", "title", "notes", "is_show_day", "timeslots", "place_id"]
+        fields = [
+            "id",
+            "date",
+            "title",
+            "notes",
+            "is_show_day",
+            "timeslots",
+            "place_id",
+            "location",
+            "political_location",
+        ]
 
     def is_valid_tour_date(self, tour_id):
         tour_dates = Date.objects.filter(tour_id=tour_id, date=self.validated_data["date"])

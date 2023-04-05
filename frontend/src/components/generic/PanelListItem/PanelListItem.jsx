@@ -11,7 +11,7 @@ const PanelListItem = ({ onClick, icon, active, color = 'primary', children, div
 	return (
 		<div>
 			{onClick ? (
-				<ListItemButton onClick={onClick}>
+				<ListItemButton sx={{ padding: 0.5 }} onClick={onClick}>
 					{icon && <ListItemIcon>{React.cloneElement(icon, { customProps: color })}</ListItemIcon>}
 					{children}
 				</ListItemButton>

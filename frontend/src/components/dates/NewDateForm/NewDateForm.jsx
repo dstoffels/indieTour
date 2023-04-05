@@ -1,11 +1,14 @@
-import { TextField } from '@mui/material';
 import DatePickerModal from 'components/forms/tour/DatePickerModal/DatePickerModal.jsx';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
+import LocationField from 'components/generic/LocationField/LocationField.jsx';
+import useAPI from 'hooks/useAPI.js';
+import useDates from 'hooks/useDates.js';
 import useEscKey from 'hooks/useEscKey.js';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const NewDateForm = ({ tourdates, addTourDate }) => {
+const NewDateForm = ({ tourdates, setTourDates }) => {
 	const getNextDate = () => {
 		const lastDate = tourdates[tourdates.length - 1];
 		return lastDate
@@ -14,28 +17,39 @@ const NewDateForm = ({ tourdates, addTourDate }) => {
 	};
 
 	const [date, setDate] = useState(getNextDate());
-	const [title, setTitle] = useState('');
+	const [place, setPlace] = useState(null);
 
+	const navigate = useNavigate();
+	const { activeDate, addTourDate, fetchTourDates } = useDates(setTourDates);
 	const handleDate = (date) => setDate(date);
-	const handleTitle = (e) => setTitle(e.target.value);
 
 	const clearForm = () => {
-		setTitle('');
+		setPlace(null);
 		setDate(getNextDate());
 	};
 
 	const handleSubmit = () => {
-		addTourDate({ date, title });
+		const { terms } = place;
+		const { main_text } = place.structured_formatting;
+		const political_location = `${terms[terms.length - 3]?.value + ','} ${
+			terms[terms.length - 2].value
+		}, ${terms[terms.length - 1].value}`;
+		addTourDate(date, place);
 	};
 
 	useEffect(() => {
 		clearForm();
 	}, [tourdates]);
 
+	useEffect(() => {
+		fetchTourDates();
+		activeDate && navigate(`/dates/${activeDate.id}`);
+	}, [activeDate]);
+
 	return (
 		<ButtonForm btnText='Add Date' onSubmit={handleSubmit} autoClose={false}>
 			<DatePickerModal value={date} onChange={handleDate} tourDates={tourdates} />
-			<TextField value={title} onChange={handleTitle} variant='standard' label='Title' />
+			<LocationField value={place} onSelect={setPlace} />
 		</ButtonForm>
 	);
 };
