@@ -42,6 +42,8 @@ def prospect_detail(req, prospect_id):
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated])
 def prospect_log(req, prospect_id):
+    prospect = get_object_or_404(Prospect, id=prospect_id)
+    prospect_ser = ProspectSerializer(prospect)
     if req.method == GET:
         log_entries = LogEntry.objects.filter(prospect_id=prospect_id)
         ser = LogEntrySerializer(log_entries, many=True)
@@ -50,13 +52,14 @@ def prospect_log(req, prospect_id):
         ser = LogEntrySerializer(data=req.data)
         ser.is_valid(raise_exception=True)
         ser.save(prospect_id=prospect_id)
-        return Response(ser.data)
+        return Response(prospect_ser.data)
 
 
 @api_view([GET, PATCH, DELETE])
 @permission_classes([IsAuthenticated])
 def log_entry_detail(req, log_entry_id):
     log_entry = get_object_or_404(LogEntry, id=log_entry_id)
+    prospect_ser = ProspectSerializer(log_entry.prospect)
     if req.method == GET:
         ser = LogEntrySerializer(log_entry)
         return Response(ser.data)
@@ -64,7 +67,7 @@ def log_entry_detail(req, log_entry_id):
         ser = LogEntrySerializer(log_entry, data=req.data, partial=True)
         ser.is_valid(raise_exception=True)
         ser.save()
-        return Response(ser.data)
+        return Response(prospect_ser.data)
     elif req.method == DELETE:
         log_entry.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(prospect_ser.data, status=status.HTTP_204_NO_CONTENT)

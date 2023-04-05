@@ -1,4 +1,4 @@
-import DeletePopover from 'components/generic/DeletePopover/DeletePopover.jsx';
+import DeletePopover from 'components/generic/danger-zone/DeletePopover/DeletePopover.jsx';
 import useBand from 'hooks/useBand.js';
 import React from 'react';
 

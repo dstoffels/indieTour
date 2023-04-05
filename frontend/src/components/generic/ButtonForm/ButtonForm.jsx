@@ -16,6 +16,7 @@ const ButtonForm = ({
 	autoClose = true,
 	direction = 'row',
 	onOpen = () => {},
+	divider = true,
 }) => {
 	const [showForm, setShowForm] = useState(false);
 
@@ -25,7 +26,7 @@ const ButtonForm = ({
 
 	useOutsideClick(() => setShowForm(false));
 
-	const handleSubmit = e => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		onSubmit(formData);
 		autoClose && setShowForm(false);
@@ -36,7 +37,7 @@ const ButtonForm = ({
 	}, [showForm]);
 
 	return (
-		<PanelListItem>
+		<PanelListItem divider={divider}>
 			{showForm ? (
 				<form onSubmit={handleSubmit} autoComplete='off'>
 					<Stack direction={direction} spacing={1} justifyContent='space-between'>

@@ -6,7 +6,6 @@ const DangerZone = ({ show = null, children }) => {
 	return (
 		show && (
 			<>
-				<Divider />
 				<Stack spacing={2} padding={2} textAlign='center'>
 					<Typography color='error' variant='h6'>
 						DANGER ZONE!

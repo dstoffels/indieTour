@@ -1,4 +1,4 @@
-import DeletePopover from 'components/generic/DeletePopover/DeletePopover.jsx';
+import DeletePopover from 'components/generic/danger-zone/DeletePopover/DeletePopover.jsx';
 import useTour from 'hooks/useTour.js';
 import React from 'react';
 

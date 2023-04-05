@@ -1,8 +1,11 @@
 import { useGlobalState } from 'context/GlobalStateContext.js';
 import useAPI from './useAPI.js';
+import useBand from './useBand.js';
 
 const useTour = () => {
-	const { activeBand, activeTour, setActiveTour } = useGlobalState();
+	const { activeBand } = useBand();
+
+	const { activeTour, setActiveTour } = useGlobalState();
 	const api = useAPI(``);
 
 	const setUserActiveTour = (tour_id) => {

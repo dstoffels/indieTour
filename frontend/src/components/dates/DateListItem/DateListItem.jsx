@@ -1,14 +1,14 @@
 import { Stack, Typography } from '@mui/material';
 import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
-import useDates from 'hooks/useDates.js';
 import moment from 'moment';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
 import './DateListItem.css';
+import useDates from 'hooks/useDates.js';
 
-const DateListItem = ({ tourdate, i, activetour, forTour = null }) => {
-	const { activeDate, setActiveDate, deleteDate } = useDates();
+const DateListItem = ({ tourdate, i, deleteDate, forTour = null }) => {
+	const { activeDate } = useDates();
 
 	const navigate = useNavigate();
 
@@ -38,7 +38,6 @@ const DateListItem = ({ tourdate, i, activetour, forTour = null }) => {
 					</Typography>
 				</Stack>
 				<Typography color={activeColor}>{tourdate.title}</Typography>
-				{forTour && <DeleteDatePopover date={tourdate} small deleteDate={deleteDate} />}
 			</Stack>
 		</PanelListItem>
 	);

@@ -1,60 +1,48 @@
-import { Divider, FormControlLabel, Switch, Typography } from '@mui/material';
-import DangerZone from 'components/generic/DangerZone/DangerZone.jsx';
+import React, { useState } from 'react';
+import { Divider, Stack } from '@mui/material';
+import DangerZone from 'components/generic/danger-zone/DangerZone/DangerZone.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
-import LocationField from 'components/generic/LocationField/LocationField.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
-import useTour from 'hooks/useTour.js';
-import React from 'react';
 import DeleteDatePopover from '../DeleteDatePopover/DeleteDatePopover.jsx';
-import useAPI from 'hooks/useAPI.js';
+import useDates from 'hooks/useDates.js';
+import useBand from 'hooks/useBand.js';
+import LocationEditField from 'components/generic/LocationEditField/LocationEditField.jsx';
+import Map from 'components/generic/Map/Map.jsx';
 
-const DateDetailsPanel = ({ activeDate, activeTour, isAdmin, updateDate, deleteDate }) => {
-	const api = useAPI();
-	const { fetchActiveTour } = useTour();
-	const handleSwitch = (e) => {
-		updateDate({ [e.target.name]: e.target.checked });
-	};
+const DateDetailsPanel = ({}) => {
+	const { isAdmin } = useBand();
+	const { activeDate, updateActiveDate, deleteActiveDate } = useDates();
 
-	const confirmedSwitch = (
-		<FormControlLabel
-			label='Confirmed'
-			control={
-				<Switch name='is_confirmed' checked={activeDate.is_confirmed} onChange={handleSwitch} />
-			}
-		/>
-	);
-
-	const handleLocation = async (formData) => {
-		const response = await api.date.detail.patch(activeDate.id, formData);
-		await fetchActiveTour();
+	const handleLocationSubmit = (place) => {
+		updateActiveDate({ location: place.description, place_id: place.place_id });
 	};
 
 	return (
-		<Panel title='Details' size={6} elevation={-1} padding={2} actionBtn={confirmedSwitch}>
-			<LocationField
-				label='Location'
-				initValue={activeDate.location}
-				canEdit={isAdmin}
-				activeDate={activeDate}
-				onSubmit={handleLocation}
-			/>
-			<EditField
-				label='Notes'
-				initValue={activeDate.notes}
-				name='notes'
-				canEdit={isAdmin}
-				onSubmit={updateDate}
-				fullWidth
-				multiline
-			>
-				<Typography variant='overline' color='primary'>
-					Notes
-				</Typography>
-			</EditField>
-			<Divider />
-			<DangerZone show={isAdmin}>
-				<DeleteDatePopover date={activeDate} deleteDate={deleteDate} />
-			</DangerZone>
+		<Panel title='Details' size={4} elevation={-1} padding={2}>
+			<Stack spacing={2}>
+				<LocationEditField initValue={activeDate.location} onSubmit={handleLocationSubmit} />
+				<Map place_id={activeDate.place_id} />
+				<EditField
+					label='Title'
+					initValue={activeDate.title}
+					name='title'
+					onSubmit={updateActiveDate}
+					canEdit={isAdmin}
+				/>
+				<EditField
+					label='Notes'
+					initValue={activeDate?.notes}
+					name='notes'
+					canEdit={isAdmin}
+					onSubmit={updateActiveDate}
+					fullWidth
+					multiline
+				/>
+				<Divider />
+				<DangerZone show={isAdmin}>
+					<DeleteDatePopover date={activeDate} deleteDate={deleteActiveDate} />
+				</DangerZone>
+			</Stack>
 		</Panel>
 	);
 };

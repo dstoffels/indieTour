@@ -35,6 +35,6 @@ def place_by_id(req):
     key = req.query_params.get("key")
     place_id = req.query_params.get("place_id")
     response = requests.get(
-        f"{places_endpoint}/details/json?key={key}&place_id={place_id}&fields=formatted_address,geometry,name,address_components"
+        f"{places_endpoint}/details/json?key={key}&place_id={place_id}&fields=place_id,formatted_address,geometry,name,address_components"
     )
     return Response(response.json())

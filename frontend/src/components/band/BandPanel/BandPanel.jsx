@@ -8,10 +8,7 @@ import Panel from 'components/generic/Panel/Panel.jsx';
 import useBand from 'hooks/useBand.js';
 
 const BandPanel = () => {
-	const { activeBand, setActiveBand, updateActiveBand, withActiveBand, isAdmin, isOwner } =
-		useBand();
-
-	activeBand && console.log(activeBand);
+	const { activeBand, updateActiveBand, withActiveBand, isAdmin } = useBand();
 
 	return withActiveBand(
 		<Panel
@@ -20,7 +17,7 @@ const BandPanel = () => {
 			titleEl={
 				<EditField
 					variant='h5'
-					label='Band Name'
+					fieldLabel='Band Name'
 					initValue={activeBand?.name}
 					name='name'
 					onSubmit={updateActiveBand}

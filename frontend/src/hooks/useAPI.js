@@ -152,7 +152,7 @@ const useAPI = () => {
 						await post(`${DATE}/${date_id}/contacts`, body, callback),
 				},
 				prospects: {
-					get: async (date_id, callback) => await get(`${DATE}/${date_id}/prospects`, callback),
+					get_all: async (date_id, callback) => await get(`${DATE}/${date_id}/prospects`, callback),
 					post: async (date_id, body, callback) =>
 						await post(`${DATE}/${date_id}/prospects`, body, callback),
 				},
@@ -185,11 +185,11 @@ const useAPI = () => {
 			log_entry: {
 				detail: {
 					get: async (log_entry_id, callback) =>
-						await get(`${PROSPECT}/log_entry${log_entry_id}`, callback),
+						await get(`${PROSPECT}/log_entry/${log_entry_id}`, callback),
 					patch: async (log_entry_id, body, callback) =>
-						await patch(`${PROSPECT}/log_entry${log_entry_id}`, body, callback),
+						await patch(`${PROSPECT}/log_entry/${log_entry_id}`, body, callback),
 					delete: async (log_entry_id, callback) =>
-						await deleteRequest(`${PROSPECT}/log_entry${log_entry_id}`, callback),
+						await deleteRequest(`${PROSPECT}/log_entry/${log_entry_id}`, callback),
 				},
 			},
 		},
@@ -231,14 +231,16 @@ const useAPI = () => {
 			maps: {
 				place: {
 					autocomplete: {
-						get: async (query) => await get(`${PLACE}/autocomplete?key=${KEY}&query=${query}`),
+						get: async (query, callback) =>
+							await get(`${PLACE}/autocomplete?key=${KEY}&query=${query}`, callback),
 					},
 					fromText: {
-						get: async (input) => await get(`${PLACE}/findplacefromtext?key=${KEY}&input=${input}`),
+						get: async (input, callback) =>
+							await get(`${PLACE}/findplacefromtext?key=${KEY}&input=${input}`, callback),
 					},
 					details: {
-						get: async (place_id) =>
-							await get(`${PLACE}/autocomplete?key=${KEY}&place_id=${place_id}`),
+						get: async (place_id, callback) =>
+							await get(`${PLACE}/details?key=${KEY}&place_id=${place_id}`, callback),
 					},
 				},
 			},

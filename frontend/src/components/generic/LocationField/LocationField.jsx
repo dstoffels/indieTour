@@ -1,133 +1,112 @@
-import { Check } from '@mui/icons-material';
-import { Autocomplete, IconButton, Stack, TextField, Typography } from '@mui/material';
-import useEscKey from 'hooks/useEscKey.js';
-import useOutsideClick from 'hooks/useOutsideClick.js';
-import React, { useEffect, useRef, useState } from 'react';
-import Map from '../Map/Map.jsx';
+import React, { useEffect, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useDebounce } from 'use-debounce';
 import useAPI from 'hooks/useAPI.js';
+import parse from 'autosuggest-highlight/parse';
+import Grid from '@mui/material/Grid';
+import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
-const LocationField = ({ label = '', initValue = '', canEdit, onSubmit }) => {
-	const [value, setValue] = useState(initValue);
-	const [location, setLocation] = useState(initValue);
+const initValue = { description: '' };
+
+const LocationField = ({ value, onSelect = (option) => {} }) => {
+	value = value || initValue;
+
+	const [inputValue, setInputValue] = useState(value ? value.description : '');
 	const [options, setOptions] = useState([]);
-	const [buffer, setBuffer] = useState(-1);
-	const [isEditing, setIsEditing] = useState(false);
-	const [locationData, setLocationData] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [debouncedInputValue] = useDebounce(inputValue, 300);
 
 	const api = useAPI();
 
-	const handleCancel = (e) => {
-		setIsEditing(false);
+	const handleInputChange = (event) => {
+		setInputValue(event.target.value);
 	};
 
-	useEscKey(handleCancel);
-
-	const wrapperRef = useRef(null);
-	useOutsideClick(wrapperRef, handleCancel);
-
-	const handleClick = () => {
-		canEdit && setIsEditing(true);
+	const handleOptionSelect = (option) => {
+		setInputValue(option ? option.description : '');
+		onSelect(option);
 	};
 
-	const handleChange = (e, newVal) => {
-		setOptions(newVal ? [newVal, ...options] : options);
-		setValue(newVal);
-	};
-
-	const handleInputChange = (e, newVal) => {
-		setLocation(newVal);
-	};
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		onSubmit({ location });
-		handleCancel();
-	};
-
-	const autocompletePlaces = async (query = '') => {
-		const response = await api.gapi.maps.place.autocomplete.get(query);
-		const newOptions = response.data.predictions;
-		setOptions(newOptions);
-	};
-
-	const fetchPlace = async (place_id = '') => {
-		const response = await api.gapi.maps.place.details.get(place_id);
-		console.log(response);
-		const data = response.data.candidates[0];
-		setLocationData(data);
+	const fetchOptions = () => {
+		try {
+			setLoading(true);
+			api.gapi.maps.place.autocomplete.get(debouncedInputValue, (data) =>
+				setOptions(data.predictions),
+			);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
-		buffer && clearTimeout(buffer);
-
-		const timeout = setTimeout(() => {
-			autocompletePlaces(location);
-		}, 250);
-
-		setBuffer(timeout);
-	}, [location]);
-
-	useEffect(() => {
-		fetchPlace(location);
-	}, [value]);
-
-	useEffect(() => {
-		setValue(initValue);
-		setLocation(initValue);
-		fetchPlace(value);
-	}, [isEditing]);
+		fetchOptions();
+	}, [debouncedInputValue]);
 
 	return (
-		<div onClick={handleClick}>
-			<Stack spacing={1} className='edit-field'>
-				{isEditing ? (
-					<form onSubmit={handleSubmit}>
-						<Stack direction='row'>
-							<Autocomplete
-								freeSolo
-								fullWidth
-								autoComplete
-								options={options}
-								noOptionsText='No locations'
-								value={value}
-								onChange={handleChange}
-								onInputChange={handleInputChange}
-								filterOptions={(o) => o}
-								filterSelectedOptions
-								getOptionLabel={(option) =>
-									typeof option === 'string' ? option : option.description
-								}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										autoFocus
-										label={label}
-										value={location}
-										variant='standard'
-									/>
-								)}
-							/>
-							<IconButton
-								disabled={initValue === location}
-								color='success'
-								type='submit'
-								onClick={(e) => e.stopPropagation()}
-							>
-								<Check />
-							</IconButton>
-						</Stack>
-					</form>
-				) : (
-					<div>
-						<Typography variant='overline' color='primary'>
-							{label}
-						</Typography>
-						<Typography>{initValue}</Typography>
-					</div>
-				)}
-				<Map data={locationData} />
-			</Stack>
-		</div>
+		<Autocomplete
+			freeSolo
+			fullWidth
+			value={value}
+			options={options}
+			getOptionLabel={(option) => option.description}
+			filterOptions={(o) => o}
+			loading={loading}
+			inputValue={inputValue}
+			onInputChange={handleInputChange}
+			onChange={(event, option) => handleOptionSelect(option)}
+			renderInput={(params) => (
+				<TextField
+					{...params}
+					label='Location'
+					variant='standard'
+					InputProps={{
+						...params.InputProps,
+						endAdornment: (
+							<>
+								{loading ? <CircularProgress color='inherit' size={20} /> : null}
+								{params.InputProps.endAdornment}
+							</>
+						),
+					}}
+				/>
+			)}
+			renderOption={(props, option) => {
+				const matches = option.structured_formatting.main_text_matched_substrings || [];
+
+				const parts = parse(
+					option.structured_formatting.main_text,
+					matches.map((match) => [match.offset, match.offset + match.length]),
+				);
+
+				return (
+					<li {...props}>
+						<Grid container alignItems='center'>
+							{/* <Grid item sx={{ display: 'flex', width: 44 }}>
+								<LocationOn sx={{ color: 'text.secondary' }} />
+							</Grid> */}
+							<Grid item sx={{ width: 'calc(100% - 44px)', wordWrap: 'break-word' }}>
+								{parts.map((part, index) => (
+									<Box
+										key={index}
+										component='span'
+										sx={{ fontWeight: part.highlight ? 'bold' : 'regular' }}
+									>
+										{part.text}
+									</Box>
+								))}
+
+								<Typography variant='body2' color='text.secondary'>
+									{option.structured_formatting.secondary_text}
+								</Typography>
+							</Grid>
+						</Grid>
+					</li>
+				);
+			}}
+		/>
 	);
 };
 

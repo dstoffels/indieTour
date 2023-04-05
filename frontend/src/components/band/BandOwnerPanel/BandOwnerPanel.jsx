@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import DeleteBandPopover from 'components/band/DeleteBandPopover/DeleteBandPopover.jsx';
-import DangerZone from 'components/generic/DangerZone/DangerZone.jsx';
+import DangerZone from 'components/generic/danger-zone/DangerZone/DangerZone.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useBand from 'hooks/useBand.js';
 import React from 'react';

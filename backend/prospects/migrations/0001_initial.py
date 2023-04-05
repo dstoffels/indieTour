@@ -10,34 +10,52 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('dates', '0001_initial'),
-        ('venues', '0001_initial'),
+        ("dates", "0001_initial"),
+        ("venues", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Prospect',
+            name="Prospect",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('notes', models.TextField(blank=True)),
-                ('status', models.CharField(choices=[('UNCONFIRMED', 'UNCONFIRMED'), ('INQUIRY SENT', 'INQUIRY SENT'), ('UNAVAILABLE', 'UNAVAILABLE'), ('OFFER RECEIVED', 'OFFER RECEIVED'), ('CONFIRMED', 'CONFIRMED')], default='UNCONFIRMED', max_length=50)),
-                ('date', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dates.date')),
-                ('venue', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='venues.venue')),
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("notes", models.TextField(blank=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("UNCONFIRMED", "UNCONFIRMED"),
+                            ("INQUIRY SENT", "INQUIRY SENT"),
+                            ("UNAVAILABLE", "UNAVAILABLE"),
+                            ("OFFER RECEIVED", "OFFER RECEIVED"),
+                            ("CONFIRMED", "CONFIRMED"),
+                        ],
+                        default="UNCONFIRMED",
+                        max_length=50,
+                    ),
+                ),
+                ("date", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="dates.date")),
+                ("venue", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="venues.venue")),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='LogEntry',
+            name="LogEntry",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('date', models.DateField()),
-                ('note', models.TextField(blank=True)),
-                ('prospect', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='log_entries', to='prospects.prospect')),
+                ("id", models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ("timestamp", models.DateTimeField()),
+                ("note", models.TextField(blank=True)),
+                (
+                    "prospect",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="log_entries", to="prospects.prospect"
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

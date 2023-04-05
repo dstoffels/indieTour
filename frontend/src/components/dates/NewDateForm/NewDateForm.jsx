@@ -1,5 +1,4 @@
 import { TextField } from '@mui/material';
-import { Stack } from '@mui/system';
 import DatePickerModal from 'components/forms/tour/DatePickerModal/DatePickerModal.jsx';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
 import useEscKey from 'hooks/useEscKey.js';
@@ -17,16 +16,16 @@ const NewDateForm = ({ tourdates, addTourDate }) => {
 	const [date, setDate] = useState(getNextDate());
 	const [title, setTitle] = useState('');
 
-	const handleDate = date => setDate(date);
-	const handleTitle = e => setTitle(e.target.value);
+	const handleDate = (date) => setDate(date);
+	const handleTitle = (e) => setTitle(e.target.value);
 
 	const clearForm = () => {
 		setTitle('');
 		setDate(getNextDate());
 	};
 
-	const handleSubmit = async () => {
-		await addTourDate({ date, title });
+	const handleSubmit = () => {
+		addTourDate({ date, title });
 	};
 
 	useEffect(() => {
@@ -35,7 +34,7 @@ const NewDateForm = ({ tourdates, addTourDate }) => {
 
 	return (
 		<ButtonForm btnText='Add Date' onSubmit={handleSubmit} autoClose={false}>
-			<DatePickerModal value={date} onChange={handleDate} tourDates={tourdates.dates} />
+			<DatePickerModal value={date} onChange={handleDate} tourDates={tourdates} />
 			<TextField value={title} onChange={handleTitle} variant='standard' label='Title' />
 		</ButtonForm>
 	);

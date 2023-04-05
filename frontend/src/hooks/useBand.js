@@ -21,8 +21,8 @@ const useBand = () => {
 		api.band.post(bandData, setActiveBand);
 	};
 
-	const updateActiveBand = () => {
-		api.band.detail.patch(activeBand.id, setActiveBand);
+	const updateActiveBand = (bandData) => {
+		api.band.detail.patch(activeBand.id, bandData, setActiveBand);
 	};
 
 	const deleteActiveBand = () => {

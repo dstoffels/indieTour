@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Divider, ListItemButton, ListItemIcon } from '@mui/material';
 
-const PanelListItem = ({ onClick, icon, active, color = 'primary', children }) => {
+const PanelListItem = ({ onClick, icon, active, color = 'primary', children, divider = true }) => {
 	children = (
 		<Box padding={1} width='100%'>
 			{children}
@@ -18,7 +18,7 @@ const PanelListItem = ({ onClick, icon, active, color = 'primary', children }) =
 			) : (
 				children
 			)}
-			<Divider />
+			{divider && <Divider />}
 		</div>
 	);
 };

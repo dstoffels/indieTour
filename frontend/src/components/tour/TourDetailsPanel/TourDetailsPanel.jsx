@@ -1,5 +1,5 @@
 import { Divider, FormControlLabel, Stack, Switch, Typography } from '@mui/material';
-import DangerZone from 'components/generic/DangerZone/DangerZone.jsx';
+import DangerZone from 'components/generic/danger-zone/DangerZone/DangerZone.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useBand from 'hooks/useBand.js';
@@ -33,11 +33,7 @@ const TourDetailsPanel = () => {
 				onSubmit={updateActiveTour}
 				multiline
 				fullWidth
-			>
-				<Typography variant='overline' color='primary'>
-					Notes
-				</Typography>
-			</EditField>
+			/>
 			<DangerZone show={isOwner}>
 				<DeleteTourPopover activeTour={activeTour} deleteTour={deleteActiveTour} />
 			</DangerZone>

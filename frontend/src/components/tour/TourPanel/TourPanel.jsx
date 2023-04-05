@@ -18,7 +18,7 @@ const TourPanel = ({ addTourDate }) => {
 			padding={1}
 			titleEl={
 				<EditField
-					label='Tour Name'
+					fieldLabel='Tour Name'
 					initValue={activeTour?.name}
 					name='name'
 					variant='h5'
@@ -28,13 +28,13 @@ const TourPanel = ({ addTourDate }) => {
 			}
 		>
 			<Grid container spacing={1}>
-				{/* <DatesListPanel
+				<DatesListPanel
 					forTour
 					activeTour={activeTour}
 					size={4}
 					elevation={-1}
 					addTourDate={addTourDate}
-				/> */}
+				/>
 				<UserPanel title='Personnel' forTour users={tourusers} />
 				<TourDetailsPanel />
 			</Grid>

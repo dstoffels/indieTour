@@ -1,20 +1,21 @@
-import { Check, Close } from '@mui/icons-material';
-import { Box, IconButton, Popover, Popper, TextField, Typography } from '@mui/material';
+import { Check, Close, MyLocation } from '@mui/icons-material';
+import { Box, IconButton, Popover, Popper, Stack, TextField, Typography } from '@mui/material';
 import useEscKey from 'hooks/useEscKey.js';
 import useOutsideClick from 'hooks/useOutsideClick.js';
 import React, { useEffect, useRef, useState } from 'react';
 import './EditField.css';
+import useBand from 'hooks/useBand.js';
+import useCtrlEnterKeys from 'hooks/useCtrlEnterKeys.js';
 
 const EditField = ({
 	label,
+	fieldLabel,
 	initValue = '',
 	name,
 	variant = 'body1',
-	canEdit = false,
 	onSubmit = async () => {},
 	children,
 	multiline,
-	fullWidth,
 	id,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +23,9 @@ const EditField = ({
 	const [anchor, setAnchor] = useState(null);
 	const [value, setValue] = useState(initValue);
 
-	const handleCancel = e => {
+	const { isAdmin } = useBand();
+
+	const handleCancel = () => {
 		setValue(initValue);
 		setIsEditing(false);
 	};
@@ -30,10 +33,10 @@ const EditField = ({
 	useEscKey(handleCancel);
 
 	const wrapperRef = useRef(null);
-	useOutsideClick(wrapperRef, handleCancel);
+	useOutsideClick(wrapperRef, () => handleCancel());
 
 	const handleClick = () => {
-		canEdit && setIsEditing(true);
+		isAdmin && setIsEditing(true);
 	};
 
 	const handleError = (event, exception) => {
@@ -41,7 +44,7 @@ const EditField = ({
 		setError(exception);
 	};
 
-	const handleSubmit = async e => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const exception = await onSubmit({ [name]: value });
 		exception ? handleError(e, exception) : handleCancel();
@@ -57,40 +60,46 @@ const EditField = ({
 		setValue(initValue);
 	}, [initValue]);
 
-	let className = canEdit ? 'edit-field' : '';
+	let className = isAdmin ? 'edit-field' : '';
 	className += !isEditing ? ' inactive' : '';
+
+	fieldLabel = fieldLabel || label;
+	children = children || (
+		<TextField
+			id={id}
+			multiline={multiline}
+			fullWidth
+			size='small'
+			label={fieldLabel}
+			autoFocus
+			value={value}
+			name={name}
+			onChange={(e) => setValue(e.target.value)}
+			variant='standard'
+		/>
+	);
 
 	return (
 		<div onClick={handleClick} ref={wrapperRef} className={className}>
 			{isEditing ? (
 				<form autoComplete='new-password' onSubmit={handleSubmit}>
-					<TextField
-						id={id}
-						multiline={multiline}
-						fullWidth={fullWidth}
-						size='small'
-						label={label}
-						autoFocus
-						value={value}
-						name={name}
-						onChange={e => setValue(e.target.value)}
-						variant='standard'
-						InputProps={{
-							endAdornment: (
-								<IconButton
-									disabled={initValue === value}
-									color='success'
-									type='submit'
-									onClick={e => e.stopPropagation()}>
-									<Check />
-								</IconButton>
-							),
-						}}
-					/>
+					<Stack direction='row' justifyContent='space-between' alignItems='center'>
+						{children}
+						<IconButton
+							disabled={initValue === value}
+							color='success'
+							type='submit'
+							onClick={(e) => e.stopPropagation()}
+						>
+							<Check />
+						</IconButton>
+					</Stack>
 				</form>
 			) : (
 				<div>
-					{children}
+					<Typography variant='overline' color='primary'>
+						{label}
+					</Typography>
 					<Typography variant={variant}>{initValue}</Typography>
 				</div>
 			)}
