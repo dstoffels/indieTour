@@ -1,27 +1,54 @@
-import { AppBar, Grid, Paper, Toolbar, Typography } from '@mui/material';
+import {
+	AppBar,
+	BottomNavigation,
+	BottomNavigationAction,
+	Grid,
+	Paper,
+	Toolbar,
+	Typography,
+} from '@mui/material';
 import Navbar from 'pages/NavBar/NavBar.jsx';
-import React from 'react';
+import React, { useState } from 'react';
 import './Page.css';
+import NavLink from 'pages/NavLink/NavLink.jsx';
+import { AirportShuttle, DateRange, EventAvailable } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-const Page = ({ select, children }) => (
-	<Paper className='page'>
-		<Navbar select={select} />
-
+const Page = ({ children }) => (
+	<Grid container spacing={1} paddingX={1}>
 		{children}
-	</Paper>
+	</Grid>
 );
 
 export default Page;
 
-// const PageHeader = ({ children }) => (
-// 	<AppBar position='relative'>
-// 		<Toolbar className='justify-between' variant='dense'>
-// 			{children}
-// 		</Toolbar>
-// 	</AppBar>
-// );
+const PageHeader = ({ children }) => {
+	const [value, setValue] = useState(0);
 
-// Page.Header = PageHeader;
+	const navigate = useNavigate();
+
+	return (
+		<BottomNavigation showLabels value={value} onChange={(e, val) => setValue(val)}>
+			<BottomNavigationAction
+				onClick={() => navigate('/tour')}
+				label='Tour'
+				icon={<AirportShuttle />}
+			/>
+			<BottomNavigationAction
+				onClick={() => navigate('/dates')}
+				label='Dates'
+				icon={<DateRange />}
+			/>
+			<BottomNavigationAction
+				onClick={() => navigate('/dates')}
+				label='Booking'
+				icon={<EventAvailable />}
+			/>
+		</BottomNavigation>
+	);
+};
+
+Page.Header = PageHeader;
 
 const PageSplitBody = ({ children }) => (
 	<Grid height='100%' container spacing={1} padding={1} justifyContent='space-between'>

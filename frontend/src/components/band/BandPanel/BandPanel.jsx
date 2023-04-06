@@ -1,6 +1,6 @@
 import React from 'react';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
-import BandOwnerPanel from 'components/band/BandOwnerPanel/BandOwnerPanel.jsx';
+import BandDetailsPanel from 'components/band/BandDetailsPanel/BandDetailsPanel.jsx';
 import ToursListPanel from 'components/tour/ToursListPanel/ToursListPanel.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import { Grid } from '@mui/material';
@@ -28,7 +28,7 @@ const BandPanel = () => {
 			<Grid container spacing={1}>
 				<ToursListPanel size={4} elevation={-1} />
 				<UserPanel title='Members' />
-				<BandOwnerPanel />
+				<BandDetailsPanel />
 			</Grid>
 		</Panel>,
 	);

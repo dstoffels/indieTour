@@ -7,38 +7,23 @@ import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 import DatesListPanel from 'components/dates/DatesListPanel/DatesListPanel.jsx';
 import useTour from 'hooks/useTour.js';
 import useBand from 'hooks/useBand.js';
+import BandDetailsPanel from 'components/band/BandDetailsPanel/BandDetailsPanel.jsx';
 
 const TourPanel = ({ addTourDate }) => {
 	const { isAdmin } = useBand();
 	const { activeTour, tourusers, updateActiveTour, withActiveTour } = useTour();
 
 	return withActiveTour(
-		<Panel
-			size={9}
-			padding={1}
-			titleEl={
-				<EditField
-					fieldLabel='Tour Name'
-					initValue={activeTour?.name}
-					name='name'
-					variant='h5'
-					onSubmit={updateActiveTour}
-					canEdit={isAdmin}
-				/>
-			}
-		>
+		<>
 			<Grid container spacing={1}>
-				<DatesListPanel
-					forTour
-					activeTour={activeTour}
-					size={4}
-					elevation={-1}
-					addTourDate={addTourDate}
-				/>
-				<UserPanel title='Personnel' forTour users={tourusers} />
 				<TourDetailsPanel />
+				<UserPanel title='Personnel' forTour users={tourusers} />
 			</Grid>
-		</Panel>,
+			<Grid container spacing={1}>
+				<UserPanel title='Members' />
+				<BandDetailsPanel />
+			</Grid>
+		</>,
 	);
 };
 

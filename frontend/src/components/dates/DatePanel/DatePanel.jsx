@@ -1,5 +1,4 @@
-import { Grid, Typography } from '@mui/material';
-import EditField from 'components/generic/EditField/EditField.jsx';
+import { Button, Grid, IconButton, Typography } from '@mui/material';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import useDates from 'hooks/useDates.js';
 import moment from 'moment';
@@ -9,8 +8,9 @@ import SchedulePanel from '../SchedulePanel/SchedulePanel.jsx';
 import useBand from 'hooks/useBand.js';
 import LabeledSwitch from 'components/generic/LabeledSwitch/LabeledSwitch.jsx';
 import ProspectPanels from '../prospects/ProspectPanels/ProspectPanels.jsx';
+import { KeyboardArrowLeft } from '@mui/icons-material';
 
-const DatePanel = ({}) => {
+const DatePanel = ({ showDates, toggleShowDates }) => {
 	const { isAdmin } = useBand();
 	const { activeDate, updateActiveDate } = useDates();
 	const { withActiveDate } = useDates();
@@ -22,10 +22,12 @@ const DatePanel = ({}) => {
 	return withActiveDate(
 		<Panel
 			size={9}
-			padding={1}
 			titleEl={
 				<div>
-					<Typography variant='h5'>
+					<IconButton onClick={toggleShowDates}>
+						<KeyboardArrowLeft />
+					</IconButton>
+					<Typography variant='span'>
 						{moment(activeDate?.date).format('dddd DD MMMM YYYY')}
 					</Typography>
 				</div>
@@ -40,9 +42,9 @@ const DatePanel = ({}) => {
 			}
 		>
 			<Grid container spacing={1}>
-				{/* <SchedulePanel activeDate={activeDate} isAdmin={isAdmin} /> */}
+				<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
 				{!activeDate.is_show_day && <DateDetailsPanel />}
-				{activeDate.is_show_day && <ProspectPanels />}
+				{/* {activeDate.is_show_day && <ProspectPanels />} */}
 			</Grid>
 		</Panel>,
 	);

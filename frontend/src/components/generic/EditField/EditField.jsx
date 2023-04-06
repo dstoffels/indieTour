@@ -1,11 +1,10 @@
-import { Check, Close, MyLocation } from '@mui/icons-material';
-import { Box, IconButton, Popover, Popper, Stack, TextField, Typography } from '@mui/material';
+import { Check } from '@mui/icons-material';
+import { Box, IconButton, Popper, Stack, TextField, Typography } from '@mui/material';
 import useEscKey from 'hooks/useEscKey.js';
 import useOutsideClick from 'hooks/useOutsideClick.js';
 import React, { useEffect, useRef, useState } from 'react';
 import './EditField.css';
 import useBand from 'hooks/useBand.js';
-import useCtrlEnterKeys from 'hooks/useCtrlEnterKeys.js';
 
 const EditField = ({
 	label,
@@ -82,26 +81,28 @@ const EditField = ({
 	return (
 		<div onClick={handleClick} ref={wrapperRef} className={className}>
 			{isEditing ? (
-				<form autoComplete='new-password' onSubmit={handleSubmit}>
-					<Stack direction='row' justifyContent='space-between' alignItems='center'>
-						{children}
-						<IconButton
-							disabled={initValue === value}
-							color='success'
-							type='submit'
-							onClick={(e) => e.stopPropagation()}
-						>
-							<Check />
-						</IconButton>
-					</Stack>
-				</form>
+				<Box padding={2}>
+					<form autoComplete='new-password' onSubmit={handleSubmit}>
+						<Stack direction='row' justifyContent='space-between' alignItems='center'>
+							{children}
+							<IconButton
+								disabled={initValue === value}
+								color='success'
+								type='submit'
+								onClick={(e) => e.stopPropagation()}
+							>
+								<Check />
+							</IconButton>
+						</Stack>
+					</form>
+				</Box>
 			) : (
-				<div>
+				<Box padding={2} width='100%'>
 					<Typography variant='overline' color='primary'>
 						{label}
 					</Typography>
 					<Typography variant={variant}>{initValue}</Typography>
-				</div>
+				</Box>
 			)}
 			<Popper anchorEl={anchor} open={Boolean(error)}>
 				<Box sx={{ backgroundColor: 'background.paper' }} padding={1}>

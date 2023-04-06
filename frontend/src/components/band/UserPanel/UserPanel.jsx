@@ -23,13 +23,12 @@ const UserPanel = ({ forTour = false, title = '' }) => {
 
 	return (
 		<Panel
-			size={4}
 			elevation={-1}
 			title={title}
 			titleSize={6}
 			actionBtn={
 				<AllMembersSwitch
-					users={bandusers}
+					hidden={!users.length}
 					checked={users.length === bandusers.length}
 					forTour={forTour}
 				/>

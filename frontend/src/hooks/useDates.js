@@ -1,16 +1,11 @@
 import { useGlobalState } from 'context/GlobalStateContext.js';
 import useAPI from './useAPI.js';
 import useTour from './useTour.js';
-import { useEffect } from 'react';
 
 const useDates = (callback) => {
 	const api = useAPI();
 
 	const { activeTour, fetchUserActiveTour } = useTour();
-
-	useEffect(() => {
-		!activeTour && fetchUserActiveTour();
-	}, []);
 
 	const { activeDate, setActiveDate } = useGlobalState();
 
@@ -72,6 +67,7 @@ const useDates = (callback) => {
 		fetchDateProspects,
 		addProspect,
 		withActiveDate,
+		parsePlace,
 	};
 };
 

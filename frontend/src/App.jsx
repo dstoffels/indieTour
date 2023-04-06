@@ -13,10 +13,14 @@ import PrivateOutlet from 'utils/PrivateOutlet.jsx';
 import TodayPage from 'pages/TodayPage/TodayPage.jsx';
 import DatesPage from 'pages/DatesPage/DatesPage.jsx';
 import NewUserPage from 'pages/NewUserPage/NewUserPage.jsx';
+import Navbar from 'pages/NavBar/NavBar.jsx';
+import Page from 'pages/Page/Page.jsx';
 
 function App() {
 	return (
 		<div className='app'>
+			<Navbar />
+			<Page.Header />
 			<Routes>
 				<Route path='/home' element={<HomePage />} />
 				<Route path='/user/:uid' element={<NewUserPage />} />

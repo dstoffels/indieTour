@@ -2,6 +2,7 @@ import React from 'react';
 import { FormControlLabel, Switch } from '@mui/material';
 import useBand from 'hooks/useBand.js';
 import useTour from 'hooks/useTour.js';
+import LabeledSwitch from 'components/generic/LabeledSwitch/LabeledSwitch.jsx';
 
 const AllMembersSwitch = ({ forTour, checked }) => {
 	const { bandusers } = useBand();
@@ -13,11 +14,8 @@ const AllMembersSwitch = ({ forTour, checked }) => {
 			: bandusers.forEach(({ email }) => addTouruser(email));
 	};
 
-	return forTour ? (
-		<FormControlLabel
-			label='Add All'
-			control={<Switch checked={checked} onChange={handleAllMembers} />}
-		/>
+	return forTour && bandusers.length ? (
+		<LabeledSwitch label='Add All' checked={checked} onChange={handleAllMembers} />
 	) : null;
 };
 

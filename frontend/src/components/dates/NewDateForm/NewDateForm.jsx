@@ -1,12 +1,9 @@
 import DatePickerModal from 'components/forms/tour/DatePickerModal/DatePickerModal.jsx';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
 import LocationField from 'components/generic/LocationField/LocationField.jsx';
-import useAPI from 'hooks/useAPI.js';
 import useDates from 'hooks/useDates.js';
-import useEscKey from 'hooks/useEscKey.js';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const NewDateForm = ({ tourdates, setTourDates }) => {
 	const getNextDate = () => {
@@ -19,7 +16,6 @@ const NewDateForm = ({ tourdates, setTourDates }) => {
 	const [date, setDate] = useState(getNextDate());
 	const [place, setPlace] = useState(null);
 
-	const navigate = useNavigate();
 	const { activeDate, addTourDate, fetchTourDates } = useDates(setTourDates);
 	const handleDate = (date) => setDate(date);
 
@@ -29,11 +25,6 @@ const NewDateForm = ({ tourdates, setTourDates }) => {
 	};
 
 	const handleSubmit = () => {
-		const { terms } = place;
-		const { main_text } = place.structured_formatting;
-		const political_location = `${terms[terms.length - 3]?.value + ','} ${
-			terms[terms.length - 2].value
-		}, ${terms[terms.length - 1].value}`;
 		addTourDate(date, place);
 	};
 
@@ -43,13 +34,17 @@ const NewDateForm = ({ tourdates, setTourDates }) => {
 
 	useEffect(() => {
 		fetchTourDates();
-		activeDate && navigate(`/dates/${activeDate.id}`);
 	}, [activeDate]);
 
 	return (
-		<ButtonForm btnText='Add Date' onSubmit={handleSubmit} autoClose={false}>
+		<ButtonForm
+			btnText='Add Date'
+			onSubmit={handleSubmit}
+			autoClose={false}
+			onClose={() => setPlace(null)}
+		>
 			<DatePickerModal value={date} onChange={handleDate} tourDates={tourdates} />
-			<LocationField value={place} onSelect={setPlace} />
+			<LocationField required value={place} onSelect={setPlace} />
 		</ButtonForm>
 	);
 };

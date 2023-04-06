@@ -3,17 +3,22 @@ import AppBar from '@mui/material/AppBar';
 import { Toolbar } from '@mui/material';
 import UserMenu from 'menus/UserMenu/UserMenu.jsx';
 import NavLink from 'pages/NavLink/NavLink.jsx';
+import { useGlobalState } from 'context/GlobalStateContext.js';
+import BandMenu from 'components/menus/BandMenu/BandMenu.jsx';
+import TourMenu from 'components/menus/TourMenu/TourMenu.jsx';
 
 const Navbar = ({ select }) => {
+	const { activeBand, activeTour, activeDate } = useGlobalState();
 	return (
-		<AppBar position='fixed'>
+		<AppBar position='relative'>
 			<Toolbar>
 				<div className='flex justify-between flex-grow align-center'>
-					<nav>
-						<NavLink to='/'>BAND</NavLink>/<NavLink to='/tour'>TOUR</NavLink>/
-						<NavLink to='/dates'>DATES</NavLink>/<NavLink to='/today'>TODAY</NavLink>
+					<nav className='flex'>
+						{/* {activeBand && <NavLink to='/'>{activeBand.name}</NavLink>} */}
+						<BandMenu />
+						{activeBand && <TourMenu />}
 					</nav>
-					{select}
+					{/* {select} */}
 					<UserMenu />
 				</div>
 			</Toolbar>

@@ -4,7 +4,7 @@ import AddTimeslotForm from '../AddTimeslotForm/AddTimeslotForm.jsx';
 import TimeSlotListitem from '../TimeSlotListitem/TimeSlotListitem.jsx';
 
 const SchedulePanel = ({ activeDate, isAdmin }) => {
-	const timeslots = activeDate.timeslots.map(timeslot => (
+	const timeslots = activeDate.timeslots.map((timeslot) => (
 		<TimeSlotListitem key={`ts-${timeslot.id}`} activeDate={activeDate} timeslot={timeslot} />
 	));
 

@@ -1,5 +1,6 @@
 .edit-field {
 	cursor: pointer;
+	width: 100%;
 }
 
 .edit-field.inactive:hover {

@@ -23,9 +23,9 @@ export const getUserObjectFromToken = () => {
 
 const getRefreshToken = () => JSON.parse(localStorage.getItem('token').refresh);
 
-const setTokenPair = jwt => localStorage.setItem('token', JSON.stringify(jwt));
+const setTokenPair = (jwt) => localStorage.setItem('token', JSON.stringify(jwt));
 
-const setAccessToken = accessToken =>
+const setAccessToken = (accessToken) =>
 	setTokenPair({ refresh: getRefreshToken(), access: accessToken });
 
 export const useJWT = () => {
@@ -38,7 +38,7 @@ const useAuth = () => {
 
 	const user = getUserObjectFromToken();
 
-	const login = async credentials => {
+	const login = async (credentials) => {
 		const response = await auth.login.post(credentials);
 		setTokenPair(response.data);
 		navigate('/');
@@ -47,7 +47,7 @@ const useAuth = () => {
 		localStorage.removeItem('token');
 		navigate('/');
 	};
-	const register = async formData => {
+	const register = async (formData) => {
 		const response = await auth.register.post(formData);
 		if (response.status === 201) {
 			const { email, password } = formData;
@@ -55,7 +55,9 @@ const useAuth = () => {
 		}
 	};
 
-	return { user, login, logout, register };
+	const withAuth = (jsx) => (user ? jsx : null);
+
+	return { user, login, logout, register, withAuth };
 };
 
 export default useAuth;

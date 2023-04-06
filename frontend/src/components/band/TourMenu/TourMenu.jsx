@@ -1,15 +1,10 @@
-import { Archive, Delete, DeleteForever, Edit, MoreVert } from '@mui/icons-material';
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
-import axios from 'axios';
+import { Archive, DeleteForever, Edit, MoreVert } from '@mui/icons-material';
 import useForm from 'hooks/useForm.js';
 import MenuButton from 'menus/MenuButton/MenuButton.jsx';
 import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateFormData } from 'redux/modalSlice.js';
 import { deleteTourThunk } from 'redux/tourSlice.js';
-import { getConfigObj } from 'redux/userSlice.js';
-import endpoints from 'utils/endpoints.js';
 
 const TourMenu = ({ tour }) => {
 	const dispatch = useDispatch();

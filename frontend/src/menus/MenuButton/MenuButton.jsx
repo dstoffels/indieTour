@@ -4,14 +4,14 @@ import React, { useState } from 'react';
 const MenuButton = ({ buttonIcon, children }) => {
 	const [anchor, setAnchor] = useState(null);
 
-	const handleMenu = e => {
+	const handleMenu = (e) => {
 		e.stopPropagation();
 		setAnchor(e.currentTarget);
 	};
 
 	const handleClose = () => setAnchor(null);
 
-	const handleClick = e => {
+	const handleClick = (e) => {
 		e.stopPropagation();
 		handleClose();
 	};
@@ -25,11 +25,12 @@ const MenuButton = ({ buttonIcon, children }) => {
 				anchorEl={anchor}
 				keepMounted
 				open={Boolean(anchor)}
-				onClose={handleClose}>
+				onClose={handleClose}
+			>
 				{children}
 			</Menu>
 		</>
 	);
 };
 
-export default MenuButton;
+// export default MenuButton;

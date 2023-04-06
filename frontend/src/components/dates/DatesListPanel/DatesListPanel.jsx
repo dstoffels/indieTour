@@ -25,7 +25,7 @@ const DatesListPanel = ({ size, elevation }) => {
 	return (
 		<Panel
 			title='Tour Dates'
-			size={size}
+			size={3}
 			elevation={elevation}
 			actionBtn={<FormControlLabel label='Past Dates' control={<Switch />} />}
 		>

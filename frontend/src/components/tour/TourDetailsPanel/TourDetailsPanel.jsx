@@ -6,35 +6,46 @@ import useBand from 'hooks/useBand.js';
 import React from 'react';
 import DeleteTourPopover from '../DeleteTourPopover/DeleteTourPopover.jsx';
 import useTour from 'hooks/useTour.js';
+import LabeledSwitch from 'components/generic/LabeledSwitch/LabeledSwitch.jsx';
+import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 
 const TourDetailsPanel = () => {
-	const { isOwner, isAdmin } = useBand();
-	const { activeTour, deleteTour, deleteActiveTour, updateActiveTour } = useTour();
+	const { isAdmin } = useBand();
+	const { activeTour, tourusers, deleteTour, deleteActiveTour, updateActiveTour } = useTour();
 
 	const handleArchived = (e) => {
 		updateActiveTour({ is_archived: e.target.checked });
 	};
 
-	const archiveSwitch = isAdmin ? (
-		<FormControlLabel
-			control={<Switch checked={activeTour.is_archived} onChange={handleArchived} />}
-			label='Archive'
-			name='is_archved'
-		/>
-	) : null;
-
 	return (
-		<Panel title='Details' size={4} elevation={-1} padding={2} actionBtn={archiveSwitch}>
+		<Panel title='Tour' elevation={-1} padding={0} size={6}>
+			<EditField
+				fieldLabel='Tour Name'
+				label='name'
+				initValue={activeTour?.name}
+				name='name'
+				variant='h5'
+				onSubmit={updateActiveTour}
+				canEdit={isAdmin}
+			/>
 			<EditField
 				label='Notes'
-				initValue={activeTour.notes}
+				initValue={activeTour?.notes}
 				name='notes'
 				canEdit
 				onSubmit={updateActiveTour}
 				multiline
 				fullWidth
 			/>
-			<DangerZone show={isOwner}>
+
+			<UserPanel title='Personnel' forTour users={tourusers} />
+
+			<DangerZone show={isAdmin}>
+				<LabeledSwitch
+					control={<Switch checked={activeTour?.is_archived} onChange={handleArchived} />}
+					label='Archive'
+					name='is_archved'
+				/>
 				<DeleteTourPopover activeTour={activeTour} deleteTour={deleteActiveTour} />
 			</DangerZone>
 		</Panel>
