@@ -2,16 +2,27 @@ import { KeyboardArrowDown } from '@mui/icons-material';
 import { Button, Divider, Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
 
-const MenuButton = ({ btnTxt, items = [], actionBtn, onClick, menuTxtKey }) => {
+const MenuButton = ({
+	btnTxt,
+	items = [],
+	actionBtn,
+	onClick = () => {},
+	menuTxtKey,
+	variant = 'standard',
+	onOpen = () => {},
+	onClose = () => {},
+}) => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
+		onOpen();
 	};
 
 	const handleClose = () => {
 		setAnchorEl(null);
+		onClose();
 	};
 
 	const handleItemClick = (item) => {
@@ -19,15 +30,15 @@ const MenuButton = ({ btnTxt, items = [], actionBtn, onClick, menuTxtKey }) => {
 		handleClose();
 	};
 
-	const menuItems = items.map((item) => (
-		<MenuItem key={item.id} onClick={() => handleItemClick(item)}>
-			{item[menuTxtKey]}
+	const menuItems = items.map((item, i) => (
+		<MenuItem key={`menu-item-${i}`} onClick={() => handleItemClick(item)}>
+			{menuTxtKey ? item[menuTxtKey] : item}
 		</MenuItem>
 	));
 
 	return (
 		<>
-			<Button onClick={handleClick} endIcon={<KeyboardArrowDown />}>
+			<Button variant={variant} onClick={handleClick} endIcon={<KeyboardArrowDown />}>
 				{btnTxt}
 			</Button>
 			<Menu

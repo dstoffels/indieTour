@@ -2,9 +2,11 @@ import MenuButton from '../MenuButton/MenuButton.jsx';
 import NewBandForm from 'components/forms/band/NewBandForm/NewBandForm.jsx';
 import React, { useEffect, useState } from 'react';
 import useBand from 'hooks/useBand.js';
+import useDates from 'hooks/useDates.js';
 
 const BandMenu = ({}) => {
 	const { activeBand, fetchUserBands, setUserActiveBand, withActiveBand } = useBand();
+	const { setActiveDate } = useDates();
 	const [userBands, setUserBands] = useState([]);
 
 	useEffect(() => {
@@ -12,7 +14,10 @@ const BandMenu = ({}) => {
 	}, [activeBand]);
 
 	const handleClick = (band) => {
-		setUserActiveBand(band.id);
+		if (activeBand.id !== band.id) {
+			setUserActiveBand(band.id);
+			setActiveDate(null);
+		}
 	};
 
 	return withActiveBand(

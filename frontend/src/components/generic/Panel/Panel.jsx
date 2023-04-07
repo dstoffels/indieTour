@@ -12,8 +12,8 @@ const Panel = ({
 	padding = 0,
 }) => {
 	return (
-		<Grid item xs={12} lg={size} height='100%' sx={{ overflowY: 'auto' }}>
-			<Paper elevation={5 + elevation} sx={{ height: '100%', borderRadius: 0 }}>
+		<Grid item xs={12} lg={size}>
+			<Paper elevation={5 + elevation} sx={{ borderRadius: 0 }}>
 				<Paper elevation={2 + elevation} position='relative'>
 					<div className='flex justify-between align-center'>
 						{titleEl ? (

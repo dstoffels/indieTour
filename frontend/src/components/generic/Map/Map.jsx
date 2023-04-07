@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import './Map.css';
 import useAPI from 'hooks/useAPI.js';
+import { Box } from '@mui/material';
 
 const Map = ({ place_id }) => {
 	const [data, setData] = useState(null);
@@ -19,11 +20,11 @@ const Map = ({ place_id }) => {
 	return (
 		isLoaded &&
 		data && (
-			<div className='map-container'>
+			<Box marginY={1} paddingX={1} className='map-container'>
 				<GoogleMap zoom={12} center={data.geometry.location} mapContainerClassName='map-container'>
 					<Marker label={data.name} position={data.geometry.location} />
 				</GoogleMap>
-			</div>
+			</Box>
 		)
 	);
 };

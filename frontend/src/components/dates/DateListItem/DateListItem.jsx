@@ -20,7 +20,7 @@ const DateListItem = ({ tourdate }) => {
 	const confirmedClass = tourdate.is_show_day ? 'confirmed-date' : 'unconfirmed-date';
 
 	return (
-		<PanelListItem onClick={handleClick}>
+		<PanelListItem active={activeDate?.id === tourdate?.id} onClick={handleClick}>
 			<Stack
 				className={confirmedClass}
 				direction='row'

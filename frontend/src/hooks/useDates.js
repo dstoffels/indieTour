@@ -55,10 +55,23 @@ const useDates = (callback) => {
 		api.date.detail.prospects.post(activeDate.id, venueData, fetchDateProspects);
 	};
 
+	const addTimeslot = (timeslotData) => {
+		api.date.detail.schedule.post(activeDate.id, timeslotData, setActiveDate);
+	};
+
+	const updateTimeslot = (timeslot_id, data) => {
+		api.date.timeslot.detail.patch(timeslot_id, data, setActiveDate);
+	};
+
+	const deleteTimeslot = (timeslot_id) => {
+		api.date.timeslot.detail.delete(timeslot_id, setActiveDate);
+	};
+
 	const withActiveDate = (jsx) => (activeDate ? jsx : null);
 
 	return {
 		activeDate,
+		setActiveDate,
 		fetchTourDates,
 		addTourDate,
 		getTourDate,
@@ -66,6 +79,9 @@ const useDates = (callback) => {
 		deleteActiveDate,
 		fetchDateProspects,
 		addProspect,
+		addTimeslot,
+		updateTimeslot,
+		deleteTimeslot,
 		withActiveDate,
 		parsePlace,
 	};

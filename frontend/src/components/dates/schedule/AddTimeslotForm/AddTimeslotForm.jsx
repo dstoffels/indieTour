@@ -1,8 +1,9 @@
 import { FormControlLabel, Stack, Switch, TextField } from '@mui/material';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
+import LocationField from 'components/generic/LocationField/LocationField.jsx';
 import useCustomForm from 'hooks/useCustomForm.js';
 import useDates from 'hooks/useDates.js';
-import React from 'react';
+import React, { useState } from 'react';
 
 const initValues = {
 	description: '',
@@ -16,6 +17,22 @@ const initValues = {
 const AddTimeslotForm = ({}) => {
 	const { addTimeslot } = useDates();
 	const { formData, handleChange } = useCustomForm(initValues);
+	const [startPlace, setStartPlace] = useState({ description: '' });
+	const [endPlace, setEndPlace] = useState({ description: '' });
+
+	// const handleLocation = (name, place) => {
+	// 	console.log(place);
+	// 	const e = {
+	// 		target: {
+	// 			type: 'text',
+	// 			name: [name],
+	// 			value: place ? place.description : '',
+	// 		},
+
+	// 		persist: () => {},
+	// 	};
+	// 	handleChange(e);
+	// };
 
 	return (
 		<ButtonForm
@@ -23,10 +40,13 @@ const AddTimeslotForm = ({}) => {
 			onSubmit={addTimeslot}
 			btnText='Add Timeslot'
 			direction='column'
+			autoClose={false}
 		>
 			<Stack direction='row' spacing={1}>
 				<TextField
+					variant='standard'
 					required
+					focused
 					type='time'
 					name='start_time'
 					label='Start Time'
@@ -34,6 +54,8 @@ const AddTimeslotForm = ({}) => {
 					onChange={handleChange}
 				/>
 				<TextField
+					variant='standard'
+					focused
 					type='time'
 					name='end_time'
 					label='End Time'
@@ -42,24 +64,15 @@ const AddTimeslotForm = ({}) => {
 				/>
 			</Stack>
 			<TextField
+				variant='standard'
 				required
 				name='description'
 				label='Description'
 				value={formData.description}
 				onChange={handleChange}
 			/>
-			<TextField
-				name='start_location'
-				label='Start Location'
-				value={formData.start_location}
-				onChange={handleChange}
-			/>
-			<TextField
-				name='end_location'
-				label='End Location'
-				value={formData.end_location}
-				onChange={handleChange}
-			/>
+			<LocationField value={startPlace} onSelect={setStartPlace} label='Start Location' />
+			<LocationField value={endPlace} onSelect={setEndPlace} label='End Location' />
 			<FormControlLabel
 				label='After Midnight'
 				control={

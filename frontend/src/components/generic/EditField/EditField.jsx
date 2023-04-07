@@ -11,6 +11,7 @@ const EditField = ({
 	fieldLabel,
 	initValue = '',
 	name,
+	type = 'text',
 	variant = 'body1',
 	onSubmit = async () => {},
 	children,
@@ -66,6 +67,7 @@ const EditField = ({
 	children = children || (
 		<TextField
 			id={id}
+			type={type}
 			multiline={multiline}
 			fullWidth
 			size='small'
@@ -97,7 +99,7 @@ const EditField = ({
 					</form>
 				</Box>
 			) : (
-				<Box padding={2} width='100%'>
+				<Box paddingX={2} width='100%'>
 					<Typography variant='overline' color='primary'>
 						{label}
 					</Typography>

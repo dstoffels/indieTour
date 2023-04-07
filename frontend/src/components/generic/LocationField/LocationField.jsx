@@ -11,7 +11,15 @@ import { Box } from '@mui/material';
 
 const initValue = { description: '' };
 
-const LocationField = ({ value, onSelect = (option) => {}, onOpen, onClose, required }) => {
+const LocationField = ({
+	value,
+	onSelect = (option) => {},
+	onOpen,
+	onClose,
+	required,
+	label = 'Location',
+	name = 'location',
+}) => {
 	value = value || initValue;
 
 	const [inputValue, setInputValue] = useState(value ? value.description : '');
@@ -65,7 +73,7 @@ const LocationField = ({ value, onSelect = (option) => {}, onOpen, onClose, requ
 				<TextField
 					{...params}
 					required={required}
-					label='Location'
+					label={label}
 					variant='standard'
 					InputProps={{
 						...params.InputProps,

@@ -5,7 +5,7 @@ const DeletePopover = ({ btnText = '', confirmationTxt = '', onDelete = () => {}
 	const [anchor, setAnchor] = useState(null);
 	const [confirmName, setConfirmName] = useState('');
 
-	const handleClick = e => setAnchor(e.currentTarget);
+	const handleClick = (e) => setAnchor(e.currentTarget);
 
 	const handleClose = () => {
 		setConfirmName('');
@@ -34,7 +34,8 @@ const DeletePopover = ({ btnText = '', confirmationTxt = '', onDelete = () => {}
 				transformOrigin={{
 					vertical: 'center',
 					horizontal: 'center',
-				}}>
+				}}
+			>
 				<Paper>
 					<Stack padding={2} spacing={2}>
 						<Typography color='error' variant='overline'>
@@ -44,7 +45,7 @@ const DeletePopover = ({ btnText = '', confirmationTxt = '', onDelete = () => {}
 						<TextField
 							variant='standard'
 							value={confirmName}
-							onChange={e => setConfirmName(e.target.value)}
+							onChange={(e) => setConfirmName(e.target.value)}
 						/>
 						<Button onClick={handleDelete} disabled={!confirmed} color='error'>
 							DELETE {confirmationTxt}

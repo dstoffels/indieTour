@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, IconButton, Stack, Typography } from '@mui/material';
 import DangerZone from 'components/generic/danger-zone/DangerZone/DangerZone.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
@@ -21,6 +21,8 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 
 	return (
 		<Panel
+			size={5}
+			elevation={-1}
 			titleEl={
 				<Stack direction='row' alignItems='center'>
 					<IconButton onClick={toggleShowDates}>
@@ -31,10 +33,8 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 					</Typography>
 				</Stack>
 			}
-			size={6}
-			elevation={-1}
 		>
-			<Stack spacing={2}>
+			<Stack>
 				<EditField
 					label='Title'
 					initValue={activeDate.title}

@@ -2,14 +2,25 @@ import { Close } from '@mui/icons-material';
 import { Box, Button, IconButton, Paper, Popover, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const DeletePopoverBasic = ({ btnTxt = '', children, onDelete, small = false }) => {
+const DeletePopoverBasic = ({
+	btnTxt = '',
+	children,
+	onDelete,
+	small = false,
+	onOpen,
+	onClose,
+}) => {
 	const [anchor, setAnchor] = useState(null);
 	const open = Boolean(anchor);
 
-	const handleClick = (e) => setAnchor(e.currentTarget);
+	const handleClick = (e) => {
+		setAnchor(e.currentTarget);
+		onOpen();
+	};
 
 	const handleClose = () => {
 		setAnchor(null);
+		onClose();
 	};
 
 	const handleDelete = () => {

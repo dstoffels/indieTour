@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from '@mui/material';
+import { Divider, FormControlLabel, Switch } from '@mui/material';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import React from 'react';
 import DateListItem from '../DateListItem/DateListItem.jsx';
@@ -30,6 +30,7 @@ const DatesListPanel = ({ size, elevation }) => {
 			actionBtn={<FormControlLabel label='Past Dates' control={<Switch />} />}
 		>
 			<NewDateForm tourdates={tourdates} setTourDates={setTourDates} />
+			<Divider sx={{ m: '0 !important' }} />
 			{datesList}
 		</Panel>
 	);

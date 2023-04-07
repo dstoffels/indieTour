@@ -25,10 +25,14 @@ const ButtonForm = ({
 	onOpen = () => {},
 	onClose = () => {},
 	disabled,
+	onClick = () => {},
 }) => {
 	const [showForm, setShowForm] = useState(false);
 
-	const handleShowForm = () => setShowForm(!showForm);
+	const handleShowForm = () => {
+		onClick();
+		setShowForm(!showForm);
+	};
 
 	useEscKey(() => setShowForm(false));
 

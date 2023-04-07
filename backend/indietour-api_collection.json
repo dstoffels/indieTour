@@ -1,0 +1,2564 @@
+{
+	"info": {
+		"_postman_id": "7f327051-ddb1-4a56-bf04-521fa284eab5",
+		"name": "indietour",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19591953"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"genevieve\",\r\n    \"password\": \"password1@\",\r\n    \"email\": \"gveeve@g.com\",\r\n    \"first_name\": \"Gen\",\r\n    \"last_name\": \"Heyward\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/register/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"dan.stoffels@gmail.com\",\r\n    \"password\": \"password1@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/auth/login",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh_Access",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\": \"PASTE REFRESH TOKEN FROM LOGIN HERE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/auth/login/refresh",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get new user token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/user/5f006c092f2446268eadb7fdc63ea54e/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"user",
+								"5f006c092f2446268eadb7fdc63ea54e",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc5OTY1OTA3LCJpYXQiOjE2NzkxMDE5MDcsImp0aSI6IjM3ZjQ2YmFlYTQ4NjQ2ODk4ZTg4NWNmNTkwODkzY2VkIiwidXNlcl9pZCI6IjY5MWM0MDkwLWVhM2UtNGZlNy1hMDQ0LWI4NWYwZWQzNDU5MSJ9.FSiM5v7bu2uO6LmG09X45bh_VXOrncKJwCqCguwmjJk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc5OTYzNzYyLCJpYXQiOjE2NzkwOTk3NjIsImp0aSI6IjVlZTVhZmNiYTFlNTQ5ZTE5NjViY2Q5OGFlZjhmNWUxIiwidXNlcl9pZCI6IjVmMDA2YzA5LTJmMjQtNDYyNi04ZWFkLWI3ZmRjNjNlYTU0ZSJ9.oDAD-0SulReLgULBk10w9d4kjrcoukQvZDkFRMbAbGs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Danchez\",\r\n    \"password\": \"password1@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/user/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Band",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Add Band User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abs@bbd.com\",\r\n    \"is_admin\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}/users",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Band's Users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}/users",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Band User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_admin\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/user/{{BANDUSER_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"user",
+										"{{BANDUSER_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Band user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}/users/{{BANDUSER_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}",
+										"users",
+										"{{BANDUSER_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Detail",
+					"item": [
+						{
+							"name": "Get Band",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Band",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_archived\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Band",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tours",
+					"item": [
+						{
+							"name": "Get Band Tours",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}/tours",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}",
+										"tours"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Tour",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Spring 2121\",\r\n    \"notes\": \"Hot Country Knights!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/{{BAND_ID}}/tours",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"{{BAND_ID}}",
+										"tours"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Active",
+					"item": [
+						{
+							"name": "Set User's Active Band",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"band_id\": \"{{BAND_ID}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/active",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"active"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User's Active Band",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/band/active",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"band",
+										"active"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Bands for User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{DOMAIN}}/api/band",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"band"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Band",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{JWT}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Genevieve Heyward\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/band",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"band"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tour",
+			"item": [
+				{
+					"name": "Active",
+					"item": [
+						{
+							"name": "Set Active Tour",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tour_id\": \"{{TOUR_ID}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/active",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"active"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Active Tour",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/active",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"active"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Detail",
+					"item": [
+						{
+							"name": "Get Tour",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/{{TOUR_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"{{TOUR_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Tour",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Winter 2022\",\r\n    \"notes\": \"Hot Country Knights!\",\r\n    \"is_archived\": false,\r\n    \"users\": [\r\n        {\r\n            \"email\": \"danstoffels@b.com\",\r\n            \"is_admin\": false\r\n        }\r\n    ],\r\n    \"dates\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/{{TOUR_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"{{TOUR_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Tour",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/tours/6/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"tours",
+										"6",
+										""
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get Tour's Users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abc@bbd.com\",\r\n    \"is_admin\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/{{TOUR_ID}}/users",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"{{TOUR_ID}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Tour User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abc@bbd.com\",\r\n    \"is_admin\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/{{TOUR_ID}}/users",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"{{TOUR_ID}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Tour User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"abc@bbd.com\",\r\n    \"is_admin\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/user/{{TOURUSER_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"user",
+										"{{TOURUSER_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Dates",
+					"item": [
+						{
+							"name": "Get Tour Dates",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/{{TOUR_ID}}/dates",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"{{TOUR_ID}}",
+										"dates"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Tour Date",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"date\": \"2022-09-03\",\r\n    \"location\": \"1234\",\r\n    \"place_id\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/tour/{{TOUR_ID}}/dates",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"tour",
+										"{{TOUR_ID}}",
+										"dates"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Date",
+			"item": [
+				{
+					"name": "Detail",
+					"item": [
+						{
+							"name": "Get Date",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Date",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"date\": \"2022-09-03\",\r\n    \"title\": \"Bear's Lounge\",\r\n    \"location\": \"\",\r\n    \"deal\": \"\",\r\n    \"notes\": \"1234\",\r\n    \"is_show_day\": false,\r\n    \"is_confirmed\": false,\r\n    \"timeslots\": [],\r\n    \"contacts\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Date",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Schedule",
+					"item": [
+						{
+							"name": "Get Date Schedule",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}/schedule",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}",
+										"schedule"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Timeslot",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}/schedule",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}",
+										"schedule"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Timeslot",
+					"item": [
+						{
+							"name": "Detail",
+							"item": [
+								{
+									"name": "Get Timeslot",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{JWT}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{JWT}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/date/timeslot/{{TIMESLOT_ID}}",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"date",
+												"timeslot",
+												"{{TIMESLOT_ID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Edit Timeslot",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{JWT}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{JWT}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"description\": \"flight\",\r\n    \"start_time\": \"13:00\",\r\n    \"start_location\": \"123 abc st\",\r\n    \"end_location\": \"BNA\",\r\n    \"type_id\": 2\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{DOMAIN}}/api/date/timeslot/{{TIMESLOT_ID}}",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"date",
+												"timeslot",
+												"{{TIMESLOT_ID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Timeslot",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{JWT}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{JWT}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{DOMAIN}}/api/date/timeslot/{{TIMESLOT_ID}}",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"date",
+												"timeslot",
+												"{{TIMESLOT_ID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Contact",
+					"item": [
+						{
+							"name": "Create Date Contact",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"promoter\",\r\n    \"contact\":{\r\n        \"name\": \"Scott Johnson\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}/contacts",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}",
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Date Contacts",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"promoter\",\r\n    \"contact\":{\r\n        \"id\": \"f725b2de-2e96-4943-82d1-c42fd8becda5\",\r\n        \"name\": \"Scott Johnson\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}/contacts",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}",
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Prospects",
+					"item": [
+						{
+							"name": "Create Date Prospect",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"abc\",\r\n    \"place_id\": \"123\",\r\n    \"formatted_address\": \"\",\r\n    \"geometry\": {\r\n        \"location\":{\r\n            \"lat\": 0,\r\n            \"lng\": 0\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}/prospects",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}",
+										"prospects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Date Prospects",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"notes\": \"none\",\r\n    \"venue\":{\r\n        \"id\": \"fa82099a-1f54-4382-bf81-059b11b8f119\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/date/{{DATE_ID}}/prospects",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"date",
+										"{{DATE_ID}}",
+										"prospects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Contact",
+			"item": [
+				{
+					"name": "Detail",
+					"item": [
+						{
+							"name": "Methods",
+							"item": [
+								{
+									"name": "Create Contact Method",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{JWT}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"method\": \"Email\",\r\n    \"value\": \"dan.stoffels@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{DOMAIN}}/api/contact/{{CONTACT_ID}}/methods",
+											"host": [
+												"{{DOMAIN}}"
+											],
+											"path": [
+												"api",
+												"contact",
+												"{{CONTACT_ID}}",
+												"methods"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get Contact",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"promoter\",\r\n    \"contact\":{\r\n        \"id\": \"f725b2de-2e96-4943-82d1-c42fd8becda5\",\r\n        \"name\": \"Scott Johnson\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/contact/{{CONTACT_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"contact",
+										"{{CONTACT_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update contact",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Scott Johnson\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/contact/{{CONTACT_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"contact",
+										"{{CONTACT_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Contact",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Scott Johnson\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/contact/{{CONTACT_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"contact",
+										"{{CONTACT_ID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Method",
+					"item": [
+						{
+							"name": "Get Contact Method",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"promoter\",\r\n    \"contact\":{\r\n        \"id\": \"f725b2de-2e96-4943-82d1-c42fd8becda5\",\r\n        \"name\": \"Scott Johnson\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/contact/method/{{METHOD_ID}}",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"contact",
+										"method",
+										"{{METHOD_ID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Contact Method",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"method\": \"Phone\",\r\n    \"value\": \"+1-273-2456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/contact/method/c5cc1787-00d0-44f6-89b5-2987e0049a2e",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"contact",
+										"method",
+										"c5cc1787-00d0-44f6-89b5-2987e0049a2e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Contact Method",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"promoter\",\r\n    \"contact\":{\r\n        \"id\": \"f725b2de-2e96-4943-82d1-c42fd8becda5\",\r\n        \"name\": \"Scott Johnson\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/contact/method/fd649bf8-fe42-4135-9420-8e7fc3573f16",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"contact",
+										"method",
+										"fd649bf8-fe42-4135-9420-8e7fc3573f16"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Prospect",
+			"item": [
+				{
+					"name": "Log",
+					"item": [
+						{
+							"name": "Add Log Entry",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"date\": \"2023-04-01\",\r\n    \"note\": \"Email sent\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/prospect/{{PROSPECT_ID}}/log",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"prospect",
+										"{{PROSPECT_ID}}",
+										"log"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Prospect Log",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{JWT}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"notes\": \"none\",\r\n    \"venue\":{\r\n        \"id\": \"fa82099a-1f54-4382-bf81-059b11b8f119\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{DOMAIN}}/api/prospect/{{PROSPECT_ID}}/log",
+									"host": [
+										"{{DOMAIN}}"
+									],
+									"path": [
+										"api",
+										"prospect",
+										"{{PROSPECT_ID}}",
+										"log"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Prospect",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notes\": \"none\",\r\n    \"venue\":{\r\n        \"id\": \"fa82099a-1f54-4382-bf81-059b11b8f119\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/prospect/{{PROSPECT_ID}}",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"prospect",
+								"{{PROSPECT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Prospect",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notes\": \"Cool place\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/prospect/{{PROSPECT_ID}}",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"prospect",
+								"{{PROSPECT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Prospect",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notes\": \"none\",\r\n    \"venue\":{\r\n        \"id\": \"fa82099a-1f54-4382-bf81-059b11b8f119\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/prospect/{{PROSPECT_ID}}",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"prospect",
+								"{{PROSPECT_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Log Entry",
+			"item": [
+				{
+					"name": "Get Log Entry",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"notes\": \"none\",\r\n    \"venue\":{\r\n        \"id\": \"fa82099a-1f54-4382-bf81-059b11b8f119\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/prospect/log_entry/{{LOG_ENTRY_ID}}",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"prospect",
+								"log_entry",
+								"{{LOG_ENTRY_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Log Entry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2023-04-06\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/prospect/log_entry/{{LOG_ENTRY_ID}}",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"prospect",
+								"log_entry",
+								"{{LOG_ENTRY_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Log Entry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2023-04-06\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/api/prospect/log_entry/{{LOG_ENTRY_ID}}",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"api",
+								"prospect",
+								"log_entry",
+								"{{LOG_ENTRY_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Venue",
+			"item": []
+		},
+		{
+			"name": "gapi",
+			"item": [
+				{
+					"name": "Get Places for autocomplete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/gapi/maps/place/autocomplete?key={{GMAPS_API_KEY}}&query=Madison",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"gapi",
+								"maps",
+								"place",
+								"autocomplete"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{GMAPS_API_KEY}}"
+								},
+								{
+									"key": "query",
+									"value": "Madison"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place from text",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/gapi/maps/place/findplacefromtext?key={{GMAPS_API_KEY}}&input=Madison, WI, USA",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"gapi",
+								"maps",
+								"place",
+								"findplacefromtext"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{GMAPS_API_KEY}}"
+								},
+								{
+									"key": "input",
+									"value": "Madison, WI, USA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Place by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/gapi/maps/place/details?key={{GMAPS_API_KEY}}&place_id=??",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"gapi",
+								"maps",
+								"place",
+								"details"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{GMAPS_API_KEY}}"
+								},
+								{
+									"key": "place_id",
+									"value": "??"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{JWT}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "GMAPS_API_KEY",
+			"value": "AIzaSyAzzZliOPFeUxXsFjntrA6-iPs4zhHt_Ik"
+		},
+		{
+			"key": "PLACE_ID",
+			"value": "ChIJ_xkgOm1TBogRmEFIurX8DE4"
+		},
+		{
+			"key": "CONTACT_ID",
+			"value": "f725b2de-2e96-4943-82d1-c42fd8becda5"
+		},
+		{
+			"key": "METHOD_ID",
+			"value": "338babb1-6e0d-465e-9009-5aaf24a7f9c6"
+		},
+		{
+			"key": "PROSPECT_ID",
+			"value": "afa45fcf-aef4-411f-bdfd-d9cd90506d4f"
+		},
+		{
+			"key": "LOG_ENTRY_ID",
+			"value": "b600d766-4e65-44d4-a9a2-3e881a9cd315"
+		}
+	]
+}

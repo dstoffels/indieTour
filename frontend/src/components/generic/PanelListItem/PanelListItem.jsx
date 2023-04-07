@@ -9,7 +9,7 @@ const PanelListItem = ({ onClick, icon, active, color = 'primary', children, div
 	);
 
 	return (
-		<div>
+		<Box borderRight={active ? 5 : 0} borderColor='darkred'>
 			{onClick ? (
 				<ListItemButton sx={{ padding: 0 }} onClick={onClick}>
 					{icon && <ListItemIcon>{React.cloneElement(icon, { customProps: color })}</ListItemIcon>}
@@ -19,7 +19,7 @@ const PanelListItem = ({ onClick, icon, active, color = 'primary', children, div
 				children
 			)}
 			{divider && <Divider />}
-		</div>
+		</Box>
 	);
 };
 

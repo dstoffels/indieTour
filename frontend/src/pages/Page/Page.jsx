@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import './Page.css';
 import NavLink from 'pages/NavLink/NavLink.jsx';
 import { AirportShuttle, DateRange, EventAvailable } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Page = ({ children }) => (
 	<Grid container spacing={1} paddingX={1}>
@@ -23,7 +23,10 @@ const Page = ({ children }) => (
 export default Page;
 
 const PageHeader = ({ children }) => {
-	const [value, setValue] = useState(0);
+	const { pathname } = useLocation();
+	const index = pathname === '/tour' ? 0 : pathname.includes('/dates') ? 1 : 0;
+
+	const [value, setValue] = useState(index);
 
 	const navigate = useNavigate();
 

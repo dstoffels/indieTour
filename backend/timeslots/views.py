@@ -7,6 +7,7 @@ from constants import *
 from django.core.mail import send_mail
 from django.db.models import Q
 from .serializers import TimeslotSerializer, Timeslot
+from dates.serializers import DateSerializer
 
 
 @api_view([POST, GET])
@@ -18,19 +19,23 @@ def date_schedule(req, date_id):
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
         ser = TimeslotSerializer(data=req.data)
-        return ser.create_timeslot(req, date_id)
+        ser.create_timeslot(req, date_id)
+        date_ser = DateSerializer(ser.instance.date)
+        return Response(date_ser.data)
 
 
 @api_view([GET, PATCH, DELETE])
 @permission_classes([IsAuthenticated])
 def timeslot_detail(req, timeslot_id):
     timeslot = get_object_or_404(Timeslot, id=timeslot_id)
+    date_ser = DateSerializer(timeslot.date)
     if req.method == GET:
         ser = TimeslotSerializer(timeslot)
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == PATCH:
         ser = TimeslotSerializer(timeslot, data=req.data, partial=True)
-        return ser.update_timeslot(req)
+        ser.update_timeslot(req)
+        return Response(date_ser.data)
     elif req.method == DELETE:
         timeslot.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(date_ser.data)

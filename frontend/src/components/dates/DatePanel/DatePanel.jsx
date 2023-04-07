@@ -4,7 +4,7 @@ import useDates from 'hooks/useDates.js';
 import moment from 'moment';
 import React, { useState } from 'react';
 import DateDetailsPanel from '../DateDetailsPanel/DateDetailsPanel.jsx';
-import SchedulePanel from '../SchedulePanel/SchedulePanel.jsx';
+import SchedulePanel from '../schedule/SchedulePanel/SchedulePanel.jsx';
 import useBand from 'hooks/useBand.js';
 import LabeledSwitch from 'components/generic/LabeledSwitch/LabeledSwitch.jsx';
 import ProspectPanels from '../prospects/ProspectPanels/ProspectPanels.jsx';

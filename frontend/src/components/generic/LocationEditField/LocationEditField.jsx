@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import LocationField from '../LocationField/LocationField.jsx';
-import { IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { Check } from '@mui/icons-material';
 import useBand from 'hooks/useBand.js';
 import useEscKey from 'hooks/useEscKey.js';
 import useOutsideClick from 'hooks/useOutsideClick.js';
 
-const LocationEditField = ({ initValue, onSubmit }) => {
+const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [place, setPlace] = useState({ description: initValue });
 	const { isAdmin } = useBand();
@@ -37,35 +37,38 @@ const LocationEditField = ({ initValue, onSubmit }) => {
 	}, [isEditing]);
 
 	return (
-		<div ref={ref} onClick={handleClick} className={className}>
+		<Box ref={ref} onClick={handleClick} className={className}>
 			{isEditing ? (
-				<form onSubmit={handleSubmit}>
-					<Stack direction='row' justifyContent='space-between' alignItems='center'>
-						<LocationField
-							value={place}
-							onSelect={setPlace}
-							onOpen={handleOpen}
-							onClose={handleClose}
-						/>
-						<IconButton
-							disabled={initValue === place?.description}
-							color='success'
-							type='submit'
-							onClick={(e) => e.stopPropagation()}
-						>
-							<Check />
-						</IconButton>
-					</Stack>
-				</form>
+				<Box padding={2}>
+					<form onSubmit={handleSubmit}>
+						<Stack direction='row' justifyContent='space-between' alignItems='center'>
+							<LocationField
+								label={label}
+								value={place}
+								onSelect={setPlace}
+								onOpen={handleOpen}
+								onClose={handleClose}
+							/>
+							<IconButton
+								disabled={initValue === place?.description}
+								color='success'
+								type='submit'
+								onClick={(e) => e.stopPropagation()}
+							>
+								<Check />
+							</IconButton>
+						</Stack>
+					</form>
+				</Box>
 			) : (
-				<Stack>
+				<Stack paddingX={2}>
 					<Typography color='primary' variant='overline'>
-						Location
+						{label}
 					</Typography>
 					<Typography>{initValue}</Typography>
 				</Stack>
 			)}
-		</div>
+		</Box>
 	);
 };
 

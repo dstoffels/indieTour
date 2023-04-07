@@ -18,19 +18,23 @@ class DateSerializer(serializers.ModelSerializer):
     def get_timeslots(self, date):
         return TimeslotSerializer(date.schedule.all().order_by("start_time"), many=True).data
 
+    tour_id = serializers.CharField(source="tour.id")
+    band_id = serializers.CharField(source="tour.band.id")
+
     class Meta:
         model = Date
-        fields = [
-            "id",
-            "date",
-            "title",
-            "notes",
-            "is_show_day",
-            "timeslots",
-            "place_id",
-            "location",
-            "political_location",
-        ]
+        exclude = ["tour"]
+        # fields = [
+        #     "id",
+        #     "date",
+        #     "title",
+        #     "notes",
+        #     "is_show_day",
+        #     "timeslots",
+        #     "place_id",
+        #     "location",
+        #     "political_location",
+        # ]
 
     def is_valid_tour_date(self, tour_id):
         tour_dates = Date.objects.filter(tour_id=tour_id, date=self.validated_data["date"])
