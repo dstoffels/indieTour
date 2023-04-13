@@ -17,12 +17,12 @@ const DateListItem = ({ tourdate }) => {
 
 	const activeColor = tourdate.id == activeDate?.id ? 'primary' : '';
 
-	const confirmedClass = tourdate.is_show_day ? 'confirmed-date' : 'unconfirmed-date';
+	// const confirmedClass = tourdate.is_show_day ? 'confirmed-date' : 'unconfirmed-date';
 
 	return (
 		<PanelListItem active={activeDate?.id === tourdate?.id} onClick={handleClick}>
 			<Stack
-				className={confirmedClass}
+				// className={confirmedClass}
 				direction='row'
 				alignItems='center'
 				spacing={3}
@@ -39,7 +39,7 @@ const DateListItem = ({ tourdate }) => {
 				<Stack textAlign='right'>
 					<Typography color={activeColor}>{tourdate.title}</Typography>
 					<Typography variant='caption' color={activeColor}>
-						{tourdate.political_location}
+						{tourdate.place?.political_address}
 					</Typography>
 				</Stack>
 			</Stack>

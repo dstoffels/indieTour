@@ -1,13 +1,12 @@
 from django.db import models
 from tours.models import Tour
 from uuid_model import UUIDModel
+from gapi.models import Place
 
 
 class Date(UUIDModel):
-    date = models.DateField()
-    place_id = models.CharField(max_length=255, blank=True)
-    location = models.CharField(max_length=255, blank=True)
-    political_location = models.CharField(max_length=255, blank=True)
+    date = models.DateField(unique=True)
+    place = models.ForeignKey(Place, on_delete=models.SET_NULL, null=True, blank=True)
     notes = models.TextField(blank=True)
     deal = models.TextField(blank=True)
     title = models.CharField(max_length=255, blank=True)

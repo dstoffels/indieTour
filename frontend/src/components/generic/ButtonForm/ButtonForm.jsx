@@ -21,6 +21,7 @@ const ButtonForm = ({
 	info,
 	btnText,
 	autoClose = true,
+	clickToClose = false,
 	direction = 'row',
 	onOpen = () => {},
 	onClose = () => {},
@@ -37,7 +38,7 @@ const ButtonForm = ({
 	useEscKey(() => setShowForm(false));
 
 	const ref = useRef(null);
-	useOutsideClick(ref, () => setShowForm(false));
+	useOutsideClick(ref, () => clickToClose && setShowForm(false));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

@@ -17,6 +17,8 @@ const EditField = ({
 	children,
 	multiline,
 	id,
+	required,
+	endAdornment,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [error, setError] = useState(null);
@@ -77,6 +79,8 @@ const EditField = ({
 			name={name}
 			onChange={(e) => setValue(e.target.value)}
 			variant='standard'
+			required={required}
+			InputProps={{ endAdornment }}
 		/>
 	);
 

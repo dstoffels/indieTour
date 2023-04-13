@@ -34,7 +34,8 @@ def timeslot_detail(req, timeslot_id):
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == PATCH:
         ser = TimeslotSerializer(timeslot, data=req.data, partial=True)
-        ser.update_timeslot(req)
+        ser.is_valid()
+        ser.save()
         return Response(date_ser.data)
     elif req.method == DELETE:
         timeslot.delete()

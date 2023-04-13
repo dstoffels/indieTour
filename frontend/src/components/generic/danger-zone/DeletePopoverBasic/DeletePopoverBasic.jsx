@@ -1,4 +1,4 @@
-import { Close } from '@mui/icons-material';
+import { Close, Delete } from '@mui/icons-material';
 import { Box, Button, IconButton, Paper, Popover, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
@@ -30,7 +30,7 @@ const DeletePopoverBasic = ({
 
 	const btn = small ? (
 		<IconButton color='error' onClick={handleClick}>
-			<Close />
+			<Delete />
 		</IconButton>
 	) : (
 		<Button variant='contained' color='error' onClick={handleClick}>

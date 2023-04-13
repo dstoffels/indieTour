@@ -3,7 +3,7 @@ import React from 'react';
 const LabeledSwitch = ({ label, name, checked, onChange }) => {
 	return (
 		<Stack alignItems='center'>
-			<Switch name={name} checked={checked} onChange={onChange} />
+			<Switch name={name} type='checkbox' checked={checked} onChange={onChange} />
 			<Typography variant='caption'>{label}</Typography>
 		</Stack>
 	);

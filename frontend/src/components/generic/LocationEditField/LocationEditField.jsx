@@ -5,21 +5,28 @@ import { Check } from '@mui/icons-material';
 import useBand from 'hooks/useBand.js';
 import useEscKey from 'hooks/useEscKey.js';
 import useOutsideClick from 'hooks/useOutsideClick.js';
+import useAPI from 'hooks/useAPI.js';
 
 const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [place, setPlace] = useState({ description: initValue });
+	const [place, setPlace] = useState(initValue);
 	const { isAdmin } = useBand();
+
+	const api = useAPI();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		onSubmit(place || { description: '' });
+		api.gapi.maps.place.details.get(place?.place_id, (responseData) => {
+			const place_details = responseData.result;
+			place_details.description = place.description;
+			onSubmit(place_details);
+		});
 		setIsEditing(false);
 	};
 
 	const handleCancel = () => {
 		setIsEditing(false);
-		setPlace({ description: initValue });
+		setPlace(initValue);
 	};
 
 	useEscKey(handleCancel);
@@ -33,7 +40,7 @@ const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 	className += !isEditing ? ' inactive' : '';
 
 	useEffect(() => {
-		setPlace({ description: initValue });
+		setPlace(initValue);
 	}, [isEditing]);
 
 	return (
@@ -43,6 +50,7 @@ const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 					<form onSubmit={handleSubmit}>
 						<Stack direction='row' justifyContent='space-between' alignItems='center'>
 							<LocationField
+								required
 								label={label}
 								value={place}
 								onSelect={setPlace}
@@ -50,7 +58,7 @@ const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 								onClose={handleClose}
 							/>
 							<IconButton
-								disabled={initValue === place?.description}
+								disabled={initValue?.description === place?.description}
 								color='success'
 								type='submit'
 								onClick={(e) => e.stopPropagation()}
@@ -65,7 +73,7 @@ const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 					<Typography color='primary' variant='overline'>
 						{label}
 					</Typography>
-					<Typography>{initValue}</Typography>
+					<Typography>{initValue?.description}</Typography>
 				</Stack>
 			)}
 		</Box>

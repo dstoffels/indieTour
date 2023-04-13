@@ -19,7 +19,9 @@ def tour_dates(req, tour_id):
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == POST:
         ser = DateSerializer(data=req.data)
-        return ser.create_date(req, tour_id)
+        ser.is_valid(raise_exception=True)
+        ser.save(tour_id=tour_id)
+        return Response(ser.data)
 
 
 @api_view([GET, PATCH, DELETE])
@@ -31,7 +33,10 @@ def tour_date_detail(req, date_id):
         return Response(ser.data, status=status.HTTP_200_OK)
     elif req.method == PATCH:
         ser = DateSerializer(date, data=req.data, partial=True)
-        return ser.update_date(req)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(ser.data)
+
     elif req.method == DELETE:
         date.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -19,8 +19,8 @@ const TourPage = ({}) => {
 
 	return withActiveBand(
 		<Page>
-			{withActiveTour(<TourDetailsPanel />)}
 			<BandDetailsPanel />
+			{withActiveTour(<TourDetailsPanel />)}
 		</Page>,
 	);
 };

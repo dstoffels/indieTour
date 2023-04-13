@@ -14,7 +14,7 @@ places_endpoint = "https://maps.googleapis.com/maps/api/place"
 def autocomplete(req):
     key = req.query_params.get("key")
     query = req.query_params.get("query")
-    response = requests.get(f"{places_endpoint}/autocomplete/json?key={key}&input={query}")
+    response = requests.get(f"{places_endpoint}/autocomplete/json?key={key}&input={query}&fields=geometry")
     return Response(response.json())
 
 

@@ -35,7 +35,6 @@ const DatesPage = ({}) => {
 				<Grid item container spacing={1} xs={showDates ? 9 : 12}>
 					<DateDetailsPanel showDates={showDates} toggleShowDates={toggleShowDates} />
 					<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
-					<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
 				</Grid>
 			)}
 		</Page>,

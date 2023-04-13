@@ -9,7 +9,9 @@ import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/material';
 
-const initValue = { description: '' };
+const initialValue = {
+	description: '',
+};
 
 const LocationField = ({
 	value,
@@ -20,9 +22,9 @@ const LocationField = ({
 	label = 'Location',
 	name = 'location',
 }) => {
-	value = value || initValue;
-
-	const [inputValue, setInputValue] = useState(value ? value.description : '');
+	value = value ?? initialValue;
+	console.log(value);
+	const [inputValue, setInputValue] = useState(value.description);
 	const [options, setOptions] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [debouncedInputValue] = useDebounce(inputValue, 300);
@@ -34,8 +36,7 @@ const LocationField = ({
 	};
 
 	const handleOptionSelect = (option) => {
-		option = options.includes(option) ? option : options[0];
-		console.log(option);
+		// option = options.includes(option) ? option : options[0];
 		setInputValue(option ? option.description : '');
 		onSelect(option);
 	};
@@ -59,9 +60,9 @@ const LocationField = ({
 		<Autocomplete
 			freeSolo
 			fullWidth
-			value={value}
+			// value={value}
 			options={options}
-			getOptionLabel={(option) => option.description}
+			getOptionLabel={(option) => option.description ?? ''}
 			filterOptions={(o) => o}
 			loading={loading}
 			inputValue={inputValue}
@@ -69,6 +70,7 @@ const LocationField = ({
 			onChange={(event, option) => handleOptionSelect(option)}
 			onOpen={onOpen}
 			onClose={onClose}
+			clearOnEscape={true}
 			renderInput={(params) => (
 				<TextField
 					{...params}

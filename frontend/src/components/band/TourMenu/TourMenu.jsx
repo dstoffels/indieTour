@@ -2,7 +2,7 @@ import { Archive, DeleteForever, Edit, MoreVert } from '@mui/icons-material';
 import useForm from 'hooks/useForm.js';
 import MenuButton from 'menus/MenuButton/MenuButton.jsx';
 import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteTourThunk } from 'redux/tourSlice.js';
 

@@ -20,18 +20,16 @@ const BandMenu = ({}) => {
 		}
 	};
 
-	return withActiveBand(
-		activeBand ? (
-			<MenuButton
-				btnTxt={activeBand.name}
-				actionBtn={<NewBandForm />}
-				onClick={handleClick}
-				menuTxtKey='name'
-				items={userBands}
-			/>
-		) : (
-			<NewBandForm />
-		),
+	return activeBand ? (
+		<MenuButton
+			btnTxt={activeBand.name}
+			actionBtn={<NewBandForm />}
+			onClick={handleClick}
+			menuTxtKey='name'
+			items={userBands}
+		/>
+	) : (
+		<NewBandForm />
 	);
 };
 

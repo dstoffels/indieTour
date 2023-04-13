@@ -10,18 +10,21 @@ import LocationEditField from 'components/generic/LocationEditField/LocationEdit
 import Map from 'components/generic/Map/Map.jsx';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import moment from 'moment';
+import useAPI from 'hooks/useAPI.js';
 
 const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 	const { isAdmin } = useBand();
-	const { activeDate, updateActiveDate, deleteActiveDate, parsePlace } = useDates();
+	const { activeDate, updateActiveDate, deleteActiveDate } = useDates();
+
+	const api = useAPI();
 
 	const handleLocationSubmit = (place) => {
-		updateActiveDate(parsePlace(place));
+		updateActiveDate({ place });
 	};
 
 	return (
 		<Panel
-			size={5}
+			size={6}
 			elevation={-1}
 			titleEl={
 				<Stack direction='row' alignItems='center'>
@@ -42,8 +45,8 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 					onSubmit={updateActiveDate}
 					canEdit={isAdmin}
 				/>
-				<LocationEditField initValue={activeDate.location} onSubmit={handleLocationSubmit} />
-				<Map place_id={activeDate.place_id} />
+				<LocationEditField initValue={activeDate?.place} onSubmit={handleLocationSubmit} />
+				<Map place_id={activeDate.place?.place_id} />
 				<EditField
 					label='Notes'
 					initValue={activeDate?.notes}

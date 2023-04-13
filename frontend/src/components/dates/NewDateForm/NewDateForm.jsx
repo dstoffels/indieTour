@@ -25,7 +25,7 @@ const NewDateForm = ({ tourdates, setTourDates }) => {
 	};
 
 	const handleSubmit = () => {
-		addTourDate(date, place);
+		addTourDate(date, place?.place_id, place.description);
 	};
 
 	useEffect(() => {
@@ -44,7 +44,7 @@ const NewDateForm = ({ tourdates, setTourDates }) => {
 			onClose={() => setPlace(null)}
 		>
 			<DatePickerModal value={date} onChange={handleDate} tourDates={tourdates} />
-			<LocationField required value={place} onSelect={setPlace} />
+			<LocationField value={place} onSelect={setPlace} />
 		</ButtonForm>
 	);
 };
