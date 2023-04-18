@@ -23,7 +23,6 @@ const LocationField = ({
 	name = 'location',
 }) => {
 	value = value ?? initialValue;
-	console.log(value);
 	const [inputValue, setInputValue] = useState(value.description);
 	const [options, setOptions] = useState([]);
 	const [loading, setLoading] = useState(false);

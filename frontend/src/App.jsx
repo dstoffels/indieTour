@@ -22,10 +22,9 @@ function App() {
 			<Navbar />
 			<Page.Header />
 			<Routes>
-				<Route path='/home' element={<HomePage />} />
+				<Route path='' element={<HomePage />} />
 				<Route path='/user/:uid' element={<NewUserPage />} />
 				<Route path='' element={<PrivateOutlet />}>
-					<Route path='' element={<BandPage />} />
 					<Route path='/profile' element={<ProfilePage />} />
 					<Route path='/tour' element={<TourPage />} />
 					<Route path='/dates' element={<DatesPage />} />

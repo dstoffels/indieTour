@@ -6,6 +6,7 @@ const KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 const GAPI = `${DOMAIN}/gapi`;
 const MAPS = `${GAPI}/maps`;
 const PLACE = `${MAPS}/place`;
+const DIRECTIONS = `${MAPS}/directions`;
 const API = `${DOMAIN}/api`;
 const AUTH = `${API}/auth`;
 const BAND = `${API}/band`;
@@ -242,6 +243,13 @@ const useAPI = () => {
 						get: async (place_id, callback) =>
 							await get(`${PLACE}/details?key=${KEY}&place_id=${place_id}`, callback),
 					},
+				},
+				directions: {
+					get: async (origin, destination, arrival_time, callback) =>
+						await get(
+							`${DIRECTIONS}?key=${KEY}&origin=${origin}&destination=${destination}&arrival_time=${arrival_time}`,
+							callback,
+						),
 				},
 			},
 		},

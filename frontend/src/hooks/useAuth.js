@@ -41,7 +41,7 @@ const useAuth = () => {
 	const login = async (credentials) => {
 		const response = await auth.login.post(credentials);
 		setTokenPair(response.data);
-		navigate('/');
+		navigate('/tour');
 	};
 	const logout = () => {
 		localStorage.removeItem('token');

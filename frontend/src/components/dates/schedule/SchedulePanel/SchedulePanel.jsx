@@ -3,7 +3,7 @@ import React from 'react';
 import AddTimeslotForm from '../AddTimeslotForm/AddTimeslotForm.jsx';
 import TimeSlotListitem from '../TimeSlotListitem/TimeSlotListitem.jsx';
 import AddTimeslotBtn from '../AddTimeslotBtn/AddTimeslotBtn.jsx';
-import { Typography } from '@mui/material';
+import { Divider, Paper, Typography } from '@mui/material';
 
 const SchedulePanel = ({ activeDate, isAdmin }) => {
 	const timeslots = activeDate.timeslots?.map((timeslot) => (
@@ -20,7 +20,12 @@ const SchedulePanel = ({ activeDate, isAdmin }) => {
 			{timeslots}
 			{nextDaySlots.length > 0 && (
 				<>
-					<Typography>After Midnight</Typography>
+					<Paper>
+						<Typography paddingX={2} variant='overline'>
+							After Midnight
+						</Typography>
+					</Paper>
+					<Divider />
 					{nextDaySlots}
 				</>
 			)}
