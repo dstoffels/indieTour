@@ -22,7 +22,6 @@ const LoginPanel = ({ onClose }) => {
 			<Stack paddingX={1} spacing={1}>
 				<TextField
 					label='Email'
-					size='small'
 					type='email'
 					required
 					name='email'
@@ -32,7 +31,6 @@ const LoginPanel = ({ onClose }) => {
 				<TextField
 					label='Password'
 					name='password'
-					size='small'
 					type='password'
 					required
 					value={formData.password}

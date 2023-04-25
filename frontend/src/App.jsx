@@ -20,7 +20,7 @@ function App() {
 	return (
 		<div className='app'>
 			<Navbar />
-			<Page.Header />
+			{/* <Page.Header /> */}
 			<Routes>
 				<Route path='' element={<HomePage />} />
 				<Route path='/user/:uid' element={<NewUserPage />} />

@@ -1,4 +1,5 @@
-import { Box, Button, Paper, Stack, TextField } from '@mui/material';
+import { Box, Button, Paper, Stack, TextField, Typography } from '@mui/material';
+import Panel from 'components/generic/Panel/Panel.jsx';
 import useAuth from 'hooks/useAuth.js';
 import useCustomForm from 'hooks/useCustomForm.js';
 import React, { useState } from 'react';
@@ -9,7 +10,7 @@ const RegisterPanel = ({}) => {
 	const { formData, handleChange, handleSubmit, reset } = useCustomForm(defaultValues, register);
 
 	return (
-		<Paper elevation={2}>
+		<Panel title='New here?' size={6}>
 			<Box component='form' onSubmit={handleSubmit}>
 				<Stack padding={1} spacing={1}>
 					<TextField
@@ -47,7 +48,7 @@ const RegisterPanel = ({}) => {
 					<Button type='submit'>Register</Button>
 				</Stack>
 			</Box>
-		</Paper>
+		</Panel>
 	);
 };
 

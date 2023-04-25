@@ -1,5 +1,5 @@
 import { AccountCircle, Login, Logout } from '@mui/icons-material';
-import { Divider, IconButton, Menu } from '@mui/material';
+import { Divider, IconButton, Menu, Tooltip } from '@mui/material';
 import LoginPanel from 'components/auth/LoginPanel/LoginPanel.jsx';
 import useAuth from 'hooks/useAuth.js';
 import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
@@ -11,7 +11,7 @@ const UserMenu = ({}) => {
 	const { user, logout } = useAuth();
 	const [anchor, setAnchor] = useState(null);
 
-	const handleMenu = e => {
+	const handleMenu = (e) => {
 		setAnchor(e.currentTarget);
 	};
 
@@ -30,9 +30,11 @@ const UserMenu = ({}) => {
 
 	return (
 		<div>
-			<IconButton size='large' onClick={handleMenu}>
-				{user ? <AccountCircle /> : <Login />}
-			</IconButton>
+			<Tooltip title='Log In'>
+				<IconButton size='large' onClick={handleMenu}>
+					{user ? <AccountCircle /> : <Login />}
+				</IconButton>
+			</Tooltip>
 			<Menu
 				anchorEl={anchor}
 				keepMounted
