@@ -28,8 +28,8 @@ const setTokenPair = (jwt) => localStorage.setItem('token', JSON.stringify(jwt))
 const setAccessToken = (accessToken) =>
 	setTokenPair({ refresh: getRefreshToken(), access: accessToken });
 
-export const useJWT = () => {
-	return { headers: { Authorization: `Bearer ${getAccessToken()}` } };
+export const getJWTConfig = (token = '') => {
+	return { headers: { Authorization: `Bearer ${token || getAccessToken()}` } };
 };
 
 const useAuth = () => {
@@ -55,9 +55,18 @@ const useAuth = () => {
 		}
 	};
 
-	const withAuth = (jsx) => (user ? jsx : null);
+	const fetchNewUserToken = async (user_id, callback) => {
+		const response = await auth.user.get(user_id, callback);
+		callback(response.data);
+	};
 
-	return { user, login, logout, register, withAuth };
+	const updateUser = async (data, token) => {
+		return await auth.user.patch(data, token);
+	};
+
+	const withAuth = (jsx, altJsx = null) => (user ? jsx : altJsx);
+
+	return { user, login, logout, register, withAuth, fetchNewUserToken, updateUser };
 };
 
 export default useAuth;

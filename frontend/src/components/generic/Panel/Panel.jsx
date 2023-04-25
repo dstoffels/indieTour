@@ -10,9 +10,10 @@ const Panel = ({
 	children,
 	elevation = 0,
 	padding = 0,
+	isSubPanel = false,
 }) => {
 	return (
-		<Grid item xs={12} lg={size}>
+		<Grid item xs={12} lg={size} sx={isSubPanel ? {} : { maxHeight: '100%', overflow: 'hidden' }}>
 			<Paper elevation={5 + elevation} sx={{ borderRadius: 0 }}>
 				<Paper elevation={2 + elevation} position='relative'>
 					<div className='flex justify-between align-center'>

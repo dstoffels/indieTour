@@ -20,9 +20,9 @@ const BandMenu = ({}) => {
 		}
 	};
 
-	return activeBand ? (
+	return userBands.length ? (
 		<MenuButton
-			btnTxt={activeBand.name}
+			btnTxt={activeBand ? activeBand.name : 'Select a Band'}
 			actionBtn={<NewBandForm />}
 			onClick={handleClick}
 			menuTxtKey='name'

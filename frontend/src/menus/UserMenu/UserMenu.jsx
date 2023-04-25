@@ -1,6 +1,5 @@
 import { AccountCircle, Login, Logout } from '@mui/icons-material';
 import { Divider, IconButton, Menu, Tooltip } from '@mui/material';
-import LoginPanel from 'components/auth/LoginPanel/LoginPanel.jsx';
 import useAuth from 'hooks/useAuth.js';
 import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
 import React, { useState } from 'react';
@@ -25,7 +24,6 @@ const UserMenu = ({}) => {
 	const handleLogout = () => {
 		handleClose();
 		logout();
-		console.log(localStorage.getItem('token'));
 	};
 
 	return (
@@ -43,20 +41,14 @@ const UserMenu = ({}) => {
 				open={Boolean(anchor)}
 				onClose={handleClose}
 			>
-				{user ? (
-					<div>
-						<MenuButtonItem disabled>{user?.username}</MenuButtonItem>
-						<MenuButtonItem onClick={handleProfile} icon={<AccountCircle />}>
-							Profile
-						</MenuButtonItem>
-						<Divider />
-						<MenuButtonItem onClick={handleLogout} icon={<Logout />}>
-							Logout
-						</MenuButtonItem>
-					</div>
-				) : (
-					<LoginPanel onClose={handleClose} />
-				)}
+				<MenuButtonItem disabled>{user?.username}</MenuButtonItem>
+				<MenuButtonItem onClick={handleProfile} icon={<AccountCircle />}>
+					Profile
+				</MenuButtonItem>
+				<Divider />
+				<MenuButtonItem onClick={handleLogout} icon={<Logout />}>
+					Logout
+				</MenuButtonItem>
 			</Menu>
 		</div>
 	);

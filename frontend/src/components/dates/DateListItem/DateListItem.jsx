@@ -12,7 +12,7 @@ const DateListItem = ({ tourdate }) => {
 	const navigate = useNavigate();
 
 	const handleClick = (e) => {
-		navigate(`/dates/${tourdate.id}`);
+		navigate(`/tour?date=${tourdate.id}`);
 	};
 
 	const activeColor = tourdate.id == activeDate?.id ? 'primary' : '';

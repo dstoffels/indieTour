@@ -15,7 +15,7 @@ import { AirportShuttle, DateRange, EventAvailable } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Page = ({ children }) => (
-	<Grid container spacing={1} paddingX={1}>
+	<Grid container spacing={1} paddingX={1} sx={{ maxHeight: '94%', overflowY: 'hidden' }}>
 		{children}
 	</Grid>
 );

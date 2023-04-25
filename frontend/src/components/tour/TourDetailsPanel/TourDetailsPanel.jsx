@@ -8,26 +8,29 @@ import DeleteTourPopover from '../DeleteTourPopover/DeleteTourPopover.jsx';
 import useTour from 'hooks/useTour.js';
 import LabeledSwitch from 'components/generic/LabeledSwitch/LabeledSwitch.jsx';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
+import DatesListPanel from 'components/dates/DatesListPanel/DatesListPanel.jsx';
 
-const TourDetailsPanel = () => {
+const TourDetailsPanel = ({ size }) => {
 	const { isAdmin } = useBand();
-	const { activeTour, tourusers, deleteTour, deleteActiveTour, updateActiveTour } = useTour();
+	const { activeTour, tourusers, deleteTour, deleteActiveTour, updateActiveTour, withActiveTour } =
+		useTour();
 
 	const handleArchived = (e) => {
 		updateActiveTour({ is_archived: e.target.checked });
 	};
 
-	return (
-		<Panel title='Tour' elevation={-1} padding={0} size={6}>
+	return withActiveTour(
+		<Panel title='Tour' elevation={-1} padding={0} size={size}>
 			<EditField
 				fieldLabel='Tour Name'
 				label='name'
 				initValue={activeTour?.name}
 				name='name'
-				variant='h5'
+				variant='h6'
 				onSubmit={updateActiveTour}
 				canEdit={isAdmin}
 			/>
+
 			<EditField
 				label='Notes'
 				initValue={activeTour?.notes}
@@ -37,6 +40,7 @@ const TourDetailsPanel = () => {
 				multiline
 				fullWidth
 			/>
+			<DatesListPanel elevation={-1} />
 
 			<UserPanel title='Personnel' forTour users={tourusers} />
 
@@ -48,7 +52,7 @@ const TourDetailsPanel = () => {
 				/>
 				<DeleteTourPopover activeTour={activeTour} deleteTour={deleteActiveTour} />
 			</DangerZone>
-		</Panel>
+		</Panel>,
 	);
 };
 

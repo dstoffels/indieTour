@@ -4,20 +4,16 @@ import useCustomForm from 'hooks/useCustomForm.js';
 import { useNavigate } from 'react-router-dom';
 
 const NewUserPanel = ({ token }) => {
-	const { login } = useAuth();
+	const { updateUser, login } = useAuth();
 	console.log(token);
 
 	const defaultValues = { password: '', password2: '', username: '' };
-	const { formData, handleChange, handleSubmit, reset } = useCustomForm(defaultValues, updateUser);
+	const { formData, handleChange, handleSubmit, reset } = useCustomForm(defaultValues, update);
 
-	async function updateUser(formData) {
+	async function update(formData) {
 		try {
-			// const response = await axios.patch(endpoints.user(), formData, {
-			// 	headers: {
-			// 		Authorization: `Bearer ${token}`,
-			// 	},
-			// });
-			// login({ email: response.data, password: formData.password });
+			const response = await updateUser(formData, token);
+			login({ email: response.data, password: formData.password });
 		} catch (error) {}
 	}
 

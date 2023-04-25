@@ -26,8 +26,8 @@ function App() {
 				<Route path='/user/:uid' element={<NewUserPage />} />
 				<Route path='' element={<PrivateOutlet />}>
 					<Route path='/profile' element={<ProfilePage />} />
-					<Route path='/tour' element={<TourPage />} />
-					<Route path='/dates' element={<DatesPage />} />
+					{/* <Route path='/tour' element={<TourPage />} /> */}
+					<Route path='/tour' element={<DatesPage />} />
 					<Route path='/dates/:date_id' element={<DatesPage />} />
 					<Route path='/dates/:date_id/prospects/:prospect_id' element={<DatesPage />} />
 					<Route path='/today' element={<TodayPage />} />

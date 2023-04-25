@@ -9,7 +9,7 @@ const LoginBtnForm = ({}) => {
 	const { login } = useAuth();
 	const { formData, handleChange, handleSubmit, reset } = useCustomForm(
 		{ email: '', password: '' },
-		handleLogin,
+		login,
 	);
 
 	const handleClick = (e) => {
@@ -19,11 +19,6 @@ const LoginBtnForm = ({}) => {
 	const handleClose = () => {
 		setAnchor(null);
 	};
-
-	async function handleLogin(credentials) {
-		await login(credentials);
-		handleClose();
-	}
 
 	const open = Boolean(anchor);
 

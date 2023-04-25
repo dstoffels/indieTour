@@ -19,22 +19,22 @@ class BandUserSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def create_or_update(req, band_id):
-
         user, user_created = User.objects.get_or_create(email=req.data["email"])
         banduser, banduser_created = BandUser.objects.get_or_create(user=user, band_id=band_id)
 
         # send email to new user
         if user_created:
-            BandUserSerializer.send_new_user_email(banduser)
+            BandUserSerializer.send_new_user_email(req, banduser)
 
         banduser.save()
         return banduser
 
     @staticmethod
-    def send_new_user_email(banduser: BandUser):
+    def send_new_user_email(req, banduser: BandUser):
+        client_domain = req.META.get("HTTP_ORIGIN")
         subject = f"You have been invited to join {banduser.band.name}!"
         message = f"""Please follow this link to setup your account:
-http://localhost:3000/user/{banduser.user.id}
+http://192.168.1.229:42069/user/{banduser.user.id}
 """
         email_from = settings.EMAIL_HOST_USER
         recipients = [banduser.user.email]

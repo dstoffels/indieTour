@@ -2,24 +2,24 @@ import NewUserPanel from 'components/auth/NewUserPanel/NewUserPanel.jsx';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Page from '../Page/Page.jsx';
+import useAuth from 'hooks/useAuth.js';
 
 const NewUserPage = ({}) => {
 	const [tempToken, setTempToken] = useState(null);
 	const { uid } = useParams();
 	const navigate = useNavigate();
+	const { fetchNewUserToken } = useAuth();
 
-	const fetchNewUserToken = async () => {
+	const fetchToken = async () => {
 		try {
-			// const response = await axios.get(endpoints.user(uid));
-			// setTempToken(response.data);
+			await fetchNewUserToken(uid, setTempToken);
 		} catch (error) {
-			console.error(error.response.data);
-			navigate('/');
+			console.log(error);
 		}
 	};
 
 	useEffect(() => {
-		fetchNewUserToken();
+		fetchToken();
 	}, []);
 
 	return (

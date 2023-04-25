@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useJWT } from './useAuth.js';
+import { getJWTConfig } from './useAuth.js';
 
 const DOMAIN = process.env.REACT_APP_API_DOMAIN;
 const KEY = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -23,12 +23,13 @@ const CONTACT = `${API}/contact`;
  * All request functions return the response if successful
  */
 const useAPI = () => {
-	const config = useJWT();
+	const config = getJWTConfig();
 
-	const get = async (url, callback) => {
+	const get = async (url, callback, isProtected = true) => {
 		try {
-			const response = await axios.get(url, config);
+			const response = isProtected ? await axios.get(url, config) : await axios.get(url);
 			callback && callback(response.data);
+
 			return response;
 		} catch (error) {
 			throw new Error(error.message);
@@ -74,8 +75,8 @@ const useAPI = () => {
 				post: async (credentials, callback) => await post(`${AUTH}/login`, credentials, callback),
 			},
 			user: {
-				patch: async (body, callback) => await patch(`${AUTH}/user`, body, callback),
-				get: async (user_id, callback) => await get(`${AUTH}/user/${user_id}`, callback),
+				patch: async (body, token) => await axios.patch(`${AUTH}/user`, body, getJWTConfig(token)),
+				get: async (user_id, callback) => await get(`${AUTH}/user/${user_id}`, callback, false),
 			},
 		},
 		band: {
