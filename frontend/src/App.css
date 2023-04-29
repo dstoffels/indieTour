@@ -8,6 +8,16 @@
 	box-sizing: inherit;
 	font-size: 16px;
 }
+::-webkit-scrollbar {
+	background-color: grey;
+	overflow: auto;
+	width: 5px;
+}
+
+
+::-webkit-scrollbar-thumb{
+	background-color: darkgray;
+}
 
 html {
 	box-sizing: border-box;
@@ -21,7 +31,7 @@ body {
 
 .app {
 	height: 100vh;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 .flex-grow {

@@ -1,24 +1,29 @@
-import {
-	AppBar,
-	BottomNavigation,
-	BottomNavigationAction,
-	Grid,
-	Paper,
-	Toolbar,
-	Typography,
-} from '@mui/material';
-import Navbar from 'pages/NavBar/NavBar.jsx';
+import { BottomNavigation, BottomNavigationAction, Grid } from '@mui/material';
 import React, { useState } from 'react';
-import './Page.css';
-import NavLink from 'pages/NavLink/NavLink.jsx';
 import { AirportShuttle, DateRange, EventAvailable } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useWindow from 'hooks/useWindow.js';
+import { makeStyles } from '@mui/styles';
+import { useNavbar } from 'context/GlobalStateContext.js';
 
-const Page = ({ children }) => (
-	<Grid container spacing={1} paddingX={1} sx={{ maxHeight: '94%', overflowY: 'hidden' }}>
-		{children}
-	</Grid>
-);
+const useStyles = makeStyles((theme) => ({
+	page: {
+		maxHeight: ({ windowSize, navbarHeight }) => windowSize.height - navbarHeight,
+		overflow: 'hidden',
+	},
+}));
+
+const Page = ({ children }) => {
+	const windowSize = useWindow();
+	const { navbarHeight } = useNavbar();
+	const classes = useStyles({ windowSize, navbarHeight });
+
+	return (
+		<Grid container spacing={1} padding={1} className={classes.page}>
+			{children}
+		</Grid>
+	);
+};
 
 export default Page;
 

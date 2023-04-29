@@ -14,7 +14,7 @@ const AllMembersSwitch = ({ forTour, checked }) => {
 			: bandusers.forEach(({ email }) => addTouruser(email));
 	};
 
-	return forTour && bandusers.length ? (
+	return forTour && bandusers?.length ? (
 		<LabeledSwitch label='Add All' checked={checked} onChange={handleAllMembers} />
 	) : null;
 };

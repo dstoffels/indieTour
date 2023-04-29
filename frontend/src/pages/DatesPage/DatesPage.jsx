@@ -32,12 +32,14 @@ const DatesPage = ({}) => {
 		!activeTour && fetchUserActiveTour();
 	}, []);
 
+	const sidebarSize = 2.5;
+
 	return withActiveTour(
 		<Page>
-			<TourDetailsPanel size={3} />
+			<TourDetailsPanel size={sidebarSize} />
 			{/* {showDates && <DatesListPanel addTourDate={addTourDate} activeTour={activeTour} size={3} />} */}
 			{activeDate && (
-				<Grid item container spacing={1} xs={showDates ? 9 : 12}>
+				<Grid item container spacing={1} xs={12 - sidebarSize}>
 					<DateDetailsPanel showDates={showDates} toggleShowDates={toggleShowDates} />
 					<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
 				</Grid>

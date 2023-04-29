@@ -18,7 +18,7 @@ const AddUserForm = ({ forTour, users = [] }) => {
 
 	const userEmails = forTour
 		? bandusers
-				.map(({ email }) => email)
+				?.map(({ email }) => email)
 				.filter((email) => !users.map(({ email }) => email).includes(email))
 		: [];
 

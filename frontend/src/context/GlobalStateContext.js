@@ -1,5 +1,5 @@
 import useAuth from 'hooks/useAuth.js';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 const GlobalStateContext = React.createContext();
 
@@ -9,6 +9,7 @@ export const GlobalStateProvider = ({ children }) => {
 	const [activeDate, setActiveDate] = useState(null);
 	const [activeProspect, setActiveProspect] = useState(null);
 	const { user } = useAuth();
+	const navBarRef = useRef(null);
 
 	const isOwner = user?.id === activeBand?.owner?.id;
 	const isAdmin =
@@ -25,6 +26,7 @@ export const GlobalStateProvider = ({ children }) => {
 		setActiveDate,
 		activeProspect,
 		setActiveProspect,
+		navBarRef,
 	};
 
 	return <GlobalStateContext.Provider value={contextData}>{children}</GlobalStateContext.Provider>;
@@ -60,4 +62,18 @@ export const useGlobalState = () => {
 		activeProspect,
 		setActiveProspect,
 	};
+};
+
+export const useNavbar = () => {
+	const globalState = useContext(GlobalStateContext);
+
+	if (!globalState) {
+		throw new Error('useNavbar must be used within a StoreContext.Provider');
+	}
+
+	const navbarRef = globalState.navBarRef;
+
+	const getNavbarHeight = () => navbarRef.current.offsetHeight;
+
+	return { navbarRef, navbarHeight: navbarRef?.current?.offsetHeight };
 };

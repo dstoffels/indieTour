@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import { Button, Toolbar, Typography } from '@mui/material';
 import UserMenu from 'menus/UserMenu/UserMenu.jsx';
 import NavLink from 'pages/NavLink/NavLink.jsx';
-import { useGlobalState } from 'context/GlobalStateContext.js';
+import { useGlobalState, useNavbar } from 'context/GlobalStateContext.js';
 import BandMenu from 'components/menus/BandMenu/BandMenu.jsx';
 import TourMenu from 'components/menus/TourMenu/TourMenu.jsx';
 import useAuth from 'hooks/useAuth.js';
@@ -15,11 +15,12 @@ import NavBtn from 'components/generic/NavBtn/NavBtn.jsx';
 const Navbar = ({ select }) => {
 	const { activeBand, activeTour, activeDate } = useGlobalState();
 	const { user, withAuth } = useAuth();
+	const { navbarRef } = useNavbar();
 
 	const navigate = useNavigate();
 
 	return (
-		<AppBar position='relative' sx={{ mb: 1 }}>
+		<AppBar ref={navbarRef} position='relative'>
 			<Toolbar>
 				<SideStack>
 					{withAuth(
