@@ -1,12 +1,25 @@
 import { Stack } from '@mui/material';
 import React from 'react';
 
-const SideStack = ({ spacing = 2, padding = 2, justifyContent = 'space-between', children }) => {
+const SideStack = ({
+	spacing = 2,
+	padding = 2,
+	paddingX,
+	paddingY,
+	justifyContent = 'space-between',
+	children,
+	className = '',
+	onClick,
+}) => {
 	return (
 		<Stack
+			onClick={onClick}
+			className={className}
 			width='100%'
 			spacing={spacing}
-			padding={padding}
+			padding={paddingX || paddingY ? 0 : padding}
+			paddingX={paddingX}
+			paddingY={paddingY}
 			direction='row'
 			justifyContent='space-between'
 			alignItems='center'

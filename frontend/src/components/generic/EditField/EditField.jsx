@@ -85,9 +85,9 @@ const EditField = ({
 	);
 
 	return (
-		<div onClick={handleClick} ref={wrapperRef} className={className}>
+		<Box padding={2} onClick={handleClick} ref={wrapperRef} className={className}>
 			{isEditing ? (
-				<Box padding={2}>
+				<Box>
 					<form autoComplete='new-password' onSubmit={handleSubmit}>
 						<Stack direction='row' justifyContent='space-between' alignItems='center'>
 							{children}
@@ -103,7 +103,7 @@ const EditField = ({
 					</form>
 				</Box>
 			) : (
-				<Box paddingX={2} width='100%'>
+				<Box width='100%'>
 					<Typography variant='overline' color='primary'>
 						{label}
 					</Typography>
@@ -115,7 +115,7 @@ const EditField = ({
 					<Typography color='error'>{error && error[name]}</Typography>
 				</Box>
 			</Popper>
-		</div>
+		</Box>
 	);
 };
 

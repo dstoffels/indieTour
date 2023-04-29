@@ -44,9 +44,9 @@ const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 	}, [isEditing]);
 
 	return (
-		<Box ref={ref} onClick={handleClick} className={className}>
+		<Box padding={2} ref={ref} onClick={handleClick} className={className}>
 			{isEditing ? (
-				<Box padding={2}>
+				<Box>
 					<form onSubmit={handleSubmit}>
 						<Stack direction='row' justifyContent='space-between' alignItems='center'>
 							<LocationField
@@ -69,7 +69,7 @@ const LocationEditField = ({ initValue, onSubmit, label = 'Location' }) => {
 					</form>
 				</Box>
 			) : (
-				<Stack paddingX={2}>
+				<Stack>
 					<Typography color='primary' variant='overline'>
 						{label}
 					</Typography>

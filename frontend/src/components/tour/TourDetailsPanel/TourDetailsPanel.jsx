@@ -9,14 +9,15 @@ import useTour from 'hooks/useTour.js';
 import LabeledSwitch from 'components/generic/LabeledSwitch/LabeledSwitch.jsx';
 import UserPanel from 'components/band/UserPanel/UserPanel.jsx';
 import DatesListPanel from 'components/dates/DatesListPanel/DatesListPanel.jsx';
+import PanelSwitch from 'components/generic/PanelSwitch/PanelSwitch.jsx';
 
 const TourDetailsPanel = ({ size }) => {
 	const { isAdmin } = useBand();
 	const { activeTour, tourusers, deleteTour, deleteActiveTour, updateActiveTour, withActiveTour } =
 		useTour();
 
-	const handleArchived = (e) => {
-		updateActiveTour({ is_archived: e.target.checked });
+	const handleArchived = () => {
+		updateActiveTour({ is_archived: !activeTour.is_archived });
 	};
 
 	return withActiveTour(
@@ -45,10 +46,10 @@ const TourDetailsPanel = ({ size }) => {
 			<UserPanel title='Personnel' forTour users={tourusers} />
 
 			<DangerZone show={isAdmin}>
-				<LabeledSwitch
-					control={<Switch checked={activeTour?.is_archived} onChange={handleArchived} />}
-					label='Archive'
-					name='is_archved'
+				<PanelSwitch
+					checked={activeTour?.is_archived}
+					onClick={handleArchived}
+					label='Archive Tour'
 				/>
 				<DeleteTourPopover activeTour={activeTour} deleteTour={deleteActiveTour} />
 			</DangerZone>

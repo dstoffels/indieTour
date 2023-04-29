@@ -1,4 +1,4 @@
-import { Button, Paper, Popover, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Paper, Popover, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 const DeletePopover = ({ btnText = '', confirmationTxt = '', onDelete = () => {}, children }) => {
@@ -22,8 +22,8 @@ const DeletePopover = ({ btnText = '', confirmationTxt = '', onDelete = () => {}
 	const confirmed = confirmName === confirmationTxt;
 
 	return (
-		<>
-			<Button variant='contained' color='error' onClick={handleClick}>
+		<Box padding={2}>
+			<Button fullWidth variant='contained' color='error' onClick={handleClick}>
 				{btnText}
 			</Button>
 			<Popover
@@ -56,7 +56,7 @@ const DeletePopover = ({ btnText = '', confirmationTxt = '', onDelete = () => {}
 					</Stack>
 				</Paper>
 			</Popover>
-		</>
+		</Box>
 	);
 };
 

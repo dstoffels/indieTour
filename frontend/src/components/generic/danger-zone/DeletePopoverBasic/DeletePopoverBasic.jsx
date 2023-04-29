@@ -33,13 +33,13 @@ const DeletePopoverBasic = ({
 			<Delete />
 		</IconButton>
 	) : (
-		<Button variant='contained' color='error' onClick={handleClick}>
+		<Button fullWidth variant='contained' color='error' onClick={handleClick}>
 			{btnTxt}
 		</Button>
 	);
 
 	return (
-		<>
+		<Box padding={2}>
 			{btn}
 			<Popover
 				open={open}
@@ -60,7 +60,7 @@ const DeletePopoverBasic = ({
 					</Box>
 				</Paper>
 			</Popover>
-		</>
+		</Box>
 	);
 };
 export default DeletePopoverBasic;

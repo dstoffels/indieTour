@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Divider, IconButton, Stack, Typography } from '@mui/material';
+import { Divider, IconButton, Stack, Switch, Typography } from '@mui/material';
 import DangerZone from 'components/generic/danger-zone/DangerZone/DangerZone.jsx';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import Panel from 'components/generic/Panel/Panel.jsx';
@@ -10,16 +10,17 @@ import LocationEditField from 'components/generic/LocationEditField/LocationEdit
 import Map from 'components/generic/Map/Map.jsx';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import moment from 'moment';
-import useAPI from 'hooks/useAPI.js';
+import PanelSwitch from 'components/generic/PanelSwitch/PanelSwitch.jsx';
 
 const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 	const { isAdmin } = useBand();
 	const { activeDate, updateActiveDate, deleteActiveDate } = useDates();
-
-	const api = useAPI();
-
 	const handleLocationSubmit = (place) => {
 		updateActiveDate({ place });
+	};
+
+	const handleShowDay = () => {
+		updateActiveDate({ is_show_day: !activeDate.is_show_day });
 	};
 
 	return (
@@ -38,6 +39,7 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 			}
 		>
 			<Stack>
+				<PanelSwitch checked={activeDate.is_show_day} onClick={handleShowDay} label='Show Day' />
 				<EditField
 					label='Title'
 					initValue={activeDate.title}
