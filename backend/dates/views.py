@@ -16,12 +16,12 @@ def tour_dates(req, tour_id):
     if req.method == GET:
         dates = Date.objects.filter(tour_id=tour_id).order_by("date")
         ser = DateSerializer(dates, many=True)
-        return Response(ser.data, status=status.HTTP_200_OK)
+        return Response(ser.data, 200)
     elif req.method == POST:
         ser = DateSerializer(data=req.data)
         ser.is_valid(raise_exception=True)
         ser.save(tour_id=tour_id)
-        return Response(ser.data)
+        return Response(ser.data, 201)
 
 
 @api_view([GET, PATCH, DELETE])

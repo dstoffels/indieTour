@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import PanelListItem from 'components/generic/PanelListItem/PanelListItem.jsx';
+import SideStack from 'components/generic/SideStack/SideStack.jsx';
 import DeletePopoverBasic from 'components/generic/danger-zone/DeletePopoverBasic/DeletePopoverBasic.jsx';
 import useAPI from 'hooks/useAPI.js';
 import useBand from 'hooks/useBand.js';
@@ -23,11 +24,15 @@ const LogEntryListItem = ({ entry, setActiveProspect }) => {
 	const fromNow = moment(entry.timestamp).fromNow();
 
 	return (
-		<PanelListItem>
-			<Stack direction='row' justifyContent='space-between' alignItems='center'>
+		<PanelListItem padding={0}>
+			<SideStack>
 				<Stack>
-					<Typography variant='caption'>{fromNow}</Typography>
-					<Typography variant='caption'>{timestamp}</Typography>
+					<Typography whiteSpace='nowrap' variant='caption'>
+						{timestamp}
+					</Typography>
+					<Typography whiteSpace='nowrap' variant='caption'>
+						{fromNow}
+					</Typography>
 				</Stack>
 				<EditField
 					name='note'
@@ -39,7 +44,7 @@ const LogEntryListItem = ({ entry, setActiveProspect }) => {
 				<DeletePopoverBasic onDelete={handleDelete} small>
 					Delete Entry?
 				</DeletePopoverBasic>
-			</Stack>
+			</SideStack>
 		</PanelListItem>
 	);
 };

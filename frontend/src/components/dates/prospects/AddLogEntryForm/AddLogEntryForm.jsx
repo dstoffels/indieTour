@@ -5,22 +5,27 @@ import useProspect from 'hooks/useProspect.js';
 import moment from 'moment';
 import React, { useState } from 'react';
 
-const AddLogEntryForm = ({}) => {
+const AddLogEntryForm = ({ prospect, onSubmit }) => {
 	const [note, setNote] = useState('');
 
 	const { addLogEntry } = useProspect();
 
 	const handleNote = (e) => setNote(e.target.value);
 
-	const timestamp = moment();
-
 	const handleAddEntry = () => {
-		addLogEntry({ note, timestamp });
+		addLogEntry(prospect.id, { note }, onSubmit);
 	};
 
 	return (
 		<ButtonForm btnText='Add Entry' onSubmit={handleAddEntry} divider={false}>
-			<TextField variant='standard' label='Note' name='note' value={note} onChange={handleNote} />
+			<TextField
+				fullWidth
+				variant='standard'
+				label='Note'
+				name='note'
+				value={note}
+				onChange={handleNote}
+			/>
 		</ButtonForm>
 	);
 };

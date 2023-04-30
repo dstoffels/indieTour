@@ -16,10 +16,10 @@ class Prospect(UUIDModel):
     status = models.CharField(choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0], max_length=50)
     hold = models.IntegerField(default=1)
     date = models.ForeignKey("dates.Date", on_delete=models.CASCADE)
-    venue = models.ForeignKey("venues.Venue", on_delete=models.CASCADE)
+    venue = models.ForeignKey("gapi.Place", on_delete=models.CASCADE)
 
 
 class LogEntry(UUIDModel):
     prospect = models.ForeignKey(Prospect, on_delete=models.CASCADE, related_name="log_entries")
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     note = models.TextField(blank=True)

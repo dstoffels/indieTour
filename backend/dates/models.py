@@ -11,6 +11,7 @@ class Date(UUIDModel):
     deal = models.TextField(blank=True)
     title = models.CharField(max_length=255, blank=True)
     is_show_day = models.BooleanField(default=False)
+    is_confirmed = models.BooleanField(default=False)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="tourdates")
     prospects = models.ManyToManyField(
         "prospects.Prospect",

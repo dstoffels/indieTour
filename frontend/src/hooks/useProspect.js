@@ -20,16 +20,16 @@ const useProspect = () => {
 		api.prospect.detail.patch(prospect_id, prospectData, callback);
 	};
 
+	const deleteProspect = (prospect_id, callback) => {
+		api.prospect.detail.delete(prospect_id, callback);
+	};
+
 	const updateActiveProspect = (prospectData) => {
 		api.prospect.detail.patch(activeProspect.id, prospectData, setActiveProspect);
 	};
 
-	const deleteActiveProspect = () => {
-		api.prospect.detail.delete(activeProspect.id, setActiveProspect);
-	};
-
-	const addLogEntry = (entryData) => {
-		api.prospect.detail.log.post(activeProspect.id, entryData, setActiveProspect);
+	const addLogEntry = (prospect_id, entryData, callback) => {
+		api.prospect.detail.log.post(prospect_id, entryData, callback);
 	};
 
 	const updateLogEntry = (entry_id, entryData) => {
@@ -49,7 +49,7 @@ const useProspect = () => {
 		addNewProspect,
 		updateProspect,
 		updateActiveProspect,
-		deleteActiveProspect,
+		deleteProspect,
 		addLogEntry,
 		updateLogEntry,
 		deleteLogEntry,

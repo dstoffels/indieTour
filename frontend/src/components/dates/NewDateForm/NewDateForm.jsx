@@ -25,7 +25,7 @@ const NewDateForm = ({ tourdates, setTourDates }) => {
 	};
 
 	const handleSubmit = () => {
-		addTourDate(date, place?.place_id, place.description);
+		addTourDate(date, place);
 	};
 
 	useEffect(() => {

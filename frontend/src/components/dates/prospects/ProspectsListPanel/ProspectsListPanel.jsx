@@ -21,8 +21,8 @@ const ProspectsListPanel = ({}) => {
 	));
 
 	return (
-		<Panel title='Prospects' size={4} elevation={-1} padding={2}>
-			<AddProspectForm />
+		<Panel title='Prospects' size={6} elevation={-1}>
+			<AddProspectForm onSubmit={fetchDateProspects} />
 			{prospectsList}
 		</Panel>
 	);

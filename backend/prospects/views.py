@@ -18,7 +18,11 @@ def date_prospects(req, date_id):
         ser = ProspectSerializer(date_prospects, many=True)
         return Response(ser.data)
     elif req.method == POST:
-        return ProspectSerializer.create_or_update(req, date_id)
+        req.data["creator"] = req.user
+        ser = ProspectSerializer(data=req.data)
+        ser.is_valid(raise_exception=True)
+        ser.save(date_id=date_id)
+        return Response(ser.data, 201)
     return Response("prospects table")
 
 

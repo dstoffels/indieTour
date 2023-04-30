@@ -5,22 +5,12 @@ import useDates from 'hooks/useDates.js';
 import React, { useEffect, useState } from 'react';
 
 const AddProspectForm = ({ onSubmit }) => {
-	const [place, setPlace] = useState({ place_id: '', description: '' });
-	const [placeDetails, setPlaceDetails] = useState(null);
+	const [place, setPlace] = useState(null);
 
 	const { addProspect } = useDates(onSubmit);
 
-	const api = useAPI();
-
-	useEffect(() => {
-		place?.place_id &&
-			api.gapi.maps.place.details.get(place.place_id, (data) => {
-				setPlaceDetails(data.result);
-			});
-	}, [place]);
-
 	return (
-		<ButtonForm btnText='Add Prospect' onSubmit={addProspect} formData={placeDetails}>
+		<ButtonForm btnText='Add Prospect' onSubmit={addProspect} formData={place}>
 			<LocationField value={place} onSelect={(place) => setPlace(place)} />
 		</ButtonForm>
 	);

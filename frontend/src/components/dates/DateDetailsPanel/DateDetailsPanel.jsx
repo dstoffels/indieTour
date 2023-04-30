@@ -25,6 +25,10 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 		updateActiveDate({ is_show_day: !activeDate.is_show_day });
 	};
 
+	const handleConfirmation = () => {
+		updateActiveDate({ is_confirmed: !activeDate.is_confirmed });
+	};
+
 	return (
 		<Panel
 			size={6}
@@ -35,13 +39,24 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 						{showDates ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
 					</IconButton>
 					<Typography variant='h5' padding={2}>
-						{moment(activeDate?.date).format('dddd DD MMMM YYYY')}
+						{moment(activeDate?.date).format('ddd DD MMM YYYY')}
 					</Typography>
 				</Stack>
 			}
 		>
 			<Stack>
-				<PanelSwitch checked={activeDate.is_show_day} onClick={handleShowDay} label='Show Day' />
+				<PanelSwitch
+					show={isAdmin}
+					checked={activeDate.is_show_day}
+					onClick={handleShowDay}
+					label='Show Day'
+				/>
+				<PanelSwitch
+					show={activeDate.is_show_day && isAdmin}
+					checked={activeDate.is_confirmed}
+					onClick={handleConfirmation}
+					label='Confirmed'
+				/>
 				<EditField
 					label='Title'
 					initValue={activeDate.title}

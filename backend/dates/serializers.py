@@ -3,17 +3,16 @@ from .models import Date
 from rest_framework import status
 from rest_framework.response import Response
 from timeslots.serializers import TimeslotSerializer
-from venues.serializers import VenueSerializer
 from gapi.serializers import Place, PlaceSerializer
 
 
 class DateSerializer(serializers.ModelSerializer):
-    @staticmethod
-    def create_or_update(req, tour_id):
-        location = PlaceSerializer.create_or_update(req.data.get("location"))
-        req.data["location"] = location
-        date, created = Date.objects.get_or_create(req.data, tour_id=tour_id)
-        return date
+    # @staticmethod
+    # def create_or_update(req, tour_id):
+    #     location = PlaceSerializer.create_or_update(req.data.get("location"))
+    #     req.data["location"] = location
+    #     date, created = Date.objects.get_or_create(req.data, tour_id=tour_id)
+    #     return date
 
     timeslots = serializers.SerializerMethodField()
     timeslots_after_midnight = serializers.SerializerMethodField()
@@ -41,20 +40,20 @@ class DateSerializer(serializers.ModelSerializer):
         tour = tour_dates.exclude(id=self.instance.id) if self.instance else tour_dates
         return bool(not len(tour_dates))
 
-    def create_date(self, req, tour_id):
-        self.is_valid(raise_exception=True)
-        if self.is_valid_tour_date(tour_id):
-            self.save(tour_id=tour_id)
+    # def create_date(self, req, tour_id):
+    #     self.is_valid(raise_exception=True)
+    #     if self.is_valid_tour_date(tour_id):
+    #         self.save(tour_id=tour_id)
 
-            # create timeslots
+    #         # create timeslots
 
-            return Response(self.data, status=status.HTTP_201_CREATED)
-        return Response({"date": "Cannot have duplicate tour dates in a tour."}, status=status.HTTP_400_BAD_REQUEST)
+    #         return Response(self.data, status=status.HTTP_201_CREATED)
+    #     return Response({"date": "Cannot have duplicate tour dates in a tour."}, status=status.HTTP_400_BAD_REQUEST)
 
-    def update_date(self, req):
-        self.is_valid(raise_exception=True)
-        self.save()
-        return Response(self.data, status=status.HTTP_200_OK)
+    # def update_date(self, req):
+    #     self.is_valid(raise_exception=True)
+    #     self.save()
+    #     return Response(self.data, status=status.HTTP_200_OK)
 
     def create(self, validated_data):
         if "place" in self.initial_data:

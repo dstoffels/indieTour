@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     "prospects",
     "timeslots",
     "tours",
-    "venues",
 ]
 
 MIDDLEWARE = [

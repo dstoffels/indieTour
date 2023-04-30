@@ -25,18 +25,18 @@ const ProspectPanel = ({}) => {
 		api.prospect.detail.delete(activeProspect.id, setActiveProspect);
 	};
 
-	const logEntries = activeProspect.log_entries.map((entry) => (
+	const logEntries = activeProspect?.log_entries.map((entry) => (
 		<LogEntryListItem key={entry.id} entry={entry} setActiveProspect={setActiveProspect} />
 	));
 
-	return withActiveProspect(
-		<Panel padding={2} title={activeProspect.venue.name} size={4} elevation={-1}>
+	return (
+		<Panel padding={2} title={activeProspect?.venue.name} size={4} elevation={-1}>
 			<Stack spacing={2}>
 				<div>
 					<Typography color='primary' variant='overline'>
 						Address
 					</Typography>
-					<Typography>{activeProspect.venue.formatted_address}</Typography>
+					<Typography>{activeProspect?.venue.formatted_address}</Typography>
 				</div>
 				<Divider />
 				<EditField
@@ -44,7 +44,7 @@ const ProspectPanel = ({}) => {
 					fullWidth
 					label='Notes'
 					name='notes'
-					initValue={activeProspect.notes}
+					initValue={activeProspect?.notes}
 					onSubmit={handleNotes}
 				/>
 				<Divider />
@@ -63,11 +63,11 @@ const ProspectPanel = ({}) => {
 				</div>
 				<DangerZone show={isAdmin}>
 					<DeletePopoverBasic onDelete={handleDelete} btnTxt='Delete Prospect'>
-						Are you sure you want to delete {activeProspect.venue.name} prospect?
+						Are you sure you want to delete {activeProspect?.venue.name} prospect?
 					</DeletePopoverBasic>
 				</DangerZone>
 			</Stack>
-		</Panel>,
+		</Panel>
 	);
 };
 

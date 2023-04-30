@@ -13,19 +13,20 @@ const useDates = (callback) => {
 		activeTour && api.tour.detail.dates.getAll(activeTour.id, callback);
 	};
 
-	const addTourDate = async (date, place_id, description) => {
-		const response = place_id && (await api.gapi.maps.place.details.get(place_id));
-		const place = response && response.data.result;
+	const generatePlace = async (place) => {
+		const { place_id, description } = place;
+		const response = place && (await api.gapi.maps.place.details.get(place_id));
+		place = response && response.data.result;
 		place.description = description;
-		console.log(place);
-		api.tour.detail.dates.post(
-			activeTour.id,
-			{ date, place: response && response.data.result },
-			(responseData) => {
-				setActiveDate(responseData);
-				fetchTourDates();
-			},
-		);
+		return place;
+	};
+
+	const addTourDate = async (date, place) => {
+		place = await generatePlace(place);
+		api.tour.detail.dates.post(activeTour.id, { date, place }, (responseData) => {
+			setActiveDate(responseData);
+			fetchTourDates();
+		});
 	};
 
 	const getTourDate = (date_id) => {
@@ -45,8 +46,10 @@ const useDates = (callback) => {
 		api.date.detail.prospects.get_all(activeDate.id, callback);
 	};
 
-	const addProspect = (venueData) => {
-		api.date.detail.prospects.post(activeDate.id, venueData, fetchDateProspects);
+	const addProspect = async (place) => {
+		console.log(place);
+		place = await generatePlace(place);
+		api.date.detail.prospects.post(activeDate.id, place, fetchDateProspects);
 	};
 
 	const addTimeslot = (timeslotData) => {

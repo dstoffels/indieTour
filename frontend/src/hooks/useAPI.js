@@ -196,16 +196,16 @@ const useAPI = () => {
 				},
 			},
 		},
-		venue: {
-			get_all: async (callback) => await get(VENUE, callback),
-			post: async (body, callback) => await post(VENUE, body, callback),
-			detail: {
-				get: async (venue_id, callback) => await get(`${VENUE}/${venue_id}`, callback),
-				patch: async (venue_id, body, callback) =>
-					await patch(`${VENUE}/${venue_id}`, body, callback),
-				delete: async (venue_id, callback) => await deleteRequest(`${VENUE}/${venue_id}`, callback),
-			},
-		},
+		// venue: {
+		// 	get_all: async (callback) => await get(VENUE, callback),
+		// 	post: async (body, callback) => await post(VENUE, body, callback),
+		// 	detail: {
+		// 		get: async (venue_id, callback) => await get(`${VENUE}/${venue_id}`, callback),
+		// 		patch: async (venue_id, body, callback) =>
+		// 			await patch(`${VENUE}/${venue_id}`, body, callback),
+		// 		delete: async (venue_id, callback) => await deleteRequest(`${VENUE}/${venue_id}`, callback),
+		// 	},
+		// },
 		contact: {
 			get_all: async (callback) => await get(CONTACT, callback),
 			post: async (body, callback) => await post(CONTACT, body, callback),

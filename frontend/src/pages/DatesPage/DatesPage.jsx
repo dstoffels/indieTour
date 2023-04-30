@@ -1,5 +1,7 @@
 import { Grid } from '@mui/material';
 import DateDetailsPanel from 'components/dates/DateDetailsPanel/DateDetailsPanel.jsx';
+import ProspectPanel from 'components/dates/prospects/ProspectPanel/ProspectPanel.jsx';
+import ProspectsListPanel from 'components/dates/prospects/ProspectsListPanel/ProspectsListPanel.jsx';
 import SchedulePanel from 'components/dates/schedule/SchedulePanel/SchedulePanel.jsx';
 import TourDetailsPanel from 'components/tour/TourDetailsPanel/TourDetailsPanel.jsx';
 import useBand from 'hooks/useBand.js';
@@ -29,7 +31,7 @@ const DatesPage = ({}) => {
 		!activeTour && fetchUserActiveTour();
 	}, []);
 
-	const sidebarSize = 2.5;
+	const sidebarSize = 3;
 
 	return withActiveTour(
 		<Page>
@@ -38,7 +40,11 @@ const DatesPage = ({}) => {
 			{activeDate && (
 				<Grid item container spacing={1} xs={12 - sidebarSize}>
 					<DateDetailsPanel showDates={showDates} toggleShowDates={toggleShowDates} />
-					<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
+					{activeDate.is_show_day && !activeDate.is_confirmed ? (
+						<ProspectsListPanel />
+					) : (
+						<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
+					)}
 				</Grid>
 			)}
 		</Page>,

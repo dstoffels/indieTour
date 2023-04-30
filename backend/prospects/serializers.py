@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from rest_framework.response import Response
-from venues.serializers import VenueSerializer, Venue
 from .models import Prospect, LogEntry
-from gapi.serializers import PlaceSerializer
+from gapi.serializers import PlaceSerializer, Place
 
 
 class LogEntrySerializer(serializers.ModelSerializer):
     prospect_id = serializers.CharField(read_only=True)
+    timestamp = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = LogEntry
@@ -17,8 +17,8 @@ class ProspectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prospect
         exclude = ["date"]
+        depth = 1
 
-    venue = VenueSerializer()
     log_entries = LogEntrySerializer(many=True, read_only=True)
     date_id = serializers.CharField(source="date.id", read_only=True)
     status_choices = serializers.SerializerMethodField()
@@ -26,11 +26,14 @@ class ProspectSerializer(serializers.ModelSerializer):
     def get_status_choices(self, prospect):
         return map(lambda s: s[0], Prospect.STATUS_CHOICES)
 
-    @staticmethod
-    def create_or_update(req, date_id):
-        venue, created = Venue.objects.get_or_create(**PlaceSerializer(req.data).data, creator=req.user)
+    def create(self, validated_data):
+        place = Place.get_or_create(self.initial_data)
+        validated_data["venue_id"] = place.id
+        return super().create(validated_data)
 
-        prospect = Prospect.objects.create(date_id=date_id, venue=venue)
-
-        ser = ProspectSerializer(prospect)
-        return Response(ser.data)
+    def update(self, instance, validated_data):
+        if "place" in self.initial_data:
+            place_data = self.initial_data.pop("place")
+            place = Place.get_or_create(place_data)
+            validated_data["venue_id"] = place.id
+        return super().update(instance, validated_data)
