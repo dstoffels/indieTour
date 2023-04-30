@@ -10,5 +10,6 @@ urlpatterns = [
     path("api/prospect", include("prospects.urls")),  # log_entries accessed via api/prospect/log_entry
     path("api/venue", include("venues.urls")),
     path("api/contact", include("contacts.urls")),
+    path("api/datecontact", include("contacts.date_contact_urls")),
     path("gapi", include("gapi.urls")),  # proxy for google apis (update me!)
 ]

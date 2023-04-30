@@ -85,3 +85,19 @@ def method_detail(req, method_id):
 def method_options(req):
     data = [method for method, method in ContactMethod.METHODS]
     return Response(data, 200)
+
+
+@api_view([GET, PATCH, DELETE])
+@permission_classes([IsAuthenticated])
+def datecontact_detail(req, datecontact_id):
+    datecontact = get_object_or_404(DateContact, id=datecontact_id)
+    if req.method == GET:
+        return Response(DateContactSerializer(datecontact).data)
+    elif req.method == PATCH:
+        ser = DateContactSerializer(datecontact, data=req.data, partial=True)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(ser.data)
+    elif req.method == DELETE:
+        datecontact.delete()
+        return Response(None, 204)

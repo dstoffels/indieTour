@@ -11,16 +11,11 @@ import Map from 'components/generic/Map/Map.jsx';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import moment from 'moment';
 import PanelSwitch from 'components/generic/PanelSwitch/PanelSwitch.jsx';
-import ContactListPanel from '../contacts/ContactListPanel/ContactListPanel.jsx';
+import ContactListPanel from '../contacts/DateContactListPanel/DateContactListPanel.jsx';
 
 const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 	const { isAdmin } = useBand();
 	const { activeDate, updateActiveDate, deleteActiveDate, fetchDateContacts } = useDates();
-	const [contacts, setContacts] = useState([]);
-
-	const handleFetchDateContacts = () => fetchDateContacts(setContacts);
-
-	useEffect(handleFetchDateContacts, [activeDate]);
 
 	const handleLocationSubmit = (place) => {
 		updateActiveDate({ place });
@@ -55,7 +50,7 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 					canEdit={isAdmin}
 				/>
 				<LocationEditField initValue={activeDate?.place} onSubmit={handleLocationSubmit} />
-				<Map place_id={activeDate.place?.place_id} />
+				{/* <Map place_id={activeDate.place?.place_id} /> */}
 				<EditField
 					label='Notes'
 					initValue={activeDate?.notes}
@@ -65,7 +60,7 @@ const DateDetailsPanel = ({ showDates, toggleShowDates }) => {
 					fullWidth
 					multiline
 				/>
-				<ContactListPanel contacts={contacts} onChange={handleFetchDateContacts} />
+				<ContactListPanel />
 				<DangerZone show={isAdmin}>
 					<DeleteDatePopover date={activeDate} deleteDate={deleteActiveDate} />
 				</DangerZone>

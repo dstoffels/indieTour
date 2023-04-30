@@ -15,6 +15,7 @@ const DATE = `${API}/date`;
 const PROSPECT = `${API}/prospect`;
 const VENUE = `${API}/venue`;
 const CONTACT = `${API}/contact`;
+const DATE_CONTACT = `${API}/datecontact`;
 
 /**
  * @returns An object containing nested http request functions for the api endpoints.
@@ -230,6 +231,14 @@ const useAPI = () => {
 				options: {
 					get: async (callback) => await get(`${CONTACT}/method/options`, callback),
 				},
+			},
+		},
+		date_contact: {
+			detail: {
+				patch: async (datecontact_id, data, callback) =>
+					await patch(`${DATE_CONTACT}/${datecontact_id}`, data, callback),
+				delete: async (datecontact_id, callback) =>
+					await deleteRequest(`${DATE_CONTACT}/${datecontact_id}`, callback),
 			},
 		},
 		gapi: {
