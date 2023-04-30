@@ -227,6 +227,9 @@ const useAPI = () => {
 					delete: async (method_id, callback) =>
 						await deleteRequest(`${CONTACT}/method/${method_id}`, callback),
 				},
+				options: {
+					get: async (callback) => await get(`${CONTACT}/method/options`, callback),
+				},
 			},
 		},
 		gapi: {

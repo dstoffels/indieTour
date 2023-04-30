@@ -16,6 +16,15 @@ from .serializers import (
 )
 
 
+@api_view([GET])
+@permission_classes([IsAuthenticated])
+def user_contacts(req):
+    if req.method == GET:
+        user_contacts = Contact.objects.filter(creator=req.user)
+        ser = ContactSerializer(user_contacts, many=True)
+        return Response(ser.data, 200)
+
+
 @api_view([GET, POST])
 @permission_classes([IsAuthenticated])
 def date_contacts(req, date_id):
@@ -69,3 +78,10 @@ def method_detail(req, method_id):
     elif req.method == DELETE:
         contact_method.delete()
         return Response(contact_ser.data)
+
+
+@api_view([GET])
+@permission_classes([IsAuthenticated])
+def method_options(req):
+    data = [method for method, method in ContactMethod.METHODS]
+    return Response(data, 200)

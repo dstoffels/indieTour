@@ -18,10 +18,6 @@ class ContactSerializer(serializers.ModelSerializer):
         exclude = ["creator"]
 
     methods = ContactMethodSerializer(many=True)
-    method_choices = serializers.SerializerMethodField()
-
-    def get_method_choices(self, contact):
-        return map(lambda m: m[0], ContactMethod.METHODS)
 
 
 class DateContactSerializer(serializers.ModelSerializer):

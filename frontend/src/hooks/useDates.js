@@ -61,6 +61,15 @@ const useDates = (callback) => {
 		api.date.timeslot.detail.delete(timeslot_id, setActiveDate);
 	};
 
+	// DATE CONTACTS
+	const fetchDateContacts = (callback) => {
+		api.date.detail.contacts.get(activeDate.id, callback);
+	};
+
+	const addDateContact = (contactData, callback) => {
+		api.date.detail.contacts.post(activeDate.id, contactData, callback);
+	};
+
 	const withActiveDate = (jsx) => (activeDate ? jsx : null);
 
 	return {
@@ -76,6 +85,8 @@ const useDates = (callback) => {
 		addTimeslot,
 		updateTimeslot,
 		deleteTimeslot,
+		addDateContact,
+		fetchDateContacts,
 		withActiveDate,
 	};
 };

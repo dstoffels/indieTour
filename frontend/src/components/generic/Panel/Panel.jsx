@@ -33,7 +33,7 @@ const Panel = ({
 				sx={{ borderRadius: 0 }}
 				className={isSubPanel ? '' : classes.panel}
 			>
-				<Paper elevation={2 + elevation} position='relative'>
+				<Paper elevation={2 + elevation} sx={{ position: 'relative', borderRadius: 0 }}>
 					<div className='flex justify-between align-center'>
 						{titleEl ? (
 							titleEl

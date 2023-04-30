@@ -19,6 +19,7 @@ const EditField = ({
 	id,
 	required,
 	endAdornment,
+	padding = 2,
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [error, setError] = useState(null);
@@ -85,7 +86,7 @@ const EditField = ({
 	);
 
 	return (
-		<Box padding={2} onClick={handleClick} ref={wrapperRef} className={className}>
+		<Box padding={padding} onClick={handleClick} ref={wrapperRef} className={className}>
 			{isEditing ? (
 				<Box>
 					<form autoComplete='new-password' onSubmit={handleSubmit}>

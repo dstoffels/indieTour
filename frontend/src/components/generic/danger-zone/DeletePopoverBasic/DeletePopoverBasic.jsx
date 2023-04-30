@@ -7,8 +7,8 @@ const DeletePopoverBasic = ({
 	children,
 	onDelete,
 	small = false,
-	onOpen,
-	onClose,
+	onOpen = () => {},
+	onClose = () => {},
 }) => {
 	const [anchor, setAnchor] = useState(null);
 	const open = Boolean(anchor);
