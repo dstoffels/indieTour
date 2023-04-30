@@ -1,10 +1,7 @@
 import { Grid } from '@mui/material';
 import DateDetailsPanel from 'components/dates/DateDetailsPanel/DateDetailsPanel.jsx';
-import DatePanel from 'components/dates/DatePanel/DatePanel.jsx';
-import DatesListPanel from 'components/dates/DatesListPanel/DatesListPanel.jsx';
 import SchedulePanel from 'components/dates/schedule/SchedulePanel/SchedulePanel.jsx';
 import TourDetailsPanel from 'components/tour/TourDetailsPanel/TourDetailsPanel.jsx';
-import TourPanel from 'components/tour/TourPanel/TourPanel.jsx';
 import useBand from 'hooks/useBand.js';
 import useDates from 'hooks/useDates.js';
 import useTour from 'hooks/useTour.js';

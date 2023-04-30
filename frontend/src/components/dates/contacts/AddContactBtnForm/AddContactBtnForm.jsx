@@ -1,5 +1,6 @@
 import { Autocomplete, Button, MenuItem, Select, Stack, TextField } from '@mui/material';
 import ButtonForm from 'components/generic/ButtonForm/ButtonForm.jsx';
+import SideStack from 'components/generic/SideStack/SideStack.jsx';
 import useContacts from 'hooks/useContacts.js';
 import useCustomForm from 'hooks/useCustomForm.js';
 import useDates from 'hooks/useDates.js';
@@ -19,37 +20,33 @@ const AddContactBtnForm = ({ onSubmit }) => {
 
 	const { fetchUserContacts } = useContacts();
 
-	// const methodOptions = options.map((option, i) => (
-	// 	<MenuItem key={`method-option-${i}`} value={option}>
-	// 		{option}
-	// 	</MenuItem>
-	// ));
-
 	return (
 		<ButtonForm
 			onOpen={() => fetchUserContacts(setOptions)}
 			btnText='Add Contact'
 			onSubmit={handleSubmit}
 		>
-			<Stack spacing={1}>
+			<SideStack padding={0} spacing={1}>
+				<Autocomplete
+					autoSelect
+					fullWidth
+					freeSolo
+					options={options}
+					getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
+					value={formData.contact}
+					onChange={(e, newVal) => handleChange({ target: { name: 'contact', value: newVal } })}
+					renderInput={(params) => <TextField autoFocus required {...params} label='Contact' />}
+					noOptionsText='Create New Contact'
+				/>
 				<TextField
+					fullWidth
 					label='Title'
 					name='title'
 					value={formData.title}
 					onChange={handleChange}
 					required
 				/>
-				<Autocomplete
-					autoSelect
-					freeSolo
-					options={options}
-					getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
-					value={formData.contact}
-					onChange={(e, newVal) => handleChange({ target: { name: 'contact', value: newVal } })}
-					renderInput={(params) => <TextField required {...params} label='Contact' />}
-					noOptionsText='Create New Contact'
-				/>
-			</Stack>
+			</SideStack>
 		</ButtonForm>
 	);
 };

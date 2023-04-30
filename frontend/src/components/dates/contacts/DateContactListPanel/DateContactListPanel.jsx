@@ -1,7 +1,7 @@
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import Panel from 'components/generic/Panel/Panel.jsx';
 import React, { useEffect, useState } from 'react';
-import ContactListItem from '../DateContactListItem/DateContactListItem.jsx';
+import DateContactListItem from '../DateContactListItem/DateContactListItem.jsx';
 import AddContactBtnForm from '../AddContactBtnForm/AddContactBtnForm.jsx';
 import useDates from 'hooks/useDates.js';
 
@@ -15,12 +15,17 @@ const DateContactListPanel = ({}) => {
 	useEffect(handleFetchDateContacts, [activeDate]);
 
 	const contactsList = contacts.map((contact) => (
-		<ContactListItem key={`contact-${contact.id}`} datecontact={contact} />
+		<DateContactListItem
+			key={`contact-${contact.id}`}
+			datecontact={contact}
+			onChange={handleFetchDateContacts}
+		/>
 	));
 
 	return (
 		<Panel isSubPanel title='Contacts' elevation={-1}>
 			<AddContactBtnForm onSubmit={handleFetchDateContacts} />
+			<Divider sx={{ m: '0 !important' }} />
 			{contactsList}
 		</Panel>
 	);

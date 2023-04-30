@@ -1,5 +1,5 @@
 import { Close, Delete } from '@mui/icons-material';
-import { Box, Button, IconButton, Paper, Popover, Typography } from '@mui/material';
+import { Box, Button, IconButton, Paper, Popover, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 const DeletePopoverBasic = ({
@@ -9,6 +9,7 @@ const DeletePopoverBasic = ({
 	small = false,
 	onOpen = () => {},
 	onClose = () => {},
+	tooltipTxt = '',
 }) => {
 	const [anchor, setAnchor] = useState(null);
 	const open = Boolean(anchor);
@@ -40,7 +41,8 @@ const DeletePopoverBasic = ({
 
 	return (
 		<Box padding={2}>
-			{btn}
+			<Tooltip title={tooltipTxt}>{btn}</Tooltip>
+
 			<Popover
 				open={open}
 				anchorEl={anchor}

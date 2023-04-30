@@ -3,7 +3,7 @@ import React from 'react';
 
 const SideStack = ({
 	spacing = 2,
-	padding = 2,
+	padding = 0,
 	paddingX,
 	paddingY,
 	justifyContent = 'space-between',
@@ -21,7 +21,7 @@ const SideStack = ({
 			paddingX={paddingX}
 			paddingY={paddingY}
 			direction='row'
-			justifyContent='space-between'
+			justifyContent={justifyContent}
 			alignItems='center'
 		>
 			{children}
