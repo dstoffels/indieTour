@@ -1,9 +1,11 @@
 from django.db import models
 from uuid_model import UUIDModel
+import requests
+from .views import maps_endpoint, key
 
 
 class Place(UUIDModel):
-    place_id = models.CharField(max_length=100, unique=True)
+    place_id = models.CharField(max_length=255, unique=True)
     name = models.CharField(max_length=255, blank=True)
     description = models.CharField(max_length=255, blank=True)
     formatted_address = models.TextField()
@@ -14,7 +16,13 @@ class Place(UUIDModel):
     @classmethod
     def get_or_create(cls, place_data):
         place_id = place_data.get("place_id")
-        address_components = place_data.get("address_components")
+        response = requests.get(
+            f"{maps_endpoint}/place/details/json?key={key}&place_id={place_id}&fields=place_id,formatted_address,geometry,name,address_components"
+        ).json()
+
+        place_details = response.get("result")
+
+        address_components = place_details.get("address_components")
 
         political_address = []
         locality = next((comp["short_name"] for comp in address_components if "locality" in comp["types"]), None)
@@ -34,10 +42,10 @@ class Place(UUIDModel):
         political_address = ", ".join(political_address)
 
         place, created = cls.objects.get_or_create(place_id=place_id)
-        place.formatted_address = place_data.get("formatted_address")
-        place.name = place_data.get("name")
-        place.lat = place_data.get("geometry", {}).get("location", {}).get("lat")
-        place.lng = place_data.get("geometry", {}).get("location", {}).get("lng")
+        place.formatted_address = place_details.get("formatted_address")
+        place.name = place_details.get("name")
+        place.lat = place_details.get("geometry", {}).get("location", {}).get("lat")
+        place.lng = place_details.get("geometry", {}).get("location", {}).get("lng")
         place.description = place_data.get("description")
         place.political_address = political_address
 

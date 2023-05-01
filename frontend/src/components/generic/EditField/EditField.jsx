@@ -5,6 +5,7 @@ import useOutsideClick from 'hooks/useOutsideClick.js';
 import React, { useEffect, useRef, useState } from 'react';
 import './EditField.css';
 import useBand from 'hooks/useBand.js';
+import { theme } from 'theme/theme.js';
 
 const EditField = ({
 	label,

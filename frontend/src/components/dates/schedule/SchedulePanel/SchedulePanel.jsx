@@ -4,8 +4,14 @@ import AddTimeslotForm from '../AddTimeslotForm/AddTimeslotForm.jsx';
 import TimeSlotListitem from '../TimeSlotListitem/TimeSlotListitem.jsx';
 import AddTimeslotBtn from '../AddTimeslotBtn/AddTimeslotBtn.jsx';
 import { Divider, Paper, Typography } from '@mui/material';
+import useBand from 'hooks/useBand.js';
+import useDates from 'hooks/useDates.js';
+import AddTimeslotBtnForm from '../AddTimeslotBtnForm/AddTimeslotBtnForm.jsx';
 
-const SchedulePanel = ({ activeDate, isAdmin }) => {
+const SchedulePanel = ({}) => {
+	const { isAdmin } = useBand();
+	const { activeDate } = useDates();
+
 	const timeslots = activeDate.timeslots?.map((timeslot) => (
 		<TimeSlotListitem key={`ts-${timeslot.id}`} activeDate={activeDate} timeslot={timeslot} />
 	));
@@ -16,7 +22,7 @@ const SchedulePanel = ({ activeDate, isAdmin }) => {
 
 	return (
 		<Panel title='Schedule' size={6} elevation={-1}>
-			<AddTimeslotBtn />
+			<AddTimeslotBtnForm />
 			{timeslots}
 			{nextDaySlots.length > 0 && (
 				<>

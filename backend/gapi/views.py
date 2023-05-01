@@ -5,6 +5,11 @@ from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from constants import *
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+key = os.getenv("GOOGLE_API_KEY")
 
 maps_endpoint = "https://maps.googleapis.com/maps/api"
 
@@ -12,7 +17,6 @@ maps_endpoint = "https://maps.googleapis.com/maps/api"
 @api_view([GET])
 @permission_classes([IsAuthenticated])
 def autocomplete(req):
-    key = req.query_params.get("key")
     query = req.query_params.get("query")
     response = requests.get(f"{maps_endpoint}/place/autocomplete/json?key={key}&input={query}&fields=geometry")
     return Response(response.json())
@@ -21,7 +25,6 @@ def autocomplete(req):
 @api_view([GET])
 @permission_classes([IsAuthenticated])
 def place_by_text(req):
-    key = req.query_params.get("key")
     input = req.query_params.get("input")
     response = requests.get(
         f"{maps_endpoint}/place/findplacefromtext/json?key={key}&inputtype=textquery&input={input}&fields=formatted_address,geometry,name,place_id"
@@ -32,7 +35,6 @@ def place_by_text(req):
 @api_view([GET])
 @permission_classes([IsAuthenticated])
 def place_by_id(req):
-    key = req.query_params.get("key")
     place_id = req.query_params.get("place_id")
     response = requests.get(
         f"{maps_endpoint}/place/details/json?key={key}&place_id={place_id}&fields=place_id,formatted_address,geometry,name,address_components"
@@ -43,7 +45,6 @@ def place_by_id(req):
 @api_view([GET])
 @permission_classes([IsAuthenticated])
 def directions(req):
-    key = req.query_params.get("key")
     origin = req.query_params.get("origin")
     destination = req.query_params.get("destination")
     arrival_time = req.query_params.get("arrival_time")

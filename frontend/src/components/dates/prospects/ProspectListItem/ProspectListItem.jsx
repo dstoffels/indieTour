@@ -3,9 +3,9 @@ import {
 	Box,
 	Button,
 	Divider,
-	FormControl,
-	InputLabel,
 	MenuItem,
+	Paper,
+	Popover,
 	Select,
 	Stack,
 	TextField,
@@ -18,15 +18,17 @@ import SideStack from 'components/generic/SideStack/SideStack.jsx';
 import DeletePopoverBasic from 'components/generic/danger-zone/DeletePopoverBasic/DeletePopoverBasic.jsx';
 import useBand from 'hooks/useBand.js';
 import useProspect from 'hooks/useProspect.js';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import AddLogEntryForm from '../AddLogEntryForm/AddLogEntryForm.jsx';
 import LogEntryListItem from '../LogEntryListItem/LogEntryListItem.jsx';
+import useDates from 'hooks/useDates.js';
 
 const ProspectListItem = ({ prospect, onChange }) => {
 	const [editing, setEditing] = useState(false);
-	console.log(prospect);
 	const { isAdmin } = useBand();
+	const { activeDate, getTourDate } = useDates();
 	const { setActiveProspect, updateProspect, deleteProspect } = useProspect();
+	const [open, setOpen] = useState(false);
 
 	const colors = ['', 'orange', 'secondary', 'error', 'green', 'primary'];
 
@@ -38,9 +40,23 @@ const ProspectListItem = ({ prospect, onChange }) => {
 		</MenuItem>
 	));
 
-	const handleStatus = (e) => {
-		e.stopPropagation();
-		updateProspect(prospect.id, { status: e.target.value }, onChange);
+	const selectRef = useRef(null);
+
+	function handleStatus(e) {
+		let status = e.target.value;
+		if (status === 'CONFIRMED') {
+			setOpen(true);
+		} else {
+			updateProspect(prospect.id, { status }, onChange);
+		}
+	}
+
+	const handleConfirm = () => {
+		updateProspect(prospect.id, { status: 'CONFIRMED' }, () => {
+			getTourDate(activeDate.id);
+			onChange();
+		});
+		setOpen(false);
 	};
 
 	const handleEditing = () => {
@@ -75,6 +91,7 @@ const ProspectListItem = ({ prospect, onChange }) => {
 						<LocationEditField initValue={prospect.venue} label='Venue' onSubmit={handlePlace} />
 						<Stack direction='row' spacing={1}>
 							<Select
+								ref={selectRef}
 								label='Status'
 								size='small'
 								variant='standard'
@@ -83,6 +100,24 @@ const ProspectListItem = ({ prospect, onChange }) => {
 							>
 								{options}
 							</Select>
+							<Popover open={open} anchorEl={selectRef.current} onClose={() => setOpen(false)}>
+								<Paper elevation={0}>
+									<Stack spacing={1} padding={2}>
+										<Typography textAlign='center'>Confirm Venue for Date?</Typography>
+										<Typography textAlign='center' variant='caption'>
+											Date's location will be updated with this venue
+										</Typography>
+										<SideStack>
+											<Button onClick={handleConfirm} size='large' color='error'>
+												Confirm
+											</Button>
+											<Button onClick={() => setOpen(false)} size='large' color='warning'>
+												Cancel
+											</Button>
+										</SideStack>
+									</Stack>
+								</Paper>
+							</Popover>
 							{prospect.status === 'HOLD' && (
 								<TextField
 									type='number'

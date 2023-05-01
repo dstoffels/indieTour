@@ -43,7 +43,7 @@ const DatesPage = ({}) => {
 					{activeDate.is_show_day && !activeDate.is_confirmed ? (
 						<ProspectsListPanel />
 					) : (
-						<SchedulePanel activeDate={activeDate} isAdmin={isAdmin} />
+						<SchedulePanel />
 					)}
 				</Grid>
 			)}

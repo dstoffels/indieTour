@@ -4,6 +4,7 @@ import AddProspectForm from '../AddProspectForm/AddProspectForm.jsx';
 import useDates from 'hooks/useDates.js';
 import ProspectListItem from '../ProspectListItem/ProspectListItem.jsx';
 import useProspect from 'hooks/useProspect.js';
+import { Divider } from '@mui/material';
 
 const ProspectsListPanel = ({}) => {
 	const [prospects, setProspects] = useState([]);
@@ -23,6 +24,7 @@ const ProspectsListPanel = ({}) => {
 	return (
 		<Panel title='Prospects' size={6} elevation={-1}>
 			<AddProspectForm onSubmit={fetchDateProspects} />
+			<Divider sx={{ m: '0 !important' }} />
 			{prospectsList}
 		</Panel>
 	);

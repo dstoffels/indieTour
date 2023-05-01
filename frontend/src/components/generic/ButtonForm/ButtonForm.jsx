@@ -1,18 +1,20 @@
 import { Add, Check, Close } from '@mui/icons-material';
 import {
 	Box,
-	Button,
+	Collapse,
 	IconButton,
 	ListItemIcon,
-	ListItemText,
 	MenuItem,
+	Paper,
+	Tooltip,
 	Typography,
 } from '@mui/material';
 import { Stack } from '@mui/system';
 import useEscKey from 'hooks/useEscKey.js';
 import useOutsideClick from 'hooks/useOutsideClick.js';
 import React, { useEffect, useRef, useState } from 'react';
-import PanelListItem from '../PanelListItem/PanelListItem.jsx';
+import SideStack from '../SideStack/SideStack.jsx';
+import { theme } from 'theme/theme.js';
 
 const ButtonForm = ({
 	formData,
@@ -21,12 +23,12 @@ const ButtonForm = ({
 	info,
 	btnText,
 	autoClose = true,
-	clickToClose = false,
 	direction = 'row',
 	onOpen = () => {},
 	onClose = () => {},
 	disabled,
 	onClick = () => {},
+	spacing = 2,
 }) => {
 	const [showForm, setShowForm] = useState(false);
 
@@ -36,9 +38,6 @@ const ButtonForm = ({
 	};
 
 	useEscKey(() => setShowForm(false));
-
-	const ref = useRef(null);
-	useOutsideClick(ref, () => clickToClose && setShowForm(false));
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -51,32 +50,51 @@ const ButtonForm = ({
 		!showForm && onClose();
 	}, [showForm]);
 
-	return showForm ? (
-		<Box padding={2}>
-			<form onSubmit={handleSubmit} autoComplete='off' ref={ref}>
-				<Stack direction={direction} spacing={1} justifyContent='space-between'>
-					{children}
-					<Stack direction='row' alignItems='center'>
-						<IconButton color='info' variant='contained' type='submit' disabled={disabled}>
-							<Check />
-						</IconButton>
-						<IconButton onClick={handleShowForm} color='error'>
-							<Close />
-						</IconButton>
+	const timeout = 200;
+
+	return (
+		<>
+			<Collapse in={showForm} timeout={timeout}>
+				<Box padding={1}>
+					<Paper elevation={6}>
+						<Box padding={1}>
+							<form onSubmit={handleSubmit} autoComplete='off'>
+								<Stack spacing={1}>
+									<Stack direction={direction} spacing={spacing} justifyContent='space-between'>
+										{children}
+									</Stack>
+									<SideStack justifyContent='end' spacing={1}>
+										<Tooltip title='Submit'>
+											<IconButton size='large' color='info' type='submit' disabled={disabled}>
+												<Check />
+											</IconButton>
+										</Tooltip>
+										<Tooltip title='Cancel'>
+											<IconButton size='large' onClick={handleShowForm} color='error'>
+												<Close />
+											</IconButton>
+										</Tooltip>
+									</SideStack>
+									{info && <Typography variant='caption'>{info}</Typography>}
+								</Stack>
+							</form>
+						</Box>
+					</Paper>
+				</Box>
+			</Collapse>
+			<Collapse in={!showForm} timeout={timeout}>
+				<MenuItem onClick={handleShowForm}>
+					<Stack direction='row' padding={1}>
+						<ListItemIcon>
+							<Add color='info' />
+						</ListItemIcon>
+						<Typography fontWeight={600} sx={{ color: theme.palette.info.main }}>
+							{btnText}
+						</Typography>
 					</Stack>
-				</Stack>
-				<Typography variant='caption'>{info}</Typography>
-			</form>
-		</Box>
-	) : (
-		<MenuItem onClick={handleShowForm}>
-			<Stack direction='row' padding={1}>
-				<ListItemIcon>
-					<Add color='success' />
-				</ListItemIcon>
-				<Typography color=''>{btnText}</Typography>
-			</Stack>
-		</MenuItem>
+				</MenuItem>
+			</Collapse>
+		</>
 	);
 };
 

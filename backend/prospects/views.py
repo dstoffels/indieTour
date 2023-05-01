@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import get_object_or_404
 from constants import *
 from authentication.models import User
+from dates.models import Date
 from django.core.mail import send_mail
 from .models import Prospect, LogEntry
 from .serializers import ProspectSerializer, LogEntrySerializer
@@ -34,6 +35,18 @@ def prospect_detail(req, prospect_id):
         ser = ProspectSerializer(prospect)
         return Response(ser.data)
     elif req.method == PATCH:
+        if "status" in req.data and req.data["status"] == "CONFIRMED":
+            date = get_object_or_404(Date, id=prospect.date.id)
+            date_prospects = Prospect.objects.filter(date=date)
+            for date_prospect in date_prospects:
+                if date_prospect.status == "CONFIRMED":
+                    date_prospect.status = "UNCONFIRMED"
+                    date_prospect.save()
+            date.is_confirmed = True
+            date.title = prospect.venue.name
+            date.place = prospect.venue
+            date.save()
+
         ser = ProspectSerializer(prospect, data=req.data, partial=True)
         ser.is_valid(raise_exception=True)
         ser.save()

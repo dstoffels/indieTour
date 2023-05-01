@@ -8,14 +8,14 @@
 	box-sizing: border-box;
 	font-size: 16px;
 }
+
 ::-webkit-scrollbar {
 	background-color: grey;
 	overflow: auto;
 	width: 5px;
 }
 
-
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
 	background-color: darkgray;
 }
 
@@ -48,4 +48,8 @@ body {
 
 .align-center {
 	align-items: center;
+}
+
+input[type='time']::-webkit-calendar-picker-indicator {
+	display: none;
 }

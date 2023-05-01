@@ -40,3 +40,9 @@ def timeslot_detail(req, timeslot_id):
     elif req.method == DELETE:
         timeslot.delete()
         return Response(date_ser.data)
+
+
+@api_view([GET])
+@permission_classes([IsAuthenticated])
+def timeslot_types(req):
+    return Response(Timeslot.TYPES, 200)

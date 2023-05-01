@@ -13,16 +13,8 @@ const useDates = (callback) => {
 		activeTour && api.tour.detail.dates.getAll(activeTour.id, callback);
 	};
 
-	const generatePlace = async (place) => {
-		const { place_id, description } = place;
-		const response = place && (await api.gapi.maps.place.details.get(place_id));
-		place = response && response.data.result;
-		place.description = description;
-		return place;
-	};
-
 	const addTourDate = async (date, place) => {
-		place = await generatePlace(place);
+		console.log(place);
 		api.tour.detail.dates.post(activeTour.id, { date, place }, (responseData) => {
 			setActiveDate(responseData);
 			fetchTourDates();
@@ -42,16 +34,16 @@ const useDates = (callback) => {
 		api.date.detail.delete(activeDate?.id, setActiveDate);
 	};
 
+	// PROSPECTS
 	const fetchDateProspects = () => {
 		api.date.detail.prospects.get_all(activeDate.id, callback);
 	};
 
 	const addProspect = async (place) => {
-		console.log(place);
-		place = await generatePlace(place);
 		api.date.detail.prospects.post(activeDate.id, place, fetchDateProspects);
 	};
 
+	// SCHEDULE
 	const addTimeslot = (timeslotData) => {
 		api.date.detail.schedule.post(activeDate.id, timeslotData, setActiveDate);
 	};
@@ -62,6 +54,10 @@ const useDates = (callback) => {
 
 	const deleteTimeslot = (timeslot_id) => {
 		api.date.timeslot.detail.delete(timeslot_id, setActiveDate);
+	};
+
+	const fetchTimeslotTypes = (callback) => {
+		api.date.timeslot.types.get(callback);
 	};
 
 	// DATE CONTACTS
@@ -88,6 +84,7 @@ const useDates = (callback) => {
 		addTimeslot,
 		updateTimeslot,
 		deleteTimeslot,
+		fetchTimeslotTypes,
 		addDateContact,
 		fetchDateContacts,
 		withActiveDate,

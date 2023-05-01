@@ -169,6 +169,9 @@ const useAPI = () => {
 					delete: async (timeslot_id, callback) =>
 						await deleteRequest(`${DATE}/timeslot/${timeslot_id}`, callback),
 				},
+				types: {
+					get: async (callback) => await get(`${DATE}/timeslot/types`, callback),
+				},
 			},
 		},
 		prospect: {
