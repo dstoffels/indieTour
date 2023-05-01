@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from contacts.models import Contact, ContactMethod
-from .models import DateContact
+from .models import DateContact, PlaceContact
+from gapi.models import Place
 from rest_framework.response import Response
 
 
@@ -38,3 +39,28 @@ class DateContactSerializer(serializers.ModelSerializer):
         ser = DateContactSerializer(date_contact)
 
         return Response(ser.data)
+
+
+class PlaceContactSerializer(serializers.ModelSerializer):
+    contact = ContactSerializer()
+
+    class Meta:
+        model = PlaceContact
+        depth = 1
+        fields = "__all__"
+
+    @staticmethod
+    def create_or_update(req, place_id):
+        contact_data = req.data.get("contact")
+        if "methods" in contact_data:
+            contact_data.pop("methods")
+
+        contact, created = Contact.objects.get_or_create(**contact_data, creator=req.user)
+
+        place = Place.objects.get(place_id=place_id)
+
+        place_contact = PlaceContact.objects.create(place=place, contact=contact, title=req.data["title"])
+
+        ser = PlaceContactSerializer(place_contact)
+
+        return Response(ser.data, 201)

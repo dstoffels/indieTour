@@ -18,10 +18,10 @@ const PanelListItem = ({
 		</Box>
 	);
 
-	const border = active ? 2 : 0;
+	const border = active ? 5 : 0;
 
 	return (
-		<Box border={border} borderColor='darkred'>
+		<Box borderRight={border} borderColor='darkred'>
 			{onClick ? (
 				<ListItemButton sx={{ padding: 0 }} onClick={onClick}>
 					{icon && <ListItemIcon>{React.cloneElement(icon, { customProps: color })}</ListItemIcon>}

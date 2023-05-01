@@ -1,8 +1,19 @@
 from rest_framework import serializers
 from .models import Place
+from contacts.serializers import PlaceContactSerializer, PlaceContact
 
 
 class PlaceSerializer(serializers.Serializer):
+    contacts = serializers.SerializerMethodField()
+
+    def get_contacts(self, place):
+        place_contacts = PlaceContact.objects.filter(place=place)
+        return PlaceContactSerializer(place_contacts, many=True).data
+
+    class Meta:
+        model = Place
+        fields = "__all__"
+
     @staticmethod
     def create_or_update(data):
         place_id = data.get("place_id")
@@ -29,26 +40,3 @@ class PlaceSerializer(serializers.Serializer):
         print(data)
         location, create = Place.objects.get_or_create(data)
         return location
-
-    class Meta:
-        model = Place
-        fields = "__all__"
-
-
-# class PlaceSerializer:
-#     def __init__(self, data):
-#         self.place_id = data.get("place_id")
-#         self.name = data.get("name")
-#         self.formatted_address = data.get("formatted_address")
-
-#         location = data.get("geometry").get("location")
-#         self.lat = location.get("lat")
-#         self.lng = location.get("lng")
-
-#         self.data = {
-#             "place_id": self.place_id,
-#             "name": self.name,
-#             "formatted_address": self.formatted_address,
-#             "lat": self.lat,
-#             "lng": self.lng,
-#         }

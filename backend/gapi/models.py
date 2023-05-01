@@ -13,6 +13,8 @@ class Place(UUIDModel):
     lat = models.DecimalField(max_digits=13, decimal_places=10, default=0)
     lng = models.DecimalField(max_digits=13, decimal_places=10, default=0)
 
+    contacts = models.ManyToManyField("contacts.PlaceContact", related_name="places", blank=True)
+
     @classmethod
     def get_or_create(cls, place_data):
         place_id = place_data.get("place_id")

@@ -38,3 +38,12 @@ class DateContact(UUIDModel):
 
     def __str__(self):
         return f"{self.date} - {self.contact}"
+
+
+class PlaceContact(UUIDModel):
+    place = models.ForeignKey("gapi.Place", on_delete=models.CASCADE)
+    contact = models.ForeignKey("contacts.Contact", on_delete=models.CASCADE)
+    title = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return f"{self.place} - {self.contact}"

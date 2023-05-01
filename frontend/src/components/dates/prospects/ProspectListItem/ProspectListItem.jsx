@@ -19,16 +19,22 @@ import SideStack from 'components/generic/SideStack/SideStack.jsx';
 import DeletePopoverBasic from 'components/generic/danger-zone/DeletePopoverBasic/DeletePopoverBasic.jsx';
 import useBand from 'hooks/useBand.js';
 import useProspect from 'hooks/useProspect.js';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AddLogEntryForm from '../AddLogEntryForm/AddLogEntryForm.jsx';
 import LogEntryListItem from '../LogEntryListItem/LogEntryListItem.jsx';
 import useDates from 'hooks/useDates.js';
 import useEscKey from 'hooks/useEscKey.js';
+import AddContactBtnForm from 'components/dates/contacts/AddContactBtnForm/AddContactBtnForm.jsx';
+import DateContactListItem from 'components/dates/contacts/DateContactListItem/DateContactListItem.jsx';
+import usePlaces from 'hooks/usePlaces.js';
 
 const ProspectListItem = ({ prospect, onChange }) => {
 	const [editing, setEditing] = useState(false);
+	const [contacts, setContacts] = useState([]);
+
 	const { isAdmin } = useBand();
 	const { activeDate, getTourDate } = useDates();
+	const { fetchPlaceContacts } = usePlaces();
 	const { setActiveProspect, updateProspect, deleteProspect } = useProspect();
 	const [open, setOpen] = useState(false);
 
@@ -41,6 +47,10 @@ const ProspectListItem = ({ prospect, onChange }) => {
 			</Typography>
 		</MenuItem>
 	));
+
+	useEffect(() => {
+		prospect.venue && fetchPlaceContacts(prospect.venue.place_id, setContacts);
+	}, []);
 
 	const selectRef = useRef(null);
 
@@ -83,6 +93,14 @@ const ProspectListItem = ({ prospect, onChange }) => {
 
 	const logEntries = prospect.log_entries.map((entry) => (
 		<LogEntryListItem key={entry.id} entry={entry} setActiveProspect={setActiveProspect} />
+	));
+
+	const placeContacts = contacts.map((contact) => (
+		<DateContactListItem
+			key={`prospect-contact-${contact.id}`}
+			datecontact={contact}
+			onChange={onChange}
+		/>
 	));
 
 	useEscKey(handleClose);
@@ -151,20 +169,20 @@ const ProspectListItem = ({ prospect, onChange }) => {
 								initValue={prospect.notes}
 								onSubmit={handleUpdateProspect}
 							/>
-							<Divider sx={{ m: '0 !important' }} />
+							<Paper elevation={2} sx={{ borderRadius: 0 }}>
+								<Box paddingX={2} paddingY={1}>
+									<Typography variant='h6'>Contacts</Typography>
+								</Box>
+							</Paper>
+							<AddContactBtnForm place_id={prospect.venue?.place_id} onSubmit={onChange} />
+							{placeContacts}
 							<Paper elevation={2} sx={{ borderRadius: 0 }}>
 								<Box paddingX={2} paddingY={1}>
 									<Typography variant='h6'>Log</Typography>
 								</Box>
 							</Paper>
 							<AddLogEntryForm prospect={prospect} onSubmit={onChange} />
-							<Divider sx={{ m: '0 !important' }} />
 							{logEntries}
-							<Paper elevation={2} sx={{ borderRadius: 0 }}>
-								<Box paddingX={2} paddingY={1}>
-									<Typography variant='h6'>Contacts</Typography>
-								</Box>
-							</Paper>
 							<SideStack justifyContent='end'>
 								<DeletePopoverBasic onDelete={handleDelete} small tooltipTxt='Delete Prospect'>
 									Delete Prospect?

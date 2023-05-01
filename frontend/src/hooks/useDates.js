@@ -60,13 +60,13 @@ const useDates = (callback) => {
 		api.date.timeslot.types.get(callback);
 	};
 
-	// DATE CONTACTS
-	const fetchDateContacts = (callback) => {
-		api.date.detail.contacts.get(activeDate.id, callback);
+	// PLACE CONTACTS
+	const fetchDateContacts = (place_id, callback) => {
+		api.gapi.maps.place.details.contacts.get_all(place_id, callback);
 	};
 
-	const addDateContact = (contactData, callback) => {
-		api.date.detail.contacts.post(activeDate.id, contactData, callback);
+	const addDateContact = (place_id, contactData, callback) => {
+		api.gapi.maps.place.details.contacts.post(place_id, contactData, callback);
 	};
 
 	const withActiveDate = (jsx) => (activeDate ? jsx : null);

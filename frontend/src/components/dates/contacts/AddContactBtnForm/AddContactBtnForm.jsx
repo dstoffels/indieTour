@@ -4,18 +4,20 @@ import SideStack from 'components/generic/SideStack/SideStack.jsx';
 import useContacts from 'hooks/useContacts.js';
 import useCustomForm from 'hooks/useCustomForm.js';
 import useDates from 'hooks/useDates.js';
+import usePlaces from 'hooks/usePlaces.js';
 import MenuButtonItem from 'menus/MenuButtonItem/MenuButtonItem.jsx';
 import React, { useEffect, useState } from 'react';
 
-const AddContactBtnForm = ({ onSubmit }) => {
+const AddContactBtnForm = ({ place_id, onSubmit }) => {
 	const [options, setOptions] = useState([]);
 	const { formData, handleChange, reset } = useCustomForm({ title: '', contact: '' });
 
-	const { addDateContact } = useDates();
+	const { addPlaceContact } = usePlaces();
 
 	function handleSubmit() {
+		console.log(place_id);
 		if (typeof formData.contact === 'string') formData.contact = { name: formData.contact };
-		addDateContact(formData, onSubmit);
+		place_id && addPlaceContact(place_id, formData, onSubmit);
 	}
 
 	const { fetchUserContacts } = useContacts();

@@ -16,6 +16,7 @@ const PROSPECT = `${API}/prospect`;
 const VENUE = `${API}/venue`;
 const CONTACT = `${API}/contact`;
 const DATE_CONTACT = `${API}/datecontact`;
+const PLACE_CONTACT = `${API}/place_contact`;
 
 /**
  * @returns An object containing nested http request functions for the api endpoints.
@@ -244,26 +245,41 @@ const useAPI = () => {
 					await deleteRequest(`${DATE_CONTACT}/${datecontact_id}`, callback),
 			},
 		},
+
+		place_contact: {
+			detail: {
+				patch: async (place_contact_id, data, callback) =>
+					await patch(`${PLACE_CONTACT}/${place_contact_id}`, data, callback),
+				delete: async (place_contact_id, callback) =>
+					await deleteRequest(`${PLACE_CONTACT}/${place_contact_id}`, callback),
+			},
+		},
 		gapi: {
 			maps: {
 				place: {
 					autocomplete: {
 						get: async (query, callback) =>
-							await get(`${PLACE}/autocomplete?key=${KEY}&query=${query}`, callback),
+							await get(`${PLACE}/autocomplete?query=${query}`, callback),
 					},
 					fromText: {
 						get: async (input, callback) =>
-							await get(`${PLACE}/findplacefromtext?key=${KEY}&input=${input}`, callback),
+							await get(`${PLACE}/findplacefromtext?input=${input}`, callback),
 					},
 					details: {
 						get: async (place_id, callback) =>
-							await get(`${PLACE}/details?key=${KEY}&place_id=${place_id}`, callback),
+							await get(`${PLACE}/details?place_id=${place_id}`, callback),
+						contacts: {
+							get_all: async (place_id, callback) =>
+								await get(`${PLACE}/${place_id}/contacts`, callback),
+							post: async (place_id, data, callback) =>
+								await post(`${PLACE}/${place_id}/contacts`, data, callback),
+						},
 					},
 				},
 				directions: {
 					get: async (origin, destination, arrival_time, callback) =>
 						await get(
-							`${DIRECTIONS}?key=${KEY}&origin=${origin}&destination=${destination}&arrival_time=${arrival_time}`,
+							`${DIRECTIONS}?origin=${origin}&destination=${destination}&arrival_time=${arrival_time}`,
 							callback,
 						),
 				},

@@ -52,3 +52,10 @@ def directions(req):
         f"{maps_endpoint}/directions/json?key={key}&origin=place_id:{origin}&destination=place_id:{destination}"
     )
     return Response(response.json())
+
+
+# @api_view([POST, GET])
+# @permission_classes([IsAuthenticated])
+# def place_contacts(req, place_id):
+#     if req.method == POST:
+#         place_contact =

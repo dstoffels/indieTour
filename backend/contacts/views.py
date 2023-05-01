@@ -13,6 +13,8 @@ from .serializers import (
     ContactMethod,
     DateContactSerializer,
     DateContact,
+    PlaceContactSerializer,
+    PlaceContact,
 )
 
 
@@ -100,4 +102,31 @@ def datecontact_detail(req, datecontact_id):
         return Response(ser.data)
     elif req.method == DELETE:
         datecontact.delete()
+        return Response(None, 204)
+
+
+@api_view([GET, POST])
+@permission_classes([IsAuthenticated])
+def place_contacts(req, place_id):
+    if req.method == POST:
+        return PlaceContactSerializer.create_or_update(req, place_id)
+    if req.method == GET:
+        place_contacts = PlaceContact.objects.filter(place__place_id=place_id)
+        ser = PlaceContactSerializer(place_contacts, many=True)
+        return Response(ser.data, 200)
+
+
+@api_view([GET, PATCH, DELETE])
+@permission_classes([IsAuthenticated])
+def place_contact_detail(req, place_contact_id):
+    place_contact = get_object_or_404(PlaceContact, id=place_contact_id)
+    if req.method == GET:
+        return Response(PlaceContactSerializer(place_contact).data)
+    elif req.method == PATCH:
+        ser = PlaceContactSerializer(place_contact, data=req.data, partial=True)
+        ser.is_valid(raise_exception=True)
+        ser.save()
+        return Response(ser.data)
+    elif req.method == DELETE:
+        place_contact.delete()
         return Response(None, 204)

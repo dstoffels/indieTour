@@ -15,8 +15,6 @@ const DateListItem = ({ tourdate }) => {
 		navigate(`/tour?date=${tourdate.id}`);
 	};
 
-	const activeColor = tourdate.id == activeDate?.id ? 'primary' : '';
-
 	// const confirmedClass = tourdate.is_show_day ? 'confirmed-date' : 'unconfirmed-date';
 
 	return (
@@ -29,18 +27,12 @@ const DateListItem = ({ tourdate }) => {
 				justifyContent='space-between'
 			>
 				<Stack textAlign='center'>
-					<Typography color={activeColor} variant='caption'>
-						{moment(tourdate.date).format('ddd')}
-					</Typography>
-					<Typography color={activeColor} variant='body1'>
-						{moment(tourdate.date).format('DD MMM')}
-					</Typography>
+					<Typography variant='caption'>{moment(tourdate.date).format('ddd')}</Typography>
+					<Typography variant='body1'>{moment(tourdate.date).format('DD MMM')}</Typography>
 				</Stack>
 				<Stack textAlign='right'>
-					<Typography color={activeColor}>{tourdate.title}</Typography>
-					<Typography variant='caption' color={activeColor}>
-						{tourdate.place?.political_address}
-					</Typography>
+					<Typography>{tourdate.title}</Typography>
+					<Typography variant='caption'>{tourdate.place?.political_address}</Typography>
 				</Stack>
 			</Stack>
 		</PanelListItem>

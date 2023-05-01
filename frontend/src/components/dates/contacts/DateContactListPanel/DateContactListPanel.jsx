@@ -10,7 +10,8 @@ const DateContactListPanel = ({}) => {
 
 	const { activeDate, fetchDateContacts } = useDates();
 
-	const handleFetchDateContacts = () => fetchDateContacts(setContacts);
+	const handleFetchDateContacts = () =>
+		activeDate.place && fetchDateContacts(activeDate.place.place_id, setContacts);
 
 	useEffect(handleFetchDateContacts, [activeDate]);
 
@@ -24,7 +25,7 @@ const DateContactListPanel = ({}) => {
 
 	return (
 		<Panel isSubPanel title='Contacts' elevation={-1}>
-			<AddContactBtnForm onSubmit={handleFetchDateContacts} />
+			<AddContactBtnForm place_id={activeDate.place?.place_id} onSubmit={handleFetchDateContacts} />
 			<Divider sx={{ m: '0 !important' }} />
 			{contactsList}
 		</Panel>
