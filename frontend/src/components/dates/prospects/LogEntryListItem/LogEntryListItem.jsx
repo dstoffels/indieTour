@@ -24,7 +24,7 @@ const LogEntryListItem = ({ entry, setActiveProspect }) => {
 	const fromNow = moment(entry.timestamp).fromNow();
 
 	return (
-		<PanelListItem padding={0}>
+		<PanelListItem paddingX={2} paddingY={0}>
 			<SideStack>
 				<Stack>
 					<Typography whiteSpace='nowrap' variant='caption'>

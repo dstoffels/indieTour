@@ -25,6 +25,19 @@ class TimeslotSerializer(serializers.ModelSerializer):
     def is_valid(self, *, raise_exception=True):
         return super().is_valid(raise_exception=raise_exception)
 
+    def create(self, validated_data):
+        start_location = self.initial_data.pop("start_location")
+        if start_location:
+            start_location = Place.get_or_create(start_location)
+        validated_data["start_location"] = start_location
+
+        end_location = self.initial_data.pop("end_location")
+        if end_location:
+            end_location = Place.get_or_create(end_location)
+        validated_data["end_location"] = end_location
+
+        return super().create(validated_data)
+
     def update(self, instance, validated_data):
         if "start_location" in self.initial_data:
             place_data = self.initial_data.pop("start_location")

@@ -9,9 +9,11 @@ const PanelListItem = ({
 	children,
 	divider = true,
 	padding = 2,
+	paddingX,
+	paddingY,
 }) => {
 	children = (
-		<Box padding={padding} width='100%'>
+		<Box padding={padding} width='100%' paddingX={paddingX} paddingY={paddingY}>
 			{children}
 		</Box>
 	);

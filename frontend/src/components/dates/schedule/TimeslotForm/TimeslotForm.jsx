@@ -1,8 +1,9 @@
 import { ArrowCircleUp, ArrowDropUp, Done } from '@mui/icons-material';
-import { Box, Button, Divider, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Divider, IconButton, Paper, Stack, Tooltip, Typography } from '@mui/material';
 import EditField from 'components/generic/EditField/EditField.jsx';
 import LabeledSwitch from 'components/generic/LabeledSwitch/LabeledSwitch.jsx';
 import LocationEditField from 'components/generic/LocationEditField/LocationEditField.jsx';
+import SideStack from 'components/generic/SideStack/SideStack.jsx';
 import DeletePopoverBasic from 'components/generic/danger-zone/DeletePopoverBasic/DeletePopoverBasic.jsx';
 import MenuButton from 'components/menus/MenuButton/MenuButton.jsx';
 import useAPI from 'hooks/useAPI.js';
@@ -11,11 +12,13 @@ import useEscKey from 'hooks/useEscKey.js';
 import useOutsideClick from 'hooks/useOutsideClick.js';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
+import TimeslotTypeSelect from '../TimeslotTypeSelect/TimeslotTypeSelect.jsx';
 
-const TimeslotForm = ({ timeslot, handleClose, handleCanClose, handlePreventClose }) => {
+const TimeslotForm = ({ timeslot, handleClose }) => {
 	const { updateTimeslot, deleteTimeslot } = useDates();
 
 	const handleUpdate = (data) => {
+		console.log(data);
 		updateTimeslot(timeslot.id, data);
 	};
 
@@ -42,38 +45,28 @@ const TimeslotForm = ({ timeslot, handleClose, handleCanClose, handlePreventClos
 	// useEscKey(handleClose);
 
 	return (
-		<>
-			<Stack spacing={1}>
-				{setForm()}
-
-				<Box padding={2} display='flex' justifyContent='space-between'>
-					<MenuButton
-						onOpen={handlePreventClose}
-						onClose={handleCanClose}
-						onClick={handleType}
-						items={timeslot.type_options}
-						btnTxt={timeslot.type}
-						variant='contained'
+		<Box padding={1}>
+			<Paper elevation={6}>
+				<Stack spacing={1} padding={2}>
+					<TimeslotTypeSelect
+						value={type}
+						onChange={(e) => handleUpdate({ type: e.target.value })}
 					/>
-					<Box>
-						<Tooltip title='Close'>
-							<IconButton size='large' color='success' onClick={handleClose}>
-								<ArrowCircleUp />
-							</IconButton>
-						</Tooltip>
-						<DeletePopoverBasic
-							onOpen={handlePreventClose}
-							onClose={handleCanClose}
-							small
-							onDelete={handleDelete}
-						>
+
+					{setForm()}
+
+					<SideStack justifyContent='end'>
+						<DeletePopoverBasic small onDelete={handleDelete}>
 							Delete Timeslot?
 						</DeletePopoverBasic>
-					</Box>
-				</Box>
-			</Stack>
-			<Divider />
-		</>
+						<Button onClick={handleClose} startIcon={<Done />}>
+							Done
+						</Button>
+					</SideStack>
+				</Stack>
+				<Divider />
+			</Paper>
+		</Box>
 	);
 };
 
@@ -81,6 +74,7 @@ export default TimeslotForm;
 
 const EventForm = ({ handleUpdate, timeslot }) => {
 	let {
+		type,
 		start_time,
 		end_time,
 		end_location,
@@ -88,8 +82,6 @@ const EventForm = ({ handleUpdate, timeslot }) => {
 		start_after_midnight,
 		end_after_midnight,
 	} = timeslot;
-
-	console.log(timeslot);
 
 	start_time = start_time ? moment(start_time, 'HH:mm').format('HH:mm') : '';
 	end_time = end_time ? moment(end_time, 'HH:mm').format('HH:mm') : '';
@@ -100,23 +92,28 @@ const EventForm = ({ handleUpdate, timeslot }) => {
 
 	return (
 		<Box alignItems='center'>
-			<Stack direction='row'>
+			<EditField
+				onSubmit={handleUpdate}
+				initValue={description}
+				label='Description'
+				name='description'
+			/>
+			<SideStack>
 				<EditField
 					onSubmit={handleUpdate}
 					type='time'
 					initValue={start_time}
 					label='Start Time*'
 					name='start_time'
+					endAdornment={
+						<LabeledSwitch
+							label='Next Day'
+							checked={start_after_midnight}
+							name='start_after_midnight'
+							onChange={handleSwitch}
+						/>
+					}
 				/>
-				<LabeledSwitch
-					label='Next Day'
-					checked={start_after_midnight}
-					name='start_after_midnight'
-					onChange={handleSwitch}
-				/>
-			</Stack>
-			<Divider />
-			<Stack direction='row'>
 				<EditField
 					onSubmit={handleUpdate}
 					type='time'
@@ -124,19 +121,7 @@ const EventForm = ({ handleUpdate, timeslot }) => {
 					label='End Time'
 					name='end_time'
 				/>
-				<LabeledSwitch
-					label='Next Day'
-					checked={end_after_midnight}
-					name='end_after_midnight'
-					onChange={handleSwitch}
-				/>
-			</Stack>
-			<EditField
-				onSubmit={handleUpdate}
-				initValue={description}
-				label='Description'
-				name='description'
-			/>
+			</SideStack>
 			<Divider />
 			<LocationEditField
 				initValue={end_location}
@@ -169,19 +154,27 @@ const TravelForm = ({ timeslot, handleUpdate }) => {
 				initValue={timeslot.end_location}
 				onSubmit={(end_location) => handleUpdate({ end_location })}
 			/>
+			<SideStack>
+				<EditField
+					label='Departure Time'
+					type='time'
+					initValue={moment(timeslot.start_time, 'HH:mm').format('HH:mm')}
+					name='start_time'
+					onSubmit={handleUpdate}
+				/>
+				<EditField
+					label='Arrival Time'
+					type='time'
+					initValue={moment(timeslot.end_time, 'HH:mm').format('HH:mm')}
+					name='end_time'
+					onSubmit={handleUpdate}
+				/>
+			</SideStack>
 			<EditField
-				label='Departure Time'
-				type='time'
-				initValue={moment(timeslot.end_time, 'HH:mm').format('HH:mm')}
-				name='start_time'
 				onSubmit={handleUpdate}
-			/>
-			<EditField
-				label='Arrival Time'
-				type='time'
-				initValue={moment(timeslot.end_time, 'HH:mm').format('HH:mm')}
-				name='end_time'
-				onSubmit={handleUpdate}
+				initValue={description}
+				label='Description'
+				name='description'
 			/>
 			{/* <Typography padding={2} color='primary' variant='overline'>
 				Depart
